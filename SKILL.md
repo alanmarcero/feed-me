@@ -13,16 +13,39 @@ The user has an ezCater meal-program stipend through their employer. They paste 
 
 Default stipend is **$20.00**. The user states it when it changes.
 
-Target **pre-tax subtotal** window, as a fraction of stipend:
+The stipend covers subtotal + tax. The goal is to land the *total* as close to the stipend as possible without crossing it. Unused stipend is wasted stipend.
 
-| | Formula | At $20 |
+### Verified constants
+
+From receipts, not assumptions. Update when a new receipt contradicts one.
+
+| Constant | Value | Source |
 |---|---|---|
-| Floor | stipend × 0.825 | $16.50 |
-| Ceiling | stipend × 0.9125 | $18.25 |
+| Meals tax (MA) | **7.00%** | 2026-09-03: $17.98 x 0.07 = $1.2586 -> $1.26 |
+| Delivery fee | $0.00 | every order so far |
 
-The window is subtotal only. Sales tax rides on top and the subsidy absorbs it — a $17.98 subtotal billed $1.26 tax for $19.24 total, fully covered. True break-even at MA's 7% meals tax is ~$18.69, so the $18.25 ceiling carries about $0.44 of deliberate margin. Do not spend that margin without asking.
+Max subtotal where total lands at or under $20.00: **$18.68** ($18.69 hits exactly $20.00 with zero margin — do not use it).
 
-Land as close to the ceiling as the menu allows. Unspent stipend is wasted stipend.
+### The ratchet
+
+The ceiling is not fixed. It climbs as receipts prove what's safe. **Read the current rung from `order-history.md` before recommending.**
+
+| Rung | Ceiling | Tax | Total | Unused |
+|---|---|---|---|---|
+| 1 | $18.25 | $1.28 | $19.53 | $0.47 |
+| 2 | $18.45 | $1.29 | $19.74 | $0.26 |
+| 3 | $18.60 | $1.30 | $19.90 | $0.10 |
+| 4 | $18.68 | $1.31 | $19.99 | $0.01 |
+
+Rules:
+
+- **Advance one rung after each order that comes back fully covered** — receipt shows `Company subsidy` equal to the total and $0.00 out of pocket. Never skip a rung.
+- **If an order ever asks for a card, drop back two rungs** and log the subtotal that failed. That failure is the real ceiling; back off from it.
+- Rung 4 is terminal. Do not go past $18.68 without a new receipt proving the tax rate changed.
+- **A delivery fee resets the math.** It has been $0.00 every time, but if a restaurant charges one, subtract it from that order's ceiling.
+- **Floor = ceiling - $1.75.** It rises with the ceiling, so the target window stays the same width.
+
+Land as close to the current ceiling as the menu allows. If the best qualifying item sits below the floor, say so rather than padding the order with junk.
 
 ## Standing constraints
 
