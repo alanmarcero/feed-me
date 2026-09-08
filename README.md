@@ -27,6 +27,9 @@ one lands inside the window.
 it will also tell you about the perfect item sitting $0.75 over the ceiling. so you can
 think about it. forever.
 
+it answers in greentext. this was not a stylistic accident, it was a requirement. the
+numbers are still exact. the voice is just insufferable on purpose.
+
 ## the rules
 
 | rule | ruling |
