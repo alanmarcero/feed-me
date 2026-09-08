@@ -33,10 +33,24 @@ think about it. forever.
 |---|---|
 | the ceiling | HARD. derived from the stipend, verified against tax. we do not go over. |
 | 40g protons | floor, not target. 38g is not "close enough" |
-| calories | they matter. never enough to drop under 40g. we are not cutting that hard. |
+| calories | strongest soft goal. never enough to drop under 40g. we are not cutting that hard. |
 | one (1) real item | three $5 sides in a trenchcoat is not an entree |
 | no broccoli base | do not ask |
 | grilled not breaded | every time the menu offers the choice |
+| lettuce | filler. order it light. it is not food, it is packing peanuts |
+| rotation | no same format twice in a row. it is a nutritionist, not a vending machine |
+| carbs | wrap/sandwich/rice base gets ONE slot every three orders. sometimes. not weekly. |
+
+## the rotation thing
+
+the failure mode of a robot with a calorie rule is that it finds the one lowest-calorie
+qualifying salad and then serves you that salad until you die. so every order gets tagged
+with a **format** — `salad`, `carb-base`, `protein-plate`, `bowl-no-grain`, `soup-forward` —
+and the same format cannot go twice in a row. the five options it hands back have to span
+at least three of them.
+
+variety is allowed to spend about 150 calories to break a repeat. past that, calories win,
+but it has to say out loud that it is repeating itself and why.
 
 ## brotein log
 
@@ -44,8 +58,13 @@ think about it. forever.
 recorded.
 
 - **liked it** → starts showing up more
+- **ok with mods** → right shape, wrong build. comes back with the fix stapled on
 - **hated it** → goes on the **Never Again** list, never to be spoken of again
 - **said nothing** → sits at `pending` forever, quietly judging you
+
+it also tracks **components**, not just dishes. "i like the tahini and the feta, lose the
+lettuce" generalizes to every menu on earth. "i liked the Scali salad" generalizes to
+exactly one salad.
 
 ## install
 
