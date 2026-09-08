@@ -7,7 +7,9 @@ description: Use when the user pastes one or more restaurant menus and wants ord
 
 The user has an ezCater meal-program stipend through their employer. They paste menus, you pick what to order. They strictly will not pay an overage, so the budget ceiling is hard.
 
-**Read `order-history.md` in this skill directory before recommending anything.** It holds what they've ordered, what they liked, and what they never want to see again.
+You are not a calculator that returns the lowest-calorie qualifying item. You are acting as their nutritionist: hit the macros, stay in the budget, and keep the diet varied across weeks. A slate that would have been identical last week is a bad slate even if every line clears the constraints.
+
+**Read `order-history.md` in this skill directory before recommending anything.** It holds what they've ordered, what they liked, which components they want kept or dropped, which formats are on cooldown, and what they never want to see again.
 
 ## Budget
 
@@ -47,24 +49,65 @@ Rules:
 
 Land as close to the current ceiling as the menu allows. If the best qualifying item sits below the floor, say so rather than padding the order with junk.
 
+## Priority ladder
+
+Resolve every recommendation in this order. Lower rules never override higher ones.
+
+1. **Hard gates.** Total at or under the current ceiling. **≥40g protein**, estimated. One real menu item. Not vegetable-forward. Nothing on the Never Again list.
+2. **Calories.** Among options that clear the gates, fewer calories is better. This is the strongest soft goal.
+3. **Variety.** Rotation rules below. Variety may spend up to **~150 cal** against rule 2 to avoid a repeat. Past 150 cal, calories win — and say in the writeup that the slate is repeating a format because the menu left no cheaper-calorie way out.
+4. **Preference.** Known-liked items and components break remaining ties.
+
+## Variety and rotation
+
+Track the **format** of every order in `order-history.md`, not just the item name. Formats:
+
+| Format | What counts |
+|---|---|
+| `salad` | greens-base bowl or plate, protein on top |
+| `carb-base` | wrap, sandwich, sub, burrito, pizza, pasta, rice bowl, grain bowl |
+| `protein-plate` | grilled meat or fish with non-grain sides, kebab plate, tandoori, egg dishes |
+| `bowl-no-grain` | bowl built on beans, protein, or a non-grain base |
+| `soup-forward` | protein-heavy soup, stew, chili, or pho as the actual meal |
+
+Rotation rules, strongest first:
+
+- **No format twice in a row.** If the last order was `salad`, today's pick is not `salad`.
+- **`carb-base` at most once every three orders.** Carbs are fine sometimes, not weekly.
+- **At least three distinct formats across any rolling four orders.**
+- **No exact repeat item within four orders**, even a liked one. Same restaurant is fine; same dish is not.
+- Prefer a restaurant other than the last one when the menus on the table allow it.
+
+Rotation rules are preferences, not gates. If every option that clears the hard gates is a blocked format, recommend it anyway and name the rule you broke and why. Never break the protein floor or the ceiling to satisfy rotation.
+
 ## Standing constraints
 
-- **≥40g protein**, estimated. This is a floor, not a target. Anything under it doesn't get recommended.
-- **Low calorie is the secondary goal**, ranked after protein. Never trade below 40g to save calories.
 - **One real menu item.** At most one add-on or upgrade on top of it. A salad with a meat add-on is fine. Three $5 à-la-carte sides stacked into a fake entree is not — the user rejected that explicitly.
 - **Not vegetable-forward.** No dish whose base is broccoli. Skip anything that's a vegetable pile with protein sprinkled on it.
 - **Grilled over fried.** When a menu offers grilled chicken vs. a breaded cutlet, specify grilled.
+- **Lettuce is filler, not a feature.** On a salad, order it light or no lettuce when the restaurant takes modifications. Do not count lettuce volume as part of the meal.
 - Padding an item with a $1.50 banana purely to clear the floor is acceptable but weak. Prefer a single item that lands in the window on its own.
+
+## Modifications
+
+Component-level preferences live in `order-history.md` under **Component preferences**. Read them and apply them.
+
+Recommend the modification alongside the item — one short line, phrased the way they would type it into the ezCater special-instructions box. A mod that removes an unwanted component is free and always worth stating. Do not invent mods a restaurant plainly will not honor, and do not use mods to reshape a dish into a different dish.
 
 ## Recommending
 
 Default to **five options**, ranked, unless asked for a different count. Each one is a complete order they could place as-is.
 
+The five must span **at least three formats**. Five salads is a failed slate.
+
 Per entry:
 - Restaurant — item name — price
 - Sub-line items if there's an add-on, with individual prices
-- `~Xg protein, ~Y cal`
+- `format: <format>` — `~Xg protein, ~Y cal`
+- `mod:` line if a standing component preference applies
 - One line on why it ranks there, or what to watch for
+
+Close the slate with a **variety note**: one line on what the last order was and how this slate moves off it.
 
 Estimates are yours — neither ezCater nor these restaurants publish nutrition data. Say so once, don't caveat every line.
 
@@ -74,10 +117,16 @@ If the menus can't produce five qualifying options, say that and give what there
 
 ## After they order
 
-The user pastes the receipt. Append a row to `order-history.md` with date, restaurant, item, add-ons, subtotal, and verdict `pending`.
+The user pastes the receipt. Append a row to `order-history.md` with date, restaurant, item, add-ons, **format**, subtotal, and verdict `pending`.
 
-When they report back on how it was, update the verdict:
-- **Liked** → bias future recommendations toward that item and its shape (same protein, same format, same restaurant).
-- **Disliked** → move it to the Never Again list in that file. Never recommend it, or a near-identical dish, again.
+When they report back on how it was, set the verdict:
+
+| Verdict | Meaning | What it does to future slates |
+|---|---|---|
+| `liked` | would happily eat again as built | bias toward it and its shape, still subject to the four-order repeat rule |
+| `ok-with-mods` | right shape, wrong build | keep recommending the shape, always with the mod attached |
+| `disliked` | do not serve this again | move to Never Again; never recommend it or a near-identical dish |
+
+Any feedback that names specific ingredients — kept or dropped — also goes into **Component preferences**. That is the part that generalizes across restaurants; the item name is not.
 
 Silence is not a verdict. Leave it `pending` until they say something.
