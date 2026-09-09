@@ -24,8 +24,8 @@ while hungry and staring at a wall of sandwiches. unacceptable.
 
 it opens the ordering site in a real browser, reads every menu on offer that day, prices
 out the protein upcharges hiding behind each item's option modal, builds the order, types
-a polite note to the kitchen, checks the utensils box, and places it. then it tells you
-what it got you and what day it lands.
+a polite note to the kitchen, and places it. then it tells you what it got you and what
+day it lands.
 
 no menus to paste. no options to weigh. no decision to make. be super lazy. make the ai
 order my protons.
