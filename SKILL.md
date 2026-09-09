@@ -1,13 +1,15 @@
 ---
 name: feed-me
-description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus, and place the order for them as their nutritionist. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good.
+description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good.
 ---
 
 # Feed Me
 
 The user has an ezCater meal-program stipend through their employer. They strictly will not pay an overage, so the budget ceiling is hard.
 
-**Ordering is the default.** Invoked with no menus and no other instruction, do not ask what they want and do not ask for permission to look — open the site with Playwright, read every menu on offer, build the best order, place it, and report the receipt. See **Live ordering**. The ask is "feed me," and the finished deliverable is food arriving, not a list of suggestions.
+**Ordering is the default, and it covers every open day.** Invoked with no menus and no other instruction, do not ask what they want and do not ask for permission to look — open the site with Playwright, enumerate every day still orderable, and place one order per day. See **Live ordering**. The ask is "feed me," and the finished deliverable is food arriving on every day the program will let them claim, not a list of suggestions.
+
+**Each day is its own budget.** The stipend does not pool across days and it does not carry over. A day left unordered is a day of stipend burned, so partial coverage is an incomplete job — if four days are open, four orders get placed.
 
 Always show the ranked slate alongside the placed order. They want to see what lost and why — that is the nutritionist part, and it is how they catch a bad call before the cutoff.
 
@@ -23,11 +25,26 @@ You are not a calculator that returns the lowest-calorie qualifying item. Hit th
 
 **Read `order-history.md` in this skill directory before ordering or recommending anything.** It holds what they've ordered, what they liked, which components they want kept or dropped, which formats are on cooldown, and what they never want to see again.
 
+## Never enter a credit card
+
+**A credit card is never entered. Not once, not for a few cents, not to save an order you already built.** There is no exception and no amount small enough to justify one.
+
+Treat a card prompt as a **diagnostic, not a decision**. It means one of two things has already gone wrong:
+
+- the build went over the day's stipend and the arithmetic was not checked, or
+- the run is on the wrong path entirely — wrong page, wrong flow, a fee that was not accounted for, or a day whose subsidy is not what was assumed.
+
+Either way the answer is the same: **stop, do not submit, and go back and fix the build.** Drop the add-ons, swap to a cheaper protein, or pick a different item until the cart reads Total $0.00 with the subsidy absorbing everything. If no build on that day's menus can reach $0.00, place nothing for that day and say so plainly.
+
+The correct state at every checkout is **Total $0.00, no payment method requested.** Anything else is a bug in the order, not a bill to pay.
+
 ## Budget
 
-Default stipend is **$20.00**. The user states it when it changes.
+Default stipend is **$20.00 per day**. The user states it when it changes.
 
-The stipend covers subtotal + tax. The goal is to land the *total* as close to the stipend as possible without crossing it. Unused stipend is wasted stipend.
+The stipend covers subtotal + tax. The goal is to land each day's *total* as close to that day's stipend as possible without crossing it. Unused stipend is wasted stipend.
+
+**Budgets are per day and strictly independent.** Nothing pools, nothing carries over, and underspending Tuesday buys nothing on Wednesday. Read each day's own subsidy figure off its page rather than assuming $20.00 — the program can set them differently, and a day's ceiling is computed from its own number and its own delivery fee.
 
 ### Verified constants
 
@@ -90,6 +107,18 @@ Rotation rules, strongest first:
 - **No exact repeat item within four orders**, even a liked one. Same restaurant is fine; same dish is not.
 - Prefer a restaurant other than the last one when the menus on the table allow it.
 
+**Rotation runs through a multi-day batch, not around it.** When one run places several orders, treat them as consecutive entries in the log — because that is what they become. Day one is checked against the last logged order, day two against day one, and so on down the batch.
+
+The practical consequences:
+
+- **Every day in the batch gets a different format.** Two `salad` days in one run is the same failure as two `salad` weeks in a row, and it is a worse failure because you could see both at once.
+- **`carb-base` gets at most one day per three days ordered.** A five-day run gets one, maybe two, and only if they are not adjacent.
+- **A four-day run must span at least three formats.** Same rolling-four rule, applied inside the batch.
+- **No dish repeats inside a batch**, and no dish that appeared in the last four logged orders.
+- **Spread the restaurants.** Do not order the same restaurant twice in a batch while another day's menu could carry the format.
+
+Plan the whole batch before placing anything. Picking each day greedily in isolation is how you end up with three rice bowls and no way to fix it — the cutoffs are per day, and an order placed on day one cannot be walked back to make day three work.
+
 Rotation rules are preferences, not gates. If every option that clears the hard gates is a blocked format, recommend it anyway and name the rule you broke and why. Never break the protein floor or the ceiling to satisfy rotation.
 
 ## Standing constraints
@@ -135,11 +164,17 @@ Per-option shape:
 
 The estimates disclaimer, the variety note, and the near-misses are greentext too. One line each, no meta-commentary about writing greentext.
 
+**Multi-day runs get one stanza per day**, in delivery order, each headed by the day and each carrying its own receipt lines and format tag. Close the whole batch with one stanza covering the week: which formats landed on which days, the total stipend claimed against the total available, and any day that got skipped and why. Then `> we go again` once, at the very end — not after every day.
+
 ## The slate
 
 Build **five options**, ranked, unless asked for a different count. Each one is a complete order that could be placed as-is. Render them in the greentext shape above.
 
 In the default ordering mode, rank 1 is what you actually place — so rank honestly, and present the other four as what lost. Never place an order you would not have ranked first.
+
+**With several days open, the slate is per day.** Each day gets its own ranked five drawn from that day's restaurants, and each day's rank 1 is what gets placed there. Rank the days against the batch plan, not in isolation: an item that would top Tuesday's slate on calories alone drops below a rival if Tuesday is the only day that can carry the format Wednesday and Thursday cannot.
+
+Keep the output readable when the batch is large. Lead with the placed order for every day, then the runners-up per day. If five days are open, five full slates is a wall — trim the runners-up to the top two or three per day and say that is what you did.
 
 The five must span **at least three formats**. Five salads is a failed slate.
 
@@ -170,9 +205,13 @@ Start at `https://mealprogram.ezcater.com/users/sign_in`. If a session is alread
 
 ### Reading the menus
 
-`/schedule` lists each orderable day and its restaurants as `/schedule_entries/<id>` links, each with its own **order-by cutoff**, delivery time, and delivery fee. Read all of them before picking — do not build a slate off the first menu.
+`/schedule` lists **every orderable day** as a tab or row, and each day holds several restaurants as `/schedule_entries/<id>` links with their own **order-by cutoff**, delivery time, delivery fee, and subsidy. Individual days are also reachable directly at `/schedule/<YYYY-MM-DD>`.
 
-**Cutoffs are per restaurant and they are early** (typically 9:20-9:30 AM). A late-morning "feed me" almost always means you are ordering the *next* day's lunch. Say which day you ordered for; do not let them assume it is today.
+**Enumerate the days first.** Before opening a single menu, list which days are open and which are already ordered — a day whose order is placed shows its item instead of a restaurant list, and the confirmation page says so outright ("you've placed all your orders for the week"). Never re-order a day that is already covered, and never assume the count: the number of open days changes with the day of the week and the cutoffs that have already passed.
+
+Then read **every restaurant on every open day** before placing anything. The batch has to be planned whole (see **Variety and rotation**), which is impossible from one menu.
+
+**Cutoffs are per restaurant and they are early** (typically 9:20-9:30 AM). A late-morning "feed me" means today is already gone. Say which days you ordered for; do not let them assume today is one of them.
 
 Menus are long. Pull them compactly with `browser_evaluate` rather than burning context on a full snapshot:
 
@@ -216,22 +255,29 @@ Two hard rules survive:
 - **Total must read $0.00 with the subsidy absorbing the whole thing.** Anything else means an overage.
 - **$18.68 is the arithmetic wall at a $20.00 stipend and 7% tax.** $18.68 -> $19.99. $18.69 -> $20.00 exactly, zero margin. Never exceed $18.68 at that stipend.
 
-If the cart ever shows an amount due, or checkout asks for a card, **stop and back the build down** — do not submit and do not enter payment details.
+If the cart ever shows an amount due, or checkout asks for a card, **stop and back the build down** — see **Never enter a credit card**. That prompt is proof the build is over the day's stipend or the run is on a bad path; it is never something to pay past.
 
 ### Placing it
 
+Each day is a separate cart and a separate order. Run this loop once per open day, in date order:
+
 1. Fill the notes box with the mod, politely (see **Modifications**).
-2. Add to cart, then verify the cart's Total is $0.00.
+2. Add to cart, then verify that day's cart Total is $0.00.
 3. Continue to `/orders/<id>/review`.
 4. **Leave the utensils box unchecked.** It defaults to unchecked, so do not touch it. They have utensils at the office and do not want the plastic — this holds even for soup.
 5. Confirm the review page still shows Total $0.00 and no card request, then place the order.
-6. Read the confirmation and report the real receipt lines — not your estimate of them.
+6. Read the confirmation and record the real receipt lines — not your estimate of them.
+7. Move to the next day. Carts do not span days, so nothing from the previous order carries over.
 
-Report which day and time it delivers, and that it stays editable until the cutoff.
+**Finish the batch.** If one day fails — no qualifying item, a card requested, a cutoff that lapsed mid-run — place the remaining days anyway and report exactly which day was skipped and why. Do not abandon four days of stipend over one bad menu.
+
+Report every day and delivery time, each day's receipt, and that each order stays editable until its own cutoff.
 
 ## After they order
 
 The user pastes the receipt, or you placed it yourself and read the confirmation. Append a row to `order-history.md` with date, restaurant, item, add-ons, **format**, subtotal, and verdict `pending`.
+
+**One row per day, one row per order.** A batch that placed four days writes four rows, dated by **delivery** day so the log reads in the order the food actually gets eaten. Then set the rotation state from the **last row in the batch**, not the first — the next run's day one is checked against the last day of this one.
 
 **A cancelled order is not an order.** If they cancel — plans changed, working from home, they were only testing the flow — do not log it, and revert the row if you already wrote one. The log is what they actually ate. Rotation state, the ratchet rung, and the format history all move off real meals only; advancing a rung on a meal nobody received would push the next real order toward a ceiling that was never tested.
 

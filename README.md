@@ -22,10 +22,12 @@ while hungry and staring at a wall of sandwiches. unacceptable.
 
 `/feed-me`. that's it. that's the whole interface.
 
-it opens the ordering site in a real browser, reads every menu on offer that day, prices
-out the protein upcharges hiding behind each item's option modal, builds the order, types
-a polite note to the kitchen, and places it. then it tells you what it got you and what
-day it lands.
+it opens the ordering site in a real browser, finds **every day** that is still open,
+reads every menu on every one of those days, prices out the protein upcharges hiding
+behind each item's option modal, plans the whole week so no two days land on the same
+kind of food, types a polite note to each kitchen, and places one order per day.
+
+not one lunch. all of them.
 
 no menus to paste. no options to weigh. no decision to make. be super lazy. make the ai
 order my protons.
@@ -44,15 +46,31 @@ the note it types into the special-instructions box is not in greentext, because
 being reads that box during a lunch rush. it says please. it asks for extra pickled
 mustard greens *if you can*. it is the single most polite thing in this repo.
 
+## every day is its own $20
+
+the stipend does not pool and it does not roll over. skip wednesday and wednesday's
+twenty dollars simply ceases to exist. so it claims every open day, computes each day's
+ceiling off that day's own subsidy and delivery fee, and lands each one on its own.
+
+four days open means four orders. leaving one on the table is not restraint, it is a
+tuesday you paid for and did not eat.
+
 ## the money
 
-the stipend covers subtotal + tax and the cart shows you subsidy and total before you
-commit, so it builds to the largest order that still reads **total $0.00** and stops
-there. at $20.00 and 7% tax the arithmetic wall is $18.68 — because $18.69 lands on
-exactly $20.00 with zero margin, and zero margin is how you end up holding a credit card.
+the cart shows subsidy and total before you commit, so it builds to the largest order
+that still reads **total $0.00** and stops there. at $20.00 and 7% tax the arithmetic
+wall is $18.68 — because $18.69 lands on exactly $20.00 with zero margin.
 
-if checkout ever asks for a card it backs the order down instead of paying. it will not
-spend your money. it only spends theirs.
+## the one hard rule
+
+**a credit card is never entered.** ever. not for four cents.
+
+a card prompt is not a bill, it is a **bug report**. it means the build went over the
+day's stipend or the whole run wandered onto the wrong path. so it stops, backs the order
+down, and rebuilds until the total reads $0.00 again. if no order on that day's menus can
+get there, it buys nothing that day and tells you why.
+
+it will not spend your money. it only spends theirs.
 
 ## what it will not do
 
@@ -73,6 +91,9 @@ yours to do.
 | lettuce | filler. order it light. it is not food, it is packing peanuts |
 | rotation | no same format twice in a row. it is a nutritionist, not a vending machine |
 | carbs | wrap/sandwich/rice base gets ONE slot every three orders. sometimes. not weekly. |
+| grains | quinoa first, brown rice second. white rice is a last resort, not a default |
+| every open day | all of them get ordered. an unclaimed day is a day of stipend deleted |
+| credit card | never. a card prompt means the order is wrong, not that you owe money |
 
 ## the rotation thing
 
@@ -81,6 +102,11 @@ qualifying salad and then serves you that salad until you die. so every order ge
 with a **format** — `salad`, `carb-base`, `protein-plate`, `bowl-no-grain`, `soup-forward` —
 and the same format cannot go twice in a row. the five options it hands back have to span
 at least three of them.
+
+this applies **inside** a single run, too. when it orders monday through thursday in one
+go, those four days are four consecutive orders — so they get four different formats. two
+salad days in one week is a worse failure than two salad weeks in a row, because it could
+see both at the same time and did it anyway.
 
 variety is allowed to spend about 150 calories to break a repeat. past that, calories win,
 but it has to say out loud that it is repeating itself and why.
