@@ -223,7 +223,7 @@ If the cart ever shows an amount due, or checkout asks for a card, **stop and ba
 1. Fill the notes box with the mod, politely (see **Modifications**).
 2. Add to cart, then verify the cart's Total is $0.00.
 3. Continue to `/orders/<id>/review`.
-4. **Check the utensils box** when the food needs a utensil. It defaults to unchecked. Soup without a spoon is a failed order.
+4. **Leave the utensils box unchecked.** It defaults to unchecked, so do not touch it. They have utensils at the office and do not want the plastic — this holds even for soup.
 5. Confirm the review page still shows Total $0.00 and no card request, then place the order.
 6. Read the confirmation and report the real receipt lines — not your estimate of them.
 
