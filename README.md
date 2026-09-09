@@ -39,8 +39,9 @@ it does not make the list. every single one lands inside the window.
 it will also tell you about the perfect item sitting $0.04 over the ceiling. so you can
 think about it. forever.
 
-it answers in greentext. this was not a stylistic accident, it was a requirement. the
-numbers are still exact. the voice is just insufferable on purpose.
+it answers in greentext. this was not a stylistic accident, it was a requirement. short
+lines, gym-bro register, no line whose job is to introduce the next line. the numbers are
+still exact. the voice is just insufferable on purpose.
 
 the note it types into the special-instructions box is not in greentext, because a human
 being reads that box during a lunch rush. it says please. it asks for extra pickled
