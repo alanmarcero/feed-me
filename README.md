@@ -11,8 +11,6 @@
 > make the ai order my protons
 ```
 
-so i made the machine do it
-
 ## the problem
 
 a stipend is use it or lose it. spend $16 like a coward and $4 evaporates into the void.
