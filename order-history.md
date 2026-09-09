@@ -53,9 +53,15 @@ Read as a pattern, not a checklist: Mediterranean and Middle Eastern builds land
 
 - **Lettuce.** The standing complaint. Filler that displaces real food. Order salads light-lettuce or no-lettuce where mods are accepted; do not treat lettuce volume as part of the meal.
 
+**Grain choice, when a grain base is happening:**
+
+Stated 2026-09-09. Whenever the build includes a grain and the restaurant offers a choice, pick **quinoa** first, **brown rice** second. Both beat white rice, and both beat leaving it to the default. This applies to grain bowls specifically but generalizes to any item with a rice-or-grain selector.
+
+If neither is on the menu, white rice is acceptable rather than a reason to drop the item — but say in the writeup that the grain was not their pick. Where the restaurant takes modifications and the grain is incidental to the dish, asking for it swapped or served on the side is still worth a line.
+
 **Wants rationed:**
 
-- **Starch bases** — wrap, sandwich, sub, rice bowl, grain bowl. Not disliked, explicitly stated as "not every week." This is what the `carb-base` cooldown enforces.
+- **Starch bases** — wrap, sandwich, sub, rice bowl, grain bowl. Not disliked, explicitly stated as "not every week." This is what the `carb-base` cooldown enforces. The grain-choice rule above governs *which* grain once the slot is being spent; it does not unlock the slot more often.
 
 ## Observed preferences
 
