@@ -7,6 +7,8 @@
 > need maximal protons
 > will not pay one (1) cent over. not ever.
 > doing sales tax math in the checkout screen while starving
+> mfw i realize i could just be super lazy
+> make the ai order my protons
 ```
 
 so i made the machine do it
@@ -20,15 +22,45 @@ while hungry and staring at a wall of sandwiches. unacceptable.
 
 ## what it does
 
-paste in menus. get back 5 ranked orders, each one a complete thing you could actually
-click. every single one clears **40g protons** or it does not make the list. every single
-one lands inside the window.
+`/feed-me`. that's it. that's the whole interface.
 
-it will also tell you about the perfect item sitting $0.75 over the ceiling. so you can
+it opens the ordering site in a real browser, reads every menu on offer that day, prices
+out the protein upcharges hiding behind each item's option modal, builds the order, types
+a polite note to the kitchen, checks the utensils box, and places it. then it tells you
+what it got you and what day it lands.
+
+no menus to paste. no options to weigh. no decision to make. be super lazy. make the ai
+order my protons.
+
+it still shows you the 5 ranked runners-up, because a nutritionist that won't show its
+work is just a vending machine with opinions. every single one clears **40g protons** or
+it does not make the list. every single one lands inside the window.
+
+it will also tell you about the perfect item sitting $0.04 over the ceiling. so you can
 think about it. forever.
 
 it answers in greentext. this was not a stylistic accident, it was a requirement. the
 numbers are still exact. the voice is just insufferable on purpose.
+
+the note it types into the special-instructions box is not in greentext, because a human
+being reads that box during a lunch rush. it says please. it asks for extra pickled
+mustard greens *if you can*. it is the single most polite thing in this repo.
+
+## the money
+
+the stipend covers subtotal + tax and the cart shows you subsidy and total before you
+commit, so it builds to the largest order that still reads **total $0.00** and stops
+there. at $20.00 and 7% tax the arithmetic wall is $18.68 — because $18.69 lands on
+exactly $20.00 with zero margin, and zero margin is how you end up holding a credit card.
+
+if checkout ever asks for a card it backs the order down instead of paying. it will not
+spend your money. it only spends theirs.
+
+## what it will not do
+
+it will not type your password. if it hits the login wall it stops, tells you the browser
+window is sitting right there, and waits for you to do the one (1) thing that is actually
+yours to do.
 
 ## the rules
 
@@ -58,7 +90,8 @@ but it has to say out loud that it is repeating itself and why.
 ## brotein log
 
 `order-history.md` is where the gains get tracked. every order logged. every verdict
-recorded.
+recorded. a cancelled order is not an order and does not get logged — the ledger is what
+you actually ate, not what you almost ate.
 
 - **liked it** → starts showing up more
 - **ok with mods** → right shape, wrong build. comes back with the fix stapled on
@@ -76,6 +109,9 @@ git clone git@github.com:alanmarcero/feed-me.git ~/.claude/skills/feed-me
 ```
 
 then `/feed-me`
+
+needs the playwright mcp server for the ordering half. without it the skill still works,
+it just goes back to being a thing you paste menus into like it's 2024.
 
 ## disclaimer
 

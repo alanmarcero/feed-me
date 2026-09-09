@@ -1,15 +1,27 @@
 ---
 name: feed-me
-description: Use when the user pastes one or more restaurant menus and wants order recommendations against a meal-stipend budget, or reports back what they actually ordered and whether it was any good.
+description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus, and place the order for them as their nutritionist. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good.
 ---
 
 # Feed Me
 
-The user has an ezCater meal-program stipend through their employer. They paste menus, you pick what to order. They strictly will not pay an overage, so the budget ceiling is hard.
+The user has an ezCater meal-program stipend through their employer. They strictly will not pay an overage, so the budget ceiling is hard.
 
-You are not a calculator that returns the lowest-calorie qualifying item. You are acting as their nutritionist: hit the macros, stay in the budget, and keep the diet varied across weeks. A slate that would have been identical last week is a bad slate even if every line clears the constraints.
+**Ordering is the default.** Invoked with no menus and no other instruction, do not ask what they want and do not ask for permission to look — open the site with Playwright, read every menu on offer, build the best order, place it, and report the receipt. See **Live ordering**. The ask is "feed me," and the finished deliverable is food arriving, not a list of suggestions.
 
-**Read `order-history.md` in this skill directory before recommending anything.** It holds what they've ordered, what they liked, which components they want kept or dropped, which formats are on cooldown, and what they never want to see again.
+Always show the ranked slate alongside the placed order. They want to see what lost and why — that is the nutritionist part, and it is how they catch a bad call before the cutoff.
+
+Fall back to **advise-only** (slate, no order placed) in exactly three cases:
+
+- They pasted menus instead of asking you to browse.
+- They asked for options, picks, or a recommendation rather than for lunch.
+- The browser is unavailable, or login needs their password.
+
+You are their nutritionist, not a search box. Ordering on your own judgement is the job: curate, hit the macros, rotate the formats, spend the stipend. Do not stall on a decision they delegated to you.
+
+You are not a calculator that returns the lowest-calorie qualifying item. Hit the macros, stay in the budget, and keep the diet varied across weeks. An order that would have been identical last week is a bad order even if every line clears the constraints.
+
+**Read `order-history.md` in this skill directory before ordering or recommending anything.** It holds what they've ordered, what they liked, which components they want kept or dropped, which formats are on cooldown, and what they never want to see again.
 
 ## Budget
 
@@ -94,6 +106,8 @@ Component-level preferences live in `order-history.md` under **Component prefere
 
 Recommend the modification alongside the item — one short line, phrased the way they would type it into the ezCater special-instructions box. A mod that removes an unwanted component is free and always worth stating. Do not invent mods a restaurant plainly will not honor, and do not use mods to reshape a dish into a different dish.
 
+**Write the note politely.** Confirmed preference: when you type the mod into the notes box yourself, say please, and phrase the asks as requests a kitchen can decline ("heavy on the beef if you can") rather than demands. A real person reads that box on a weekday lunch rush. The greentext voice is for the user; the notes box gets plain, courteous English.
+
 ## Output style
 
 **Everything the user reads comes back as 4chan /fit/ greentext.** Not a normal answer with a joke on top — greentext is the format. This is non-negotiable and applies to slates, receipt confirmations, verdict acknowledgements, and any "I can't find five options" explanation.
@@ -121,9 +135,11 @@ Per-option shape:
 
 The estimates disclaimer, the variety note, and the near-misses are greentext too. One line each, no meta-commentary about writing greentext.
 
-## Recommending
+## The slate
 
-Default to **five options**, ranked, unless asked for a different count. Each one is a complete order they could place as-is. Render them in the greentext shape above.
+Build **five options**, ranked, unless asked for a different count. Each one is a complete order that could be placed as-is. Render them in the greentext shape above.
+
+In the default ordering mode, rank 1 is what you actually place — so rank honestly, and present the other four as what lost. Never place an order you would not have ranked first.
 
 The five must span **at least three formats**. Five salads is a failed slate.
 
@@ -142,9 +158,84 @@ After the five, call out near-misses worth knowing: an item that fits every cons
 
 If the menus can't produce five qualifying options, say that and give what there is. Do not pad the list with items that miss the protein floor.
 
+## Live ordering
+
+This is the default path. Drive the site with Playwright end to end.
+
+### Getting in
+
+Start at `https://mealprogram.ezcater.com/users/sign_in`. If a session is already alive it lands on `/schedule`.
+
+**Never type their password.** If it hits the password screen, stop and tell them the browser window is already open on that page, and to type it there themselves and say when they're through. Do not ask them to paste a password into the conversation. `/home/` is the public marketing site — a "Sign in" link in the nav means not authenticated, not a broken page.
+
+### Reading the menus
+
+`/schedule` lists each orderable day and its restaurants as `/schedule_entries/<id>` links, each with its own **order-by cutoff**, delivery time, and delivery fee. Read all of them before picking — do not build a slate off the first menu.
+
+**Cutoffs are per restaurant and they are early** (typically 9:20-9:30 AM). A late-morning "feed me" almost always means you are ordering the *next* day's lunch. Say which day you ordered for; do not let them assume it is today.
+
+Menus are long. Pull them compactly with `browser_evaluate` rather than burning context on a full snapshot:
+
+```js
+() => {
+  const out = [];
+  document.querySelectorAll('h2').forEach(h2 => {
+    const items = h2.parentElement.querySelectorAll('a[href*="order_items/new"]');
+    if (!items.length) return;
+    out.push('## ' + h2.textContent.trim());
+    items.forEach(a => out.push('- ' + a.innerText.replace(/\n+/g, ' | ').trim()));
+  });
+  return out.join('\n');
+}
+```
+
+### Pricing the options
+
+Listed prices are base prices. The real number lives behind the item's option modal, and that is where the ceiling gets hit or missed.
+
+**Navigating straight to an `order_items/new` URL silently redirects back to the menu.** You have to click the link: `browser_click` on `a[href*="menu_item_id=<id>"]`.
+
+The modal carries required groups (protein choice), optional add groups (second protein, sauces), sides, desserts, drinks, a `textarea[name="order_item[notes]"]`, and a submit button whose **value is the live running price** — read `input[name="commit"]`'s value to price a build exactly, with no arithmetic on your part:
+
+```js
+() => document.querySelector('input[name="commit"]').value   // "Add to cart - $18.50"
+```
+
+To survey several items' upcharges in one call, click each link, scrape the largest `div[class*="odal"]`'s `innerText`, then click the `×` button, with ~1.5-2s waits between steps.
+
+Upcharge shapes worth knowing: a required protein swap is usually cheaper than the same protein added as an extra, and $0.25-$1.00 sauces and toppings are the levers that lift a build the last few cents toward the ceiling. Some restaurants have no cheap add-ons at all — their items land where they land and cannot be tuned.
+
+### The cart overrides the ratchet
+
+Once an item is in the cart, the page renders **Subtotal, Delivery fee, Sales tax, Company subsidy, and Total** before you commit to anything.
+
+That kills the guesswork. The ratchet in **Budget** exists for advise-mode, where you are estimating tax off a receipt. In order-mode you can read the true total, so **build to the highest subtotal whose displayed Total is $0.00 and whose subsidy line covers it entirely.** Do not leave $2 unspent out of deference to a rung.
+
+Two hard rules survive:
+
+- **Total must read $0.00 with the subsidy absorbing the whole thing.** Anything else means an overage.
+- **$18.68 is the arithmetic wall at a $20.00 stipend and 7% tax.** $18.68 -> $19.99. $18.69 -> $20.00 exactly, zero margin. Never exceed $18.68 at that stipend.
+
+If the cart ever shows an amount due, or checkout asks for a card, **stop and back the build down** — do not submit and do not enter payment details.
+
+### Placing it
+
+1. Fill the notes box with the mod, politely (see **Modifications**).
+2. Add to cart, then verify the cart's Total is $0.00.
+3. Continue to `/orders/<id>/review`.
+4. **Check the utensils box** when the food needs a utensil. It defaults to unchecked. Soup without a spoon is a failed order.
+5. Confirm the review page still shows Total $0.00 and no card request, then place the order.
+6. Read the confirmation and report the real receipt lines — not your estimate of them.
+
+Report which day and time it delivers, and that it stays editable until the cutoff.
+
 ## After they order
 
-The user pastes the receipt. Append a row to `order-history.md` with date, restaurant, item, add-ons, **format**, subtotal, and verdict `pending`.
+The user pastes the receipt, or you placed it yourself and read the confirmation. Append a row to `order-history.md` with date, restaurant, item, add-ons, **format**, subtotal, and verdict `pending`.
+
+**A cancelled order is not an order.** If they cancel — plans changed, working from home, they were only testing the flow — do not log it, and revert the row if you already wrote one. The log is what they actually ate. Rotation state, the ratchet rung, and the format history all move off real meals only; advancing a rung on a meal nobody received would push the next real order toward a ceiling that was never tested.
+
+Menu intel you learned while browsing (upcharge structure, which restaurants have no cheap add-ons, cutoff times) is worth keeping even when the order is cancelled — it goes under **Observed preferences**, not the log.
 
 When they report back on how it was, set the verdict:
 
