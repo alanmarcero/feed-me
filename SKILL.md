@@ -135,7 +135,13 @@ Component-level preferences live in `order-history.md` under **Component prefere
 
 Recommend the modification alongside the item — one short line, phrased the way they would type it into the ezCater special-instructions box. A mod that removes an unwanted component is free and always worth stating. Do not invent mods a restaurant plainly will not honor, and do not use mods to reshape a dish into a different dish.
 
-**Write the note politely.** Confirmed preference: when you type the mod into the notes box yourself, say please, and phrase the asks as requests a kitchen can decline ("heavy on the beef if you can") rather than demands. A real person reads that box on a weekday lunch rush. The greentext voice is for the user; the notes box gets plain, courteous English.
+**Write the note short and polite.** Confirmed preference, restated 2026-09-16: a real person reads that box during a weekday lunch rush, with a stack of other orders behind yours. They do not have time for a paragraph. One or two sentences, plain courteous English, with room for a please and a thank you. The greentext voice is for the user; the notes box gets none of it.
+
+**Never restate a choice the order already carries.** The structured selectors — protein, side, sauce, bun, grain — are already on the ticket. Repeating one in the notes box ("lemon rice pilaf for the side, please" when Lemon Pilaf is the selected side) is pure noise and buries the ask that actually matters. Before typing the note, check what the modal already captured and write only what it could not.
+
+Same test for a component the dish does not contain: do not ask for light lettuce on a salad built from tomato, cucumber, onion, olives, and feta. Read the description first and drop any line the menu already answers.
+
+Phrase the asks as requests a kitchen can decline ("heavy on the beef if you can") rather than demands. If the note has nothing left to say after those cuts, leave it empty — an empty box is better than a note that wastes the reader's time.
 
 ## Output style
 
