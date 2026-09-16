@@ -83,6 +83,14 @@ Stated 2026-09-09. Whenever the build includes a grain and the restaurant offers
 
 If neither is on the menu, white rice is acceptable rather than a reason to drop the item — but say in the writeup that the grain was not their pick. Where the restaurant takes modifications and the grain is incidental to the dish, asking for it swapped or served on the side is still worth a line.
 
+**Paid vs. free asks, stated 2026-09-16:**
+
+Never use the notes box to ask for more meat. Protein is the costed component — most kitchens ignore a free ask for it, and some read it as trying to get the expensive part for nothing. Buy protein in the modal, where the upcharge shows in the cart.
+
+Garnish-tier asks are fine and usually honored: cheese, olives, pickles, pickled onion, herbs, spice, lemon, extra tomato or onion, and anything held, light, or on the side. Reductions are the safest asks of all.
+
+Macro consequence: a note's protein never counts toward the 40g floor, but its calories always count against the 800 ceiling.
+
 **Notes-box style, stated 2026-09-16:**
 
 Brief and courteous. One or two sentences with a please and a thank you — the kitchen is reading it mid-rush. Never repeat a selection the order already carries (side, protein, sauce, grain), and never ask about a component the dish does not contain. The 2026-09-16 GRECO note opened by asking for the lemon pilaf that was already selected; that line was dead weight.
