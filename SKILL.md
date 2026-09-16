@@ -139,19 +139,27 @@ Worked example, the 2026-09-16 GRECO note. "Heavy on the feta and olives" agains
 
 Report the mod-inclusive number. The figure that goes in the writeup and the log is the build as ordered, never the menu item as listed.
 
-### Required: final recalculation off the placed order
+### Required: final recalculation before submitting
 
-**Last step before reporting. Recalculate every macro and calorie number from the order as actually confirmed, plus the note as actually submitted.** Not from the plan, not from the slate, not from the estimate made before the build changed.
+**This runs on the review page, with the order still unsubmitted.** Recalculate every macro and calorie number from the order exactly as the review page lists it, plus the note exactly as it was written. Not from the plan, not from the slate, not from the estimate made before the build changed.
 
-Builds drift between the slate and the confirmation — a protein gets swapped, a side changes, an add-on is dropped because the sauce was already included, a note clause gets cut on validation. Each of those moves the numbers, and the earlier estimate silently stops describing the food.
+Builds drift between the slate and the review page — a protein gets swapped, a side changes, an add-on is dropped because the sauce turned out to be included, a note clause gets cut on validation. Each of those moves the numbers, and the earlier estimate silently stops describing the food.
 
-Re-read the confirmation page, rebuild the ingredient list from what it lists, re-apply the note's effect, and run the component table again. Then:
+Rebuild the ingredient list from the review page's own lines, re-apply the note's effect, and run the component table again.
 
-- Check the final total against both gates, **≥40g protein and ≤800 calories**. A build that drifted past a gate has to be fixed, not reported with an apology.
-- Report those numbers. The figures in the writeup and in `order-history.md` are these, never the pre-build estimate.
-- If the recalculation disagrees with what was said earlier in the run, say so plainly and give the corrected figure.
+**If the total no longer clears ≥40g protein and ≤800 calories, modify the order before submitting it.** The gates are checked while the order can still be changed cheaply, which is the entire reason this step sits before the place button and not after it. In order of preference:
 
-This is the number the user is actually eating. It is worth doing twice.
+1. **Cut the mod** if a "heavy on X" is what pushed it over.
+2. **Swap a component** — a bean or salad side for a grain or fried one, a leaner protein, a sauce dropped.
+3. **Swap the item** for the next entry on that day's slate that clears both gates.
+
+Then re-run this step against the corrected build. Submit only once a recalculation passes.
+
+Never submit a build you already know misses a gate, planning to fix it afterward. Editing a line in place is cheap, but swapping the entree is not: adding an item to a submitted order opens a *new* order rather than changing the old one, so the fix becomes place-new-then-cancel-old. That is the mess this step exists to prevent.
+
+After placing, check the confirmation's lines against what was recalculated here. If the confirmed order differs from the review page in any way, recalculate again and correct it before that day's cutoff.
+
+Report these numbers. The figures in the writeup and in `order-history.md` are the final recalculation, never the pre-build estimate. If it disagrees with something said earlier in the run, say so plainly and give the corrected figure.
 
 ## Variety and rotation
 
@@ -394,9 +402,9 @@ Each day is a separate cart and a separate order. Run this loop once per open da
 4. Add to cart, then verify that day's cart Total is $0.00.
 5. Continue to `/orders/<id>/review`.
 6. **Leave the utensils box unchecked.** It defaults to unchecked, so do not touch it. They have utensils at the office and do not want the plastic — this holds even for soup.
-7. Confirm the review page still shows Total $0.00 and no card request, then place the order.
-8. Read the confirmation and record the real receipt lines — not your estimate of them.
-9. **Recalculate the macros one final time off the confirmed order** — required, see **Required: final recalculation off the placed order**.
+7. **Recalculate every macro off the review page, before submitting** — required, see **Required: final recalculation before submitting**. The review page lists every line the kitchen will see. **If the build no longer clears ≥40g protein and ≤800 calories, fix it here — do not submit and correct afterward.**
+8. Confirm the review page still shows Total $0.00 and no card request, then place the order.
+9. Read the confirmation and check its lines against what was recalculated at step 7. If anything drifted, fix it before that day's cutoff.
 10. Move to the next day. Carts do not span days, so nothing from the previous order carries over.
 
 **Finish the batch.** If one day fails — no qualifying item, a card requested, a cutoff that lapsed mid-run — place the remaining days anyway and report exactly which day was skipped and why. Do not abandon four days of stipend over one bad menu.
