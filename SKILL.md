@@ -78,14 +78,80 @@ Rules:
 
 Land as close to the current ceiling as the menu allows. If the best qualifying item sits below the floor, say so rather than padding the order with junk.
 
+**The 800-calorie gate outranks this entire section.** Never add a side, a dessert or a drink to close a price gap if it pushes the build over 800 calories. Unspent stipend is a cost worth reporting; an 1,100-calorie lunch is not a trade that was ever on the table. See **The calorie ceiling**.
+
 ## Priority ladder
 
 Resolve every recommendation in this order. Lower rules never override higher ones.
 
-1. **Hard gates.** Total at or under the current ceiling. **≥40g protein**, estimated. One real menu item. Not vegetable-forward. Nothing on the Never Again list.
+1. **Hard gates.** Total at or under the current ceiling. **≥40g protein**, estimated. **≤800 calories**, estimated. One real menu item. Not vegetable-forward. Nothing on the Never Again list.
 2. **Calories.** Among options that clear the gates, fewer calories is better. This is the strongest soft goal.
-3. **Variety.** Rotation rules below. Variety may spend up to **~150 cal** against rule 2 to avoid a repeat. Past 150 cal, calories win — and say in the writeup that the slate is repeating a format because the menu left no cheaper-calorie way out.
+3. **Variety.** Rotation rules below. Variety may spend up to **~150 cal** against rule 2 to avoid a repeat, but never past the 800 gate. Past 150 cal, calories win — and say in the writeup that the slate is repeating a format because the menu left no cheaper-calorie way out.
 4. **Preference.** Known-liked items and components break remaining ties.
+
+### The calorie ceiling
+
+**800 calories, estimated, for the build as ordered.** Stated 2026-09-16. It is a gate, not a preference — an item over 800 does not go on the slate at rank 1 and does not get placed, however well it scores on protein, price, or format.
+
+This gate and the spend floor pull in opposite directions, and **the calorie ceiling wins every time.** Spending the full stipend is a goal; 800 calories is a rule. When the only way to reach the floor is to add calories, stop at the item that fits and report the unspent stipend as the cost of the gate. Never pad a build with a side or a dessert to close a price gap — that trades a rule for a goal.
+
+If no build on a day's menus clears 40g protein and stays at or under 800 calories, say so plainly, place the closest thing that clears the protein floor, and name the overage in the writeup. Protein is the floor that never bends; calories are the ceiling that bends only when nothing on the menu fits under it.
+
+## Estimating macros
+
+**Required. Estimate component by component, never as a single gestalt guess for the dish.** A whole-plate eyeball is how the 2026-09-16 GRECO order got reported at ~830 cal when it was closer to ~1,175 — the patties got counted and the pita, the rice pilaf and the dressing oil quietly did not.
+
+Build the same ingredient list the note validation uses — the menu item's description plus every option the modal captured — and put a number on **every line**, including the ones that feel like garnish:
+
+| Component | Protein | Calories |
+|---|---|---|
+| the protein itself | | |
+| every included side | | |
+| bread, pita, bun, chips | | |
+| the grain or starch | | |
+| cheese | | |
+| sauce, dressing, aioli, tzatziki | | |
+| cooking and dressing oil | | |
+| **total** | | |
+
+The lines that get skipped are always the same ones, and they are never small:
+
+- **Bread that comes with the plate.** A pita is ~165 cal and it is on the ticket whether or not anyone mentions it.
+- **Dressing and cooking oil.** A tablespoon of olive oil is ~120 cal. A salad "with olive oil and red wine vinegar" is not a free salad.
+- **The starch side.** Rice pilaf or fries run ~220-400 cal.
+- **Sauce cups.** 2.5oz of tzatziki is ~70 cal.
+
+Sum the column and compare the total against the 800 gate before the item can be ranked.
+
+### Required: re-verify after writing the mod
+
+**A mod changes the dish, so the estimate is stale the moment the note is written.** After the note passes its validation check, re-run the macro estimate for the build as ordered, mod included, and check the new total against both gates.
+
+Read "heavy on X" or "extra X" as **roughly +30% of that component**, and carry an upper bound at double in case the kitchen is generous. Both numbers get checked against the 800 ceiling — if the upper bound crosses it, the mod comes out, not the gate.
+
+Worked example, the 2026-09-16 GRECO note. "Heavy on the feta and olives" against a ~1oz feta portion and ~7 olives:
+
+| Component | At +30% | At double |
+|---|---|---|
+| feta | +1.7g protein, +22 cal | +5.6g protein, +75 cal |
+| olives | +0g protein, +14 cal | +0.5g protein, +45 cal |
+| **mod total** | **+2g, +36 cal** | **+6g, +120 cal** |
+
+Report the mod-inclusive number. The figure that goes in the writeup and the log is the build as ordered, never the menu item as listed.
+
+### Required: final recalculation off the placed order
+
+**Last step before reporting. Recalculate every macro and calorie number from the order as actually confirmed, plus the note as actually submitted.** Not from the plan, not from the slate, not from the estimate made before the build changed.
+
+Builds drift between the slate and the confirmation — a protein gets swapped, a side changes, an add-on is dropped because the sauce was already included, a note clause gets cut on validation. Each of those moves the numbers, and the earlier estimate silently stops describing the food.
+
+Re-read the confirmation page, rebuild the ingredient list from what it lists, re-apply the note's effect, and run the component table again. Then:
+
+- Check the final total against both gates, **≥40g protein and ≤800 calories**. A build that drifted past a gate has to be fixed, not reported with an apology.
+- Report those numbers. The figures in the writeup and in `order-history.md` are these, never the pre-build estimate.
+- If the recalculation disagrees with what was said earlier in the run, say so plainly and give the corrected figure.
+
+This is the number the user is actually eating. It is worth doing twice.
 
 ## Variety and rotation
 
@@ -324,12 +390,14 @@ Each day is a separate cart and a separate order. Run this loop once per open da
 
 1. Fill the notes box with the mod, politely (see **Modifications**).
 2. **Validate the note against that day's full ingredient list before submitting it** — required, see **Required: validate the note against the order**. Build the list from the item description plus every option the modal captured, then cut every clause that names something absent, restates a selector, or gives the kitchen nothing to do.
-3. Add to cart, then verify that day's cart Total is $0.00.
-4. Continue to `/orders/<id>/review`.
-5. **Leave the utensils box unchecked.** It defaults to unchecked, so do not touch it. They have utensils at the office and do not want the plastic — this holds even for soup.
-6. Confirm the review page still shows Total $0.00 and no card request, then place the order.
-7. Read the confirmation and record the real receipt lines — not your estimate of them.
-8. Move to the next day. Carts do not span days, so nothing from the previous order carries over.
+3. **Re-estimate the build's macros with the mod included** and confirm it still clears ≥40g protein and ≤800 calories — required, see **Required: re-verify after writing the mod**. If the mod pushes the upper bound past 800, cut the mod.
+4. Add to cart, then verify that day's cart Total is $0.00.
+5. Continue to `/orders/<id>/review`.
+6. **Leave the utensils box unchecked.** It defaults to unchecked, so do not touch it. They have utensils at the office and do not want the plastic — this holds even for soup.
+7. Confirm the review page still shows Total $0.00 and no card request, then place the order.
+8. Read the confirmation and record the real receipt lines — not your estimate of them.
+9. **Recalculate the macros one final time off the confirmed order** — required, see **Required: final recalculation off the placed order**.
+10. Move to the next day. Carts do not span days, so nothing from the previous order carries over.
 
 **Finish the batch.** If one day fails — no qualifying item, a card requested, a cutoff that lapsed mid-run — place the remaining days anyway and report exactly which day was skipped and why. Do not abandon four days of stipend over one bad menu.
 
