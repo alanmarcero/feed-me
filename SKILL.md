@@ -129,13 +129,22 @@ Sum the column and compare the total against the 800 gate before the item can be
 
 Read "heavy on X" or "extra X" as **roughly +30% of that component**, and carry an upper bound at double in case the kitchen is generous. Both numbers get checked against the 800 ceiling — if the upper bound crosses it, the mod comes out, not the gate.
 
-Worked example, the 2026-09-16 GRECO note. "Heavy on the feta and olives" against a ~1oz feta portion and ~7 olives:
+**Count a note's effect asymmetrically, because a note is a request and not a purchase:**
 
-| Component | At +30% | At double |
-|---|---|---|
-| feta | +1.7g protein, +22 cal | +5.6g protein, +75 cal |
-| olives | +0g protein, +14 cal | +0.5g protein, +45 cal |
-| **mod total** | **+2g, +36 cal** | **+6g, +120 cal** |
+- **Against the calorie ceiling, count it.** Assume the kitchen honors it, and use the upper bound. A build that only fits under 800 if the request is ignored does not fit.
+- **Toward the protein floor, count nothing.** The paid build has to clear 40g on its own. A note cannot be relied on to deliver protein, and per **Modifications** it must never ask for more meat in the first place. Protein bought in the modal counts; protein asked for politely does not.
+
+So extra feta adds calories to the estimate and adds no protein to it, even though real feta has both. That is the conservative read in both directions and it is the one to use.
+
+Worked example, the 2026-09-16 GRECO note. "Heavy on the feta and olives" against a ~1oz feta portion and ~7 olives — both garnish-tier, so the ask is legitimate:
+
+| Component | At +30% | At double | Counted as |
+|---|---|---|---|
+| feta | +22 cal | +75 cal | calories only |
+| olives | +14 cal | +45 cal | calories only |
+| **mod total** | **+36 cal** | **+120 cal** | **+0g protein** |
+
+The feta really does carry protein, and it is still counted as zero — the floor is cleared by the paid build or it is not cleared. Check the double column against 800.
 
 Report the mod-inclusive number. The figure that goes in the writeup and the log is the build as ordered, never the menu item as listed.
 
@@ -215,7 +224,25 @@ Recommend the modification alongside the item — one short line, phrased the wa
 
 Same test for a component the dish does not contain: do not ask for light lettuce on a salad built from tomato, cucumber, onion, olives, and feta. Read the description first and drop any line the menu already answers.
 
-Phrase the asks as requests a kitchen can decline ("heavy on the beef if you can") rather than demands. If the note has nothing left to say after those cuts, leave it empty — an empty box is better than a note that wastes the reader's time.
+Phrase the asks as requests a kitchen can decline rather than demands. If the note has nothing left to say after those cuts, leave it empty — an empty box is better than a note that wastes the reader's time.
+
+**Never ask for more meat in the notes box.** Stated 2026-09-16. Protein is the costed component — the menu sells it as a named upcharge, a double-protein option or a protein swap. Asking for extra free in the notes box gets ignored at most places, and at some it reads as trying to get the expensive part for nothing. It is the one ask that can make a polite note land badly.
+
+If the build needs more protein, **buy it in the modal.** That is what the required protein selector, the extra-protein add group, and the swap upcharges are for, and the price shows up in the cart where it belongs. `Extra chicken +$3.80` is a real order. "heavy on the chicken please" is not.
+
+The same logic covers anything the menu prices separately — an avocado add-on, a second patty, a shrimp upcharge, extra bacon. If it has a price next to it, it gets paid for or it does not go in the note.
+
+**Garnish-tier asks are fine and usually honored.** These are components the kitchen already has open on the line and does not portion by the gram:
+
+- cheese — feta, parmesan, crumbles
+- olives, pickles, pickled onion, jalapeños
+- herbs, spice, chili flake, lemon
+- sauce or dressing on the side, or light
+- extra tomato, onion, cucumber
+
+"Heavy on the feta and olives, please" is a reasonable ask. "Heavy on the lamb, please" is not — order more lamb.
+
+**Reduction asks are always free.** Asking for less of something, or for it held or on the side, costs the kitchen nothing and gets honored more often than any addition. Those are the highest-value lines the note can carry.
 
 ### Required: validate the note against the order
 
@@ -228,11 +255,12 @@ First assemble the order's real ingredient list from two places:
 
 That list is the whole universe the kitchen is working with. Nothing else is in the order.
 
-Then take the note one clause at a time. Every clause must pass all three tests, or it gets cut:
+Then take the note one clause at a time. Every clause must pass all four tests, or it gets cut:
 
 1. **Does the ingredient appear in the list?** Asking to change something the dish does not contain tells the kitchen you did not read the menu. Cut it.
 2. **Is it already set by a selector?** If the modal captured it, the ticket already says it. Cut it.
-3. **Can the kitchen act on it?** A preference with no corresponding action ("mediterranean flavors please") is noise. Cut it.
+3. **Is it asking for more of something the menu charges for?** Protein above all, plus any priced add-on. Cut it and buy it in the modal instead — see **Modifications**.
+4. **Can the kitchen act on it?** A preference with no corresponding action ("mediterranean flavors please") is noise. Cut it.
 
 What survives is the note. If nothing survives, submit an empty box.
 
