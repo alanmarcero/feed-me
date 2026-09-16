@@ -143,6 +143,37 @@ Same test for a component the dish does not contain: do not ask for light lettuc
 
 Phrase the asks as requests a kitchen can decline ("heavy on the beef if you can") rather than demands. If the note has nothing left to say after those cuts, leave it empty — an empty box is better than a note that wastes the reader's time.
 
+### Required: validate the note against the order
+
+**After writing the note and before submitting it, validate it. This step is not optional and it is not a re-read — it is a check against a list you actually build.**
+
+First assemble the order's real ingredient list from two places:
+
+- the menu item's own description, every component it names
+- every option the modal captured — the selected protein, side, sauce, bun, grain, and any add-on line
+
+That list is the whole universe the kitchen is working with. Nothing else is in the order.
+
+Then take the note one clause at a time. Every clause must pass all three tests, or it gets cut:
+
+1. **Does the ingredient appear in the list?** Asking to change something the dish does not contain tells the kitchen you did not read the menu. Cut it.
+2. **Is it already set by a selector?** If the modal captured it, the ticket already says it. Cut it.
+3. **Can the kitchen act on it?** A preference with no corresponding action ("mediterranean flavors please") is noise. Cut it.
+
+What survives is the note. If nothing survives, submit an empty box.
+
+Worked example, the 2026-09-16 GRECO order. Ingredient list: two beef bifteki patties, Greek salad (tomato, cucumber, red onion, Kalamata olives, crumbled feta, olive oil, red wine vinegar), pita bread, lemon rice pilaf (selected side), tzatziki (separate line).
+
+| Clause | Test | Result |
+|---|---|---|
+| "lemon rice pilaf for the side" | 2 — Lemon Pilaf was the selected side | cut |
+| "light on any lettuce" | 1 — no lettuce anywhere in the list | cut |
+| "heavy on the feta and olives" | passes all three | keep |
+
+Final note: `Heavy on the feta and olives, please. Thank you!`
+
+Two of the three clauses died on the check. That is the normal yield — run it every time, on every day of a batch, because each day has its own ingredient list.
+
 ## Output style
 
 **Everything the user reads comes back as 4chan /fit/ greentext.** Not a normal answer with a joke on top — greentext is the format. Applies to slates, receipt confirmations, verdict acknowledgements, skill-update reports, and any "I can't find five options" explanation.
@@ -292,12 +323,13 @@ If the cart ever shows an amount due, or checkout asks for a card, **stop and ba
 Each day is a separate cart and a separate order. Run this loop once per open day, in date order:
 
 1. Fill the notes box with the mod, politely (see **Modifications**).
-2. Add to cart, then verify that day's cart Total is $0.00.
-3. Continue to `/orders/<id>/review`.
-4. **Leave the utensils box unchecked.** It defaults to unchecked, so do not touch it. They have utensils at the office and do not want the plastic — this holds even for soup.
-5. Confirm the review page still shows Total $0.00 and no card request, then place the order.
-6. Read the confirmation and record the real receipt lines — not your estimate of them.
-7. Move to the next day. Carts do not span days, so nothing from the previous order carries over.
+2. **Validate the note against that day's full ingredient list before submitting it** — required, see **Required: validate the note against the order**. Build the list from the item description plus every option the modal captured, then cut every clause that names something absent, restates a selector, or gives the kitchen nothing to do.
+3. Add to cart, then verify that day's cart Total is $0.00.
+4. Continue to `/orders/<id>/review`.
+5. **Leave the utensils box unchecked.** It defaults to unchecked, so do not touch it. They have utensils at the office and do not want the plastic — this holds even for soup.
+6. Confirm the review page still shows Total $0.00 and no card request, then place the order.
+7. Read the confirmation and record the real receipt lines — not your estimate of them.
+8. Move to the next day. Carts do not span days, so nothing from the previous order carries over.
 
 **Finish the batch.** If one day fails — no qualifying item, a card requested, a cutoff that lapsed mid-run — place the remaining days anyway and report exactly which day was skipped and why. Do not abandon four days of stipend over one bad menu.
 
