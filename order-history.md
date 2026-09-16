@@ -5,7 +5,15 @@
 **Rung 3 — ceiling $18.60, floor $16.85.**
 
 Rung 1 cleared 2026-09-03: $17.98 subtotal fully covered, $0.76 unused.
-Rung 2 cleared 2026-09-16: $18.55 subtotal fully covered, $0.00 out of pocket, $0.15 unused. That order was built in order-mode off the live cart, which reads the true tax and subsidy and overrides the ratchet — it landed above rung 2's $18.45 estimate and still cleared. Advance to rung 4 after the next fully-covered order.
+Rung 2 cleared 2026-09-16: the GRECO Create-Your-Own Plate, $16.85 subtotal, fully covered, $0.00 out of pocket.
+
+Two caveats on that rung.
+
+A $18.55 Bifteki Plate was placed first that day and did clear the live cart at $0.00, but it was **cancelled** for busting the new 800-calorie gate. A cancelled order is not an order, so it advanced nothing — rung 2 was cleared by the $16.85 plate that replaced it.
+
+That plate sat well under rung 2's $18.45 estimate, so **rung 3's $18.60 is still untested in advise-mode.** Treat it as inferred, not proven, and lean on the live cart in order-mode.
+
+**The calorie gate now binds before the ratchet usually does.** An 800-calorie ceiling caps how much food a build can carry, and the ceiling rungs assume spending up to the stipend. Expect orders to land below the rung and leave stipend unspent. That is the gate working, not a miss to correct.
 
 ## Rotation state
 
@@ -21,7 +29,21 @@ Read this before building a slate.
 | Ordered | Delivered | Restaurant | Item | Format | Subtotal | Tax | Total | Unused | Covered | Verdict |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 2026-09-03 | 2026-09-08 | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $19.24 | $0.76 | yes | ok-with-mods |
-| 2026-09-16 | 2026-09-17 | GRECO | Bifteki Plate w/ Lemon Pilaf + Tzatziki Sauce ($1.00) | `protein-plate` | $18.55 | $1.30 | $19.85 | $0.15 | yes | pending |
+| 2026-09-16 | 2026-09-17 | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $18.03 | $1.97 | yes | pending |
+
+**2026-09-17 GRECO plate, final recalculation off the confirmed order.** Note box submitted empty, so no mod adjustment applies.
+
+| Component | Protein | Calories |
+|---|---|---|
+| pork souvlaki, ~5oz | ~38g | ~300 |
+| lemon-dill beans (gigantes, olive oil) | ~7g | ~200 |
+| tzatziki, 2.5oz | ~3g | ~70 |
+| pita bread | ~5g | ~165 |
+| **total** | **~53g** | **~735** |
+
+Clears both gates with room. $1.97 of stipend left unspent — the cost of staying under 800.
+
+**Cancelled that day, not logged:** the Bifteki Plate build ($18.55, ~58g protein, ~1,175 cal). It was placed before the calorie gate existed and pulled once the gate was set. Recorded here only so the same plate is not re-picked as if it were untested — it is a ~1,175 calorie plate and it will not clear 800.
 
 ## Liked
 
@@ -85,6 +107,15 @@ Derived from actual orders, not stated preferences. Update as the log grows.
 - Create-Your-Own Plate $12.95 with protein/side/sauce selectors tops out near $17.75 (chicken souvlaki +$3.80, extra pita +$1.00) — every other extra side overshoots.
 - $1.00 sauces are the precision lever for the last few cents. The Bifteki Plate is the one plate that does not include tzatziki, so adding it is filling a real gap rather than padding.
 - Bifteki Plate side choice is Greco Fries or Lemon Pilaf only — no bean or slaw option, so the grain preference has nowhere better to go there.
+
+**Editing a submitted order (learned 2026-09-16).** The order-details page offers Edit Item, Remove Item and Cancel order.
+
+- **Edit Item works in place.** Changing the notes box or a selector on an existing line updates the submitted order and leaves the totals alone. This is the cheap fix — prefer it.
+- **Adding an item does not.** Clicking a menu item while an order is already submitted opens a fresh cart and a *new* pending order, and the original stays submitted with whatever is left in it. Swapping an entree therefore means: remove the old line, build the new one, place the new order, then cancel the leftover original. Check `/customer_orders` afterward to confirm exactly one upcoming order for that day.
+- Removing the last line does not auto-cancel; the order sits there at a $1.00 subtotal looking placed. Cancel it explicitly.
+- Cancel flow is Cancel order, then confirm on the "Yes, cancel" link.
+
+**GRECO Create-Your-Own Plate is the calorie-gate workhorse.** Its sauce is a free required selector, so a separate $1.00 sauce line is redundant. Its side selector includes **lemon-dill beans** — gigantes beans, ~7g protein and ~200 cal, no grain — which beats the pilaf and the fries on both gates. $12.95 + pork souvlaki $3.90 lands exactly on the $16.85 floor at ~735 cal.
 
 **Flavor Boom! intel (read 2026-09-16).** Every entree is a $13.85 rice bowl — all `carb-base`, all well under the floor, and no add-ons exist to lift them. Only the Supernova Shrimp Curry Bowl ($16.85) reaches the window, and shrimp curry is thin on protein. Rice is the only grain offered.
 
