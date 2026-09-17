@@ -11,6 +11,11 @@
 > make the ai order my protons
 ```
 
+that was the origin story. the skill is not actually about protons — it's about whatever
+*you* are trying to eat. tell it you're cutting, bulking, keto, kosher, allergic to
+shellfish, or that you just want food that isn't sad, and it optimizes for that instead.
+the protons are one guy's preferences file, not the law.
+
 ## the problem
 
 a stipend is use it or lose it. spend $16 like a coward and $4 evaporates into the void.
@@ -23,9 +28,9 @@ while hungry and staring at a wall of sandwiches. unacceptable.
 `/feed-me`. that's it. that's the whole interface.
 
 it opens the ordering site in a real browser, finds **every day** that is still open,
-reads every menu on every one of those days, prices out the protein upcharges hiding
-behind each item's option modal, plans the whole week so no two days land on the same
-kind of food, types a polite note to each kitchen, and places one order per day.
+reads every menu on every one of those days, prices out the upcharges hiding behind each
+item's option modal, plans the whole week so no two days land on the same kind of food,
+types a polite note to each kitchen, and places one order per day.
 
 not one lunch. all of them.
 
@@ -33,8 +38,9 @@ no menus to paste. no options to weigh. no decision to make. be super lazy. make
 order my protons.
 
 it still shows you the 5 ranked runners-up, because a nutritionist that won't show its
-work is just a vending machine with opinions. every single one clears **40g protons** or
-it does not make the list. every single one lands inside the window.
+work is just a vending machine with opinions. every single one clears **your** gates —
+whatever you told it those are — or it does not make the list. every single one lands
+inside the window.
 
 it will also tell you about the perfect item sitting $0.04 over the ceiling. so you can
 think about it. forever.
@@ -106,7 +112,10 @@ or point it at a private remote. it'll keep working.
 the portable half — `SKILL.md` and `README.md` — has none of that in it. process, selectors,
 rules, voice. clone it and it's yours.
 
-## the thing the log actually told us
+## a worked example of it changing its mind
+
+this is one user's log, not a rule for yours. it's here because it's the clearest thing
+the skill does that a static preferences file cannot.
 
 forty orders in, averaged by cuisine:
 
@@ -118,36 +127,51 @@ forty orders in, averaged by cuisine:
 | mediterranean / middle eastern | 9 | **2.78** |
 
 which is funny, because the skill used to say mediterranean "lands well". it does not.
-that belief came from a list of components you said you liked — tahini, hummus, feta,
+that belief came from a list of components he'd said he liked — tahini, hummus, feta,
 olives — and not from a single rating. nine orders later: two 2s, four 3s, one 4.
 
 the components are real. the kitchens are the problem. both of the 2s came with a review
-attached and both reviews say the same thing — the pita was dry, the shawarma was cooked
-a day ago. that is a food-holding problem, and it is invisible from the menu text.
+attached and both say the same thing — the pita was dry, the shawarma was cooked a day
+ago. that's a food-holding problem and it is completely invisible from the menu text.
 
 so: still order the hummus. stop picking the restaurant because it has hummus.
 
+your log will say something entirely different. the point is that it gets read.
+
 ## the rules
+
+the money rules are the skill's. the food rules are yours.
+
+**the skill's, and not up for discussion:**
 
 | rule | ruling |
 |---|---|
 | the ceiling | HARD. derived from the stipend, verified against tax. we do not go over. |
-| 40g protons | floor, not target. 38g is not "close enough" |
-| calories | strongest soft goal. never enough to drop under 40g. we are not cutting that hard. |
-| one (1) real item | three $5 sides in a trenchcoat is not an entree |
-| no broccoli base | do not ask |
-| grilled not breaded | every time the menu offers the choice |
-| lettuce | filler. order it light. it is not food, it is packing peanuts |
-| the numbers | live in `dietary-preferences.md`. the skill reads them from there, not from memory |
-| pushing | never on its own. commits yes, publishes no. your repo, your call |
-| your reviews | outrank the calorie count. a 4 you never wrote a word about beats a 3 with a paragraph |
-| tofu | never the protein. the only 1-star in the log and we all know why |
-| rotation | no same format twice in a row. it is a nutritionist, not a vending machine |
-| loved food | exempt. you rated it 4, that means go back, same dish included |
-| carbs | wrap/sandwich/rice base gets ONE slot every three orders. sometimes. not weekly. |
-| grains | quinoa first, brown rice second. white rice is a last resort, not a default |
-| every open day | all of them get ordered. an unclaimed day is a day of stipend deleted |
 | credit card | never. a card prompt means the order is wrong, not that you owe money |
+| every open day | all of them get ordered. an unclaimed day is a day of stipend deleted |
+| one (1) real item | three $5 sides in a trenchcoat is not an entree |
+| rotation | no same format twice in a row. it is a nutritionist, not a vending machine |
+| loved food | exempt from that. you rated it 4, that means go back, same dish included |
+| your reviews | outrank the arithmetic. a 4 you never wrote a word about beats a 3 with a paragraph |
+| the numbers | live in `dietary-preferences.md`. read from there, never from memory |
+| pushing | never on its own. commits yes, publishes no. your repo, your call |
+
+**yours, and it just does what you said:**
+
+| rule | ruling |
+|---|---|
+| allergies | HARD. the one gate a good-looking menu never gets to argue with |
+| a floor | a minimum to clear — protein, fiber, whatever. floors do not bend |
+| a ceiling | a maximum to stay under — calories, carbs, sodium. bends only when nothing on the menu fits under it |
+| cuisines | what you want most, what you'd rather skip |
+| components | work these in, keep those out, keep that one light |
+| prep | grilled not breaded, sauce on the side, whatever you're sick of |
+| rationing | "fine, but not every week." carbs, fried stuff, whatever you're pacing |
+| no rules at all | also fine. "just get me something good" is a complete answer |
+
+the example file in this repo says 40g protons, 800 calories, quinoa over brown rice over
+white, and lettuce is packing peanuts. that is one guy. yours will say something else
+entirely and the skill does not care which — it cares that it's written down.
 
 ## the rotation thing
 
@@ -165,27 +189,42 @@ see both at the same time and did it anyway.
 variety is allowed to spend about 150 calories to break a repeat. past that, calories win,
 but it has to say out loud that it is repeating itself and why.
 
-## it asks before it guesses
+## it works better with preferences. it works without them.
 
-on first run it looks for `dietary-preferences.md`. if it's there, it reads it and gets on
-with lunch.
+on first run it looks for `dietary-preferences.md`. if it's there it reads it and gets on
+with lunch. if it isn't, it does **not** stop and make you fill in a form. it works down
+this ladder instead:
 
-if it's **not** there it does not order. a stipend order built on invented dietary rules is
-worse than no lunch — it can walk straight into an allergy and then write the mistake into
-the log as a preference. so instead it asks:
+| what you've got | what it does |
+|---|---|
+| a preferences file | reads it, orders against it. best case |
+| no file, but order history | infers your preferences from what you rated, orders against that, writes it down |
+| neither | orders on sane defaults, says out loud that it's guessing, starts the file from your first verdict |
 
-1. first, whether you want it to go read your ezCater order history. say yes and it comes
-   back with proposed answers instead of a blank form. confirming a read beats composing
-   one from nothing.
-2. then five questions, in one message, so you answer in one pass:
-   - **hard limits** — allergies, intolerances, things you simply will not eat
-   - **calories** — a ceiling, or none. gate or preference?
-   - **macros** — protein floor especially, since that's what it builds toward
-   - **cuisines** — what you want most, what you'd rather skip
-   - **components and prep** — work these in, keep these out, grilled not fried
+**your order history is a preferences file nobody typed.** forty rated orders say more
+about what you want for lunch than forty answers to a questionnaire, because a rating is
+what you thought *after eating* and a questionnaire is what you claim in the abstract. so
+it reads the log, works out which cuisines you rate highest and what your 2-stars have in
+common, and tells you what it inferred and from which orders — which is a much easier
+thing to correct than an open question about your own diet.
 
-then it writes the file, shows you what it wrote, and gets on with the order you actually
-asked for. no second invocation.
+the one thing the log cannot tell it is allergies. never ordering shellfish is not evidence
+of an allergy and not evidence against one. so it asks exactly one question:
+
+> anything you're allergic to or flat-out won't eat? i can work the rest out from your
+> order history.
+
+four words is a complete answer. ignore it and it orders anyway, but it writes down *no
+limits declared — never confirmed* so the gap is visible instead of assumed away, and it
+asks again next time.
+
+**if you'd rather just tell it**, it'll take the full interview — order history first so it
+arrives with proposed answers instead of a blank form, then five questions in one message:
+hard limits, calories, macros, cuisines, components and prep. every one is skippable.
+"don't care" gets recorded as *no preference stated*, so next time it knows it asked.
+
+either way it writes the file, shows you what it wrote, and gets on with the order you
+actually asked for. no second invocation.
 
 ## the preferences file learns
 
@@ -201,6 +240,10 @@ so every time it reads new reviews it re-derives the `derived` rules and revises
 that stopped being true. if the log starts disagreeing with something **you** said, it says
 so once, shows you the ratings, and then keeps doing what you told it.
 
+this is also how you end up with good preferences having never written any. start it cold,
+rate your lunches, and the file fills itself in. a file that started empty and is *still*
+empty after five rated orders means the loop isn't running and something is broken.
+
 this is not decoration. the mediterranean thing below survived nine contradicting orders
 purely because nothing marked it as revisable.
 
@@ -210,10 +253,7 @@ purely because nothing marked it as revisable.
 recorded. a cancelled order is not an order and does not get logged — the ledger is what
 you actually ate, not what you almost ate.
 
-it currently holds **40 orders**, dec 2025 through sep 2026, with what each one cost and
-what you thought of it.
-
-components don't live here — they live in `dietary-preferences.md`. that's the split. the
+preferences don't live here — they live in `dietary-preferences.md`. that's the split. the
 log records what happened; the preferences file records what it *meant*. "i liked the Scali
 salad" generalizes to exactly one salad. "lose the lettuce, keep the tahini" generalizes to
 every menu on earth.
@@ -244,8 +284,8 @@ silent 4 outranks a chatty 3.
 
 and the complaints are never about macros. they are "dry", "bland", "stale, clearly
 cooked hours or even a day earlier", "barely any steak". those are execution failures
-that no amount of protein arithmetic can see coming, which is the entire reason the
-ratings outrank the calorie count when it builds a slate.
+that no amount of arithmetic can see coming, which is the entire reason the ratings
+outrank the numbers when it builds a slate.
 
 ## loved means go back
 
