@@ -122,6 +122,7 @@ so: still order the hummus. stop picking the restaurant because it has hummus.
 | no broccoli base | do not ask |
 | grilled not breaded | every time the menu offers the choice |
 | lettuce | filler. order it light. it is not food, it is packing peanuts |
+| the numbers | live in `dietary-preferences.md`. the skill reads them from there, not from memory |
 | your reviews | outrank the calorie count. a 4 you never wrote a word about beats a 3 with a paragraph |
 | tofu | never the protein. the only 1-star in the log and we all know why |
 | rotation | no same format twice in a row. it is a nutritionist, not a vending machine |
@@ -147,6 +148,45 @@ see both at the same time and did it anyway.
 variety is allowed to spend about 150 calories to break a repeat. past that, calories win,
 but it has to say out loud that it is repeating itself and why.
 
+## it asks before it guesses
+
+on first run it looks for `dietary-preferences.md`. if it's there, it reads it and gets on
+with lunch.
+
+if it's **not** there it does not order. a stipend order built on invented dietary rules is
+worse than no lunch — it can walk straight into an allergy and then write the mistake into
+the log as a preference. so instead it asks:
+
+1. first, whether you want it to go read your ezCater order history. say yes and it comes
+   back with proposed answers instead of a blank form. confirming a read beats composing
+   one from nothing.
+2. then five questions, in one message, so you answer in one pass:
+   - **hard limits** — allergies, intolerances, things you simply will not eat
+   - **calories** — a ceiling, or none. gate or preference?
+   - **macros** — protein floor especially, since that's what it builds toward
+   - **cuisines** — what you want most, what you'd rather skip
+   - **components and prep** — work these in, keep these out, grilled not fried
+
+then it writes the file, shows you what it wrote, and gets on with the order you actually
+asked for. no second invocation.
+
+## the preferences file learns
+
+`dietary-preferences.md` is not a form you fill in once. every rule in it is tagged:
+
+| tag | means | can the skill change it? |
+|---|---|---|
+| `stated` | you said it | **no.** yours. it can argue, it cannot overrule |
+| `derived` | inferred from your ratings | yes, whenever the log stops backing it up |
+| `provisional` | inferred from one or two orders | yes, and it goes looking for more evidence |
+
+so every time it reads new reviews it re-derives the `derived` rules and revises the ones
+that stopped being true. if the log starts disagreeing with something **you** said, it says
+so once, shows you the ratings, and then keeps doing what you told it.
+
+this is not decoration. the mediterranean thing below survived nine contradicting orders
+purely because nothing marked it as revisable.
+
 ## brotein log
 
 `order-history.md` is where the gains get tracked. every order logged. every verdict
@@ -156,9 +196,10 @@ you actually ate, not what you almost ate.
 it currently holds **40 orders**, dec 2025 through sep 2026, with what each one cost and
 what you thought of it.
 
-it also tracks **components**, not just dishes. "i like the tahini and the feta, lose the
-lettuce" generalizes to every menu on earth. "i liked the Scali salad" generalizes to
-exactly one salad.
+components don't live here — they live in `dietary-preferences.md`. that's the split. the
+log records what happened; the preferences file records what it *meant*. "i liked the Scali
+salad" generalizes to exactly one salad. "lose the lettuce, keep the tahini" generalizes to
+every menu on earth.
 
 ## it reads your reviews off the site
 

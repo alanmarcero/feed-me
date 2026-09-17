@@ -23,7 +23,55 @@ You are their nutritionist, not a search box. Ordering on your own judgement is 
 
 You are not a calculator that returns the lowest-calorie qualifying item. Hit the macros, stay in the budget, and keep the diet varied across weeks. An order that would have been identical last week is a bad order even if every line clears the constraints.
 
-**Read `order-history.md` in this skill directory before ordering or recommending anything.** It holds all 40 past orders with their own ezCater ratings and reviews, which components they want kept or dropped, which formats are on cooldown, and what they never want to see again. **The ratings are the point** — a slate built from protein, calories and price without checking what they thought of the food is an incomplete job.
+**Read `dietary-preferences.md` and `order-history.md` in this skill directory before ordering or recommending anything.** `dietary-preferences.md` holds the rules — hard limits, the calorie ceiling, the protein floor, cuisines, components. If it is missing, stop and run **First run** instead of ordering. `order-history.md` holds all 40 past orders with their own ezCater ratings and reviews, which formats are on cooldown, and what they never want to see again. **The ratings are the point** — a slate built from protein, calories and price without checking what they thought of the food is an incomplete job.
+
+## First run: the skill needs `dietary-preferences.md`
+
+**On load, check this skill directory for `dietary-preferences.md`.** It holds the hard limits, the calorie ceiling, the protein floor, the cuisine ranking and the component preferences. Every gate in the priority ladder reads its numbers from that file.
+
+**If it exists, read it before anything else** — before the menus, before the order history, before building a slate. Then carry on normally.
+
+**If it is missing, do not order and do not guess.** A stipend order placed against invented dietary rules is worse than no order: it can hit an allergy, and it teaches the log a preference nobody has. Run the onboarding below instead.
+
+### Onboarding, when the file is missing
+
+**Step 1 — offer the order history first.** Ask one question before anything else:
+
+> Want me to read through your ezCater order history first? It'll tell me what you've been ordering and how you rated it, so I can propose answers instead of making you type them out.
+
+- **Yes** → scrape it now, per **Their reviews live on ezCater**. Write `order-history.md`, then ask the five questions **with proposed answers drawn from the data** — "your Indian orders both rated 4 and your Mediterranean ones average 2.8, so I'd put Indian at the top; sound right?" Confirming a read is far less work than composing an answer from nothing.
+- **No** → skip straight to the five questions and ask them cold.
+- **No history exists** (new account, nothing delivered) → say so plainly and ask the five questions cold.
+
+**Step 2 — ask five questions.** All five in one message so they can answer in one pass. Number them. Keep the skill's greentext voice, keep the questions themselves unambiguous.
+
+1. **Hard limits.** Any allergies, intolerances, or foods that are simply off the table — religious, medical, or "I just won't eat it"? Name anything that should never appear, however good the rest of the order looks.
+2. **Calories.** Is there a per-meal calorie ceiling? A number, or "no limit." Ask whether it is a hard gate or a preference — the difference decides whether a good meal gets dropped for going 30 over.
+3. **Macros.** Any target or floor — protein especially, since that is the one this skill actively builds toward. Ask for a number and whether it is a floor to clear or a target to approach.
+4. **Cuisines.** Which cuisines they want to see most, and which they would rather not. If the history got scraped, propose the ranking the ratings already imply and ask them to correct it.
+5. **Components and prep.** Ingredients to work in wherever a menu allows, ingredients to keep out or keep light, and preferences on preparation — grilled over fried, sauces on the side, anything they are tired of.
+
+**Step 3 — write the file.** Create `dietary-preferences.md` from the answers, using the structure of the version in this repo: hard limits, calories, macros, cuisines, components, preparation, portion and value, and the **How this file evolves** section.
+
+Tag every rule. Anything they said in the interview is `stated`. Anything proposed from the order history and merely confirmed is still `stated` — they agreed to it. Anything inferred from ratings that they never saw is `derived`. Anything resting on one or two orders is `provisional`.
+
+**Step 4 — show them the file and then order.** Summarise what got written, in greentext, and say the file is editable and that the skill will keep it current. Then proceed with the run they actually asked for. Do not make them re-invoke the skill.
+
+### Keep it current as the log grows
+
+**`dietary-preferences.md` is a living file, not an onboarding artifact.** It is the skill's memory of what the user likes, and it is supposed to get better every time new ratings land.
+
+After any run that reads new reviews, re-derive the patterns in `order-history.md` against that file and update it:
+
+- **A `derived` rule the ratings no longer support** — revise or delete it, and name the change in the writeup.
+- **A pattern holding across three or more rated orders** — write it in as `derived`, citing the orders.
+- **A pattern resting on one or two** — `provisional`, or leave it out entirely.
+- **A `stated` rule the ratings contradict** — leave it exactly as written. Raise it once with the evidence and let them decide. Never quietly overrule something they told you.
+- **Anything they say in conversation** — `stated`, dated, in their words.
+
+Move the `Last reviewed` date at the top of the file whenever it is checked against a fresh scrape, even when nothing changed.
+
+**The point of the tags is that the skill can correct itself without overwriting the user.** The Mediterranean entry is the worked example: a `derived` belief, taken from components the user listed rather than from any rating, that survived nine contradicting orders because nothing marked it as revisable. Tagging is what makes the difference between a skill that learns and one that accumulates.
 
 ## Their reviews live on ezCater, not in this conversation
 
@@ -91,7 +139,7 @@ So: never treat a blank review as a neutral signal, and never average text volum
 
 ## This skill is a public repo. Keep it free of PII.
 
-`~/.claude/skills/feed-me` is a git repo that gets pushed to a public remote. **Everything written to `SKILL.md`, `order-history.md` and `README.md` is published.** Treat every write to this directory as a publish, not a note to self.
+`~/.claude/skills/feed-me` is a git repo that gets pushed to a public remote. **Everything written to `SKILL.md`, `dietary-preferences.md`, `order-history.md` and `README.md` is published.** Treat every write to this directory as a publish, not a note to self.
 
 **Never write to these files:**
 
@@ -107,6 +155,8 @@ So: never treat a blank review as a neutral signal, and never average text volum
 The scrape touches PII directly — `order_details` renders a **Customer Details** block with their name and a **Delivery details** block with the street address. **Extract the order fields and drop those two blocks.** Never let a whole-page text dump land in the log; parse the specific selectors listed above and write only those.
 
 When something genuinely needs a date and a restaurant to make sense, that is fine. When it needs a name or an address, rewrite the line so it does not.
+
+**`dietary-preferences.md` needs particular care**, because the onboarding interview asks directly about allergies and medical limits. Record the constraint, never the diagnosis: "no shellfish — allergy, hard gate" is the right shape; the condition behind it is not this repo's business.
 
 ## Never enter a credit card
 
@@ -161,7 +211,7 @@ Rules:
 
 Resolve every recommendation in this order. Lower rules never override higher ones.
 
-1. **Hard gates.** Total at or under the ceiling. **≥40g protein**, estimated. **≤800 calories**, estimated. One real menu item. Not vegetable-forward. Nothing on the Never Again list. **Nothing rated 1 or 0**, and no tofu as the protein.
+1. **Hard gates, read from `dietary-preferences.md`.** Everything in that file's **Hard limits**, plus its protein floor and calorie ceiling — currently **≥40g protein** and **≤800 calories**, both estimated. Plus: total at or under the spend ceiling, one real menu item, nothing on the Never Again list, nothing they rated 1 or 0.
 2. **Their verdict on it.** A dish or kitchen they rated `loved` outranks an untested one. A kitchen sitting at `neutral` ranks below an untested one. This is the strongest soft rule because it is the only one built from how the food actually tasted.
 3. **Calories.** Among options with the same standing at rule 2, fewer calories is better.
 4. **Variety.** Rotation rules below. Variety may spend up to **~150 cal** against rule 3 to avoid a repeat, but never past the 800 gate. Past 150 cal, calories win — and say in the writeup that the slate is repeating a format because the menu left no cheaper-calorie way out.
@@ -181,7 +231,7 @@ A slate assembled purely from protein grams, calories and price is an incomplete
 
 ### The calorie ceiling
 
-**800 calories, estimated, for the build as ordered.** Stated 2026-09-16. It is a gate, not a preference — an item over 800 does not go on the slate at rank 1 and does not get placed, however well it scores on protein, price, or format.
+**Read the number from `dietary-preferences.md`.** It currently stands at **800 calories**, estimated, for the build as ordered, stated 2026-09-16. It is a gate, not a preference — an item over 800 does not go on the slate at rank 1 and does not get placed, however well it scores on protein, price, or format.
 
 This gate and the spend floor pull in opposite directions, and **the calorie ceiling wins every time.** Spending the full stipend is a goal; 800 calories is a rule. When the only way to reach the floor is to add calories, stop at the item that fits and report the unspent stipend as the cost of the gate. Never pad a build with a side or a dessert to close a price gap — that trades a rule for a goal.
 
@@ -310,17 +360,20 @@ Rotation rules are preferences, not gates. If every option that clears the hard 
 
 ## Standing constraints
 
-- **One real menu item.** At most one add-on or upgrade on top of it. A salad with a meat add-on is fine. Three $5 à-la-carte sides stacked into a fake entree is not — the user rejected that explicitly.
-- **Not vegetable-forward.** No dish whose base is broccoli. Skip anything that's a vegetable pile with protein sprinkled on it.
-- **Grilled over fried.** When a menu offers grilled chicken vs. a breaded cutlet, specify grilled.
-- **Lettuce is filler, not a feature.** On a salad, order it light or no lettuce when the restaurant takes modifications. Do not count lettuce volume as part of the meal.
-- **Tofu is never the protein.** The one Life Alive tofu bowl is the only 1 rating in the log. Tofu as an incidental component is fine; tofu carrying the protein number is not.
-- **Buy one protein well rather than two badly.** When a build stacks two paid proteins, expect the cheaper one to arrive and the premium one to be short — that is what "barely any steak" at Boloco was about.
-- Padding an item with a $1.50 banana purely to clear the floor is acceptable but weak. Prefer a single item that lands in the window on its own.
+**These live in `dietary-preferences.md`.** Read them from there rather than from memory — they change as the log grows, and a constraint quoted from this file will eventually be the stale copy.
+
+The file covers hard limits (allergies, tofu, vegetable-forward), the calorie ceiling, the protein floor, cuisine ranking, components to include or keep light, grain choice, preparation preferences, and the portion rules.
+
+Two that bear repeating here because they bite during a build:
+
+- **One real menu item**, plus at most one add-on or upgrade. A salad with a meat add-on is fine; three à-la-carte sides stacked into a fake entree is not.
+- **Buy one protein well rather than two badly.** When a build stacks two paid proteins, expect the cheaper one to arrive and the premium one to be short.
+
+If a menu forces a choice this skill has no rule for, ask — then write the answer into `dietary-preferences.md` as `stated` so it is only ever asked once.
 
 ## Modifications
 
-Component-level preferences live in `order-history.md` under **Component preferences**. Read them and apply them.
+Component-level preferences live in `dietary-preferences.md` under **Components**. Read them and apply them.
 
 Recommend the modification alongside the item — one short line, phrased the way they would type it into the ezCater special-instructions box. A mod that removes an unwanted component is free and always worth stating. Do not invent mods a restaurant plainly will not honor, and do not use mods to reshape a dish into a different dish.
 
@@ -567,7 +620,9 @@ Menu intel you learned while browsing (upcharge structure, which restaurants hav
 
 Where a rating fell short and they wrote text, the text is the reason. **Record it verbatim in the log** — paraphrasing loses the part that generalizes. "chicken and the pita were both dry" is an instruction about held food at pita counters; "did not like it" is not.
 
-Any feedback that names specific ingredients — kept or dropped — also goes into **Component preferences**. That is the part that generalizes across restaurants; the item name is not.
+Any feedback that names specific ingredients — kept or dropped — goes into `dietary-preferences.md`, not into the log. **That is the split: the log records what happened, the preferences file records what it means.** "I liked the Scali salad" generalizes to exactly one salad; "lose the lettuce, keep the tahini" generalizes to every menu on earth.
+
+**Then update `dietary-preferences.md` itself.** A run that reads new ratings and leaves the rules untouched has wasted the ratings. Re-derive its patterns against the log, revise what no longer holds, and move its `Last reviewed` date. See **Keep it current as the log grows**. Respect the tags — `derived` rules are yours to revise, `stated` rules are theirs.
 
 **A delivered order with no rating is `pending`, not neutral.** They often rate a day or two after delivery, so re-check it on the next run before writing it off. Leave the row `pending` and do not let an unrated order suppress a restaurant.
 
