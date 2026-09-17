@@ -147,4 +147,6 @@ Keep the tags current. An untagged rule is one nobody can safely revise, which i
 
 Update `Last reviewed` at the top when the file is checked against a fresh scrape, even when nothing changes. A date that has not moved in months means the ratings are not being read.
 
-**This file is published.** It lives in a public repo — see the PII section in `SKILL.md`. Dietary rules, cuisine preferences and component lists are fine. Medical detail beyond "this is an allergy, avoid it" is not; record the constraint, not the diagnosis.
+**This file is personal data, and that is what it is for.** Write allergies and medical limits in full — how severe, what triggers it, what happens. A gate that reads "shellfish, anaphylaxis, includes shared fryers" gets enforced more carefully than one reading "no shellfish," and enforcement is the whole reason the line exists. Never soften a safety line to make the file easier to share.
+
+Whether this file ever leaves the machine is the user's decision, not the skill's. See **The data files are personal** in `SKILL.md`: the skill does not push, does not add remotes, and does not publish anything on its own initiative.
