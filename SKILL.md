@@ -58,6 +58,8 @@ If they answer, record it `stated`. If they ignore it, write **"no limits declar
 
 With no answers at all, build the whole file from the history. See **Deriving preferences from the log alone**.
 
+**A sync is also where the good questions come from.** Reconciling reads every order and every rating, which is exactly the material that makes a question worth asking. Close the sync with the handful the log raised — see **Ask questions the log raised** — and let them answer none, some or all of them. Anything they confirm turns a `provisional` rule `stated`; silence leaves it exactly as it was.
+
 You are their nutritionist, not a search box. Ordering on your own judgement is the job: curate, hit the macros, rotate the formats, spend the stipend. Do not stall on a decision they delegated to you.
 
 You are not a calculator that returns the lowest-calorie qualifying item. Hit the macros, stay in the budget, and keep the diet varied across weeks. An order that would have been identical last week is a bad order even if every line clears the constraints.
@@ -74,7 +76,19 @@ You are not a calculator that returns the lowest-calorie qualifying item. Hit th
 |---|---|
 | **Preferences file** | Read it first — before menus, before the log. Order against it. Best case. |
 | **No preferences, but order history** | Derive provisional preferences from the ratings and order against those. Write them down as you go. `/feed-me sync` does exactly this and nothing else. |
-| **Neither** | Order on sane defaults, say plainly that you are guessing, and start building the file from the first verdict. |
+| **Neither** | **Run a sync first**, then order against what it found. See below. |
+
+### Cold start: sync before you order
+
+**If `/feed-me` is invoked with no `dietary-preferences.md` and no `order-history.md`, run a sync before anything else.** Say so in one line first, so they know why lunch has not appeared yet:
+
+> no history or preferences here yet, so i'm reading your ezCater account first. one sec.
+
+Then run the sync exactly as `/feed-me sync` does it, and **keep going into the order they actually asked for.** This is a detour, not a new task. Do not hand back a sync report and wait to be re-invoked.
+
+Why this way round: the account almost always has history even when the skill does not. Ordering blind when a full log was sitting one fetch away is a worse first order than it needed to be, and it teaches the log a preference nobody has.
+
+**If the sync finds nothing either** — new account, nothing ever delivered — then order on sane defaults and say plainly that you are guessing. See **When there is nothing at all**.
 
 ### When there are no preferences but there is history
 
@@ -122,29 +136,56 @@ Then **create `dietary-preferences.md` as a stub**, with the section headings, e
 
 Say in the writeup that you are ordering blind and that it gets better from here.
 
-### The full interview, when they want it
+### Ask questions the log raised, not questions off a form
 
-Some users would rather just say what they want. If they offer preferences unprompted, ask for a preferences file, or answer the allergy question with a paragraph, run the whole thing.
+**When there is a log, the questions come out of it.** A generic questionnaire asks someone to describe their own diet in the abstract, which is hard and produces answers that turn out to be wrong. Reading their orders back to them and asking about the one thing that does not add up is easy to answer and worth more.
 
-**Offer the order history first:**
+**So mine the log first, then write the questions from what it found.** Ask about ambiguity, never about what the log already settles. If every Indian order is a 4, that is not a question, it is a finding — write it down and spend the question on something unresolved.
 
-> Want me to read through your ezCater order history first? It'll tell me what you've been ordering and how you rated it, so I can propose answers instead of making you type them out.
+#### What makes a pattern worth a question
 
-Yes → scrape, then ask the five questions **with proposed answers drawn from the data**: "your Indian orders both rated 4 and your Mediterranean ones average 2.8, so I'd put Indian at the top — sound right?" Confirming a read is far less work than composing an answer from nothing. No, or no history exists → ask them cold.
+Rank candidates by **how much the answer changes tomorrow's order.** Interesting-but-inert patterns lose to boring ones that decide a pick.
 
-**Then five questions, all in one message** so they answer in one pass. Number them. Keep the skill's greentext voice; keep the questions themselves unambiguous.
+| Pattern | Why it earns a question |
+|---|---|
+| **A wide spread inside one category** | Latin averaging 3.0 off a 4, a 3 and a 2 means the cuisine label is not what is driving the rating. Restaurant? Dish? Worth knowing. |
+| **A rule the log argues with** | `carb-base` is 26 of 40 orders and carries 9 of the 16 fours, while the stated rule rations it to one in three. One of those is wrong. |
+| **A contradiction between components and outcomes** | They want tahini, hummus, feta, olives, and rate Mediterranean kitchens lowest of any cuisine. Components or kitchens? |
+| **One data point carrying a whole rule** | A single tofu bowl rated 1 is now a hard limit on tofu. A single `soup-forward` order rated 4 is the best record of any format. Both deserve a sentence. |
+| **Days cancelled with nothing delivered** | Four restaurants were cancelled outright and never produced a meal. No rating exists, so only they can say whether that was the menu or the calendar. |
+| **A tight band that might be a constraint** | Every subtotal lands in a $2 window. Is that a floor they want held, or just what lunch costs there? |
+| **An absence** | A format or cuisine never once ordered. Deliberate avoidance and never-came-up look identical in a log and mean opposite things. |
 
-1. **Hard limits.** Any allergies, intolerances, or foods simply off the table — religious, medical, or "I just won't eat it"? Anything that should never appear, however good the rest of the order looks.
-2. **Calories.** A per-meal ceiling, or none. Ask whether it is a hard gate or a preference — that decides whether a good meal gets dropped for going 30 over.
-3. **Macros.** Any macro they track — protein, carbs, fat, fiber, sodium — and whether each is a floor to clear, a ceiling to stay under, or just a preference. **"None, I just want good food" is a complete answer.** Take it, write it down, and do not quietly invent one later.
-4. **Cuisines.** What they want most, what they would rather skip. If the history got scraped, propose the ranking the ratings imply and ask them to correct it.
-5. **Components and prep.** Ingredients to work in wherever a menu allows, ingredients to keep out or keep light, and preparation preferences — grilled over fried, sauces on the side, anything they are tired of.
+#### Writing the questions
 
-**Every question is skippable.** "Don't care" is a real answer and it gets recorded as one: write *no preference stated* rather than leaving a heading blank, so a later run knows it was asked and answered rather than never raised.
+**At most five, and the first one is always allergies** — it is the only question the log provably cannot answer, and the only one where a wrong guess hurts.
 
-**Then write the file** using the structure in this repo: hard limits, calories, macros, cuisines, components, preparation, portion and value, and **How this file evolves**.
+The other four come from the table above, best first. Each one:
 
-Tag every rule. Anything they said is `stated`. Anything proposed from their history and confirmed is `stated` too — they agreed to it. Anything inferred from ratings they never saw is `derived`. Anything resting on one or two orders is `provisional`.
+- **Carries its evidence inline.** "26 of your 40 orders are rice bowls and sandwiches, and they hold 9 of your 16 top ratings" makes the question answerable. "How do you feel about carbs?" does not.
+- **Is answerable in a few words.** They are eating lunch, not filling in a form.
+- **Offers the reading you would take** so agreeing is one word. "I'd drop the carb rationing — say the word and I'll keep it."
+- **Is skippable.** "Don't care" is a real answer. Record *no preference stated* rather than leaving the heading blank, so a later run knows it was asked rather than never raised.
+
+Worked shape, drawn from a real log:
+
+> 1. anything you're allergic to or won't eat? only thing your orders can't tell me.
+> 2. 26 of 40 orders are carbs and they hold 9 of your 16 favourites, but the rule says one in three. drop the rule?
+> 3. you like tahini/hummus/feta but mediterranean kitchens are your lowest-rated cuisine. components, or the kitchens?
+> 4. one tofu bowl, rated 1. tofu out entirely or was that just a bad bowl?
+> 5. four days you cancelled outright and never reordered. bad menus or bad days?
+
+**Ask all of them in one message so they answer in one pass**, and proceed on whatever comes back. No answer at all is fine: everything stays `derived` and `provisional` and the run continues.
+
+#### When there is no log to mine
+
+Then there are no patterns, and the questions fall back to the plain set: hard limits; a calorie ceiling or none, and whether it is a gate or a preference; any macro they track and whether it is a floor or a ceiling; cuisines they want and want to skip; components and prep. **"None, I just want good food" is a complete answer** to any of them. Take it, write it down, and do not quietly invent one later.
+
+#### Then write the file
+
+Use the structure in this repo: hard limits, calories, macros, cuisines, components, preparation, portion and value, and **How this file evolves**.
+
+Tag every rule. Anything they said is `stated`. **Anything you proposed from their history and they confirmed is `stated` too** — agreeing to a reading is stating it. Anything inferred from ratings they never saw is `derived`. Anything resting on one or two orders is `provisional`.
 
 **Then show them the file and order.** Summarise what got written, in greentext, say it is editable and that the skill keeps it current. Then proceed with the run they actually asked for — do not make them invoke the skill twice.
 

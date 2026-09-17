@@ -70,13 +70,13 @@ it will not type your password. it hits the login wall, stops, and waits for you
 one (1) thing that's yours to do.
 
 it will not push, ever. it commits locally all day long, but `git push` is a publication and
-publications are yours to order. no adding remotes, no flipping repos public.
+publications are yours to order. no adding remotes, no flipping repos public either.
 
 `order-history.md` and `dietary-preferences.md` are personal records, which is the entire
 point of them. there's no version of this that's both useful and anonymous, so it doesn't
 try: allergies in full, order ids kept so a row traces back to its page, no safety line ever
-softened to make a file easier to share. want the skill without the diary? `.gitignore` them
-or use a private remote. the portable half has none of it anyway.
+softened to make a file shareable. want the skill without the diary? `.gitignore` them or use
+a private remote. the portable half has none of it anyway.
 
 ## the rules
 
@@ -121,36 +121,56 @@ five options span at least three of them.
 
 this applies **inside** a single run: four days ordered in one go get four different formats.
 two salad days in one week is worse than two salad weeks in a row, because it could see both
-at once and did it anyway. variety can spend about 150 calories to break a repeat, then says
-so out loud.
+at once and did it anyway.
+
+## /feed-me sync
+
+the books straightened, with no lunch as a side effect. it reads all three tabs, opens every
+order, and makes `order-history.md` match: statuses advanced, ratings and reviews filled in,
+orders you placed without the skill added, cancellations moved across, anything it can't find
+flagged instead of deleted. it places nothing and cancels nothing. "no drift" is a real
+answer and you'll get it plainly.
+
+**it's also the least committal way to start.** run `sync` before answering anything and it
+builds your preferences out of the log: median protein across the orders you rated 3 or
+better becomes the floor, the 75th percentile of calories becomes the ceiling, cuisines rank
+by average rating, components come from what keeps showing up in your 4s. all of it tagged
+`provisional`, each shown with the number it came from, and yours to overrule on sight.
+
+run plain `/feed-me` with no history and no preferences and it syncs first, says so, then
+carries on into the order. your account has your lunches on it even when the skill doesn't.
 
 ## it works better with preferences. it works without them.
 
-on first run it looks for `dietary-preferences.md`. if it's there it reads it and gets on
-with lunch. if not, it does **not** make you fill in a form:
+it looks for `dietary-preferences.md`. if it's there it reads it and gets on with lunch. if
+not, it does **not** make you fill in a form:
 
 | what you've got | what it does |
 |---|---|
 | a preferences file | reads it, orders against it. best case |
 | no file, but order history | infers preferences from what you rated, writes them down |
-| neither | sane defaults, says it's guessing, starts the file from your first verdict |
-
+| neither | syncs first, and if that's empty too, sane defaults and says it's guessing |
 
 **your order history is a preferences file nobody typed.** forty rated orders say more than
-forty answers to a questionnaire, because a rating is what you thought *after eating*. it
-tells you what it inferred and from which orders, easier to correct than an open question.
+forty answers to a questionnaire, because a rating is what you thought *after eating*.
 
-the one thing the log can't tell it is allergies. never ordering shellfish is not evidence
-either way, so it asks one question:
+**and if you'd rather tell it, the questions come out of your log, not off a form.**
+describing your diet in the abstract is hard and the answers turn out wrong. being shown your
+orders and asked about the one thing that doesn't add up is easy. so it asks about the
+ambiguity and shuts up about what the log already settles:
 
-> anything you're allergic to or flat-out won't eat? i can work the rest out from your
-> order history.
+> 1. anything you're allergic to or won't eat? only thing your orders can't tell me.
+> 2. 26 of 40 orders are carbs and they hold 9 of your 16 favourites, but the rule says one in
+>    three. drop the rule?
+> 3. you like tahini/hummus/feta but mediterranean kitchens are your lowest-rated cuisine
+>    (2.78, against 4.00 for indian). components, or the kitchens?
+> 4. one tofu bowl, rated 1. tofu out entirely or was that just a bad bowl?
+> 5. four days you cancelled outright and never reordered. bad menus or bad days?
 
-four words is a complete answer. ignore it and it orders anyway, but writes down *no limits
-declared, never confirmed* so the gap stays visible, and asks again next time.
-
-**if you'd rather just tell it**, it'll run the full interview: five skippable questions
-covering hard limits, calories, macros, cuisines, components and prep.
+five at most, allergies always first because it's the only one a log provably can't answer.
+every other one carries its evidence and offers the reading it would take, so agreeing is one
+word. answer none of them and nothing breaks: it writes *no limits declared, never confirmed*
+so the gap stays visible, and won't shut up about it on the day it actually orders.
 
 ### it's not a form you fill in once
 
@@ -166,34 +186,15 @@ every time it reads new reviews it revises the `derived` rules that stopped bein
 the log disagrees with something **you** said, it says so once, shows you the ratings, and
 keeps doing what you told it.
 
-this is also how you end up with good preferences having never written any: start cold, rate
-your lunches, watch it fill itself in.
-
-## /feed-me sync
-
-the books straightened, with no lunch happening as a side effect. it reads all three tabs,
-opens every order, and makes `order-history.md` match: statuses advanced, ratings and reviews
-filled in, orders you placed without the skill added, cancellations moved across, anything it
-can't find flagged instead of deleted. then it re-derives your preferences from whatever the
-new ratings changed.
-
-it places nothing and cancels nothing. if the scan turns up something that wants doing it
-says so and leaves it to you. "no drift" is a real answer and you'll get it plainly.
-
-**it's also the least committal way to start.** run `sync` before answering anything and it
-builds your whole preferences file out of the log: median protein across the orders you rated
-3 or better becomes the floor, the 75th percentile of calories becomes the ceiling, cuisines
-rank by their average rating, components come from what keeps showing up in your 4s. every
-one of those is tagged `provisional`, shown with the number it came from, and yours to
-overrule the moment it's wrong.
-
-it'll ask about allergies once, because a log can't tell it that. ignore the question and it
-keeps going. it just won't shut up about the gap on the day it actually orders something.
+this is how you end up with good preferences having never written any: start cold, rate your
+lunches, watch it fill itself in. it's also how the skill catches itself being wrong. it used
+to insist mediterranean food "landed well" on the strength of components he'd listed, and
+nine contradicting ratings never budged it, because nothing marked the belief as revisable.
 
 ## it reads your reviews off the site
 
-you already rate orders on ezCater, and clicking a star is less work than typing a sentence,
-so it reads the stars instead of asking twice. five stars, stored 0-4:
+you already rate orders on ezCater, and a star is less work than a sentence, so it reads the
+stars instead of asking twice. five stars, stored 0-4:
 
 | stars | verdict | what happens |
 |---|---|---|
@@ -204,7 +205,7 @@ so it reads the stars instead of asking twice. five stars, stored 0-4:
 | 0 | never again | dish done, kitchen suspect |
 
 ratings live in markup the accessibility tree doesn't expose, so it parses the order-detail
-pages directly, re-scraping whenever something's been delivered since the last look.
+pages directly.
 
 **a blank review is not missing data.** six of forty orders have text and all six are
 complaints. you write when something's wrong and say nothing when it's right, so a silent 4
@@ -212,38 +213,18 @@ outranks a chatty 3. and the complaints are never about macros. "dry". "bland". 
 clearly cooked hours or even a day earlier". "barely any steak". execution failures no
 arithmetic sees coming, which is why ratings outrank numbers.
 
-it all lands in `order-history.md`, where the gains get tracked. every order, every verdict,
-every cancellation, each carrying a status from placed to rated. preferences don't live
-there: the log records what happened, the preferences file records what it *meant*. "i liked
-the Scali salad" generalizes to one salad. "lose the lettuce, keep the tahini" generalizes to
-every menu.
+it all lands in `order-history.md`. every order, every verdict, every cancellation, each
+carrying a status from placed to rated. preferences don't live there: the log records what
+happened, the preferences file records what it *meant*. "i liked the Scali salad" generalizes
+to one salad. "lose the lettuce, keep the tahini" generalizes to every menu.
 
 ## loved means go back
 
 the failure mode of a rotation rule is treating good food as a thing to be rationed. you
-rated it 4. that's a request. so a **loved** kitchen is exempt from "pick somewhere else
-this time" and can repeat inside the four-order window, something new off that menu or the
-same build again. it just has to say it's riding on a 4, so you can tell a deliberate repeat
-from a robot out of ideas. a **neutral** kitchen doesn't get a turn for being overdue.
-
-## a worked example of it changing its mind
-
-one user's log, not a rule for yours. forty orders in, averaged by cuisine:
-
-| cuisine | orders | avg |
-|---|---|---|
-| indian | 2 | **4.00** |
-| east / southeast asian | 12 | **3.33** |
-| latin | 3 | 3.00 |
-| mediterranean / middle eastern | 9 | **2.78** |
-
-the skill used to say mediterranean "lands well". it does not. that belief came from
-components he'd said he liked (tahini, hummus, feta, olives), not from a single rating. both
-2s came with a review saying the same thing: the pita was dry, the shawarma was cooked a day
-ago. invisible from the menu text.
-
-the components are real, the kitchens are the problem. so: still order the hummus, stop
-picking the restaurant because it has hummus.
+rated it 4. that's a request. so a **loved** kitchen is exempt from "pick somewhere else this
+time" and can repeat inside the four-order window. it just has to say it's riding on a 4, so
+you can tell a deliberate repeat from a robot out of ideas. a **neutral** kitchen doesn't get
+a turn for being overdue.
 
 ## install
 
