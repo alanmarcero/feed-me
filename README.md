@@ -64,7 +64,7 @@ the cart shows subsidy and total before you commit, so it builds to the largest 
 reading **total $0.00** and stops. the catch: every menu price is pre-tax and the stipend is
 spent on the post-tax total, so a $19.50 lunch is not a $19.50 lunch. it does that conversion
 on every candidate before ranking. at 7% that leaves about $18.68 of menu to play with, and
-forty receipts agree: everything under it came back covered, the one order past it cost $0.20.
+forty-one receipts agree: everything under it came back covered, the one past it cost $0.20.
 
 ## the one hard rule
 
@@ -105,6 +105,8 @@ the money rules are the skill's. the food rules are yours.
 | rotation | no same format twice in a row |
 | loved food | a 4 buys permission to repeat. a 4 *and* a return beats trying somewhere new |
 | your reviews | outrank the arithmetic. a silent 4 beats a 3 with a paragraph |
+| cancelling | the target gets proven against the site first. a plain cancel is never read as a complaint |
+| questions | asked in plain english, outside the greentext. you should never have to hunt for one |
 | the numbers | live in `dietary-preferences.md`. never from memory |
 | pushing | never on its own. commits yes, publishes no |
 
@@ -121,8 +123,10 @@ the money rules are the skill's. the food rules are yours.
 | rationing | "fine, but not every week." carbs, fried stuff, whatever you're pacing |
 | no rules | also fine. "just get me something good" is a complete answer |
 
-the example file here says 40g protons, 800 calories, quinoa over brown rice over white, and
-lettuce is packing peanuts. that's one guy. the skill only cares that yours is written down.
+the example file here says 45g protons, 800 calories, beans over quinoa over brown rice over
+white, a light carb on every plate, top of every heat scale, and lettuce is packing peanuts —
+not because it's a vegetable, but because it's the cheapest thing a kitchen can put under your
+protein. that's one guy. the skill only cares that yours is written down.
 
 ## the rotation thing
 
@@ -134,6 +138,9 @@ five options span at least three of them.
 this applies **inside** a single run: four days ordered in one go get four different formats.
 two salad days in one week is worse than two salad weeks in a row, because it could see both
 at once and did it anyway.
+
+a format at zero orders is **untested, not unwanted** — it'll reach for one rather than treat
+the gap as a decision you made.
 
 ## /feed-me sync
 
@@ -188,21 +195,27 @@ not, it does **not** make you fill in a form:
 | no file, but order history | infers preferences from what you rated, writes them down |
 | neither | full sync first, then questions, then orders. if that's empty too, sane defaults |
 
-**your order history is a preferences file nobody typed.** forty rated orders say more than
-forty answers to a questionnaire, because a rating is what you thought *after eating*.
+**your order history is a preferences file nobody typed.** thirty-four rated orders say more
+than thirty-four answers to a questionnaire, because a rating is what you thought *after
+eating*.
 
 **and if you'd rather tell it, the questions come out of your log, not off a form.**
 describing your diet in the abstract is hard and the answers turn out wrong. being shown your
 orders and asked about the one thing that doesn't add up is easy. so it asks about the
 ambiguity and shuts up about what the log already settles:
 
-> 1. anything you're allergic to or won't eat? only thing your orders can't tell me.
-> 2. 26 of 40 orders are carbs and they hold 9 of your 16 favourites, but the rule says one in
->    three. drop the rule?
-> 3. you like tahini/hummus/feta but mediterranean kitchens are your lowest-rated cuisine
->    (2.78, against 4.00 for indian). components, or the kitchens?
-> 4. one tofu bowl, rated 1. tofu out entirely or was that just a bad bowl?
-> 5. four days you cancelled outright and never reordered. bad menus or bad days?
+1. Anything you're allergic to or won't eat? The only thing your orders can't tell me.
+2. 27 of 41 orders are carbs and they hold 12 of your 16 favourites, but the rule rations them
+   to one in three. Drop the rule?
+3. You like tahini, hummus and feta, but Mediterranean kitchens are your lowest-rated cuisine —
+   2.80, against 4.00 for Indian. Components, or the kitchens?
+4. One tofu bowl, rated 1. Tofu out entirely, or was that just a bad bowl?
+5. Four days you cancelled outright and never reordered. Bad menus or bad days?
+
+**note the voice.** the greentext is for things you read and put down. anything it needs *you*
+to answer comes back in plain english, outside the block — a numbered list in meme cadence
+reads as more findings and gets skimmed past, which is exactly how a refine pass with eight
+questions in it once came back looking like a report with none.
 
 five at most, allergies always first because it's the only one a log provably can't answer.
 every other one carries its evidence and offers the reading it would take, so agreeing is one
@@ -241,9 +254,15 @@ to stop being a guess.
 
 and the thing no ordinary run can ever surface, because nothing in a log points at what isn't
 in it: **the gaps.** a format you've never once ordered. a cuisine carrying a 4.00 average on
-two orders. a restaurant you tried once and never again, verdict or accident. meals you never
-rated. days you cancelled outright. whole axes the file has no opinion on, like whether you
-want spice as a scale or a yes, or how much of a plate you actually finish.
+two orders. a restaurant you tried once and never again. meals you never rated. whole axes the
+file has no opinion on, like whether you want spice as a scale or a yes, or how much of a plate
+you actually finish.
+
+**an absence in a log is not a preference**, and that's the whole reason the mode exists. never
+ordering a thing and deliberately avoiding it look identical on paper and mean opposite things.
+one run here found a format sitting at zero orders out of forty-one that turned out to be the
+exact shape of three rules the file already carried — nobody had ever said no to it, it just
+never came up.
 
 it leads with the finding and puts the question after it, reports the good patterns even when
 there's nothing to decide, and writes only to `dietary-preferences.md`. answer nothing and it
@@ -269,8 +288,8 @@ stars instead of asking twice. five stars, stored 0-4:
 ratings live in markup the accessibility tree doesn't expose, so it parses the order-detail
 pages directly.
 
-**a blank review is not missing data.** six of forty orders have text and all six are
-complaints. you write when something's wrong and say nothing when it's right, so a silent 4
+**a blank review is not missing data.** six of forty-one orders have text on the site and all
+six are complaints. you write when something's wrong and say nothing when it's right, so a silent 4
 outranks a chatty 3. and the complaints are never about macros. "dry". "bland". "stale,
 clearly cooked hours or even a day earlier". "barely any steak". execution failures no
 arithmetic sees coming, which is why ratings outrank numbers.
