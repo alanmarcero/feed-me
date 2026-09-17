@@ -392,8 +392,12 @@ git clone git@github.com:alanmarcero/feed-me.git ~/.claude/skills/feed-me
 
 then `/feed-me`
 
-needs the playwright mcp server for the ordering half. without it the skill still works, it
-just goes back to being a thing you paste menus into like it's 2024.
+needs a browser for the ordering half. in the terminal that's the playwright mcp server; in
+the claude desktop app it's the built-in browser pane, and the skill drives either one. both
+paths are documented under **which browser drives this** and both have placed real orders.
+
+with no browser at all the skill still works, it just goes back to being a thing you paste
+menus into like it's 2024.
 
 
 ## disclaimer
