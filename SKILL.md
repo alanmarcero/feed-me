@@ -215,11 +215,38 @@ The correct state at every checkout is **Total $0.00, no payment method requeste
 
 ## Budget
 
-Default stipend is **$20.00 per day**. The user states it when it changes.
+**The number that matters is the total, tax included.** Default stipend is **$20.00 per day**, and the goal is to land each day's total as close to it as possible without crossing. Cross by one cent and the checkout asks for a card. Unused stipend is wasted stipend.
 
-The stipend covers subtotal + tax. The goal is to land each day's *total* as close to that day's stipend as possible without crossing it. Unused stipend is wasted stipend.
+**Budgets are per day and strictly independent.** Nothing pools, nothing carries over, and underspending Tuesday buys nothing on Wednesday. Read each day's own subsidy off its page rather than assuming $20.00 — the program can set them differently.
 
-**Budgets are per day and strictly independent.** Nothing pools, nothing carries over, and underspending Tuesday buys nothing on Wednesday. Read each day's own subsidy figure off its page rather than assuming $20.00 — the program can set them differently, and a day's ceiling is computed from its own number and its own delivery fee.
+### The menu is pre-tax. The gate is post-tax.
+
+**This is the one piece of arithmetic that decides whether a build clears, and it is the easiest thing in the skill to get wrong.** Every price on every menu, every option modal, every add-on is a *pre-tax* number. The stipend is spent against a *post-tax* total. A build that reads $19.50 on the menu does not cost $19.50.
+
+So every candidate gets grossed up before it is compared to anything:
+
+```
+total = subtotal x (1 + tax rate)
+```
+
+At the verified 7% MA meals tax, a menu price is multiplied by **1.07**. Round to the cent the way a till does, half up.
+
+**Work the other direction to get a spend ceiling you can shop against.** Menus are browsed in pre-tax dollars, so carrying a post-tax number into a menu is useless:
+
+```
+max subtotal = subsidy / 1.07, rounded DOWN to the cent, then back off one more cent
+```
+
+**Round down, never up.** Rounding up produces a subtotal whose total lands a cent over, which is the exact failure this section exists to prevent.
+
+**Then take one more cent off.** At a $20.00 subsidy the division gives $18.6915..., which rounds down to $18.69 — and $18.69 grosses to exactly $20.00, spending the subsidy to the last cent with nothing left for a rounding surprise. Backing off one more cent gives **$18.68**, which is the number to shop against:
+
+| Subtotal | x 1.07 | Total | Out of pocket |
+|---|---|---|---|
+| $18.68 | $19.9876 | **$19.99** | $0.00 — the last safe subtotal |
+| $18.69 | $19.9983 | **$20.00** | $0.00, but zero margin. Do not use it. |
+| $18.75 | $20.0625 | $20.06 | $0.06 |
+| $18.88 | $20.2016 | $20.20 | $0.20 — the receipt that proved it |
 
 ### Verified constants
 
@@ -231,21 +258,19 @@ From receipts, not assumptions. Update when a new receipt contradicts one.
 | Delivery fee | $0.00 | all 40 orders |
 | Max subsidy | **$20.00** | 2026-09-01: an $18.88 subtotal drew $20.00 and cost $0.20 |
 
-Max subtotal where total lands at or under $20.00: **$18.68** ($18.69 hits exactly $20.00 with zero margin — do not use it).
-
 ### The ceiling is settled
 
-**Ceiling $18.68 subtotal. Floor $16.85.** This is proven by 40 receipts, not climbed to. There is no ratchet any more — the ladder existed to discover a number that the order history now contains.
-
-The subsidy caps at $20.00 and absorbs subtotal + 7% tax. `order-history.md` shows every subtotal at or under $18.50 fully covered, and $18.88 costing exactly $0.20 out of pocket. The wall sits at $18.69, so $18.68 is the last safe subtotal.
+**Ceiling $18.68 subtotal, which is $19.99 all in. Floor $16.85.** Proven by 40 receipts, not climbed to. There is no ratchet any more — the ladder existed to discover a number the order history now contains.
 
 Rules:
 
-- **Land as close to $18.68 as the menu allows**, subject to the gates below. Unused stipend is wasted stipend.
-- **If a day's posted subsidy is not $20.00, recompute that day's ceiling from that day's number** — `subsidy / 1.07`, rounded down a cent. Never carry $18.68 onto a day that posts something else.
-- **If an order ever asks for a card, stop and rebuild.** Log the subtotal that failed; that is a real data point about the day's subsidy, not about the ceiling.
-- **A delivery fee resets the math.** It has been $0.00 on all 40 orders, but if a restaurant charges one, subtract it from that day's ceiling.
-- If the best qualifying item sits below the floor, say so rather than padding the order with junk.
+- **Land as close to $18.68 as the menu allows**, subject to the dietary gates. If the best qualifying item sits below the floor, say so rather than padding the order with junk.
+- **If a day's posted subsidy is not $20.00, recompute that day's ceiling from that day's number** with the division above. Never carry $18.68 onto a day that posts something else.
+- **A delivery fee is charged pre-tax and eats the subtotal budget.** It has been $0.00 on all 40 orders. If a restaurant charges one, subtract it from that day's max subtotal before shopping.
+- **If a tax rate other than 7% ever shows on a receipt, that receipt wins.** Recompute from the observed rate and update the constants table.
+- **If an order ever asks for a card, stop and rebuild.** Log the subtotal that failed; that is a data point about the day's subsidy, not about the ceiling.
+
+**In order-mode, trust the cart over the arithmetic.** The cart prints the day's real subsidy and the real total before you commit. The division above is for shopping a menu; the cart is the ground truth at checkout. See **The cart overrides the estimate**.
 
 **The dietary gates outrank this entire section.** Never add a side, a dessert or a drink to close a price gap if it breaks a limit in `dietary-preferences.md`. Unspent stipend is a cost worth reporting; a build that busts their ceiling is not a trade that was ever on the table. See **The dietary gates**.
 

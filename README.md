@@ -43,10 +43,11 @@ ceases to exist. so it claims every open day, computing each day's ceiling off t
 subsidy and delivery fee. leaving one is a tuesday you paid for and did not eat.
 
 the cart shows subsidy and total before you commit, so it builds to the largest order still
-reading **total $0.00** and stops. at $20.00 and 7% tax the wall is $18.68, because $18.69
-lands on exactly $20.00 with zero margin. that used to be a guess climbing a rung per
-receipt. forty receipts settled it: everything at or under $18.50 came back covered, and the
-one order that hit $18.88 cost $0.20.
+reading **total $0.00** and stops. the catch is that every price on the menu is pre-tax and
+the stipend is spent on the post-tax total, so a $19.50 lunch is not a $19.50 lunch. the
+skill does that conversion on every candidate before ranking it. at 7% that leaves about
+$18.68 of menu to play with, and forty receipts agree: everything under it came back
+covered, and the one order that went past cost $0.20.
 
 ## the one hard rule
 
