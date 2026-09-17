@@ -12,7 +12,9 @@ This is a personal record and is meant to be one. The `ID` column is the ezCater
 
 ## The ceiling is proven, not a ratchet
 
-**Ceiling $18.68 subtotal. Floor $16.85.**
+**Ceiling $18.68 subtotal. No floor.**
+
+**The $16.85 floor is retired**, `stated` 2026-09-17: *"we just dont want to spend extra money. they're buying me lunch, not the other way around."* The ceiling is a hard gate against a card prompt and stays exactly where it is. There is no minimum any more, nothing gets padded toward one, and unspent stipend is not a cost to report. See **Portion and value** in `dietary-preferences.md`.
 
 Forty receipts settle what the ratchet ladder was built to discover. The subsidy caps at **$20.00** and absorbs subtotal + 7% tax. Every subtotal at or under $18.50 came back fully covered at $0.00 out of pocket. The one order that crossed cost exactly what the arithmetic predicted:
 
@@ -78,7 +80,7 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 | 17502222 | 2026-02-17 | `rated` | Basil Rice | Spicy Basil Entree + Chicken & Shrimp ($4.00) + white rice + Peanut Sauce ($1.50) | `carb-base` | $18.45 | $1.29 | $0.00 | **4 loved** | — |
 | 17389853 | 2026-02-10 | `rated` | Santa Fe Burrito Grill | 3 × GF Chicken Taco ($7.95) + Carne Asada Bowl ($10.25) | `carb-base` | $18.20 | $1.27 | $0.00 | **4 loved** | — |
 | 17278576 | 2026-02-03 | `delivered` | La Hacienda | Carne Asada — rice, house salad, beans | `protein-plate` | $18.50 | $1.30 | $0.00 | — | — |
-| 17177762 | 2026-01-27 | `delivered` | Atlantic Poké | The Atlantic (salmon + ahi) + Seaweed Salad ($1.75) + brown rice | `carb-base` | $18.20 | $1.27 | $0.00 | — | — |
+| 17177762 | 2026-01-27 | `delivered` | Atlantic Poké | The Atlantic (salmon + ahi) + Seaweed Salad ($1.75) + brown rice | `carb-base` | $18.20 | $1.27 | $0.00 | **4 loved** | chat: *"i know the poke bowl is always a great choice, can give that a 4/4"* — rated in conversation 2026-09-17, never on the site. Status stays `delivered`; a chat rating is a verdict, not a star click |
 | 17089440 | 2026-01-22 | `rated` | Meet Us Asian Cuisine | Spicy Blue Crab Maki Roll | `carb-base` | $17.95 | $1.26 | $0.00 | 3 liked | — |
 | 17089406 | 2026-01-21 | `delivered` | Thai Spice | Veggie Fresh Rolls ($8.45) + Chicken Satay ($9.45) | `protein-plate` | $17.90 | $1.25 | $0.00 | — | — |
 | 17089390 | 2026-01-20 | `rated` | Nirvana: Taste of India | Chicken Do Piaza | `protein-plate` | $18.00 | $1.26 | $0.00 | **4 loved** | — |
@@ -155,6 +157,7 @@ Same-day cancellations are not second visits. Six rows in **Cancelled** are swap
 | Santa Fe Burrito Grill | 3 chicken tacos + carne asada bowl | breaks the one-item rule and still scored 4 |
 | Nirvana: Taste of India | Chicken Do Piaza | $18.00 single item, no add-ons needed |
 | Poke City | Spicy Salmon Bowl + grilled chicken | raw fish again |
+| Atlantic Poké | The Atlantic (salmon + ahi) + seaweed salad, brown rice | rated 4 in chat 2026-09-17 — **poke is now 2 for 2 at 4 and a `stated` standing yes** |
 | Bom Dough | Egg & Greens Bowl + pao de queijo | eggs as the entree protein |
 | Levain Bakery | chips + walnut raisin roll | side order only, not a lunch |
 
@@ -172,7 +175,7 @@ Roots to Rise, Shy Bird, Noor Mediterranean Grill, Dora Taqueria, Lotus Test Kit
 
 ### Never Again
 
-_(empty — nothing has been rated 0)_
+**Life Alive — Teriyaki Tofu Bowl.** `1 disliked`, 2026-03-03. Added 2026-09-17 by the refine pass: the rating table in `SKILL.md` says a 1 retires the dish and moves it here, and this row had been sitting at `disliked` without ever being written down. **The list is for dishes, not kitchens** — nothing here is rated 0, so no restaurant is blacklisted outright. Life Alive itself stays deprioritized rather than banned, for the reasons under **Observed preferences**.
 
 ## Cancelled
 
@@ -212,7 +215,11 @@ Two consequences worth holding onto:
 
 ## Unrated
 
-Thai Spice (2026-01-21), Atlantic Poké (2026-01-27), La Hacienda (2026-02-03), Fresh City (2026-03-16), WOW TIKKA (2026-04-27), Publico Street Bistro (2026-05-26), Bom Dough bacon (2026-05-12). Treat as untested, not as bad. Several are second orders placed the same day as a rated one.
+Thai Spice (2026-01-21), La Hacienda (2026-02-03), Fresh City (2026-03-16), WOW TIKKA (2026-04-27), Publico Street Bistro (2026-05-26), Bom Dough bacon (2026-05-12). Treat as untested, not as bad. Several are second orders placed the same day as a rated one.
+
+**Atlantic Poké came off this list on 2026-09-17** with a chat rating of **4** — see the log row. That is the only one of the seven that will ever be recovered: asked about the rest, the answer was *"can't rate at this point, it was too far away."* **So these six are permanently unrated and that is now settled** — do not raise them again, and do not chase a verdict that no longer exists.
+
+**WOW TIKKA is the expensive one to lose**: an $18.47 lamb kofta build with vindaloo, brown rice and red quinoa, from an Indian kitchen — and Indian is a `stated` standing yes resting on exactly two ratings. **The lesson is timing, not the dish.** A rating is recoverable for a week or two and gone after that, so `delivered` rows get chased on the next run, not the next quarter. See **Come back for the rating** in `SKILL.md`.
 
 ## What these ratings mean for future orders
 
@@ -220,12 +227,12 @@ Thai Spice (2026-01-21), Atlantic Poké (2026-01-27), La Hacienda (2026-02-03), 
 
 Currently derived from the table above and recorded there:
 
-- **Cuisine ranking.** Indian 4.00, East/SE Asian 3.33, Latin 3.00, Mediterranean/Middle Eastern 2.80. Mediterranean is the weakest repeated cuisine, which reverses what this skill used to assume. **Spicy Indian is now a stated standing yes**, and the table only ranks 27 of the 34 rated orders — the other seven are not a cuisine. See `dietary-preferences.md`.
+- **Cuisine ranking.** Indian 4.00, East/SE Asian **3.38**, Latin 3.00, Mediterranean/Middle Eastern 2.80. East/SE Asian moved up when Atlantic Poké was rated 4; **raw fish across all five rated orders averages 3.60**, and **poke alone is 2 for 2 at 4**. Mediterranean is the weakest repeated cuisine, which reverses what this skill used to assume. **Spicy Indian is now a stated standing yes**, and the table only ranks 27 of the 34 rated orders — the other seven are not a cuisine. See `dietary-preferences.md`.
 - **Cancelled orders feed none of this.** The ten rows under **Cancelled** carry no rating and no verdict, so they change no average and no rule.
 - **Preparation signals.** Cooked-to-order, raw fish and aggressive seasoning predict a 4. Cold assembly, held pita and shawarma, chain burrito bowls and tofu predict a 2.
 - **Tofu is never the protein.** The Life Alive bowl is the only 1 in the log.
-- **`carb-base` is rationed, not disliked.** It is 27 of 41 orders and carries **12** of the sixteen 4s — and also every rating below 3. It is the high-variance format, not the bad one. **The rationing governs the format, not the presence of a carb**: a light carb side is wanted on every build. `stated` 2026-09-17.
-- **Under-used formats.** `soup-forward` has one order (Zuzumomo, rated 4) and `bowl-no-grain` has **none in 41 deliveries**. `soup-forward` has the best record of any format and the least use — reach for it when rotation needs a fresh slot, and note that the only other soup day on record was lost to a calendar rather than to the kitchen. An absence in this log is not a preference.
+- **`carb-base` is rationed, not disliked.** It is 27 of 41 orders and carries **13** of the seventeen 4s — and also every rating below 3. It is the high-variance format, not the bad one. **The rationing governs the format, not the presence of a carb**: a light carb side is wanted on every build. `stated` 2026-09-17.
+- **Under-used formats.** `soup-forward` has one order (Zuzumomo, rated 4) and `bowl-no-grain` has **none in 41 deliveries**. `soup-forward` has the best record of any format and the least use — reach for it when rotation needs a fresh slot, and note that the only other soup day on record was lost to a calendar rather than to the kitchen. **But only for an interesting soup**: `stated` 2026-09-17, *"soup is an ok option if it's a unique soup. nothing boring."* That is why the format is rare despite rating 4, and it is a taste filter rather than a rotation problem. An absence in this log is not a preference.
 
 **After any scrape that adds ratings, re-derive these against `dietary-preferences.md`** and update that file. See **How this file evolves** there for what promotes a pattern to a rule.
 
@@ -234,10 +241,15 @@ Currently derived from the table above and recorded there:
 Derived from actual orders, not stated preferences.
 
 - Chose the highest-priced qualifying option rather than the cheapest, consistently. Thirty-two of forty subtotals land between $16.00 and $18.90.
+- **And it has never paid off.** Recounted 2026-09-17 across the 34 rated lunches, side orders excluded: the 4s average a **$17.59** subtotal, the 3s $17.69, the 2s $17.87, and the single 1 cost $17.95. A clean inverse ladder at every step. The sample is small and the band is narrow, so the honest read is not *cheaper is better* — it is that **spending more has never once bought better food**. See the corrected bullet in `dietary-preferences.md`.
+- **Two rows in this log are side orders, not lunches**, and folding them into aggregates distorts them: Levain chips + roll ($4.13, rated 4) and Bom Dough bacon ($4.00, unrated). Exclude both from any price or format average. Doing so leaves the rated-lunch average at **3.24** and moves `carb-base` from 3.21 to **3.17**.
 - Willing to stack add-ons to reach the window: four sauces at Sake, two fried eggs at Saigon Tiger, chips-and-pico at Boloco.
 - Has broken the one-item rule himself and rated the result 4 — Santa Fe Burrito Grill, three tacos plus a bowl.
 - Picked Scali over Cafe Landwer and Life Alive when all three were available. The ratings say he was right: Scali 3, Landwer 2, Life Alive 1.
 - Life Alive is a vegetable-and-tofu menu, nothing clears 40g protein, and it holds the only 1 in the log. Do not build options from it.
+
+- **Never once ordered a drink or a dessert** in 41 deliveries. Confirmed 2026-09-17 as deliberate: *"i dont order drinks or desserts, save that money for protons."* It is now a hard limit in `dietary-preferences.md`, not an observation.
+- **The schedule is Tuesday, plus Thursday for the next few months.** 33 of the 41 delivered orders landed on a Tuesday, and 29 of the 33 delivery weeks carried exactly one day. That is the program's shape, not a choice: *"if it's available on the site, it's available to feed me."* Expect two-day weeks from 2026-09-17 and order every open day.
 
 ### Restaurant intel
 
@@ -257,7 +269,7 @@ Derived from actual orders, not stated preferences.
 
 **Saigon Tiger.** Fried eggs are $2.00 each and stack — the cheapest protein-per-dollar lever in the log. Rated 4.
 
-**Flavor Boom!** Every entree is a $13.85 rice bowl — all `carb-base`, all well under the floor, no add-ons to lift them. Only the Supernova Shrimp Curry Bowl ($16.85) reaches the window, and shrimp curry is thin on protein. Rice is the only grain. Never ordered.
+**Flavor Boom!** Every entree is a $13.85 rice bowl — all `carb-base`, no add-ons to lift them. With the spend floor retired the price is no longer the objection; the protein is. Only the Supernova Shrimp Curry Bowl ($16.85) is built around a real protein portion, and shrimp curry is thin on it. Rice is the only grain. Never ordered.
 
 **B.GOOD.** Salads $13.80-$14.95, sandwiches $9.50-$13.23. Nothing reaches the floor alone. The 2026-08-04 order got there with Bacon ($2.50) + Double Protein ($2.65) and rated 3.
 
