@@ -279,6 +279,44 @@ So: never treat a blank review as a neutral signal, and never average text volum
 
 **Complaints are almost never about macros, price or format.** They are about execution — freshness, moisture, seasoning, portion honesty, value. Those are the failure modes this skill's gates cannot see, which is exactly why the reviews have to be read rather than inferred from the numbers.
 
+### Reviews arrive from two places. Merge them, never overwrite.
+
+**The user reviews food here in conversation as well as on ezCater.** Both are real feedback and neither replaces the other. A row's review text is the **union** of what the site holds and what they said in chat.
+
+#### The one rule that matters
+
+**A sync never erases chat feedback.** This is the failure mode to design against: a reconciliation opens a detail page, finds no `.order-review-footer`, and writes an empty review over something they told you last week. The site is the source of truth for *what is on the site* — it knows nothing about a conversation.
+
+So on every sync: **site text fills or updates the site's half of the field. It never touches the chat half.** If the site has no text, the chat text stands exactly as written.
+
+#### Which source owns what
+
+| Field | Authority | Why |
+|---|---|---|
+| **Star rating** | **ezCater, always** | It is the only place a number exists. Chat sets a rating only if they state one outright ("that was a 4"). |
+| **Review text** | **Both, merged** | They are separate observations, not two drafts of one. |
+| **Verdict** | derived from the rating | Unrated plus a glowing chat review is still `delivered`, not `rated`. |
+
+**Record both with their source visible**, so a later run can tell them apart and merge again without guessing:
+
+| Situation | How the cell reads |
+|---|---|
+| site only | `"Pretty basic sandwich"` |
+| chat only | `chat: "ok, too much lettuce"` |
+| both | `"Pretty basic sandwich" · chat: "bread was stale too"` |
+
+**Deduplicate on meaning, not on characters.** If they say in chat what they already wrote on the site, keep the site's wording and drop the echo. Two phrasings of one complaint is one complaint.
+
+#### When the two disagree
+
+**Keep both and say so. Do not silently pick a winner.**
+
+A 4 on the site with "honestly it was fine, wouldn't rush back" in chat is not a contradiction to resolve by arithmetic — it is two true things about one meal, and the gap between them is information. Record both, and treat the chat text as **the reason** while the star stays **the verdict**.
+
+Raise it once in the writeup when the direction actually conflicts — a 4 against a complaint, a 2 against praise — and let them settle it. If they do, that answer is `stated` and outranks both.
+
+**Chat feedback that names ingredients still goes to `dietary-preferences.md`**, exactly as a site review does. The source changes nothing about how a preference generalizes.
+
 ## The data files are personal. Publishing them is the user's call.
 
 **`order-history.md` and `dietary-preferences.md` are personal records, and they are supposed to be.** They hold what someone eats, what they thought of it, and what they cannot safely be served. That is personal data by definition — the skill does not work without it, and there is no version of this that is both useful and anonymous.
@@ -882,7 +920,7 @@ Say in the writeup when rows are still open. "Two orders from last week are stil
 
 ## After they order
 
-**The verdict comes off ezCater, not out of a conversation.** They rate on the site. Scrape it rather than asking — see **Their reviews live on ezCater**. If they happen to say something in chat as well, record both; chat feedback supplements the rating, it does not replace it.
+**The star rating comes off ezCater, not out of a conversation.** They rate on the site, so scrape it rather than asking — see **Their reviews live on ezCater**. **Review text comes from both places and gets merged**, and a sync never overwrites what they said in chat. See **Reviews arrive from two places**.
 
 | Rating | Verdict | What it does to future slates |
 |---|---|---|
