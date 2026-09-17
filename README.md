@@ -241,8 +241,11 @@ want spice as a scale or a yes, or how much of a plate you actually finish.
 
 it leads with the finding and puts the question after it, reports the good patterns even when
 there's nothing to decide, and writes only to `dietary-preferences.md`. answer nothing and it
-still fixes what it inferred wrong. needs both files to exist, because comparing two things
-is the entire point.
+still fixes what it inferred wrong.
+
+it never opens the browser. both local files are the whole input, and if one is missing it
+stops and asks whether you want a sync rather than quietly running one — comparing two things
+is the entire point, and a mode that places nothing has no business spending a login.
 
 ## it reads your reviews off the site
 
