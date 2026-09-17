@@ -4,7 +4,7 @@
 
 The skill reads this file on load. If it is missing, the skill does not order — it runs the onboarding interview in **First run** in `SKILL.md` and writes this file from the answers.
 
-Last reviewed: 2026-09-17, against 40 rated orders.
+Last reviewed: 2026-09-17, against 41 orders and two chat reviews. The 2026-09-17 GRECO review set four rules on its own: beans over rice, spice as a standing instruction, the topping axis, and the satiety note.
 
 ## Provenance, and why it matters
 
@@ -40,6 +40,18 @@ It routinely binds before the budget does, so expect builds to land under the sp
 
 No floor. There is no minimum calorie count — a build that clears the protein floor at 600 calories is a better order than one that clears it at 790.
 
+### Satiety is a separate problem from calories
+
+**A build can clear every gate and still leave them hungry.** `stated` 2026-09-17, on the GRECO plate: ~50g protein and ~650 calories as actually eaten, 13g over the protein floor and 150 under the calorie ceiling, and the report was "still a little hungry."
+
+So the ceiling is not the target and the floor is not the finish line. **Within the calorie budget, prefer the components that take up the most room**, because volume is what ends a meal:
+
+- **Beans, legumes and high-fiber sides** over rice, fries or bread for the same calories. This is also a stated flavour preference — see **Base and side choice**.
+- **Vegetables with real bulk** over dressings, oils and creamy sauces, which spend the budget without filling anything.
+- **A second protein-forward component** over a larger starch, when the menu offers the choice.
+
+**Do not respond to this by raising the ceiling.** The ceiling is `stated` and stays where it is. Fix satiety by changing what fills the budget, not by enlarging it.
+
 ## Macros
 
 **Protein floor: 40g**, estimated. `stated`.
@@ -50,7 +62,11 @@ The floor that never bends. 38g is not close enough. Among options that clear it
 
 **One protein bought well beats two bought badly.** `derived`. When a build stacks two paid proteins, expect the cheaper one to arrive in quantity and the premium one to be short.
 
-No stated targets for carbs, fat, fiber or sodium. Do not invent them.
+**Carbs are being actively reduced.** `stated` 2026-09-17. Half a pita was left on the plate on purpose. There is no carb number to hit, but the direction is real and it has three consequences: **do not count bread or a starch side toward the meal being complete**, prefer the build that reaches the protein floor with less starch, and treat the `carb-base` rationing below as a live preference rather than an old habit.
+
+**Fibre is wanted, for satiety and on its own terms.** `stated` 2026-09-17, cited as a reason beans beat rice. No number.
+
+No stated targets for fat or sodium as numbers, but see the topping rule under **Components**. Do not invent targets that were never given.
 
 ## Cuisines
 
@@ -67,7 +83,7 @@ Ranked by their own ratings across 40 orders. `derived` — revise this table wh
 
 The components are genuinely liked. The kitchens serving them on this program mostly hold the food too long. **Order the hummus; stop picking the restaurant because it has hummus.**
 
-The one exception is **GRECO**, which cooks to order and rated 4.
+The one exception is **GRECO**, which cooks to order. Two orders now, a 4 and a chat-stated 4/5, and the second came with the most detailed positive review in the log. **Treat GRECO as separate from the cuisine average**, which is dragged down by kitchens that hold food.
 
 Practical rule: when a day's menus offer an Indian or Asian kitchen alongside a shawarma counter, **the shawarma counter is the weaker bet even when its build looks better on paper.**
 
@@ -81,7 +97,25 @@ The part that generalizes across restaurants. Apply to any menu, not just the on
 
 tahini · hummus · feta · olives · tomato · onion · cucumber
 
+**Spice and hot sauce.** `stated` 2026-09-17: "i doused the whole thing in hot sauce, as i do. i do love spicy food." Take this as a standing instruction, not a garnish note. **Order the spicy version where one exists**, take the hot sauce or chili option whenever the modal offers it free, and ask for hot sauce on the side in the notes box when it does not. It costs nothing, it never threatens a gate, and it confirms what the ratings already implied — Pad Krapow, jerk chicken, gochujang and spicy basil all rated 4.
+
 Read as components to add to a build, **not as a reason to choose a restaurant.** The cuisine table above is the restaurant-level signal; this list is the build-level one.
+
+### Toppings and sauces: protein up, fat down
+
+`stated` 2026-09-17, on the GRECO tzatziki: it was good, "but a higher protein lower fat topping is always preferred."
+
+**Rank the sauce and topping selectors on that axis**, not on flavour alone:
+
+| Prefer | Over |
+|---|---|
+| yogurt-forward, lean, or salsa/vinegar-based | oil-forward, mayo-based, creamy or buttery |
+| hummus, tzatziki, lean whipped feta, chutney, salsa, hot sauce | aioli, ranch, tahini-heavy dressings, oil-based vinaigrettes |
+| a protein-bearing topping (cheese, egg, beans, yogurt) | a fat-bearing one that adds calories and no protein |
+
+Tzatziki stays acceptable and was liked. It is simply not the best available answer when something leaner is on the same menu. **Hot sauce is the ideal case on this axis**: all flavour, no calories, no fat.
+
+This also sharpens the satiety rule above. A creamy dressing spends the calorie budget without filling anything, which is exactly the trade to stop making.
 
 ### Wants less of
 
@@ -93,11 +127,20 @@ Read as components to add to a build, **not as a reason to choose a restaurant.*
 
   **This is a rationing rule, not a dislike, and the difference matters.** `carb-base` is 26 of 40 orders and carries nine of the sixteen 4s. When the cooldown forces a non-`carb-base` pick, spend that slot on a kitchen they rated well rather than on a mediocre plate that merely fits the slot.
 
-### Grain choice, when a grain is happening
+### Base and side choice
 
-`stated` 2026-09-09. **Quinoa first, brown rice second.** Both beat white rice and both beat leaving it to the default. Confirmed in the log — brown rice chosen at Mae Asian Eatery, Boloco and Atlantic Poké; brown rice & red quinoa at WOW TIKKA.
+**Beans first.** `stated` 2026-09-17: "the beans were a nice sub for rice, i often do this myself outside of work meals. beans > rice — or beans & rice is also good. extra fiber and protons in the beans." They already do this off their own bat, which makes it a habit rather than a one-off reaction to a plate.
 
-If neither is offered, white rice is acceptable rather than a reason to drop the item — a white-rice build rated 4 at Basil Rice — but say in the writeup that the grain was not their pick.
+Full order of preference when a base or starch side is being chosen:
+
+1. **Beans or legumes** — gigantes, pinto, black, chickpea, lentil. Best on flavour, fibre, protein and satiety at once.
+2. **Beans and rice together**, explicitly fine, and better than rice alone.
+3. **Quinoa**, then **brown rice**. `stated` 2026-09-09.
+4. **White rice**, acceptable rather than a reason to drop the item — a white-rice build rated 4 at Basil Rice — but say in the writeup that it was not their pick.
+
+Confirmed in the log: brown rice at Mae Asian Eatery, Boloco and Atlantic Poké; brown rice & red quinoa at WOW TIKKA; lemon-dill beans at GRECO, which drew the review that set this rule.
+
+**Where a menu lets a bean side replace a grain, take it**, even at a small upcharge. It is the single highest-value swap available on most of these menus: it satisfies the stated preference, adds fibre and protein, and buys satiety inside the calorie ceiling.
 
 ## Preparation
 
@@ -107,7 +150,7 @@ If neither is offered, white rice is acceptable rather than a reason to drop the
 
 - Cooked to order and served hot.
 - Raw fish. Sushi and poke cannot be dried out or held badly — every raw-fish order rated 3 or 4.
-- Aggressive seasoning: curry, jerk, gochujang, holy basil, harissa.
+- Aggressive seasoning: curry, jerk, gochujang, holy basil, harissa. **Now `stated` as well as derived** — they love spicy food and add hot sauce themselves. See **Wants**.
 - A cuisine-specific kitchen over a generic bowl-and-sandwich chain.
 - **Grilled over fried** (`stated`) — when a menu offers grilled chicken against a breaded cutlet, specify grilled.
 
