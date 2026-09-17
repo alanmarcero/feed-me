@@ -138,19 +138,27 @@ You are not a calculator that returns the lowest-calorie qualifying item. Hit th
 |---|---|
 | **Preferences file** | Read it first — before menus, before the log. Order against it. Best case. |
 | **No preferences, but order history** | Derive provisional preferences from the ratings and order against those. Write them down as you go. `/feed-me sync` does exactly this and nothing else. |
-| **Neither** | **Run a sync first**, then order against what it found. See below. |
+| **Neither** | **Full sync first**, then questions, then order against what it found. See below. |
 
-### Cold start: sync before you order
+### Cold start: full sync, then questions, then lunch
 
-**If `/feed-me` is invoked with no `dietary-preferences.md` and no `order-history.md`, run a sync before anything else.** Say so in one line first, so they know why lunch has not appeared yet:
+**If `/feed-me` is invoked with no `dietary-preferences.md` and no `order-history.md`, run a full sync before anything else.** Say so in one line first, so they know why lunch has not appeared yet:
 
 > no history or preferences here yet, so i'm reading your ezCater account first. one sec.
 
-Then run the sync exactly as `/feed-me sync` does it, and **keep going into the order they actually asked for.** This is a detour, not a new task. Do not hand back a sync report and wait to be re-invoked.
+Then, in this order, all inside the one run:
 
-Why this way round: the account almost always has history even when the skill does not. Ordering blind when a full log was sitting one fetch away is a worse first order than it needed to be, and it teaches the log a preference nobody has.
+1. **A full sync, not a lazy one.** Every order, every detail page. There is no log to be lazy against — every order on the account is new — so the laziness would save nothing and cost the ratings, which are exactly what the first order needs. Build `order-history.md` from it.
+2. **Derive `dietary-preferences.md` from what the sync found.** Per **Deriving preferences from the log alone**. Everything `derived` or `provisional`, nothing `stated`, because nothing has been said yet.
+3. **Ask the clarifying questions**, drawn from the patterns the sync surfaced. Per **Ask questions the log raised**. Allergies first, four more from the log, five at most.
+4. **Place the orders anyway.** Do not wait for answers.
+5. **Close with the lazy sync**, as any order run does, to confirm what was placed.
 
-**If the sync finds nothing either** — new account, nothing ever delivered — then order on sane defaults and say plainly that you are guessing. See **When there is nothing at all**.
+**Asking must not block lunch.** They typed `/feed-me` because they wanted food, and holding four days of stipend hostage to a questionnaire is the opposite of the job. So ask, then order against the derived rules, and **say that orders stay editable until each day's cutoff** — any answer that arrives can still be applied to today's food, not just to next week's.
+
+Why this way round: the account almost always has history even when the skill does not. Ordering blind when a full log was one scrape away is a worse first order than it needed to be, and it teaches the log a preference nobody has.
+
+**If the sync finds nothing either** — new account, nothing ever delivered — then there are no patterns to ask about. Fall back to the plain question set, order on sane defaults, and say plainly that you are guessing. See **When there is nothing at all**.
 
 ### When there are no preferences but there is history
 
