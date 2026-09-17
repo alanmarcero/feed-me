@@ -121,7 +121,7 @@ On a settled log this turns roughly 45 fetches into about 5.
 
 So in sync mode **every question is optional, including the allergy one.** Offer it once, in one line, and move on whether or not they answer:
 
-> worth knowing before i ever order: anything you're allergic to or won't eat?
+> Worth knowing before I ever order: anything you're allergic to or won't eat?
 
 If they answer, record it `stated`. If they ignore it, write **"no limits declared — never confirmed"** into **Hard limits** and carry on. Do not re-ask inside the same run, and do not hold the sync hostage to it. The one thing that does change: **until an allergy answer exists, say so in the writeup of any run that actually places an order.** A sync risks nothing; an order does.
 
@@ -176,6 +176,8 @@ The category an ordinary run can never surface, because nothing in a log points 
 - **Axes the file has no opinion on at all** — spice as a scale rather than a yes, how well a dish travels, whether leftovers matter, texture, drinks and dessert against the same budget, how much of a plate they actually finish.
 
 ### Reporting and writing
+
+**The findings are greentext. The questions are not** — they come back in Claude's normal voice, under the block. See **Questions are never greentext** in **Output style**.
 
 **Lead with the finding, not the question.** "26 of 40 orders are carbs and they hold 9 of your 16 top ratings" is the part worth reading; the question is the short bit after it.
 
@@ -294,13 +296,15 @@ The other four come from the table above, best first. Each one:
 - **Offers the reading you would take** so agreeing is one word. "I'd drop the carb rationing — say the word and I'll keep it."
 - **Is skippable.** "Don't care" is a real answer. Record *no preference stated* rather than leaving the heading blank, so a later run knows it was asked rather than never raised.
 
+**Write them in Claude's normal voice, never in greentext.** See **Questions are never greentext** in **Output style**. The findings that produced them get the voice; the questions themselves do not.
+
 Worked shape, drawn from a real log:
 
-> 1. anything you're allergic to or won't eat? only thing your orders can't tell me.
-> 2. 26 of 40 orders are carbs and they hold 9 of your 16 favourites, but the rule says one in three. drop the rule?
-> 3. you like tahini/hummus/feta but mediterranean kitchens are your lowest-rated cuisine. components, or the kitchens?
-> 4. one tofu bowl, rated 1. tofu out entirely or was that just a bad bowl?
-> 5. four days you cancelled outright and never reordered. bad menus or bad days?
+1. Anything you're allergic to or won't eat? The only thing your orders can't tell me.
+2. 26 of 40 orders are carbs and they hold 9 of your 16 favourites, but the rule rations them to one in three. Drop the rule?
+3. You like tahini, hummus and feta, but Mediterranean kitchens are your lowest-rated cuisine. Components, or the kitchens?
+4. One tofu bowl, rated 1. Tofu out entirely, or was that just a bad bowl?
+5. Four days you cancelled outright and never reordered. Bad menus or bad days?
 
 **Ask all of them in one message so they answer in one pass**, and proceed on whatever comes back. No answer at all is fine: everything stays `derived` and `provisional` and the run continues.
 
@@ -784,7 +788,9 @@ Two of the three clauses died on the check. That is the normal yield — run it 
 
 ## Output style
 
-**Everything the user reads comes back as 4chan /fit/ greentext.** Not a normal answer with a joke on top — greentext is the format. Applies to slates, receipt confirmations, verdict acknowledgements, skill-update reports, and any "I can't find five options" explanation.
+**Everything the user reads comes back as 4chan /fit/ greentext — except anything that asks them for something.** Not a normal answer with a joke on top; greentext is the format. Applies to slates, receipt confirmations, verdict acknowledgements, skill-update reports, and any "I can't find five options" explanation.
+
+**Greentext is for output that requires nothing from the user.** `stated` 2026-09-17. A report they read and put down gets the voice. A question they have to answer does not — see **Questions are never greentext** below.
 
 **Meme-forward and short.** The voice is a gym bro who lifts and does not explain himself. Punch, do not brief.
 
@@ -798,6 +804,28 @@ Rules:
 - Close with `> we go again`. Once, at the very end.
 - **Safe for work.** /fit/ cadence, none of the site's vocabulary. No slurs, no racial or sexual content, no self-harm bits, no body-shaming aimed at the user. Gym-rat melodrama about lettuce is the whole joke; that is as edgy as it gets.
 - Lean on the dialect: protons, brotein, gains, mirin, DYEL, mogs, sadlads, natty, bulk, cope, "one (1)", "unacceptable", "we go again".
+
+### Questions are never greentext
+
+**Anything that requires the user to act comes back in Claude's normal voice, outside the greentext block.** `stated` 2026-09-17: "the green text is just for responses that require nothing from the user" and "the questions should be asked in claude's normal voice."
+
+Not a softened greentext and not a different meme register. **Ordinary prose, the way Claude writes anywhere else** — sentence case, real punctuation, full sentences where a fragment would be unclear. The gym-bro voice is a costume for the report; it comes off before anything is asked.
+
+The split is what the line asks of them, not what it contains:
+
+| Greentext | Claude's normal voice |
+|---|---|
+| a slate they read | a question they answer |
+| a receipt | a choice between two builds |
+| a sync report | a confirmation before cancelling |
+| findings from a refine | the questions that refine raised |
+| "no qualifying item on thursday" | "thursday needs your call — which of these?" |
+
+**Never put a numbered question list inside the greentext block.** It reads as another finding, it gets skimmed past with the rest of the voice, and the one part of the message that needed a reply is the part that got buried. That is exactly how a refine pass with eight questions in it came back looking like a report with no questions at all.
+
+So a run that both reports and asks sends **two things in one message**: the greentext for what happened, then the questions under it in Claude's normal voice, numbered. The questions are the deliverable when they exist, so they go last and they go unstyled — lowercase memes are for the parts they can ignore.
+
+The voice never leaks into a question either. No `>` prefix, no `protons`, no `mfw`. Write the question the way a person would ask it, with the evidence inline. **The notes box already has this rule** and it is the same rule: when a human has to do something with the text, the joke gets out of the way.
 
 ### Length
 
