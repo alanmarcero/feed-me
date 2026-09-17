@@ -213,6 +213,13 @@ outranks a chatty 3. and the complaints are never about macros. "dry". "bland". 
 clearly cooked hours or even a day earlier". "barely any steak". execution failures no
 arithmetic sees coming, which is why ratings outrank numbers.
 
+**you can also just tell it here.** say the pita was dry and that lands in the log same as a
+site review, tagged `chat:` so the two stay tellable apart. the star still comes off ezCater,
+because that's the only place a number lives, but the text is the union of both and a sync
+**never** overwrites what you said in conversation. an empty review box on the site is not
+evidence you said nothing. if the two ever point opposite ways, a 4 against "eh, wouldn't
+rush back", it keeps both and asks once rather than quietly picking.
+
 it all lands in `order-history.md`. every order, every verdict, every cancellation, each
 carrying a status from placed to rated. preferences don't live there: the log records what
 happened, the preferences file records what it *meant*. "i liked the Scali salad" generalizes

@@ -41,10 +41,12 @@ Read this before building a slate.
 
 Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 neutral, 3 liked, 4 loved. `—` means they never rated it.
 
+**`Their review` merges two sources.** Plain quotes are what they wrote on ezCater; `chat:` marks what they said in conversation; both appear separated by `·` when both exist. A sync fills the site's half and **never overwrites the chat half** — the site knows nothing about a conversation, so an empty `.order-review-footer` is not evidence that they said nothing.
+
 | ID | Delivered | Status | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 20957854 | 2026-09-17 | `delivered` | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | pending | — |
-| 20755521 | 2026-09-08 | `rated` | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | — (said in chat: "ok, too much lettuce") |
+| 20755521 | 2026-09-08 | `rated` | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | chat: "ok, too much lettuce" |
 | 20658056 | 2026-09-01 | `rated` | Roots to Rise | Supreme Turkey BLT Sandwich, multi-grain, no mayo + Organic Hard-Boiled Eggs ($3.79) | `carb-base` | $18.88 | $1.32 | **$0.20** | 2 neutral | "Pretty basic sandwich" |
 | 20586963 | 2026-08-25 | `rated` | The Chicken & Rice Guys | Chicken & Gyro Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) + hot & BBQ sauce | `salad` | $17.06 | $1.19 | $0.00 | 3 liked | — |
 | 20425087 | 2026-08-18 | `rated` | Umai | 8-Piece Nigiri (Raw) Combo | `carb-base` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
@@ -99,7 +101,7 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 
 ## Their reviews, verbatim
 
-Six of forty orders carry written text. Every one is a complaint, which is the tell: **they write when something is wrong and stay silent when it is right.** The absence of text on a 4 is not missing data — it is the normal shape of a good order. Read the star rating as the verdict and the text as the reason a rating fell short.
+Six of forty orders carry text written on ezCater, plus one given in chat. Every one is a complaint, which is the tell: **they write when something is wrong and stay silent when it is right.** The absence of text on a 4 is not missing data — it is the normal shape of a good order. Read the star rating as the verdict and the text as the reason a rating fell short.
 
 | Date | Restaurant | Rating | What they wrote |
 |---|---|---|---|
@@ -109,6 +111,7 @@ Six of forty orders carry written text. Every one is a complaint, which is the t
 | 2026-04-28 | Sake Japanese | 3 | "expensive" |
 | 2026-03-31 | Dora Taqueria | 2 | "bland" |
 | 2026-01-06 | Boloco | 3 | "Plenty of chicken, but barely any steak." |
+| 2026-09-08 | Scali Deli & Cafe | 3 | **chat:** "ok, too much lettuce" |
 
 What the six have in common: **none of them is about macros, price coverage, or format.** Every complaint is about execution — freshness, moisture, seasoning, portion honesty, value. A build can clear every gate in this skill and still earn a 2. That is what these lines are for.
 
