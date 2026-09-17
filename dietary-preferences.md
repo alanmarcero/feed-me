@@ -8,7 +8,7 @@ Last reviewed: 2026-09-17 (two refine passes).
 
 **First refine pass — nine answers, every one written in below as `stated`.** The big ones: the protein floor is **45g**, not 40g; carbs are **wanted but light** rather than being reduced; the vegetable limit is about **cheapness, not vegetables**; full portions get bought and under-eaten rather than ordered small; spicy Indian is a standing yes; spice goes to the **top of any heat scale**; novelty is the default but **a 4 plus a re-order is an anchor that beats it**, which is what GRECO is; the GRECO plate itself settled at **3**, which reads as what to order there rather than whether. Cancelled days are usually him not being in the office and mean nothing about the food.
 
-**Second refine pass, same day — eight more answers, also all `stated`.** The schedule is **Tuesday always, Thursday added for the next few months, Monday a few times a year**, and anything the site shows is fair game. **Sushi stays**, with the 45g floor as best-effort on those days and a filling alternative offered alongside. **There is no separate calorie floor** — the protein floor implies it. **The spend floor is retired**; the only money rule is $0.00 out of pocket. **The Atlantic Poké bowl is a 4** and poke is a standing yes. **Soup only when it is a unique soup.** **No drinks, no desserts, ever.** **Take the add-on whenever the budget allows.**
+**Second refine pass, same day — eight more answers, also all `stated`.** The schedule is **Tuesday always, Thursday added for the next few months, Monday a few times a year**, and anything the site shows is fair game. **Sushi stays**, with the 45g floor as best-effort on those days and a filling alternative offered alongside. **There is no separate calorie floor** — the protein floor implies it. **The spend floor is retired**; the only money rule is $0.00 out of pocket. **The Atlantic Poké bowl is a 4** and poke is a standing yes. **Soup only when it is a unique soup.** **No drinks, no desserts, ever.** **Take the add-on whenever the budget allows.** A third update landed after those: **every free premium vegetable gets taken, all of them on a build-your-own bowl**, while cheap salad greens stay skipped and **corn is scored as a grain and skipped with them**.
 
 ## Provenance, and why it matters
 
@@ -52,6 +52,37 @@ Gates. Nothing overrides these — not price, not macros, not rotation, not a lo
 This is the same axis as the `expensive` complaint at Sake and the "basic sandwich" at Roots to Rise. **He is not counting calories on the vegetable, he is counting what the kitchen spent.** A dish reads cheap when its bulk is the cheapest ingredient available, and that reads through as a 2 whatever the macros say.
 
 Practical test before ranking a salad or a bowl: **if the base were removed, would the rest still look like lunch?** Cucumber salad, beans and roasted vegetables pass. A bed of lettuce does not.
+
+### Free premium vegetables are always taken. All of them.
+
+`stated` 2026-09-17, and it is the active half of the rule above:
+
+> "if extra *premium* vegetables are free, we get extra premium vegetables. we skip cheap salad and leave it for the rabbits. on bowls like mexican or poke, we get *all* the vegetables"
+
+**The cheapness gate was never an instruction to avoid vegetables — this is what it was protecting.** Skipping the lettuce exists so the container carries things worth paying for, and a free premium vegetable is the best trade on any menu: real bulk, real satiety, real flavour, no calories worth counting and no dollars taken from the protein.
+
+| Take every one that is free | Leave it |
+|---|---|
+| avocado, grilled or roasted vegetables, mushrooms, peppers, onions | shredded iceberg or romaine |
+| edamame, seaweed salad, beans, artichoke, roasted red pepper | spring mix |
+| pickled vegetables, kimchi, cabbage slaw, radish, jalapeño, olives | plain lettuce in any role |
+| cucumber, tomato, red onion, scallion, cilantro, mango | **corn** — see below |
+
+**On a build-your-own bowl, take all of them.** `stated`, and he named the two formats: **Mexican and poke**. Those modals list eight or twelve free vegetable checkboxes and there is no reason to leave one unticked. The same applies to any counter that works this way — shawarma plates, grain bowls, burrito bowls, build-your-own salads.
+
+**Corn is out, free or not.** `stated` 2026-09-17: *"we skip corn when we can. corn is a grain disguised as a vegetable. very sneak corn, but it won't work."*
+
+**So corn is scored as a grain, not as a vegetable**, which puts it under the light-carb rule rather than under this one. It never counts toward "all the vegetables" on a bowl, and taking it is spending the build's one carb slot on something that arrived free in a vegetable bin. **Skip it wherever the modal lets you** — "when we can" is the honest limit, since it comes baked into some builds as part of a salsa, a succotash or a pre-mixed side, and picking it out of a corn salsa is not a real ask.
+
+The rule generalizes past corn: **starchy things wearing a vegetable label get scored as starch.** Peas, potato, plantain and sweet potato all belong to **Base and side choice**, not to the free-vegetable sweep.
+
+Three things this does not license:
+
+- **A vegetable that costs money competes with protein, and protein wins.** `derived` — he said *free*. A paid vegetable add-on only goes in when the build already clears 45g and there is still room under the ceiling. Avocado at $1.50 is the usual case, and it loses to an egg or an extra scoop of meat every time.
+- **Vegetables never become the base.** Taking all the peppers does not make a pepper bowl into lunch. The protein floor and the cheapness test are unchanged.
+- **They still get counted.** Every line goes in the macro estimate — see **Estimating macros** in `SKILL.md`. Most are 10-30 calories and vanish. **Avocado at ~80 cal a scoop is the one that actually moves a total** against the 800 ceiling; the rest are free in both budgets. Corn would have been the other, and it is barred above on its own merits.
+
+**Select them in the modal, never in the notes box.** They are structured selectors, so asking for them in writing restates a choice the ticket already carries — see **Required: validate the note against the order** in `SKILL.md`.
 
 ## The schedule
 
@@ -220,6 +251,8 @@ The part that generalizes across restaurants. Apply to any menu, not just the on
 `stated`. Confirmed by the log: hummus twice at The Chicken & Rice Guys, tzatziki and pepper paprika dip at GRECO, fattoush and pickled turnips at Aceituna.
 
 tahini · hummus · feta · olives · tomato · onion · cucumber
+
+**And every free premium vegetable the modal offers**, taken in full — see **Free premium vegetables are always taken** above. That rule outranks this list: it is not a set of favourites to look for, it is an instruction to tick every box that costs nothing.
 
 **Spice and hot sauce. Hottest available.** `stated` 2026-09-17: "i doused the whole thing in hot sauce, as i do. i do love spicy food," and, asked whether to take the top heat level or one below, *"let's do hottest when available."*
 
