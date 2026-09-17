@@ -24,8 +24,12 @@ hungry. unacceptable.
 
 | | |
 |---|---|
-| `/feed-me` | orders lunch for every open day, then lazy-syncs. this is the one you'll use |
-| `/feed-me sync` | full reconcile against ezCater. opens every order. orders nothing |
+| `/feed-me` | orders lunch for every open day, then runs a **lazy sync**. the one you'll use |
+| `/feed-me sync` | a **full sync**. opens every order on the account. places nothing |
+
+two syncs, and they're called exactly that. **lazy sync** runs itself at the end of every
+order. **full sync** is what you get when you ask for one. the only difference is whether a
+settled row gets its order page re-opened.
 
 it opens the ordering site in a real browser, finds **every day** still open, reads every
 menu, prices out the upcharges hiding behind each item's option modal, plans the week so no

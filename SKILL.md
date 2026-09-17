@@ -1,6 +1,6 @@
 ---
 name: feed-me
-description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it only reconciles the order log against the ezCater site - every order, rating, review and cancellation - and places nothing.
+description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it runs a full sync: reconcile the order log against the ezCater site - every order, rating, review and cancellation - and place nothing. A lazy sync, which skips detail pages the log already has, closes every ordering run automatically.
 ---
 
 # Feed Me
@@ -26,12 +26,18 @@ Fall back to **advise-only** (slate, no order placed) in exactly three cases:
 | Mode | How it starts | What it does |
 |---|---|---|
 | **order** | `/feed-me`, or any ask for lunch | The default. Reads the menus, places one order per open day, **then runs a lazy sync.** |
-| **sync** | `/feed-me sync` | **Full** reconcile against the site, every detail page. **Places nothing.** See below. |
+| **full sync** | `/feed-me sync`, or `/feed-me full sync` | Reconciles every order against the site, every detail page. **Places nothing.** |
+| **lazy sync** | automatic at the end of every order run, or `/feed-me lazy sync` | Same reconcile, but skips detail pages the log already has. |
 | **advise** | pasted menus, or a request for options | Ranked slate, no order placed, no sync. |
 
-**A bare `/feed-me` ends with a lazy sync, always.** It is the last step of the run, not an optional extra, and it is what keeps the files current without the user ever having to think about it. Lazy means it skips detail pages it already has, not that it skips checking. See **The lazy sync**.
+**There are exactly two syncs and they are called `lazy sync` and `full sync`.** They differ in one thing only: whether a settled row gets its detail page re-opened. Everything else — which tabs, which diffs, which files get written — is identical.
 
-### `/feed-me sync`
+- **`/feed-me sync` means the full one.** When someone asks for a sync without qualifying it, they want the thorough version.
+- **The lazy one is the automatic one.** It closes every order run so the files stay current without the user thinking about it, and it can be asked for by name.
+
+See **Lazy sync** and **Lazy against full**.
+
+### Full sync: `/feed-me sync`
 
 **Reconcile the log against ezCater and stop.** No menus are read, no slate is built, nothing is ordered and nothing is cancelled. This mode exists for the times they want the books straightened without lunch happening as a side effect.
 
@@ -42,13 +48,13 @@ Fall back to **advise-only** (slate, no order placed) in exactly three cases:
 3. **Diff both directions.** On the site and missing from the log; in the log and on no tab; cancelled ids sitting in the main table or delivered ids in the cancelled table.
 4. **Apply every change to `order-history.md`.** Advance statuses, add orders placed outside the skill, move newly cancelled rows to the Cancelled table, fill in ratings and review text verbatim, flag anything `missing`. Rows are re-statused, never deleted.
 5. **Re-derive `dietary-preferences.md`** against whatever the new ratings changed, respecting the provenance tags: `derived` rules are yours to revise, `stated` rules are theirs. Move its `Last reviewed` date even when nothing changed. See **Keep it current as the log grows**.
-6. **Update the rotation state** from the newest delivered order, since a sync can discover orders that shift it.
+6. **Update the rotation state** from the newest delivered order, since either sync can discover orders that shift it.
 
 **Report what moved, in greentext, with counts.** Name every status change, every newly found order, every rating that landed, and anything left `missing`. **If nothing changed, say that plainly** — "41 completed, 10 cancelled, no drift" is a successful sync and a useful answer. Do not invent findings to justify the run.
 
-**A sync never places or cancels an order.** If the scan turns up something that wants action — an open day about to hit its cutoff, a leftover from a half-finished swap — say so and let them decide. They asked for a sync.
+**Neither sync ever places or cancels an order.** If the scan turns up something that wants action — an open day about to hit its cutoff, a leftover from a half-finished swap — say so and let them decide. They asked for a sync.
 
-### The lazy sync
+### Lazy sync: automatic after every order run
 
 **Every bare `/feed-me` finishes with a lazy sync. It is the last step of the run.**
 
@@ -82,15 +88,15 @@ Skip it when the row is `rated`, carries its review text, and the card agrees wi
 
 On a settled log this turns roughly 45 fetches into about 5.
 
-#### What the closing lazy sync is really for
+#### What the lazy sync is really for
 
 1. **Confirming the orders just placed are actually on the site.** A confirmation page is a claim; the Upcoming tab is the fact. **This is what turns "I placed four orders" into "I placed four orders and all four are there."** Never report a batch as complete without it. Those orders are new to the log, so they always get full detail fetches — the laziness never applies to them.
 2. **Writing those rows from scraped data**, so the real order id, delivery time and final subtotal come off the site rather than off a confirmation screen that may have rounded or reworded something.
 3. **Picking up whatever else moved** — ratings that landed since the last run, orders placed outside the skill, anything cancelled without a word.
 
-**If the closing sync cannot find an order that was just placed, say so loudly and treat it as the run failing, not finishing.** Then check the cutoff: if that day is still open, rebuild and place it again. If it has passed, say plainly that the day was lost and why. A silent gap here is the worst outcome this skill can produce, because the user believes lunch is coming and it is not.
+**If the lazy sync cannot find an order that was just placed, say so loudly and treat it as the run failing, not finishing.** Then check the cutoff: if that day is still open, rebuild and place it again. If it has passed, say plainly that the day was lost and why. A silent gap here is the worst outcome this skill can produce, because the user believes lunch is coming and it is not.
 
-**Do not double-sync.** `/feed-me sync` is already a full sync and does not run another. Advise-mode places nothing, so it has nothing to confirm and skips the closing sync too.
+**Do not double-sync.** A full sync is already a sync and does not chase itself with a lazy one. Advise-mode places nothing, so it has nothing to confirm and skips the lazy sync too.
 
 **Report it as one line inside the run's writeup**, not as a separate report. "all 4 on the site, 2 ratings landed since last week, no drift" is the whole thing. A clean sync after a clean order does not deserve its own section.
 
@@ -106,7 +112,7 @@ On a settled log this turns roughly 45 fetches into about 5.
 
 **The full sync exists for what the listing cannot see.** A rating changed from 3 to 4, review text edited after the fact, a price corrected by the restaurant — none of those alter the card, so a lazy pass will never notice them. That is the trade, and it is the right one: cheap and frequent by default, exhaustive when asked.
 
-**When in doubt, do the full one.** It costs seconds. Being lazy is a convenience for the common case, never a reason to report a sync as clean when it was not actually checked.
+**When in doubt, do the full sync.** It costs seconds. Lazy is a convenience for the common case, never a reason to report a sync as clean when it was not actually checked.
 
 #### Sync is a valid first run
 
@@ -120,7 +126,7 @@ If they answer, record it `stated`. If they ignore it, write **"no limits declar
 
 With no answers at all, build the whole file from the history. See **Deriving preferences from the log alone**.
 
-**A sync is also where the good questions come from.** Reconciling reads every order and every rating, which is exactly the material that makes a question worth asking. Close the sync with the handful the log raised — see **Ask questions the log raised** — and let them answer none, some or all of them. Anything they confirm turns a `provisional` rule `stated`; silence leaves it exactly as it was.
+**A full sync is also where the good questions come from.** Reconciling reads every order and every rating, which is exactly the material that makes a question worth asking. Close the sync with the handful the log raised — see **Ask questions the log raised** — and let them answer none, some or all of them. Anything they confirm turns a `provisional` rule `stated`; silence leaves it exactly as it was.
 
 You are their nutritionist, not a search box. Ordering on your own judgement is the job: curate, hit the macros, rotate the formats, spend the stipend. Do not stall on a decision they delegated to you.
 
@@ -149,8 +155,8 @@ You are not a calculator that returns the lowest-calorie qualifying item. Hit th
 Then, in this order, all inside the one run:
 
 1. **A full sync, not a lazy one.** Every order, every detail page. There is no log to be lazy against — every order on the account is new — so the laziness would save nothing and cost the ratings, which are exactly what the first order needs. Build `order-history.md` from it.
-2. **Derive `dietary-preferences.md` from what the sync found.** Per **Deriving preferences from the log alone**. Everything `derived` or `provisional`, nothing `stated`, because nothing has been said yet.
-3. **Ask the clarifying questions**, drawn from the patterns the sync surfaced. Per **Ask questions the log raised**. Allergies first, four more from the log, five at most.
+2. **Derive `dietary-preferences.md` from what the full sync found.** Per **Deriving preferences from the log alone**. Everything `derived` or `provisional`, nothing `stated`, because nothing has been said yet.
+3. **Ask the clarifying questions**, drawn from the patterns the full sync surfaced. Per **Ask questions the log raised**. Allergies first, four more from the log, five at most.
 4. **Place the orders anyway.** Do not wait for answers.
 5. **Close with the lazy sync**, as any order run does, to confirm what was placed.
 
@@ -158,7 +164,7 @@ Then, in this order, all inside the one run:
 
 Why this way round: the account almost always has history even when the skill does not. Ordering blind when a full log was one scrape away is a worse first order than it needed to be, and it teaches the log a preference nobody has.
 
-**If the sync finds nothing either** — new account, nothing ever delivered — then there are no patterns to ask about. Fall back to the plain question set, order on sane defaults, and say plainly that you are guessing. See **When there is nothing at all**.
+**If the full sync finds nothing either** — new account, nothing ever delivered — then there are no patterns to ask about. Fall back to the plain question set, order on sane defaults, and say plainly that you are guessing. See **When there is nothing at all**.
 
 ### When there are no preferences but there is history
 
@@ -883,7 +889,7 @@ Each day is a separate cart and a separate order. Run this loop once per open da
 8. Confirm the review page still shows Total $0.00 and no card request, then place the order.
 9. Read the confirmation and check its lines against what was recalculated at step 7. If anything drifted, fix it before that day's cutoff.
 10. Move to the next day. Carts do not span days, so nothing from the previous order carries over.
-11. **When every day is placed, run the lazy sync.** Required, see **The lazy sync**. The run is not finished until the site confirms every order it claims to have placed.
+11. **When every day is placed, run the lazy sync.** Required, see **Lazy sync**. The run is not finished until the site confirms every order it claims to have placed.
 
 **Finish the batch.** If one day fails — no qualifying item, a card requested, a cutoff that lapsed mid-run — place the remaining days anyway and report exactly which day was skipped and why. Do not abandon four days of stipend over one bad menu.
 
@@ -911,7 +917,7 @@ An order is not a single event, so the log does not treat it as one. It is place
 
 **Log an order as soon as the confirmation comes back. Do not wait for it to arrive, and do not wait for a rating.** Write the row at status `placed` with delivery date, restaurant, item and every add-on, **format**, subtotal, and the order id from the confirmation URL.
 
-**That row is provisional until the closing lazy sync confirms it.** The confirmation page is a claim about what happened; the Upcoming tab is what actually did. Writing the row immediately means nothing is lost if the run is interrupted, and the sync at the end corrects any field the confirmation got wrong.
+**That row is provisional until the lazy sync confirms it.** The confirmation page is a claim about what happened; the Upcoming tab is what actually did. Writing the row immediately means nothing is lost if the run is interrupted, and the sync at the end corrects any field the confirmation got wrong.
 
 An order that exists on the site and not in the log is invisible to every rule in this skill. It will not block a repeat, will not advance rotation, and will not be there to collect a rating later. The gap between placing and logging is the only window where that can happen, so close it immediately.
 
@@ -993,9 +999,9 @@ Say in the writeup when rows are still open. "Two orders from last week are stil
 
 ## After they order
 
-**The closing lazy sync has already written the rows.** An order run ends by reconciling against the site, so by the time this section applies, every order placed is logged at its real id with its real delivery time and subtotal. See **The lazy sync**. What follows is about the verdict, which arrives later.
+**The lazy sync has already written the rows.** An order run ends by reconciling against the site, so by the time this section applies, every order placed is logged at its real id with its real delivery time and subtotal. See **Lazy sync**. What follows is about the verdict, which arrives later.
 
-**The star rating comes off ezCater, not out of a conversation.** They rate on the site, so scrape it rather than asking — see **Their reviews live on ezCater**. **Review text comes from both places and gets merged**, and a sync never overwrites what they said in chat. See **Reviews arrive from two places**.
+**The star rating comes off ezCater, not out of a conversation.** They rate on the site, so scrape it rather than asking — see **Their reviews live on ezCater**. **Review text comes from both places and gets merged**, and neither sync ever overwrites what they said in chat. See **Reviews arrive from two places**.
 
 | Rating | Verdict | What it does to future slates |
 |---|---|---|
