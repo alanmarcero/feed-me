@@ -27,6 +27,8 @@ hungry. unacceptable.
 | `/feed-me` | orders lunch for every open day, then runs a **lazy sync**. the one you'll use |
 | `/feed-me sync` | a **full sync**. opens every order on the account. places nothing |
 
+| `/feed-me refine` | mines your log against your preferences and asks better questions |
+
 two syncs, and they're called exactly that. **lazy sync** runs itself at the end of every
 order. **full sync** is what you get when you ask for one. the only difference is whether a
 settled row gets its order page re-opened.
@@ -219,6 +221,28 @@ this is how you end up with good preferences having never written any: start col
 lunches, watch it fill itself in. it's also how the skill catches itself being wrong. it used
 to insist mediterranean food "landed well" on the strength of components he'd listed, and
 nine contradicting ratings never budged it, because nothing marked the belief as revisable.
+
+## /feed-me refine
+
+the ordinary run only learns what a rating happens to teach it, which is not much per meal.
+refine goes looking on purpose.
+
+it's the same questions the cold start asks, pointed at a preferences file that already
+exists, which makes them better questions: now there are rules to test the log *against*. a
+rule you stated that your own ratings argue with. a rule it inferred that stopped being true.
+a guess made off one order that nothing has tested since. a pattern that's held long enough
+to stop being a guess.
+
+and the thing no ordinary run can ever surface, because nothing in a log points at what isn't
+in it: **the gaps.** a format you've never once ordered. a cuisine carrying a 4.00 average on
+two orders. a restaurant you tried once and never again, verdict or accident. meals you never
+rated. days you cancelled outright. whole axes the file has no opinion on, like whether you
+want spice as a scale or a yes, or how much of a plate you actually finish.
+
+it leads with the finding and puts the question after it, reports the good patterns even when
+there's nothing to decide, and writes only to `dietary-preferences.md`. answer nothing and it
+still fixes what it inferred wrong. needs both files to exist, because comparing two things
+is the entire point.
 
 ## it reads your reviews off the site
 
