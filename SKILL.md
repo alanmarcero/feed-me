@@ -1,13 +1,13 @@
 ---
 name: feed-me
-description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it runs a full sync: reconcile the order log against the ezCater site - every order, rating, review and cancellation - and place nothing. A lazy sync, which skips detail pages the log already has, closes every ordering run automatically. Invoked as `/feed-me refine` it mines the order history against the dietary preferences for patterns, contradictions and gaps, and asks questions to deepen the preferences file. Invoked as `/feed-me cancel <which order>` it cancels a pending order - targeted by delivery day, restaurant or dish, verified against the site before anything is cancelled - and with `and reorder` it also places a replacement for that same day.
+description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site in whatever browser the session has, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it runs a full sync: reconcile the order log against the ezCater site - every order, rating, review and cancellation - and place nothing. A lazy sync, which skips detail pages the log already has, closes every ordering run automatically. Invoked as `/feed-me refine` it mines the order history against the dietary preferences for patterns, contradictions and gaps, and asks questions to deepen the preferences file. Invoked as `/feed-me cancel <which order>` it cancels a pending order - targeted by delivery day, restaurant or dish, verified against the site before anything is cancelled - and with `and reorder` it also places a replacement for that same day.
 ---
 
 # Feed Me
 
 The user has an ezCater meal-program stipend through their employer. They strictly will not pay an overage, so the budget ceiling is hard.
 
-**Ordering is the default, and it covers every open day.** Invoked with no menus and no other instruction, do not ask what they want and do not ask for permission to look — open the site with Playwright, enumerate every day still orderable, and place one order per day. See **Live ordering**. The ask is "feed me," and the finished deliverable is food arriving on every day the program will let them claim, not a list of suggestions.
+**Ordering is the default, and it covers every open day.** Invoked with no menus and no other instruction, do not ask what they want and do not ask for permission to look — open the site in whatever browser the session has, enumerate every day still orderable, and place one order per day. See **Live ordering**. The ask is "feed me," and the finished deliverable is food arriving on every day the program will let them claim, not a list of suggestions.
 
 **Each day is its own budget.** The stipend does not pool across days and it does not carry over. A day left unordered is a day of stipend burned, so partial coverage is an incomplete job — if four days are open, four orders get placed.
 
@@ -17,7 +17,7 @@ Fall back to **advise-only** (slate, no order placed) in exactly three cases:
 
 - They pasted menus instead of asking you to browse.
 - They asked for options, picks, or a recommendation rather than for lunch.
-- The browser is unavailable, or login needs their password.
+- **No browser at all in the session**, or login needs their password. "Unavailable" means no driver is present — not that the first-choice one failed. See **Which browser drives this**.
 
 ## Modes
 
@@ -551,7 +551,9 @@ async () => {
 
 Loop it over the ids with ~100ms between fetches. Forty orders takes a few seconds.
 
-**Three traps on the Upcoming tab.** Its pagination links point at `/customer_orders/past?page=N`, so a scraper that follows them silently walks the Completed list instead. A day's order appears there on its delivery day, already delivered and rateable, while also appearing on Completed. And it is not an upcoming-only list: on 2026-09-17 every id it returned was also on Completed, so **its contents are not evidence that an order is still pending.** Read the tab you fetched, not the tab the links imply, and decide status by the precedence rules in **The order lifecycle**.
+**The Upcoming tab shows the past when nothing is pending.** Verified both ways on 2026-09-17: with no live order, `/customer_orders` returned the ten most recent **completed** ids; minutes later, with one order placed for 09-22, it returned exactly that one id. **So a page full of ids that are all also on Completed means zero orders pending, not ten.** Read it as a set, never as a count, and confirm a just-placed order by finding *its* id there rather than by the tab being non-empty.
+
+**Three more traps on the Upcoming tab.** Its pagination links point at `/customer_orders/past?page=N`, so a scraper that follows them silently walks the Completed list instead. A day's order appears there on its delivery day, already delivered and rateable, while also appearing on Completed. And it is not an upcoming-only list: on 2026-09-17 every id it returned was also on Completed, so **its contents are not evidence that an order is still pending.** Read the tab you fetched, not the tab the links imply, and decide status by the precedence rules in **The order lifecycle**.
 
 The details page also carries a **Customer Details** block and a **Delivery details** block. The delivery day and time are worth keeping. The name and street address are not useful to the skill — they are the same on every order — so there is no reason to copy them into the log, but this is a housekeeping point, not a redaction rule. See **The data files are personal**.
 
@@ -1097,7 +1099,52 @@ So when a day offers something in that class and it cannot reach a gate:
 
 ## Live ordering
 
-This is the default path. Drive the site with Playwright end to end.
+This is the default path. Drive the site end to end in a browser.
+
+### Which browser drives this
+
+**The skill needs *a* browser it can navigate, run JavaScript in, and click with. It does not need a particular one, but it does need you to pick one deliberately.** Work down this list and take the first that is actually in the session:
+
+| Order | Driver | Tools | Where it shows up |
+|---|---|---|---|
+| **1** | **Playwright MCP** | `browser_navigate`, `browser_evaluate`, `browser_click`, `browser_snapshot` | **Claude Code in the terminal.** The original path and the default — every snippet below is written for it |
+| **2** | **the built-in browser pane** | `mcp__Claude_Browser__navigate`, `…__javascript_tool`, `…__read_page`, `…__computer` | **the Claude desktop app.** **Verified end to end 2026-09-17** — order placed, cart verified, log synced |
+| **3** | Claude in Chrome | `mcp__claude-in-chrome__*` | only when the user asks for it by name |
+| — | nothing | — | **advise-only.** See the three fallback cases at the top of this file |
+
+**Reach for Playwright by name first.** In the terminal it is the expected driver and it is usually the only one there. Do not start improvising with shell tools or ask the user how to browse — call the Playwright tools.
+
+**Take driver 2 when Playwright is absent or its server will not connect.** A failed MCP connection is a connection failure, not a missing capability: if the desktop pane is in the session, switch to it and finish the run. **Do not drop to advise-only while a working browser is sitting in the session** — that turns a placed order into a list of suggestions for no reason.
+
+**Say which driver you used only when it was not the first choice.** "Playwright's server failed to connect, so I drove the built-in browser pane" is worth one line; naming the tool on a normal run is noise.
+
+**Everything below is written in Playwright's vocabulary.** Translate as you read:
+
+| This file says | Desktop app equivalent |
+|---|---|
+| `browser_evaluate` | `javascript_tool` with `action: "javascript_exec"` |
+| `browser_click` | an `el.click()` inside `javascript_tool` — see below |
+| `browser_snapshot` | `read_page`, and it is no better at surfacing ratings than Playwright's was |
+| navigating | `navigate`, or `preview_start` with a `url` to open the pane in the first place |
+
+#### Two differences that will cost a run if you miss them
+
+**1. The JavaScript in this file is written as functions. The desktop tool evaluates expressions.**
+
+Playwright's `browser_evaluate` takes a function and calls it for you. `javascript_tool` is a REPL — it returns the value of the **last expression**, and top-level `await` works. So **wrap every snippet in this file in an IIFE** before running it there:
+
+```js
+async () => { ... }        // as written here, for browser_evaluate
+(async () => { ... })()    // what javascript_tool needs
+```
+
+A bare `async () => {...}` hands back the function object rather than its result, which reads exactly like a page that returned nothing. That is the single easiest way to conclude a menu is empty when it is not.
+
+**2. Set modal options by clicking the input, never by assigning `.checked`.**
+
+The live price in `input[name="commit"]` is recalculated by a change handler. `el.checked = true` does not fire it, so the price silently stays at the base and **the one number the spend ceiling is checked against is wrong**. `el.click()` does fire it.
+
+Same for the notes box: set `.value`, then dispatch `input` and `change`, or the note may not survive the add-to-cart.
 
 ### Getting in
 
@@ -1110,6 +1157,17 @@ Start at `https://mealprogram.ezcater.com/users/sign_in`. If a session is alread
 `/schedule` lists **every orderable day** as a tab or row, and each day holds several restaurants as `/schedule_entries/<id>` links with their own **order-by cutoff**, delivery time, delivery fee, and subsidy. Individual days are also reachable directly at `/schedule/<YYYY-MM-DD>`.
 
 **Enumerate the days first.** Before opening a single menu, list which days are open and which are already ordered — a day whose order is placed shows its item instead of a restaurant list, and the confirmation page says so outright ("you've placed all your orders for the week"). Never re-order a day that is already covered, and never assume the count: the number of open days changes with the day of the week and the cutoffs that have already passed.
+
+The day tabs are plain links, so enumerating them is one call:
+
+```js
+async () => [...document.querySelectorAll('a[href^="/schedule/"]')]
+  .map(a => ({ day: a.innerText.replace(/\s+/g, ' ').trim(), href: a.getAttribute('href') }));
+```
+
+**A closed day announces itself.** Its restaurants read `Time's up!` and `Stopped accepting orders at <time>` where an open one reads `Order by <time>`. Today's tab is `/schedule`; every other day is `/schedule/<YYYY-MM-DD>`.
+
+**Two days showing does not mean two days open.** On 2026-09-17 the schedule offered `Today` and `Tue 9/22`, and today was entirely closed — every cutoff passed and the day's order already delivered. **One open day is a normal outcome and it is still a complete run.**
 
 Then read **every restaurant on every open day** before placing anything. The batch has to be planned whole (see **Variety and rotation**), which is impossible from one menu.
 
@@ -1134,7 +1192,9 @@ Menus are long. Pull them compactly with `browser_evaluate` rather than burning 
 
 Listed prices are base prices. The real number lives behind the item's option modal, and that is where the ceiling gets hit or missed.
 
-**Navigating straight to an `order_items/new` URL silently redirects back to the menu.** You have to click the link: `browser_click` on `a[href*="menu_item_id=<id>"]`.
+**Navigating straight to an `order_items/new` URL silently redirects back to the menu.** Confirmed again 2026-09-17 by `fetch`, which follows the redirect and hands back the menu page with a `200` — so **a fetch cannot read a modal either**, and a full-length menu page coming back from an item URL is that redirect, not a broken selector.
+
+You have to click the link: `browser_click` on `a[href*="menu_item_id=<id>"]`, or, where JavaScript is the cheaper tool, `document.querySelector('a[href*="menu_item_id=<id>"]').click()` and wait ~2s for the modal to mount. Both work; the second keeps a survey of several items inside one call.
 
 The modal carries required groups (protein choice), optional add groups (second protein, sauces), sides, desserts, drinks, a `textarea[name="order_item[notes]"]`, and a submit button whose **value is the live running price** — read `input[name="commit"]`'s value to price a build exactly, with no arithmetic on your part:
 
@@ -1143,6 +1203,46 @@ The modal carries required groups (protein choice), optional add groups (second 
 ```
 
 To survey several items' upcharges in one call, click each link, scrape the largest `div[class*="odal"]`'s `innerText`, then click the `×` button, with ~1.5-2s waits between steps.
+
+#### Selecting the options, and reading the price back
+
+**The modal's `innerText` tells you what the choices are. It does not tell you how to set them.** Every option group renders as an input named `options[<groupId>]choices[]` — a **radio** for a required single-select, a **checkbox** for an optional add group. The choice id is the input's `value`; the human label is `label[for="<input id>"]`, falling back to the enclosing `<label>`.
+
+Pull the whole set in one call so you can pick by value afterwards:
+
+```js
+async () => {
+  const m = [...document.querySelectorAll('div[class*="odal"]')]
+    .sort((a, b) => b.innerText.length - a.innerText.length)[0];
+  return [...m.querySelectorAll('input')].map(i => ({
+    type: i.type, value: i.value,
+    label: (m.querySelector(`label[for="${i.id}"]`) || i.closest('label'))
+             ?.innerText.replace(/\s+/g, ' ').trim()
+  }));
+}
+```
+
+Then click them by value, pausing so each recalculation lands, and **read `commit` back**:
+
+```js
+async () => {
+  const pick = v => [...document.querySelectorAll('input')]
+    .find(i => i.value === v && i.type !== 'hidden')?.click();
+  pick('<base choice id>');    await new Promise(r => setTimeout(r, 600));
+  pick('<side choice id>');    await new Promise(r => setTimeout(r, 600));
+  pick('<add-on choice id>');  await new Promise(r => setTimeout(r, 1200));
+  const ta = document.querySelector('textarea[name="order_item[notes]"]');
+  ta.value = '<the validated note>';
+  ta.dispatchEvent(new Event('input',  { bubbles: true }));
+  ta.dispatchEvent(new Event('change', { bubbles: true }));
+  return {
+    commit:  document.querySelector('input[name="commit"]').value,   // "Add to cart - $17.48"
+    checked: [...document.querySelectorAll('input:checked')].map(i => i.value)
+  };
+}
+```
+
+**Read `commit` back after every build and before adding to cart.** It is the cheapest correctness check in this skill: it prices the build exactly, it catches a selector that did not take, and it catches the `.checked` mistake above. Confirm the `checked` list is exactly the choices you meant — a required group left unset will block the add, and a stray checkbox is an add-on nobody asked for.
 
 Upcharge shapes worth knowing: a required protein swap is usually cheaper than the same protein added as an extra, and $0.25-$1.00 sauces and toppings are the levers that lift a build the last few cents toward the ceiling. Some restaurants have no cheap add-ons at all — their items land where they land and cannot be tuned.
 
