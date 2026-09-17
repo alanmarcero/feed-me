@@ -32,7 +32,7 @@ $18.50 is proven safe. $18.88 is proven to cost $0.20. The wall sits between the
 
 Read this before building a slate.
 
-- **Last format:** `protein-plate` (2026-09-16 GRECO, delivered 2026-09-17).
+- **Last format:** `protein-plate` (2026-09-16 GRECO, delivered 2026-09-17, rated 4/5 in chat).
 - **Last restaurant:** GRECO.
 - **Formats in the last four orders:** `salad` (09-08), `carb-base` (09-01), `salad` (08-25), `protein-plate` (09-16). Needs a fourth distinct format.
 - **`carb-base` last used:** 2026-09-01. Off cooldown.
@@ -45,7 +45,7 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 
 | ID | Delivered | Status | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 20957854 | 2026-09-17 | `delivered` | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | pending | — |
+| 20957854 | 2026-09-17 | `delivered` | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | 3 liked *(chat 4/5)* | chat: "4/5". "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
 | 20755521 | 2026-09-08 | `rated` | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | chat: "ok, too much lettuce" |
 | 20658056 | 2026-09-01 | `rated` | Roots to Rise | Supreme Turkey BLT Sandwich, multi-grain, no mayo + Organic Hard-Boiled Eggs ($3.79) | `carb-base` | $18.88 | $1.32 | **$0.20** | 2 neutral | "Pretty basic sandwich" |
 | 20586963 | 2026-08-25 | `rated` | The Chicken & Rice Guys | Chicken & Gyro Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) + hot & BBQ sauce | `salad` | $17.06 | $1.19 | $0.00 | 3 liked | — |
@@ -97,11 +97,15 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 | pita bread | ~5g | ~165 |
 | **total** | **~53g** | **~735** |
 
+**Rated 4/5 in chat, not on ezCater.** Recorded as `3 liked`, because ezCater's five stars store 0-4 and the fourth star is index 3. If they meant the top star, this is a `4 loved` and GRECO earns the loved-item override. Flagged rather than guessed — the site widget is still unclicked and will settle it.
+
+**As actually eaten:** half the pita was left on purpose, so roughly **~50g protein and ~650 calories** went down — **and they were still a little hungry at that.** The build cleared the protein floor by 13g and came in 150 calories under the ceiling. The gates were satisfied and the meal was not. See the satiety note in `dietary-preferences.md`.
+
 **Cancelled 2026-09-16, not an order:** the GRECO Bifteki Plate build ($18.55, ~58g protein, ~1,175 cal). Recorded only so it is not re-picked as untested — it will not clear 800 calories.
 
 ## Their reviews, verbatim
 
-Six of forty orders carry text written on ezCater, plus one given in chat. Every one is a complaint, which is the tell: **they write when something is wrong and stay silent when it is right.** The absence of text on a 4 is not missing data — it is the normal shape of a good order. Read the star rating as the verdict and the text as the reason a rating fell short.
+Six of forty orders carry text written on ezCater, plus two given in chat. The ezCater six are all complaints, which is the tell: **they write when something is wrong and stay silent when it is right.** The absence of text on a 4 is not missing data — it is the normal shape of a good order. Read the star rating as the verdict and the text as the reason a rating fell short.
 
 | Date | Restaurant | Rating | What they wrote |
 |---|---|---|---|
@@ -112,8 +116,11 @@ Six of forty orders carry text written on ezCater, plus one given in chat. Every
 | 2026-03-31 | Dora Taqueria | 2 | "bland" |
 | 2026-01-06 | Boloco | 3 | "Plenty of chicken, but barely any steak." |
 | 2026-09-08 | Scali Deli & Cafe | 3 | **chat:** "ok, too much lettuce" |
+| 2026-09-17 | GRECO | 3 liked *(chat 4/5)* | **chat:** beans a good sub for rice, "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
 
-What the six have in common: **none of them is about macros, price coverage, or format.** Every complaint is about execution — freshness, moisture, seasoning, portion honesty, value. A build can clear every gate in this skill and still earn a 2. That is what these lines are for.
+**The 2026-09-17 GRECO review is the exception, and the most useful entry here.** The first substantially positive review in the log, it arrived in chat rather than on the site, and it names components instead of verdicts: beans beat rice, hot sauce on everything, pita deliberately left, and the plate still came up short on volume. Four preferences out of one paragraph. Ask for this kind of feedback when a run lands well.
+
+What the ezCater six have in common: **none of them is about macros, price coverage, or format.** Every complaint is about execution — freshness, moisture, seasoning, portion honesty, value. A build can clear every gate in this skill and still earn a 2. That is what these lines are for.
 
 - "Pretty basic sandwich" and "bland" → under-seasoned, assembly-line food. Both were cold-or-generic builds from kitchens that make one thing for everybody.
 - "dry" and "stale, clearly cooked hours or even a day earlier" → both Mediterranean pita/shawarma formats, both held too long before delivery. This is the recurring failure mode of the cuisine on this program.
@@ -220,6 +227,9 @@ Derived from actual orders, not stated preferences.
 - Create-Your-Own Plate $12.95 with protein/side/sauce selectors tops out near $17.75.
 - $1.00 sauces are the precision lever for the last few cents. The Bifteki Plate is the one plate that does not include tzatziki.
 - **Create-Your-Own Plate is the calorie-gate workhorse.** Its sauce is a free required selector, so a separate $1.00 sauce line is redundant. Its side selector includes **lemon-dill beans** — gigantes, ~7g protein, ~200 cal, no grain — which beats the pilaf and the fries on both gates. $12.95 + pork souvlaki $3.90 lands on $16.85 at ~735 cal.
+- **The beans are the reason this plate works, confirmed 2026-09-17.** They were called out unprompted as better than rice. Always take them here, and look for the same swap on every other menu.
+- **Two souvlaki sticks were not enough food.** Next build at GRECO needs more protein volume or a second bean-tier side. The plate has room in both budgets to carry it.
+- **Ask for hot sauce.** Not offered in the modal on this plate, so it belongs in the notes box.
 - The 2026-04-29 Spicy Feta & Beef at $18.50 is the rated-4 build here.
 
 **The Chicken & Rice Guys.** Ordered twice, rated 3 both times. Hummus is a $2.49 add-on and the mint-cilantro-jalapeño sauce is $0.50 after the free three. Reliable, never exciting.
