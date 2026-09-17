@@ -32,7 +32,7 @@ $18.50 is proven safe. $18.88 is proven to cost $0.20. The wall sits between the
 
 Read this before building a slate.
 
-- **Last format:** `protein-plate` (2026-09-16 GRECO, delivered 2026-09-17, rated 4/5 in chat).
+- **Last format:** `protein-plate` (2026-09-16 GRECO, delivered 2026-09-17, rated **3 liked** — the chat "4/5" was the fourth of five stars, settled 2026-09-17).
 - **Last restaurant:** GRECO.
 - **Formats in the last four orders:** `salad` (09-08), `carb-base` (09-01), `salad` (08-25), `protein-plate` (09-16). Needs a fourth distinct format.
 - **`carb-base` last used:** 2026-09-01. Off cooldown.
@@ -45,7 +45,7 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 
 | ID | Delivered | Status | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 20957854 | 2026-09-17 | `delivered` | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | 3 liked *(chat 4/5)* | chat: "4/5". "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
+| 20957854 | 2026-09-17 | `delivered` | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | 3 liked | chat: "4/5" *(= the fourth of five stars, so `3 liked`; settled 2026-09-17)*. "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
 | 20755521 | 2026-09-08 | `rated` | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | chat: "ok, too much lettuce" |
 | 20658056 | 2026-09-01 | `rated` | Roots to Rise | Supreme Turkey BLT Sandwich, multi-grain, no mayo + Organic Hard-Boiled Eggs ($3.79) | `carb-base` | $18.88 | $1.32 | **$0.20** | 2 neutral | "Pretty basic sandwich" |
 | 20586963 | 2026-08-25 | `rated` | The Chicken & Rice Guys | Chicken & Gyro Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) + hot & BBQ sauce | `salad` | $17.06 | $1.19 | $0.00 | 3 liked | — |
@@ -97,7 +97,9 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 | pita bread | ~5g | ~165 |
 | **total** | **~53g** | **~735** |
 
-**Rated 4/5 in chat, not on ezCater.** Recorded as `3 liked`, because ezCater's five stars store 0-4 and the fourth star is index 3. If they meant the top star, this is a `4 loved` and GRECO earns the loved-item override. Flagged rather than guessed — the site widget is still unclicked and will settle it.
+**Settled 2026-09-17: it was a 3.** They confirmed the chat "4/5" meant the fourth of five stars, which is ezCater's `3 liked`. The row stands as recorded, and the flag this entry carried is closed — do not reopen it from the "4/5" wording, which was always the ambiguity and never a second opinion.
+
+**GRECO is still an anchor, and this order is half the reason why.** The 3 is the verdict on this plate; the fact that he came back to GRECO in September after a 4 in April is a separate signal and it is the scarcer one. See **Two signals to return** in `SKILL.md`. Read the 3 as instruction about *what to order here* — the plate was short on food — not as a reason to stop ordering here.
 
 **As actually eaten:** half the pita was left on purpose, so roughly **~50g protein and ~650 calories** went down — **and they were still a little hungry at that.** The build cleared the protein floor by 13g and came in 150 calories under the ceiling. The gates were satisfied and the meal was not. See the satiety note in `dietary-preferences.md`.
 
@@ -116,7 +118,7 @@ Six of forty orders carry text written on ezCater, plus two given in chat. The e
 | 2026-03-31 | Dora Taqueria | 2 | "bland" |
 | 2026-01-06 | Boloco | 3 | "Plenty of chicken, but barely any steak." |
 | 2026-09-08 | Scali Deli & Cafe | 3 | **chat:** "ok, too much lettuce" |
-| 2026-09-17 | GRECO | 3 liked *(chat 4/5)* | **chat:** beans a good sub for rice, "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
+| 2026-09-17 | GRECO | 3 liked | **chat:** beans a good sub for rice, "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
 
 **The 2026-09-17 GRECO review is the exception, and the most useful entry here.** The first substantially positive review in the log, it arrived in chat rather than on the site, and it names components instead of verdicts: beans beat rice, hot sauce on everything, pita deliberately left, and the plate still came up short on volume. Four preferences out of one paragraph. Ask for this kind of feedback when a run lands well.
 
@@ -131,7 +133,11 @@ What the ezCater six have in common: **none of them is about macros, price cover
 
 ### Loved — rated 4, order again freely
 
-Repeating any of these is **encouraged**, including the exact same dish. See **The loved-item override** in `SKILL.md`.
+Repeating any of these is **encouraged**, including the exact same dish. See **Two signals to return** in `SKILL.md`.
+
+**A second visit promotes a loved kitchen to `anchor`, which is the only tier that beats novelty.** Three restaurants in this log have been ordered from on two different days: **GRECO** (4 then 3), **The Chicken & Rice Guys** (3 then 3) and **Bom Dough** (4, then a bacon side order). Only GRECO carries both a 4 and a re-order, so **GRECO is the log's only anchor**. C&R Guys is a `habit` — twice ordered, never a 4. Everything else in this table is `loved` but unrepeated, which is permission to return rather than a reason to.
+
+Same-day cancellations are not second visits. Six rows in **Cancelled** are swap leftovers sitting on a day that also delivered; those are one visit each.
 
 | Restaurant | Dish | Why it works |
 |---|---|---|
@@ -187,7 +193,18 @@ Reconciled off the **Canceled** tab on 2026-09-17. None of these were in the log
 
 **Six are swap leftovers** and say nothing about the food. Each sits on a day that also has a delivered order, so it is the cleanup half of changing an entree. The 2026-08-25 pair is the clearest case: the same restaurant and the same dish, cancelled and re-placed.
 
-**Four are days that got dropped** with no lunch at all: 2026-09-10 Boonnoon Market, 2026-06-23 Toscano's, 2026-06-02 Halal Indian, 2026-02-24 Bon Me. These are the ones worth a second look. They explain four gaps in the log that previously looked like weeks with no order, and none of the four restaurants has ever produced a delivered meal. **Treat all four as untested rather than as rejected** — a cancellation has no rating behind it, and the reason could as easily have been a schedule as the menu.
+**Four are days that got dropped** with no lunch at all: 2026-09-10 Boonnoon Market, 2026-06-23 Toscano's, 2026-06-02 Halal Indian, 2026-02-24 Bon Me.
+
+**These mean nothing about the food, and that is now stated rather than assumed.** Asked about the Boonnoon kao soi on 2026-09-10, the answer was direct:
+
+> "the soup order was fine, i just had a change of plans for that day and didn't come in. that's going to happen, too. i'll have to cancel for no reason other than i'm not in the office."
+
+So a dropped day is an **attendance** event. It is not a menu rejection, not a bad pick, and not a signal to avoid the restaurant. **Treat all four as untested and as fine** — Boonnoon explicitly so, and the other three by the same default until something says otherwise.
+
+Two consequences worth holding onto:
+
+- **Boonnoon Market is a live lead, not a dead one.** `soup-forward` is the best-rated format in the log on its single order, it is the least used format there is, and the one other soup day was lost to a calendar rather than to a kitchen.
+- **Expect more of these, and do not read into them.** Cancelling for no reason other than not being in the office is normal and will keep happening. Never let a run of cancellations at one restaurant harden into a pattern about that restaurant without a rating behind it.
 
 ## Unrated
 
@@ -199,12 +216,12 @@ Thai Spice (2026-01-21), Atlantic Poké (2026-01-27), La Hacienda (2026-02-03), 
 
 Currently derived from the table above and recorded there:
 
-- **Cuisine ranking.** Indian 4.00, East/SE Asian 3.33, Latin 3.00, Mediterranean/Middle Eastern 2.78. Mediterranean is the weakest repeated cuisine, which reverses what this skill used to assume.
+- **Cuisine ranking.** Indian 4.00, East/SE Asian 3.33, Latin 3.00, Mediterranean/Middle Eastern 2.80. Mediterranean is the weakest repeated cuisine, which reverses what this skill used to assume. **Spicy Indian is now a stated standing yes**, and the table only ranks 27 of the 34 rated orders — the other seven are not a cuisine. See `dietary-preferences.md`.
 - **Cancelled orders feed none of this.** The ten rows under **Cancelled** carry no rating and no verdict, so they change no average and no rule.
 - **Preparation signals.** Cooked-to-order, raw fish and aggressive seasoning predict a 4. Cold assembly, held pita and shawarma, chain burrito bowls and tofu predict a 2.
 - **Tofu is never the protein.** The Life Alive bowl is the only 1 in the log.
-- **`carb-base` is rationed, not disliked.** It is 26 of 40 orders and carries nine of the sixteen 4s.
-- **Under-used formats.** `soup-forward` has one order (Zuzumomo, rated 4) and `bowl-no-grain` has none. `soup-forward` has the best record of any format and the least use — reach for it when rotation needs a fresh slot.
+- **`carb-base` is rationed, not disliked.** It is 27 of 41 orders and carries **12** of the sixteen 4s — and also every rating below 3. It is the high-variance format, not the bad one. **The rationing governs the format, not the presence of a carb**: a light carb side is wanted on every build. `stated` 2026-09-17.
+- **Under-used formats.** `soup-forward` has one order (Zuzumomo, rated 4) and `bowl-no-grain` has **none in 41 deliveries**. `soup-forward` has the best record of any format and the least use — reach for it when rotation needs a fresh slot, and note that the only other soup day on record was lost to a calendar rather than to the kitchen. An absence in this log is not a preference.
 
 **After any scrape that adds ratings, re-derive these against `dietary-preferences.md`** and update that file. See **How this file evolves** there for what promotes a pattern to a rule.
 

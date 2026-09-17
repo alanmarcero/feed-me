@@ -102,7 +102,7 @@ the money rules are the skill's. the food rules are yours.
 | every open day | an unclaimed day is a day of stipend deleted |
 | one (1) real item | three $5 sides in a trenchcoat is not an entree |
 | rotation | no same format twice in a row |
-| loved food | exempt from that. you rated it 4, so go back, same dish included |
+| loved food | a 4 buys permission to repeat. a 4 *and* a return beats trying somewhere new |
 | your reviews | outrank the arithmetic. a silent 4 beats a 3 with a paragraph |
 | the numbers | live in `dietary-preferences.md`. never from memory |
 | pushing | never on its own. commits yes, publishes no |
@@ -259,7 +259,7 @@ stars instead of asking twice. five stars, stored 0-4:
 
 | stars | verdict | what happens |
 |---|---|---|
-| 4 | **loved** | go back. same dish is fine |
+| 4 | **loved** | going back is allowed. go back twice and it's an anchor |
 | 3 | liked | fine to repeat, not a priority |
 | 2 | neutral | ranks *below* something untested |
 | 1 | disliked | the dish is done |
@@ -286,13 +286,35 @@ carrying a status from placed to rated. preferences don't live there: the log re
 happened, the preferences file records what it *meant*. "i liked the Scali salad" generalizes
 to one salad. "lose the lettuce, keep the tahini" generalizes to every menu.
 
-## loved means go back
+## two signals to go back
 
-the failure mode of a rotation rule is treating good food as a thing to be rationed. you
-rated it 4. that's a request. so a **loved** kitchen is exempt from "pick somewhere else this
-time" and can repeat inside the four-order window. it just has to say it's riding on a 4, so
-you can tell a deliberate repeat from a robot out of ideas. a **neutral** kitchen doesn't get
-a turn for being overdue.
+the failure mode of a rotation rule is treating good food as a thing to be rationed. so it
+reads two different things as reasons to return, and they're made of different evidence.
+
+**the star is what you said.** you rated it 4, after eating, which is the only place the food
+itself gets judged.
+
+**the re-order is what you did.** you had a whole slate that day and picked the same place
+again. that's a choice made with a live budget, not a click made afterward — and if you like
+trying new things, going back cost you something. which is exactly what makes it worth reading.
+
+| carries | tier | how it ranks |
+|---|---|---|
+| a 4 **and** a return | **anchor** | beats somewhere new on a tie. repeat it, same dish and all |
+| a 4, never returned | loved | permission, not instruction. new still wins the tie |
+| returned, never a 4 | habit | reliable. wins only when the day is thin |
+| neither | untested | the default, if novelty is what you want |
+| a 2 or worse | — | doesn't get a turn for being overdue |
+
+four guards keep it honest. a repeat *it* placed for rotation isn't your preference reflected
+back, so it only counts when another qualifying restaurant was open that day. a same-day
+cancellation is one visit, not two. a return followed by a 3 doesn't retroactively become a 4
+— the anchor says go back, the 3 says what to order when you do. and neither signal clears a
+gate: an anchor that can't hit the protein floor under the calorie ceiling still doesn't get
+placed.
+
+it says which signals a repeat is riding on, so you can tell a deliberate return from a robot
+out of ideas.
 
 ## install
 
