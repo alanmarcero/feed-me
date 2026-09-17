@@ -24,8 +24,8 @@ hungry. unacceptable.
 
 | | |
 |---|---|
-| `/feed-me` | orders lunch for every open day, then syncs. this is the one you'll use |
-| `/feed-me sync` | reconciles the log against ezCater and orders nothing |
+| `/feed-me` | orders lunch for every open day, then lazy-syncs. this is the one you'll use |
+| `/feed-me sync` | full reconcile against ezCater. opens every order. orders nothing |
 
 it opens the ordering site in a real browser, finds **every day** still open, reads every
 menu, prices out the upcharges hiding behind each item's option modal, plans the week so no
@@ -137,13 +137,24 @@ better becomes the floor, the 75th percentile of calories becomes the ceiling, c
 by average rating, components come from what keeps showing up in your 4s. all of it tagged
 `provisional`, each shown with the number it came from, and yours to overrule on sight.
 
-**and every plain `/feed-me` ends with one anyway.** you don't have to remember to run it. the
+**and every plain `/feed-me` ends with a lazy one anyway.** you don't have to remember. the
 books staying straight is the skill's problem, not yours.
 
-it's also the only thing that turns "i placed four orders" into "i placed four orders and
-all four are actually there." a confirmation page is a claim; the upcoming tab is the fact.
-if an order it just placed isn't on the site, that's the run failing, not finishing, and it
-says so loudly and re-places it if the cutoff hasn't passed.
+lazy means it skips detail pages it doesn't need, not that it skips checking. it always reads
+all three tab listings, because that's where changes announce themselves: the card tells it
+*whether* you rated something, the order page tells it *what you rated*. so it only opens an
+order it's never seen, one that just picked up a review, or one whose row is missing
+something. a settled log goes from ~45 fetches to about 5.
+
+`/feed-me sync` is the thorough one. every order, every time, no skipping. that's what
+catches the things a card can't show: a rating you changed from 3 to 4, review text you
+edited later, a price the restaurant corrected.
+
+the lazy pass is also the only thing that turns "i placed four orders" into "i placed four
+orders and all four are actually there." a confirmation page is a claim; the upcoming tab is
+the fact. orders it just placed are new, so laziness never applies to them. if one isn't on
+the site, that's the run failing rather than finishing, and it says so loudly and re-places it
+if the cutoff hasn't passed.
 
 run plain `/feed-me` with no history and no preferences and it syncs *first* too, says so,
 then carries on into the order. your account has your lunches on it even when the skill
