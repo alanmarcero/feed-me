@@ -4,7 +4,11 @@
 
 The skill reads this file on load. If it is missing, the skill does not order — it runs the onboarding interview in **First run** in `SKILL.md` and writes this file from the answers.
 
-Last reviewed: 2026-09-17. Nine answers came back from the refine pass and every one is written in below as `stated`. The big ones: the protein floor is **45g**, not 40g; carbs are **wanted but light** rather than being reduced; the vegetable limit is about **cheapness, not vegetables**; full portions get bought and under-eaten rather than ordered small; spicy Indian is a standing yes; spice goes to the **top of any heat scale**; novelty is the default but **a 4 plus a re-order is an anchor that beats it**, which is what GRECO is; the GRECO plate itself settled at **3**, which reads as what to order there rather than whether. Cancelled days are usually him not being in the office and mean nothing about the food.
+Last reviewed: 2026-09-17 (two refine passes).
+
+**First refine pass — nine answers, every one written in below as `stated`.** The big ones: the protein floor is **45g**, not 40g; carbs are **wanted but light** rather than being reduced; the vegetable limit is about **cheapness, not vegetables**; full portions get bought and under-eaten rather than ordered small; spicy Indian is a standing yes; spice goes to the **top of any heat scale**; novelty is the default but **a 4 plus a re-order is an anchor that beats it**, which is what GRECO is; the GRECO plate itself settled at **3**, which reads as what to order there rather than whether. Cancelled days are usually him not being in the office and mean nothing about the food.
+
+**Second refine pass, same day — eight more answers, also all `stated`.** The schedule is **Tuesday always, Thursday added for the next few months, Monday a few times a year**, and anything the site shows is fair game. **Sushi stays**, with the 45g floor as best-effort on those days and a filling alternative offered alongside. **There is no separate calorie floor** — the protein floor implies it. **The spend floor is retired**; the only money rule is $0.00 out of pocket. **The Atlantic Poké bowl is a 4** and poke is a standing yes. **Soup only when it is a unique soup.** **No drinks, no desserts, ever.** **Take the add-on whenever the budget allows.**
 
 ## Provenance, and why it matters
 
@@ -27,7 +31,8 @@ Gates. Nothing overrides these — not price, not macros, not rotation, not a lo
 | **No allergies declared** | `stated` | Nothing is medically off-limits. If this ever changes it outranks every other line in this file. |
 | **Tofu is never the protein** | `derived` | The one tofu bowl is the only 1-star in 40 orders. Tofu as an incidental component is fine; tofu carrying the protein number is not. |
 | **No cheap-filler vegetable base** | `stated`, refined 2026-09-17 | **The line is quality, not vegetables.** "a bed of lettuce is low quality vegetables. cheap. but a bed of cucumber salad is not cheap." See **Where the vegetable line actually falls** below. |
-| **Nothing on the Never Again list** | `stated` | Lives in `order-history.md`. Currently empty. |
+| **No drinks, no desserts** | `stated` 2026-09-17 | *"i dont order drinks or desserts, save that money for protons."* Never add either — not to close a price gap, not as a treat, not at any price. See **Portion and value**. |
+| **Nothing on the Never Again list** | `stated` | Lives in `order-history.md`. One entry: the Life Alive Teriyaki Tofu Bowl. |
 | **Nothing they rated 1 or 0** | `derived` | A rating of 1 retires the dish. A 0 retires the dish and puts the kitchen under suspicion. |
 
 ### Where the vegetable line actually falls
@@ -48,6 +53,25 @@ This is the same axis as the `expensive` complaint at Sake and the "basic sandwi
 
 Practical test before ranking a salad or a bowl: **if the base were removed, would the rest still look like lunch?** Cucumber salad, beans and roasted vegetables pass. A bed of lettuce does not.
 
+## The schedule
+
+`stated` 2026-09-17, asked whether this is a one-day-a-week program given that 29 of 33 delivery weeks in the log carried exactly one order:
+
+> "historically the schedule was every tuesday. for the next few months they added thursday. a few times per year it's on monday's, too. if it's available on the site, it's available to feed me."
+
+**The last line is the rule: if the site shows a day, it gets an order.** There is no day that is skipped on principle, no weekday that is "not his day," and no reason to stop at one order because one order is what the history shows.
+
+| Day | Expect it |
+|---|---|
+| **Tuesday** | always — 33 of the 41 delivered orders |
+| **Thursday** | **added for the next few months from 2026-09-17** |
+| **Monday** | a few times a year |
+| anything else | the site decides, not this file |
+
+**So expect two-day weeks to be the normal case for a while**, and plan the batch whole across both — see **Variety and rotation** in `SKILL.md`. The single-day history is what the program offered, not what he chose.
+
+**Never infer the schedule from this table.** It records what he said to expect; the site records what is actually open. Enumerate the days on `/schedule` every run and order every one of them.
+
 ## Calories
 
 **Ceiling: 800 calories**, estimated, for the build as ordered. `stated` 2026-09-16.
@@ -56,7 +80,13 @@ A gate, not a goal. An item over 800 does not go on the slate at rank 1 and does
 
 It routinely binds before the budget does, so expect builds to land under the spend ceiling and leave stipend unspent. That is the gate working. **Never add a side, a drink or a dessert to close a price gap if it pushes the build over 800.**
 
-No floor. There is no minimum calorie count — a build that clears the protein floor at 600 calories is a better order than one that clears it at 790.
+**No calorie floor, and the question is now settled.** `stated` 2026-09-17, asked directly whether a ~700 floor should exist so builds aim at the ceiling rather than under it:
+
+> "calorie floor is dictated by the protein floor. 45g of protein is 45x4 calories"
+
+**So the only calorie minimum is the one the protein floor implies** — 45g of protein is 180 calories on its own, and whatever the rest of the build costs to deliver it. Do not invent a number above that, and do not pad a build with calories to reach one. A build that clears 45g at 600 calories is a better order than one that clears it at 790.
+
+**This means satiety is fixed by composition, never by a calorie target.** The section below is the whole of the answer: more room per calorie, from beans, bulk and a second protein-forward component. There is no number to aim at.
 
 ### Satiety is a separate problem from calories
 
@@ -77,6 +107,18 @@ So the ceiling is not the target and the floor is not the finish line. **Within 
 The floor that never bends. 43g is not close enough. Among options that clear it, more protein is not better — once 45g is met, calories and their ratings decide.
 
 **Why it moved.** The 2026-09-17 GRECO plate cleared the old floor by 13g at ~50g eaten and still came up short on food. 40g was set before any build had been estimated against a real appetite; 45g is the number that plate says it should have been. Expect this to bind more often than it used to, and expect the paid protein add-on — an egg, a double, a swap — to be how most builds reach it.
+
+**The floor is best-effort on a sushi day, and only there.** `stated` 2026-09-17, asked whether raw fish should be exempted from the 45g floor given it is the second-best-rated thing in the log:
+
+> "sushi is great, i love sushi. but i am often still hungry on sushi day because it's expensive. on these days we do our best to hit the 45g floor."
+
+**Sushi is not dropped and the floor is not waived.** Poke bowls reach 45g with a paid protein add-on and should always take one. Sushi rolls mostly cannot reach it under the ceiling — build the highest-protein combination the menu allows, take nigiri over rolls where both exist, and **say in the writeup how far short it landed.**
+
+**And offer the alternative rather than deciding for him.** His own phrasing of what he wants to see:
+
+> "maybe give the user options like 'yo my dude. you love sushi, and it's on the menu. but i found this as well that would be more filling'"
+
+So on any day where sushi is available and cannot reach 45g, **the slate presents both** — the sushi build and the most filling qualifying build on that day's menus — and **asks which one he wants, in Claude's normal voice, outside the greentext.** See **Questions are never greentext** in `SKILL.md`. Do not silently rank the filling option first and bury the sushi; he has stated he loves it, and the hunger is a known, accepted trade.
 
 **Protein is bought, not asked for.** `stated` 2026-09-16. It is the costed component, so it gets purchased in the option modal where the upcharge shows in the cart. A note asking for extra meat is ignored at most kitchens and reads badly at some. **A note's protein never counts toward the 45g floor; a note's calories always count against the 800 ceiling.**
 
@@ -103,11 +145,17 @@ Ranked by their own ratings across 40 orders. `derived` — revise this table wh
 | Cuisine | Rated orders | Avg | Read |
 |---|---|---|---|
 | Indian | 2 | **4.00** | **Take it whenever a day offers it.** `stated` — see below. |
-| East / Southeast Asian | 12 | **3.33** | Seven of the sixteen 4s. The deepest reliable bench. |
+| East / Southeast Asian | 13 | **3.38** | Eight of the seventeen 4s. The deepest reliable bench. **3.58 with the Life Alive tofu bowl set aside.** |
 | Latin | 3 | 3.00 | Wide spread — a 4, a 3 and a 2. |
 | Mediterranean / Middle Eastern | 10 | **2.80** | The weakest repeated cuisine. **2.63 with GRECO set aside.** |
 
+**Recounted 2026-09-17 after the Atlantic Poké bowl was rated 4 in chat.** East/SE Asian moves from 3.33 to 3.38 and now ranks 13 of the 35 rated orders.
+
 **Spicy Indian is a standing yes.** `stated` 2026-09-17: *"spicy indian is always a good choice, yes."* This promotes a two-order pattern into a rule the log could not have justified on its own — Tabla and Nirvana both rated 4, WOW TIKKA went unrated, and Halal Indian was cancelled on a day he was not in the office. **When an Indian kitchen is on a day's list, it is the default pick for that day**, subject only to the hard gates and the format rotation. Order it at the highest heat offered.
+
+**Poke is a standing yes, alongside spicy Indian.** `stated` 2026-09-17: *"i know the poke bowl is always a great choice, can give that a 4/4."* That settled the unrated 2026-01-27 Atlantic Poké bowl at **4 loved** and made poke **two orders, two 4s** — Poke City and Atlantic Poké. Raw fish overall is now **five rated orders averaging 3.60**, the best record in the log after Indian.
+
+**Poke is also the raw-fish format that can reach the protein floor**, because every poke counter sells a second scoop or a grilled-protein add-on. Poke City's rated-4 build did exactly that. **When a day offers poke, take it and buy the extra protein** — it is the one place where "he loves it" and "it clears 45g" stop competing.
 
 **The Mediterranean line is a correction, and it is worth understanding rather than just obeying.** This file used to claim Mediterranean builds land well. That came from components the user listed — tahini, hummus, feta, olives — and not from a single rating. Nine rated orders say otherwise: two 2s, both with freshness complaints attached, four 3s, and one 4.
 
@@ -139,7 +187,7 @@ Read the 3 as instruction about *what* to order there, not *whether*. The plate 
 
 What they share is the axis already in **Preparation**: the four 4s were all cooked hot to order, and the 3 and the 2 were both assembly-counter food. **Cuisine is the proxy; hot-versus-held is the thing.** When a day's menus offer a kitchen that cooks on the line, it does not need a row in this table to be the right pick.
 
-**East/SE Asian's 3.33 includes the Life Alive tofu bowl**, the only 1 in the log. The eleven cuisine-native Asian kitchens average **3.55**. The row stays as counted, but the bench is stronger than the number reads.
+**East/SE Asian's 3.38 includes the Life Alive tofu bowl**, the only 1 in the log. The twelve cuisine-native Asian kitchens average **3.58**. The row stays as counted, but the bench is stronger than the number reads.
 
 Practical rule: when a day's menus offer an Indian or Asian kitchen alongside a shawarma counter, **the shawarma counter is the weaker bet even when its build looks better on paper.**
 
@@ -211,7 +259,7 @@ Eggs are the cheapest protein-per-dollar add-on anywhere in the log, they carry 
 
 - **Starch bases** — wrap, sandwich, sub, burrito, pizza, rice bowl, grain bowl. `stated`: "not every week." Enforced by the `carb-base` cooldown in `SKILL.md`.
 
-  **This is a rationing rule, not a dislike, and the difference matters.** `carb-base` is **27 of 41 orders** and carries **12 of the 16 fours** — 11 if the Levain side order is set aside. Corrected 2026-09-17: this file previously said nine, which understated the format's record by a third.
+  **This is a rationing rule, not a dislike, and the difference matters.** `carb-base` is **27 of 41 orders** and carries **13 of the 17 fours** — 12 if the Levain side order is set aside. Recounted 2026-09-17 after the Atlantic Poké bowl was rated 4.
 
   **It is also the only format that has ever failed.** All six 2s and the single 1 are `carb-base`. No `salad`, `protein-plate` or `soup-forward` order has ever rated below 3.
 
@@ -223,7 +271,11 @@ Eggs are the cheapest protein-per-dollar add-on anywhere in the log, they carry 
 | `salad` | 3 | 3.00 | 3 | 3 |
 | `bowl-no-grain` | **0** | — | — | — |
 
+  **That table counts lunches only.** The $4.13 Levain chips-and-roll is a `carb-base` side order and is excluded; fold it back in and `carb-base` reads 24 orders at 3.21. Recounted 2026-09-17 with Atlantic Poké rated 4.
+
   **So `carb-base` is the high-variance bet, not the bad one.** It holds the best food in the log and every disappointment in it. That sharpens the cooldown into a real rule: when a `carb-base` slot is spent, spend it on a kitchen with a rating behind it — never on an untested sandwich or wrap counter, which is where all seven failures came from.
+
+    **Soup counts only when the soup is interesting.** `stated` 2026-09-17: *"soup is an ok option if it's a unique soup. nothing boring."* Kao soi, momo jhol, pho, tonkotsu, a real tom yum — yes. Chicken noodle, minestrone, a generic soup-and-half-sandwich box — no, and a boring soup does not get picked just because rotation wants the format. **`soup-forward` is a permission with a taste filter on it**, which is why the format sits at one order in nine months despite rating 4.
 
   **The two formats at the top of that table are the two least used, and one has never been used at all.** `derived` 2026-09-17. `soup-forward` has a single order and it rated 4. `bowl-no-grain` has never been ordered once in 41 deliveries — and it is the exact shape of three rules this file now carries: carbs down, beans first, satiety from bulk rather than starch. **An absence in a log is not a preference.** Reach for both when rotation opens a slot, and treat `bowl-no-grain` as untested rather than unwanted until an order says otherwise.
 
@@ -251,7 +303,7 @@ Confirmed in the log: brown rice at Mae Asian Eatery, Boloco and Atlantic Poké;
 **Predicts a good rating:**
 
 - Cooked to order and served hot.
-- Raw fish. Sushi and poke cannot be dried out or held badly — every raw-fish order rated 3 or 4.
+- Raw fish. Sushi and poke cannot be dried out or held badly — every raw-fish order rated 3 or 4. **Five rated orders averaging 3.60** (Umai 4, Poke City 4, Atlantic Poké 4, Sake 3, Meet Us 3), which is the best record in the log behind Indian. **Poke is 2 for 2 at 4 and is a `stated` standing yes.** On the 45g floor: poke reaches it with a paid protein add-on and always should; sushi rolls mostly cannot, and that is handled as a best-effort day with a choice offered — see **Macros**.
 - Aggressive seasoning: curry, jerk, gochujang, holy basil, harissa. **Now `stated` as well as derived** — they love spicy food and add hot sauce themselves. See **Wants**.
 - A cuisine-specific kitchen over a generic bowl-and-sandwich chain.
 - **Grilled over fried** (`stated`) — when a menu offers grilled chicken against a breaded cutlet, specify grilled.
@@ -269,7 +321,9 @@ Confirmed in the log: brown rice at Mae Asian Eatery, Boloco and Atlantic Poké;
 
 - **One real menu item**, plus at most one add-on or upgrade. `stated`. A salad with a meat add-on is fine; three à-la-carte sides stacked into a fake entree is not.
 
-  Noted tension: the user broke this himself at Santa Fe Burrito Grill — three tacos plus a bowl — and rated it 4. The rule stands because he stated it; the exception is logged so it is not treated as a discovery.
+  **Take the add-on whenever the budget allows.** `stated` 2026-09-17, asked whether the one-item rule still holds given he broke it himself at Santa Fe Burrito Grill: *"yes we can always do an addon if the budget allows."*
+
+  **So the add-on is the default, not the exception.** A build that leaves room under the ceiling and takes no upgrade is an under-built order — that room should have gone to protein, per **Macros**. What he did *not* license is stacking several entrees: the Santa Fe order stays a logged exception rather than a pattern to copy.
 
 - **Buy the full plate and eat less of it.** `stated` 2026-09-17: *"i prefer to get the food and just eat less of it versus paying regular price for less food, or all lettuce."*
 
@@ -282,13 +336,36 @@ Confirmed in the log: brown rice at Mae Asian Eatery, Boloco and Atlantic Poké;
 
   It also resolves the GRECO half-pita. He wanted the pita on the plate and ate half of it. The correct build still includes the pita.
 
-- **Padding to reach the spend floor is weak.** `stated`. Adding a $1.50 banana purely to clear the floor is acceptable but poor; prefer one item that lands in the window on its own.
+- **Padding to reach the spend floor is weak — and now moot.** `stated`. Adding a $1.50 banana purely to clear the floor was always poor; with the floor retired below there is no floor to pad toward, and with drinks and desserts barred there is nothing to pad with. Kept as the reasoning behind both.
 
 - **Value is part of the verdict.** `derived`. A $17.95 build assembled out of $1.00 add-ons earned "expensive" at a 3. Reaching the ceiling through many small upcharges reads as padding even when the arithmetic is right.
 
-- **Price does not predict the verdict.** `derived` 2026-09-17. Orders at or above $18.00 average **3.23** across 13 rated. Orders under $17.00 average **3.43** across 7. The whole log averages **3.24**. The cheapest 4 in it is Perillas at **$14.59**; the most expensive order in it is Roots to Rise at $18.88, rated 2.
+- **Price does not predict the verdict, and the correlation actually runs backwards.** `derived` 2026-09-17, **recounted in the refine pass with the two side orders excluded** — the $4.13 Levain chips-and-roll and the $4.00 Bom Dough bacon are not lunches and were inflating every price statistic in this bullet.
 
-  **So the spend floor is a stipend-usage goal and nothing else.** It has never once bought better food. Spending toward $18.68 is worth doing when the candidates are otherwise equal, and **never worth dropping a better-rated item to reach $16.85.**
+  | Rating | Rated lunches | Avg subtotal |
+  |---|---|---|
+  | **4** | 16 | **$17.59** |
+  | 3 | 11 | $17.69 |
+  | 2 | 6 | $17.87 |
+  | 1 | 1 | $17.95 |
+
+  **A clean inverse ladder, monotonic at every step.** The 34 rated lunches average **3.24**. Orders at or above $18.00 average **3.29** across 14; orders under $17.00 average **3.33** across 6. The cheapest 4 in the log is Perillas at **$14.59**; the most expensive order in it is Roots to Rise at $18.88, rated 2.
+
+  The sample is small and the spread is narrow, so do not read this as *cheaper is better*. Read it as **spending more has never once bought better food**, which is the same conclusion with none of the overreach.
+
+- **The spend floor is retired.** `stated` 2026-09-17, asked whether to keep $16.85 as a target given the ladder above:
+
+  > "we just dont want to spend extra money. they're buying me lunch, not the other way around."
+
+  **There is one money rule and it is $0.00 out of pocket.** The $18.68 ceiling stays exactly as it is, as a hard gate against a card prompt. **$16.85 is no longer a target, a floor, or a thing to report as missed.** A build that clears the dietary gates at $14.59 is a complete order, and Perillas is the log's proof.
+
+  What this kills outright:
+
+  - **Padding.** Never add anything to a build to lift a subtotal. Combined with the drinks-and-desserts limit, there is nothing left to pad with anyway.
+  - **"Unspent stipend" as a cost.** Do not report it as one. The stipend is theirs to offer, not his to maximise.
+  - **Ranking on spend.** Two builds that both clear the gates are separated by their ratings and the rotation, never by which costs more.
+
+  **What survives is the add-on rule above**, and the two are not in tension: the budget buys *protein* when protein is what the build needs. It does not buy dollars for their own sake.
 
 ## How this file evolves
 

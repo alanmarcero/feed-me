@@ -396,7 +396,7 @@ One question, answerable in four words. If they decline or ignore it, proceed �
 |---|---|---|
 | protein floor | the **median** protein across orders rated 3 or better | down, to a 5g step |
 | calorie ceiling | roughly the **75th percentile** of calories across those same orders | up, to a 50 cal step |
-| spend floor and ceiling | the actual subtotal band in the log, against the arithmetic ceiling | to the cent |
+| spend ceiling | the arithmetic ceiling for that day's subsidy | to the cent |
 
 **Median and percentile, not mean.** One $4 side order or one 1,200-calorie plate drags an average somewhere the person has never been. Use the rated-3-or-better subset, because a rule derived partly from food they disliked is a rule aimed at the wrong target.
 
@@ -644,7 +644,9 @@ The correct state at every checkout is **Total $0.00, no payment method requeste
 
 ## Budget
 
-**The number that matters is the total, tax included.** Default stipend is **$20.00 per day**, and the goal is to land each day's total as close to it as possible without crossing. Cross by one cent and the checkout asks for a card. Unused stipend is wasted stipend.
+**The number that matters is the total, tax included.** Default stipend is **$20.00 per day**, and the ceiling is the whole of the rule: cross it by one cent and the checkout asks for a card.
+
+**Unused stipend is not wasted stipend.** This file used to say it was. The user settled it: *"we just dont want to spend extra money. they're buying me lunch, not the other way around."* **There is one money rule and it is $0.00 out of pocket.** Spending closer to the ceiling is never a goal in itself, and a cheaper build that clears the dietary gates is a complete order, not a missed one.
 
 **Budgets are per day and strictly independent.** Nothing pools, nothing carries over, and underspending Tuesday buys nothing on Wednesday. Read each day's own subsidy off its page rather than assuming $20.00 — the program can set them differently.
 
@@ -689,11 +691,14 @@ From receipts, not assumptions. Update when a new receipt contradicts one.
 
 ### The ceiling is settled
 
-**Ceiling $18.68 subtotal, which is $19.99 all in. Floor $16.85.** Proven by 40 receipts, not climbed to. There is no ratchet any more — the ladder existed to discover a number the order history now contains.
+**Ceiling $18.68 subtotal, which is $19.99 all in. No floor.** Proven by 40 receipts, not climbed to. There is no ratchet any more — the ladder existed to discover a number the order history now contains.
+
+**The $16.85 floor is retired**, `stated` 2026-09-17. It was a stipend-usage target and the log showed it never bought better food: across 34 rated lunches the 4s average a $17.59 subtotal, the 3s $17.69, the 2s $17.87 and the single 1 cost $17.95 — a clean inverse ladder. The cheapest 4 in the log cost $14.59.
 
 Rules:
 
-- **Land as close to $18.68 as the menu allows**, subject to the dietary gates. If the best qualifying item sits below the floor, say so rather than padding the order with junk.
+- **Spend what the build needs and nothing more.** There is no minimum, no window to land in, and no padding. A day that comes in at $14.59 is reported as $14.59, not as $4.09 left behind.
+- **The budget's job is to buy protein.** When a build is short of the protein floor and there is room under the ceiling, take the paid add-on — `stated` 2026-09-17, *"we can always do an addon if the budget allows."* That is the only reason to spend up.
 - **If a day's posted subsidy is not $20.00, recompute that day's ceiling from that day's number** with the division above. Never carry $18.68 onto a day that posts something else.
 - **A delivery fee is charged pre-tax and eats the subtotal budget.** It has been $0.00 on all 40 orders. If a restaurant charges one, subtract it from that day's max subtotal before shopping.
 - **If a tax rate other than 7% ever shows on a receipt, that receipt wins.** Recompute from the observed rate and update the constants table.
@@ -701,7 +706,7 @@ Rules:
 
 **In order-mode, trust the cart over the arithmetic.** The cart prints the day's real subsidy and the real total before you commit. The division above is for shopping a menu; the cart is the ground truth at checkout. See **The cart overrides the estimate**.
 
-**The dietary gates outrank this entire section.** Never add a side, a dessert or a drink to close a price gap if it breaks a limit in `dietary-preferences.md`. Unspent stipend is a cost worth reporting; a build that busts their ceiling is not a trade that was ever on the table. See **The dietary gates**.
+**The dietary gates outrank this entire section.** **Never add a drink or a dessert at all** — that is a hard limit in `dietary-preferences.md`, `stated` 2026-09-17: *"i dont order drinks or desserts, save that money for protons."* Never add a side to close a price gap either, because there is no gap to close. See **The dietary gates**.
 
 ## Priority ladder
 
@@ -735,7 +740,7 @@ The shape, whatever the numbers turn out to be:
 - **A ceiling is a maximum the build must stay under** — calories, sodium, carbs. Ceilings bend only when nothing on a day's menus fits under one, and then only with the overage named out loud in the writeup.
 - **When a floor and a ceiling collide**, the floor wins. Say so, and report which ceiling got spent.
 
-**Gates outrank the spend floor every time.** Spending the full stipend is a goal; their dietary rules are rules. When the only way to reach the spend floor is to break one, stop at the build that fits and report the unspent stipend as the cost. Never pad a build with a side or a dessert to close a price gap — that trades a rule for a goal.
+**There is no spend floor to outrank.** Retired 2026-09-17 — see **The ceiling is settled**. Build to the gates, stop, and report what it cost. Unspent stipend is not a cost and does not get reported as one. **A drink or a dessert is never the answer to anything**, at any price.
 
 If a day's menus cannot produce anything that clears their gates, say so plainly, place the closest qualifying build, and name exactly which gate it missed and by how much.
 
@@ -1070,6 +1075,25 @@ Estimates are yours — neither ezCater nor these restaurants publish nutrition 
 After the five, call out near-misses worth knowing: an item that fits every constraint but sits just over the ceiling, or a strong item just under the floor. The user wants to know what the budget cost them.
 
 If the menus can't produce five qualifying options, say that and give what there is. Do not pad the list with items that miss a dietary gate.
+
+### When something they love cannot clear a gate, offer the choice
+
+**Do not quietly rank it last and move on.** A food they have `stated` that they love is not the same as an item that merely scored well, and silently dropping it for a build that wins on arithmetic is the wrong call — they know the trade and have already accepted it.
+
+**Sushi is the worked case.** `stated` 2026-09-17: *"sushi is great, i love sushi. but i am often still hungry on sushi day because it's expensive. on these days we do our best to hit the 45g floor."* Asked how that should be handled, he wrote the pattern himself:
+
+> "maybe give the user options like 'yo my dude. you love sushi, and it's on the menu. but i found this as well that would be more filling'"
+
+So when a day offers something in that class and it cannot reach a gate:
+
+1. **Build it anyway**, as well as the menu allows — highest-protein combination, nigiri over rolls, the paid add-on taken.
+2. **Build the best filling alternative** on that same day's menus, one that clears every gate.
+3. **Present both and ask which one**, naming exactly how far short the loved build lands. *"Umai's 8-piece nigiri gets to about 38g, seven under the floor. Tabla's chicken curry clears it at 52g. Sushi or the curry?"*
+4. **Place nothing for that day until they answer**, unless the cutoff is close — then take the loved build, since that is the one they told you they want, and say so.
+
+**The question goes in Claude's normal voice, under the greentext**, per **Questions are never greentext**. It is a choice they have to make, so it does not get the costume.
+
+**This is narrow on purpose.** It applies to a `stated` love that collides with a gate, not to every near-miss. An untested item that lands 3g short is just a build that failed — rank it out and say why.
 
 ## Live ordering
 
