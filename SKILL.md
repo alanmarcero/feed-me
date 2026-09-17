@@ -170,9 +170,9 @@ The category an ordinary run can never surface, because nothing in a log points 
 - **A format never once ordered.** Deliberate avoidance and never-came-up look identical in a log and mean opposite things.
 - **A format used once and rated well.** The best record often sits on the least data.
 - **A cuisine carrying a strong average on one or two orders.**
-- **A restaurant ordered once and never again.** Verdict or accident?
+- **A restaurant ordered once and never again.** Usually novelty rather than a verdict — worth a question only when a `loved` kitchen keeps coming up on open days and keeps getting passed over.
 - **Unrated orders that were whole meals.** Each is a verdict nobody gave. Skip the side orders.
-- **Days cancelled with nothing delivered.** No rating exists, so only they can say.
+- **Days cancelled with nothing delivered.** No rating exists. Usually attendance rather than the menu — ask only if several cluster at one restaurant.
 - **Axes the file has no opinion on at all** — spice as a scale rather than a yes, how well a dish travels, whether leftovers matter, texture, drinks and dessert against the same budget, how much of a plate they actually finish.
 
 ### Reporting and writing
@@ -281,7 +281,7 @@ Rank candidates by **how much the answer changes tomorrow's order.** Interesting
 | **A rule the log argues with** | `carb-base` is 26 of 40 orders and carries 9 of the 16 fours, while the stated rule rations it to one in three. One of those is wrong. |
 | **A contradiction between components and outcomes** | They want tahini, hummus, feta, olives, and rate Mediterranean kitchens lowest of any cuisine. Components or kitchens? |
 | **One data point carrying a whole rule** | A single tofu bowl rated 1 is now a hard limit on tofu. A single `soup-forward` order rated 4 is the best record of any format. Both deserve a sentence. |
-| **Days cancelled with nothing delivered** | Four restaurants were cancelled outright and never produced a meal. No rating exists, so only they can say whether that was the menu or the calendar. |
+| **Days cancelled with nothing delivered** | A restaurant cancelled outright that never produced a meal. No rating exists. Worth a question only when several cluster at one restaurant — a lone one is usually attendance. |
 | **A tight band that might be a constraint** | Every subtotal lands in a $2 window. Is that a floor they want held, or just what lunch costs there? |
 | **An absence** | A format or cuisine never once ordered. Deliberate avoidance and never-came-up look identical in a log and mean opposite things. |
 
@@ -555,7 +555,7 @@ Rules:
 Resolve every recommendation in this order. Lower rules never override higher ones.
 
 1. **Hard gates, read from `dietary-preferences.md`.** Everything in that file's **Hard limits**, plus whatever macro floors and calorie ceiling it sets, estimated. Plus: total at or under the spend ceiling, one real menu item, nothing on the Never Again list, nothing they rated 1 or 0.
-2. **Their verdict on it.** A dish or kitchen they rated `loved` outranks an untested one. A kitchen sitting at `neutral` ranks below an untested one. This is the strongest soft rule because it is the only one built from how the food actually tasted.
+2. **Their verdict on it, and whether they went back.** Rank by the tiers in **Two signals to return**: an `anchor` (a 4 **and** a re-order) outranks an untested kitchen; a `loved` one that was never returned to does not, because novelty breaks that tie; a `habit` ranks above untested only when the day is weak; a kitchen sitting at `neutral` ranks below untested always. This is the strongest soft rule because it is the only one built from how the food actually tasted and from what they chose to do about it.
 3. **Calories.** Among options with the same standing at rule 2, fewer calories is better.
 4. **Variety.** Rotation rules below. Variety may spend up to **~150 cal** against rule 3 to avoid a repeat, but never past a stated ceiling. Past 150 cal, calories win — and say in the writeup that the slate is repeating a format because the menu left no cheaper-calorie way out.
 5. **Component preference.** Wanted components and the grain preference break remaining ties.
@@ -678,22 +678,50 @@ Rotation rules, strongest first:
 - **No format twice in a row.** If the last order was `salad`, today's pick is not `salad`.
 - **`carb-base` at most once every three orders.** Carbs are fine sometimes, not weekly.
 - **At least three distinct formats across any rolling four orders.**
-- **No exact repeat item within four orders**, unless the loved-item override applies. Same restaurant is fine; same dish is not.
+- **No exact repeat item within four orders**, unless an anchor or loved restaurant earns it. Same restaurant is fine; same dish is not. See **Two signals to return**.
 - Prefer a restaurant other than the last one when the menus on the table allow it.
 
-### The loved-item override
+### Two signals to return, and they are not the same signal
 
-**A `loved` rating is a request, not just a data point.** When they rate something 4, they are telling you to order from that kitchen again — and they are explicitly fine with the same dish a second time. Variety exists so lunch does not get boring, not to keep good food off the menu.
+**A rating is what they said. A re-order is what they did.** `stated` 2026-09-17: *"a re-order is signal and also a perfect rating is a signal — both to reorder again from the same restaurant."*
 
-So a restaurant they rated `loved`:
+Both point the same way and **neither one replaces the other**, because they are made of different evidence:
 
-- **is exempt from the "prefer a different restaurant" rule.** Going back is the point.
-- **may repeat inside the four-order window**, either with something new off that menu or with the identical build. Prefer something new when the menu has another qualifying item; repeat the exact dish without apology when it does not, or when the loved dish is the best thing on the day's menus anyway.
-- **still obeys every hard gate and the format rules.** A loved dish that is `carb-base` does not get to jump the `carb-base` cooldown, and one that breaks a dietary gate still does not get placed.
+| Signal | What it is | Why it counts |
+|---|---|---|
+| **A rating of 4** | a verdict, given after eating | the only place the food itself is judged |
+| **A re-order** | a choice, made with a live slate and a real budget | **revealed preference** — they had every other restaurant that day and picked this one again |
 
-Say it plainly in the writeup when the override fires: name the rating it is riding on, so they can see the repeat was deliberate rather than the slate running out of ideas.
+**The re-order is the scarcer of the two, so it is worth more than its frequency suggests.** They prefer novelty (see `dietary-preferences.md`), which means a repeat is something they had to go out of their way to do. A kitchen that gets a second visit from someone who likes trying new places has told you something a star click cannot.
+
+#### The tiers
+
+Rank a restaurant by **how many of the two signals it carries**, not by its best rating alone:
+
+| Tier | Carries | How it ranks |
+|---|---|---|
+| **Anchor** | a 4 **and** a re-order | **Beats an untested option on a tie.** Exempt from "prefer a different restaurant." Repeat freely, same dish included. |
+| **Loved** | a 4, never re-ordered | Permission to repeat, not an instruction. An untested option still wins a tie — that is the novelty preference. |
+| **Habit** | re-ordered, never a 4 | Reliable, not a favourite. Ranks above untested only when the day's alternatives are weak. |
+| **Untested** | neither | The default pick when it clears the gates. Novelty is the stated preference. |
+| **Neutral or worse** | a 2 or below | Never returned to on rotation grounds. "We have not been there in a while" is not a reason. |
+
+**An anchor is the one case where a repeat beats novelty.** Everywhere else, novelty breaks the tie.
+
+#### Four rules that keep this honest
+
+- **Only count a re-order they chose.** A repeat this skill placed to satisfy rotation, or because a day's menu list was thin, is not revealed preference — it is the skill's own decision reflected back. **Count a re-order as signal only when another qualifying restaurant was open that day.** When in doubt, do not count it.
+- **A same-day cancellation is not a re-order.** Six rows in the cancelled table are swap leftovers sitting on a day that also delivered. That is one visit, not two.
+- **The newest rating still wins on the food.** A re-order followed by a 3 does not turn into a 4. The anchor says *go back to this kitchen*; it never says *this build was better than they said*. Read the newer rating for what to order there.
+- **Two signals do not clear a gate.** An anchor that cannot reach the protein floor under the calorie ceiling does not get placed, and a `carb-base` anchor still waits out the `carb-base` cooldown.
+
+Say it plainly in the writeup when a repeat fires: name which signals it is riding on — "GRECO, rated 4 in April and re-ordered in September" — so they can see it was deliberate rather than the slate running out of ideas.
 
 The inverse holds. A restaurant sitting at `neutral` does not get the benefit of "we haven't been there in a while" — rotation is not a reason to return to food they shrugged at. Rotate among the things they like.
+
+#### Log the re-order signal, do not recompute it every run
+
+**A restaurant's tier is derived from the log**, so it moves on its own as orders land. Recount it during any sync that adds an order: a second delivered order at a kitchen that already holds a 4 promotes it to **anchor**, and that is worth a line in the writeup because it changes how every future slate ranks it.
 
 **Rotation runs through a multi-day batch, not around it.** When one run places several orders, treat them as consecutive entries in the log — because that is what they become. Day one is checked against the last logged order, day two against day one, and so on down the batch.
 
@@ -1058,7 +1086,11 @@ The row survives so the same build does not get re-picked as though it were unte
 **Two shapes of cancellation, and they mean different things.** Read which one happened before drawing any conclusion:
 
 - **A swap leftover** — a cancelled order on a day that also has a delivered one. This is the cleanup half of changing an entree, and it says nothing about the food. Do not read it as a rejection.
-- **A day with no delivered order** — the day was dropped. They worked from home, plans changed, or the food was not wanted. **This is the only kind that is worth a second look**, and a run of them at one restaurant is a signal the ratings will never show you.
+- **A day with no delivered order** — the day was dropped. **Usually this is attendance and nothing else.** Confirmed 2026-09-17: *"i just had a change of plans for that day and didn't come in. that's going to happen, too. i'll have to cancel for no reason other than i'm not in the office."*
+
+  So the default reading is a calendar, not a menu. **Do not treat a dropped day as a rejection of the restaurant**, do not move that kitchen down a slate for it, and do not ask about it unless something else points at the food. The order it replaced stays untested, which means it is still a live option rather than a spent one.
+
+  A run of dropped days at *one* restaurant is still worth a glance, since that is a pattern attendance would not produce. One is just a Tuesday he was not in.
 
 **Menu intel learned while browsing survives a cancellation** — upcharge structure, which restaurants have no cheap add-ons, cutoff times. It goes under **Observed preferences**, not the log.
 
@@ -1084,7 +1116,7 @@ Say in the writeup when rows are still open. "Two orders from last week are stil
 
 | Rating | Verdict | What it does to future slates |
 |---|---|---|
-| 4 | `loved` | order from this kitchen again, same dish included — see **The loved-item override** |
+| 4 | `loved` | order from this kitchen again, same dish included. A second visit promotes it to **anchor** — see **Two signals to return** |
 | 3 | `liked` | fine to repeat, not a priority; subject to the normal four-order rule |
 | 2 | `neutral` | rank below an untested option; do not return here just to satisfy rotation |
 | 1 | `disliked` | do not serve this again; move the dish to Never Again |
