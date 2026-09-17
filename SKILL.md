@@ -1,6 +1,6 @@
 ---
 name: feed-me
-description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good.
+description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it only reconciles the order log against the ezCater site - every order, rating, review and cancellation - and places nothing.
 ---
 
 # Feed Me
@@ -19,6 +19,45 @@ Fall back to **advise-only** (slate, no order placed) in exactly three cases:
 - They asked for options, picks, or a recommendation rather than for lunch.
 - The browser is unavailable, or login needs their password.
 
+## Modes
+
+`/feed-me` on its own is the whole interface and it means **order**. The other modes are opt-in by argument or by what they asked for.
+
+| Mode | How it starts | What it does |
+|---|---|---|
+| **order** | `/feed-me`, or any ask for lunch | The default. Reads the menus, places one order per open day. |
+| **sync** | `/feed-me sync` | Reconciles the log against the site. **Places nothing.** See below. |
+| **advise** | pasted menus, or a request for options | Ranked slate, no order placed. |
+
+### `/feed-me sync`
+
+**Reconcile the log against ezCater and stop.** No menus are read, no slate is built, nothing is ordered and nothing is cancelled. This mode exists for the times they want the books straightened without lunch happening as a side effect.
+
+Run the whole pass, not a sample. **Every reconciliation rule in *The order lifecycle* applies here** — this mode is that section run deliberately rather than as a preamble to ordering.
+
+1. **Scrape all three tabs in full.** Completed paged until a page comes back empty, Upcoming, and Canceled with `?page=2` probed. Build the id-to-tabs map.
+2. **Open every detail page** and read status, rating and review text. Do not sample, and do not trust a list card's `Reviewed on` line for the rating value itself — it says *that* they rated, not *what* they rated.
+3. **Diff both directions.** On the site and missing from the log; in the log and on no tab; cancelled ids sitting in the main table or delivered ids in the cancelled table.
+4. **Apply every change to `order-history.md`.** Advance statuses, add orders placed outside the skill, move newly cancelled rows to the Cancelled table, fill in ratings and review text verbatim, flag anything `missing`. Rows are re-statused, never deleted.
+5. **Re-derive `dietary-preferences.md`** against whatever the new ratings changed, respecting the provenance tags: `derived` rules are yours to revise, `stated` rules are theirs. Move its `Last reviewed` date even when nothing changed. See **Keep it current as the log grows**.
+6. **Update the rotation state** from the newest delivered order, since a sync can discover orders that shift it.
+
+**Report what moved, in greentext, with counts.** Name every status change, every newly found order, every rating that landed, and anything left `missing`. **If nothing changed, say that plainly** — "41 completed, 10 cancelled, no drift" is a successful sync and a useful answer. Do not invent findings to justify the run.
+
+**A sync never places or cancels an order.** If the scan turns up something that wants action — an open day about to hit its cutoff, a leftover from a half-finished swap — say so and let them decide. They asked for a sync.
+
+#### Sync is a valid first run
+
+**Someone can install this skill and run `sync` before answering a single question, and that has to work.** It is the least committal way in: no order gets placed, nothing is at stake, and at the end they have a log and a starting set of preferences they can correct.
+
+So in sync mode **every question is optional, including the allergy one.** Offer it once, in one line, and move on whether or not they answer:
+
+> worth knowing before i ever order: anything you're allergic to or won't eat?
+
+If they answer, record it `stated`. If they ignore it, write **"no limits declared — never confirmed"** into **Hard limits** and carry on. Do not re-ask inside the same run, and do not hold the sync hostage to it. The one thing that does change: **until an allergy answer exists, say so in the writeup of any run that actually places an order.** A sync risks nothing; an order does.
+
+With no answers at all, build the whole file from the history. See **Deriving preferences from the log alone**.
+
 You are their nutritionist, not a search box. Ordering on your own judgement is the job: curate, hit the macros, rotate the formats, spend the stipend. Do not stall on a decision they delegated to you.
 
 You are not a calculator that returns the lowest-calorie qualifying item. Hit the macros, stay in the budget, and keep the diet varied across weeks. An order that would have been identical last week is a bad order even if every line clears the constraints.
@@ -34,7 +73,7 @@ You are not a calculator that returns the lowest-calorie qualifying item. Hit th
 | What exists | What to do |
 |---|---|
 | **Preferences file** | Read it first — before menus, before the log. Order against it. Best case. |
-| **No preferences, but order history** | Derive provisional preferences from the ratings and order against those. Write them down as you go. |
+| **No preferences, but order history** | Derive provisional preferences from the ratings and order against those. Write them down as you go. `/feed-me sync` does exactly this and nothing else. |
 | **Neither** | Order on sane defaults, say plainly that you are guessing, and start building the file from the first verdict. |
 
 ### When there are no preferences but there is history
@@ -50,6 +89,28 @@ Then order against it, and **say in the writeup that the rules are inferred and 
 > Anything you're allergic to or flat-out won't eat? I can work the rest out from your order history.
 
 One question, answerable in four words. If they decline or ignore it, proceed — record **"no limits declared — never confirmed"** in **Hard limits** so the gap is visible rather than assumed away, and ask again the next time a run starts.
+
+### Deriving preferences from the log alone
+
+**With no stated answers, the log is the only evidence, and it is enough to start.** Derive every section of `dietary-preferences.md` from it, tag all of it `provisional` or `derived`, and say in the writeup that the rules are inferred so they have something concrete to argue with.
+
+**The numbers.** Estimate macros and calories for every delivered order the same way a build gets estimated, component by component, then read the distribution rather than a single number:
+
+| Rule | Derive it from | Round |
+|---|---|---|
+| protein floor | the **median** protein across orders rated 3 or better | down, to a 5g step |
+| calorie ceiling | roughly the **75th percentile** of calories across those same orders | up, to a 50 cal step |
+| spend floor and ceiling | the actual subtotal band in the log, against the arithmetic ceiling | to the cent |
+
+**Median and percentile, not mean.** One $4 side order or one 1,200-calorie plate drags an average somewhere the person has never been. Use the rated-3-or-better subset, because a rule derived partly from food they disliked is a rule aimed at the wrong target.
+
+**The rest.** Cuisine ranking comes from averaging ratings by cuisine. Component preferences come from what recurs in the builds of highly rated orders. Preparation signals come from contrasting the 4s against the 1s and 2s. Format rationing comes from the format mix: a format that is most of the log is a habit, and worth naming as one rather than as a rule.
+
+**Be honest about what this kind of rule is.** Averaged estimates of estimates are the weakest thing in the file. They describe **what they have been eating**, which is not the same as what they want — a history shaped by a $20 ceiling and one office's restaurant list encodes those constraints too. So:
+
+- Tag every derived number `provisional`, never `stated`.
+- **Show the number and its basis together** in the writeup: "protein floor 40g, the median across your 4s and 3s" gives them something to correct. A bare "40g" does not.
+- **Never present a derived ceiling as a hard gate** the way a stated one is. It is a starting position, and the first time they contradict it, they win and it becomes `stated`.
 
 ### When there is nothing at all
 
