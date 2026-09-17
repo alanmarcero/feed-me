@@ -8,7 +8,7 @@ Last reviewed: 2026-09-17 (two refine passes).
 
 **First refine pass — nine answers, every one written in below as `stated`.** The big ones: the protein floor is **45g**, not 40g; carbs are **wanted but light** rather than being reduced; the vegetable limit is about **cheapness, not vegetables**; full portions get bought and under-eaten rather than ordered small; spicy Indian is a standing yes; spice goes to the **top of any heat scale**; novelty is the default but **a 4 plus a re-order is an anchor that beats it**, which is what GRECO is; the GRECO plate itself settled at **3**, which reads as what to order there rather than whether. Cancelled days are usually him not being in the office and mean nothing about the food.
 
-**Second refine pass, same day — eight more answers, also all `stated`.** The schedule is **Tuesday always, Thursday added for the next few months, Monday a few times a year**, and anything the site shows is fair game. **Sushi stays**, with the 45g floor as best-effort on those days and a filling alternative offered alongside. **There is no separate calorie floor** — the protein floor implies it. **The spend floor is retired**; the only money rule is $0.00 out of pocket. **The Atlantic Poké bowl is a 4** and poke is a standing yes. **Soup only when it is a unique soup.** **No drinks, no desserts, ever.** **Take the add-on whenever the budget allows.** A third update landed after those: **every free premium vegetable gets taken, all of them on a build-your-own bowl**, while cheap salad greens stay skipped and **corn is scored as a grain and skipped with them**.
+**Second refine pass, same day — eight more answers, also all `stated`.** The schedule is **Tuesday always, Thursday added for the next few months, Monday a few times a year**, and anything the site shows is fair game. **Sushi stays**, with the 45g floor as best-effort on those days and a filling alternative offered alongside. **There is no separate calorie floor** — the protein floor implies it. **The spend floor is retired**; the only money rule is $0.00 out of pocket. **The Atlantic Poké bowl is a 4** and poke is a standing yes. **Soup only when it is a unique soup.** **No drinks, no desserts, ever.** **Take the add-on whenever the budget allows.** A third update landed after those: **every free premium vegetable gets taken, all of them on a build-your-own bowl**, while cheap salad greens stay skipped, **corn is scored as a grain and skipped with them**, and **broccoli is out on its own terms**.
 
 ## Provenance, and why it matters
 
@@ -66,7 +66,7 @@ Practical test before ranking a salad or a bowl: **if the base were removed, wou
 | avocado, grilled or roasted vegetables, mushrooms, peppers, onions | shredded iceberg or romaine |
 | edamame, seaweed salad, beans, artichoke, roasted red pepper | spring mix |
 | pickled vegetables, kimchi, cabbage slaw, radish, jalapeño, olives | plain lettuce in any role |
-| cucumber, tomato, red onion, scallion, cilantro, mango | **corn** — see below |
+| cucumber, tomato, red onion, scallion, cilantro, mango | **corn** and **broccoli** — see below |
 
 **On a build-your-own bowl, take all of them.** `stated`, and he named the two formats: **Mexican and poke**. Those modals list eight or twelve free vegetable checkboxes and there is no reason to leave one unticked. The same applies to any counter that works this way — shawarma plates, grain bowls, burrito bowls, build-your-own salads.
 
@@ -75,6 +75,12 @@ Practical test before ranking a salad or a bowl: **if the base were removed, wou
 **So corn is scored as a grain, not as a vegetable**, which puts it under the light-carb rule rather than under this one. It never counts toward "all the vegetables" on a bowl, and taking it is spending the build's one carb slot on something that arrived free in a vegetable bin. **Skip it wherever the modal lets you** — "when we can" is the honest limit, since it comes baked into some builds as part of a salsa, a succotash or a pre-mixed side, and picking it out of a corn salsa is not a real ask.
 
 The rule generalizes past corn: **starchy things wearing a vegetable label get scored as starch.** Peas, potato, plantain and sweet potato all belong to **Base and side choice**, not to the free-vegetable sweep.
+
+**Broccoli is out too, and for a different reason.** `stated` 2026-09-17: *"broccoli bowl is still out, we skip broccoli too."* No reclassification and no argument behind it — he does not want it, which is reason enough and outranks anything this file could derive.
+
+**So broccoli is skipped wherever the modal allows, and a bowl built on broccoli is not a candidate at all**, whatever it does for the macros. It is genuinely a good vegetable on every axis this file otherwise cares about, and none of that matters.
+
+**Do not extend this to anything else.** Broccoli is not a proxy for cruciferous vegetables or for green vegetables: **cabbage slaw, kimchi and pickled vegetables stay on the take-everything list** above, where he put them. Cauliflower, brussels sprouts and broccolini have never been mentioned either way and stay untested rather than assumed out. Widening a named dislike into a category is exactly the mistake the Mediterranean entry is in this file to prevent.
 
 Three things this does not license:
 
