@@ -2,7 +2,9 @@
 
 Scraped from ezCater 2026-09-17. 40 delivered orders, 2025-12-09 through 2026-09-08, plus the 2026-09-16 GRECO order still pending at scrape time.
 
-**Every rating in this file is the user's own, pulled off the ezCater site.** They rate on the site rather than in conversation, so the site is the source of truth. Re-scrape it at the start of a run — see **Reading their reviews off ezCater** in `SKILL.md`. Do not ask them to re-state a verdict the site already holds.
+**Every rating in this file is the user's own, pulled off the ezCater site.** They rate on the site rather than in conversation, so the site is the source of truth. Re-scrape it at the start of a run — see **Their reviews live on ezCater** in `SKILL.md`. Do not ask them to re-state a verdict the site already holds.
+
+This is a personal record and is meant to be one. The `ID` column is the ezCater order id: `/customer_orders/<id>/order_details` reopens the original. Publishing this file is the user's decision and never the skill's.
 
 ## The ceiling is proven, not a ratchet
 
@@ -35,49 +37,49 @@ Read this before building a slate.
 
 Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 neutral, 3 liked, 4 loved. `—` means they never rated it.
 
-| Delivered | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
-|---|---|---|---|---|---|---|---|---|
-| 2026-09-17 | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | pending | — |
-| 2026-09-08 | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | — (said in chat: "ok, too much lettuce") |
-| 2026-09-01 | Roots to Rise | Supreme Turkey BLT Sandwich, multi-grain, no mayo + Organic Hard-Boiled Eggs ($3.79) | `carb-base` | $18.88 | $1.32 | **$0.20** | 2 neutral | "Pretty basic sandwich" |
-| 2026-08-25 | The Chicken & Rice Guys | Chicken & Gyro Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) + hot & BBQ sauce | `salad` | $17.06 | $1.19 | $0.00 | 3 liked | — |
-| 2026-08-18 | Umai | 8-Piece Nigiri (Raw) Combo | `carb-base` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
-| 2026-08-11 | Tabla Cuisine | Tabla's Chicken Curry (Large) + Biryani Rice ($1.99) | `carb-base` | $17.44 | $1.22 | $0.00 | **4 loved** | — |
-| 2026-08-04 | B.GOOD | Grilled Chicken Pesto Sandwich + Bacon ($2.50) + Double Protein ($2.65) | `carb-base` | $18.38 | $1.29 | $0.00 | 3 liked | — |
-| 2026-07-28 | Dirty Water Dough | Cheese Pizza Boxed Meal + Small Greek Salad ($2.00) + Roasted Chicken ($1.00) | `carb-base` | $17.75 | $1.24 | $0.00 | **4 loved** | — |
-| 2026-07-22 | Shy Bird | Charred Chicken Pita | `carb-base` | $16.25 | $1.14 | $0.00 | 2 neutral | "chicken and the pita were both dry" |
-| 2026-07-20 | Reunion BBQ | Sliced Prime Brisket, rice & roasted veg | `protein-plate` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
-| 2026-07-07 | Laughing Monk Cafe | Cashew Nut + Pork ($2.00) | `protein-plate` | $17.50 | $1.22 | $0.00 | 3 liked | — |
-| 2026-06-30 | Noor Mediterranean Grill | Chicken Shawarma Bowl (rice pilaf) + 2 Falafel ($2.60) | `carb-base` | $18.17 | $1.27 | $0.00 | 2 neutral | "stale, clearly cooked hours or even a day earlier" |
-| 2026-05-26 | Publico Street Bistro & Garden | 2 × Grilled Fish Taco | `carb-base` | $14.00 | $0.98 | $0.00 | — | — |
-| 2026-05-26 | Levain Bakery | Sea Salt Cape Cod Chips + Whole Wheat Walnut Raisin Roll *(side order)* | `carb-base` | $4.13 | $0.29 | $0.00 | **4 loved** | — |
-| 2026-05-19 | Aceituna Grill | Build-Your-Own Plate (XL) — falafel + spicy chicken shawarma ($2.00), tabbouleh, fattoush, onion, pickled turnips, tomatoes | `protein-plate` | $18.25 | $1.28 | $0.00 | 3 liked | — |
-| 2026-05-12 | Perillas Korean Kitchen | Bulgogi Beef Bibimbap + house gochujang | `carb-base` | $14.59 | $1.02 | $0.00 | **4 loved** | — |
-| 2026-05-12 | Bom Dough | Bacon, 3 slices *(side order)* | — | $4.00 | $0.28 | $0.00 | — | — |
-| 2026-05-05 | Saigon Tiger | Beef Noodle Bowl + Fried Egg ($2.00) + second Fried Egg ($2.00) | `carb-base` | $18.50 | $1.30 | $0.00 | **4 loved** | — |
-| 2026-04-29 | GRECO | Spicy Feta & Beef + Lemon Chive Yogurt + Pepper Paprika Dip ($1.00) + Tzatziki ($1.00) | `carb-base` | $18.50 | $1.30 | $0.00 | **4 loved** | — |
-| 2026-04-28 | Sake Japanese | Tuna Avocado Roll + avocado, cucumber, tobiko, eel sauce ($1.00 ea) | `carb-base` | $17.95 | $1.26 | $0.00 | 3 liked | "expensive" |
-| 2026-04-27 | WOW TIKKA | Build-Your-Own Bowl — lamb kofta ($4.00), brown rice & red quinoa, samosa ($2.49), papads ($1.99), vindaloo, mint dressing, veg | `carb-base` | $18.47 | $1.29 | $0.00 | — | — |
-| 2026-04-21 | Stubbys | Jerk Chicken Rice Bowl | `carb-base` | $16.95 | $1.19 | $0.00 | **4 loved** | — |
-| 2026-04-14 | Garlic'n Lemons | Spicy Beef Shawarma Boxed Lunch + hummus, spicy potatoes, fatoush ($1.00), spicy garlic, hummus 2oz ($1.00) | `protein-plate` | $18.00 | $1.26 | $0.00 | 3 liked | — |
-| 2026-04-07 | Mae Asian Eatery | Pad Krapow + Brown Rice ($1.00) | `carb-base` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
-| 2026-03-31 | Dora Taqueria | Grilled Chicken Bowl + Pico ($1.99) + Extra Meat ($3.00) | `carb-base` | $17.98 | $1.26 | $0.00 | 2 neutral | "bland" |
-| 2026-03-24 | Lotus Test Kitchen | Spicy Korean BBQ Beef Bowl Boxed Lunch + kale mix | `carb-base` | $17.95 | $1.26 | $0.00 | 2 neutral | — |
-| 2026-03-17 | Cafe Landwer | Chicken Shawarma & Rice + Tzatziki ($1.00) | `carb-base` | $18.00 | $1.26 | $0.00 | 2 neutral | — |
-| 2026-03-16 | Fresh City | Napa Valley Sandwich | `carb-base` | $14.00 | $0.98 | $0.00 | — | — |
-| 2026-03-10 | Zuzumomo | Tato Jhol Momo + Chicken Momo | `soup-forward` | $15.99 | $1.12 | $0.00 | **4 loved** | — |
-| 2026-03-03 | Life Alive | Teriyaki Tofu Bowl + scallion, egg, charred onions | `carb-base` | $17.95 | $1.26 | $0.00 | **1 disliked** | — |
-| 2026-02-17 | Basil Rice | Spicy Basil Entree + Chicken & Shrimp ($4.00) + white rice + Peanut Sauce ($1.50) | `carb-base` | $18.45 | $1.29 | $0.00 | **4 loved** | — |
-| 2026-02-10 | Santa Fe Burrito Grill | 3 × GF Chicken Taco ($7.95) + Carne Asada Bowl ($10.25) | `carb-base` | $18.20 | $1.27 | $0.00 | **4 loved** | — |
-| 2026-02-03 | La Hacienda | Carne Asada — rice, house salad, beans | `protein-plate` | $18.50 | $1.30 | $0.00 | — | — |
-| 2026-01-27 | Atlantic Poké | The Atlantic (salmon + ahi) + Seaweed Salad ($1.75) + brown rice | `carb-base` | $18.20 | $1.27 | $0.00 | — | — |
-| 2026-01-22 | Meet Us Asian Cuisine | Spicy Blue Crab Maki Roll | `carb-base` | $17.95 | $1.26 | $0.00 | 3 liked | — |
-| 2026-01-21 | Thai Spice | Veggie Fresh Rolls ($8.45) + Chicken Satay ($9.45) | `protein-plate` | $17.90 | $1.25 | $0.00 | — | — |
-| 2026-01-20 | Nirvana: Taste of India | Chicken Do Piaza | `protein-plate` | $18.00 | $1.26 | $0.00 | **4 loved** | — |
-| 2026-01-13 | Poke City MA - Boston | Spicy Salmon Bowl + Grilled Chicken ($2.50) + light sauce | `carb-base` | $18.00 | $1.26 | $0.00 | **4 loved** | — |
-| 2026-01-06 | Boloco | Modern Mexican Bowl + steak ($1.00), chicken ($1.40), guac ($1.00), chips & pico ($3.50), brown rice | `carb-base` | $18.40 | $1.29 | $0.00 | 3 liked | "Plenty of chicken, but barely any steak." |
-| 2025-12-23 | The Chicken & Rice Guys | Chicken Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) | `salad` | $16.24 | $1.14 | $0.00 | 3 liked | — |
-| 2025-12-09 | Bom Dough | Egg & Greens Bowl + Traditional Pao De Queijo ($3.50) | `protein-plate` | $17.00 | $1.19 | $0.00 | **4 loved** | — |
+| ID | Delivered | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
+|---|---|---|---|---|---|---|---|---|---|
+| — | 2026-09-17 | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | pending | — |
+| 20755521 | 2026-09-08 | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | — (said in chat: "ok, too much lettuce") |
+| 20658056 | 2026-09-01 | Roots to Rise | Supreme Turkey BLT Sandwich, multi-grain, no mayo + Organic Hard-Boiled Eggs ($3.79) | `carb-base` | $18.88 | $1.32 | **$0.20** | 2 neutral | "Pretty basic sandwich" |
+| 20586963 | 2026-08-25 | The Chicken & Rice Guys | Chicken & Gyro Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) + hot & BBQ sauce | `salad` | $17.06 | $1.19 | $0.00 | 3 liked | — |
+| 20425087 | 2026-08-18 | Umai | 8-Piece Nigiri (Raw) Combo | `carb-base` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
+| 20297862 | 2026-08-11 | Tabla Cuisine | Tabla's Chicken Curry (Large) + Biryani Rice ($1.99) | `carb-base` | $17.44 | $1.22 | $0.00 | **4 loved** | — |
+| 20177734 | 2026-08-04 | B.GOOD | Grilled Chicken Pesto Sandwich + Bacon ($2.50) + Double Protein ($2.65) | `carb-base` | $18.38 | $1.29 | $0.00 | 3 liked | — |
+| 20065688 | 2026-07-28 | Dirty Water Dough | Cheese Pizza Boxed Meal + Small Greek Salad ($2.00) + Roasted Chicken ($1.00) | `carb-base` | $17.75 | $1.24 | $0.00 | **4 loved** | — |
+| 20023715 | 2026-07-22 | Shy Bird | Charred Chicken Pita | `carb-base` | $16.25 | $1.14 | $0.00 | 2 neutral | "chicken and the pita were both dry" |
+| 19947158 | 2026-07-20 | Reunion BBQ | Sliced Prime Brisket, rice & roasted veg | `protein-plate` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
+| 19725173 | 2026-07-07 | Laughing Monk Cafe | Cashew Nut + Pork ($2.00) | `protein-plate` | $17.50 | $1.22 | $0.00 | 3 liked | — |
+| 19637902 | 2026-06-30 | Noor Mediterranean Grill | Chicken Shawarma Bowl (rice pilaf) + 2 Falafel ($2.60) | `carb-base` | $18.17 | $1.27 | $0.00 | 2 neutral | "stale, clearly cooked hours or even a day earlier" |
+| 19070134 | 2026-05-26 | Publico Street Bistro & Garden | 2 × Grilled Fish Taco | `carb-base` | $14.00 | $0.98 | $0.00 | — | — |
+| 19070161 | 2026-05-26 | Levain Bakery | Sea Salt Cape Cod Chips + Whole Wheat Walnut Raisin Roll *(side order)* | `carb-base` | $4.13 | $0.29 | $0.00 | **4 loved** | — |
+| 18958135 | 2026-05-19 | Aceituna Grill | Build-Your-Own Plate (XL) — falafel + spicy chicken shawarma ($2.00), tabbouleh, fattoush, onion, pickled turnips, tomatoes | `protein-plate` | $18.25 | $1.28 | $0.00 | 3 liked | — |
+| 18843202 | 2026-05-12 | Perillas Korean Kitchen | Bulgogi Beef Bibimbap + house gochujang | `carb-base` | $14.59 | $1.02 | $0.00 | **4 loved** | — |
+| 18843220 | 2026-05-12 | Bom Dough | Bacon, 3 slices *(side order)* | — | $4.00 | $0.28 | $0.00 | — | — |
+| 18747404 | 2026-05-05 | Saigon Tiger | Beef Noodle Bowl + Fried Egg ($2.00) + second Fried Egg ($2.00) | `carb-base` | $18.50 | $1.30 | $0.00 | **4 loved** | — |
+| 18633845 | 2026-04-29 | GRECO | Spicy Feta & Beef + Lemon Chive Yogurt + Pepper Paprika Dip ($1.00) + Tzatziki ($1.00) | `carb-base` | $18.50 | $1.30 | $0.00 | **4 loved** | — |
+| 18633831 | 2026-04-28 | Sake Japanese | Tuna Avocado Roll + avocado, cucumber, tobiko, eel sauce ($1.00 ea) | `carb-base` | $17.95 | $1.26 | $0.00 | 3 liked | "expensive" |
+| 18632192 | 2026-04-27 | WOW TIKKA | Build-Your-Own Bowl — lamb kofta ($4.00), brown rice & red quinoa, samosa ($2.49), papads ($1.99), vindaloo, mint dressing, veg | `carb-base` | $18.47 | $1.29 | $0.00 | — | — |
+| 18519518 | 2026-04-21 | Stubbys | Jerk Chicken Rice Bowl | `carb-base` | $16.95 | $1.19 | $0.00 | **4 loved** | — |
+| 18386707 | 2026-04-14 | Garlic'n Lemons | Spicy Beef Shawarma Boxed Lunch + hummus, spicy potatoes, fatoush ($1.00), spicy garlic, hummus 2oz ($1.00) | `protein-plate` | $18.00 | $1.26 | $0.00 | 3 liked | — |
+| 18283187 | 2026-04-07 | Mae Asian Eatery | Pad Krapow + Brown Rice ($1.00) | `carb-base` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
+| 18156514 | 2026-03-31 | Dora Taqueria | Grilled Chicken Bowl + Pico ($1.99) + Extra Meat ($3.00) | `carb-base` | $17.98 | $1.26 | $0.00 | 2 neutral | "bland" |
+| 18045904 | 2026-03-24 | Lotus Test Kitchen | Spicy Korean BBQ Beef Bowl Boxed Lunch + kale mix | `carb-base` | $17.95 | $1.26 | $0.00 | 2 neutral | — |
+| 17936674 | 2026-03-17 | Cafe Landwer | Chicken Shawarma & Rice + Tzatziki ($1.00) | `carb-base` | $18.00 | $1.26 | $0.00 | 2 neutral | — |
+| 17936567 | 2026-03-16 | Fresh City | Napa Valley Sandwich | `carb-base` | $14.00 | $0.98 | $0.00 | — | — |
+| 17819626 | 2026-03-10 | Zuzumomo | Tato Jhol Momo + Chicken Momo | `soup-forward` | $15.99 | $1.12 | $0.00 | **4 loved** | — |
+| 17712657 | 2026-03-03 | Life Alive | Teriyaki Tofu Bowl + scallion, egg, charred onions | `carb-base` | $17.95 | $1.26 | $0.00 | **1 disliked** | — |
+| 17502222 | 2026-02-17 | Basil Rice | Spicy Basil Entree + Chicken & Shrimp ($4.00) + white rice + Peanut Sauce ($1.50) | `carb-base` | $18.45 | $1.29 | $0.00 | **4 loved** | — |
+| 17389853 | 2026-02-10 | Santa Fe Burrito Grill | 3 × GF Chicken Taco ($7.95) + Carne Asada Bowl ($10.25) | `carb-base` | $18.20 | $1.27 | $0.00 | **4 loved** | — |
+| 17278576 | 2026-02-03 | La Hacienda | Carne Asada — rice, house salad, beans | `protein-plate` | $18.50 | $1.30 | $0.00 | — | — |
+| 17177762 | 2026-01-27 | Atlantic Poké | The Atlantic (salmon + ahi) + Seaweed Salad ($1.75) + brown rice | `carb-base` | $18.20 | $1.27 | $0.00 | — | — |
+| 17089440 | 2026-01-22 | Meet Us Asian Cuisine | Spicy Blue Crab Maki Roll | `carb-base` | $17.95 | $1.26 | $0.00 | 3 liked | — |
+| 17089406 | 2026-01-21 | Thai Spice | Veggie Fresh Rolls ($8.45) + Chicken Satay ($9.45) | `protein-plate` | $17.90 | $1.25 | $0.00 | — | — |
+| 17089390 | 2026-01-20 | Nirvana: Taste of India | Chicken Do Piaza | `protein-plate` | $18.00 | $1.26 | $0.00 | **4 loved** | — |
+| 16965013 | 2026-01-13 | Poke City MA - Boston | Spicy Salmon Bowl + Grilled Chicken ($2.50) + light sauce | `carb-base` | $18.00 | $1.26 | $0.00 | **4 loved** | — |
+| 16768002 | 2026-01-06 | Boloco | Modern Mexican Bowl + steak ($1.00), chicken ($1.40), guac ($1.00), chips & pico ($3.50), brown rice | `carb-base` | $18.40 | $1.29 | $0.00 | 3 liked | "Plenty of chicken, but barely any steak." |
+| 16636553 | 2025-12-23 | The Chicken & Rice Guys | Chicken Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) | `salad` | $16.24 | $1.14 | $0.00 | 3 liked | — |
+| 16340896 | 2025-12-09 | Bom Dough | Egg & Greens Bowl + Traditional Pao De Queijo ($3.50) | `protein-plate` | $17.00 | $1.19 | $0.00 | **4 loved** | — |
 
 **2026-09-17 GRECO plate, macro breakdown.** Note box submitted empty, so no mod adjustment applies.
 
