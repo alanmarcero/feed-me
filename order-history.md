@@ -156,94 +156,19 @@ _(empty — nothing has been rated 0)_
 
 Thai Spice (2026-01-21), Atlantic Poké (2026-01-27), La Hacienda (2026-02-03), Fresh City (2026-03-16), WOW TIKKA (2026-04-27), Publico Street Bistro (2026-05-26), Bom Dough bacon (2026-05-12). Treat as untested, not as bad. Several are second orders placed the same day as a rated one.
 
-## What the ratings say about cuisine
+## What these ratings mean for future orders
 
-Averaged over rated orders. This is the single most decision-useful pattern in the log, and it **contradicts what this file used to claim.**
+**The patterns derived from this log live in `dietary-preferences.md`, not here.** This file is the evidence; that file is the conclusions. Keeping them apart is what stopped a belief about Mediterranean food from surviving nine ratings that disagreed with it.
 
-| Cuisine | Orders | Avg rating |
-|---|---|---|
-| Indian | 2 | **4.00** |
-| East / Southeast Asian | 12 | **3.33** |
-| Latin | 3 | 3.00 |
-| Mediterranean / Middle Eastern | 9 | **2.78** |
+Currently derived from the table above and recorded there:
 
-**Mediterranean is his weakest repeated cuisine, not his strongest.** The earlier read — that Mediterranean and Middle Eastern builds land well — came from component preferences he stated, not from how the food actually scored. Nine orders say otherwise: two 2s with freshness complaints attached, four 3s, and a single 4 (GRECO). The components he likes are real; the kitchens that serve them on this program mostly hold the food too long.
+- **Cuisine ranking.** Indian 4.00, East/SE Asian 3.33, Latin 3.00, Mediterranean/Middle Eastern 2.78. Mediterranean is the weakest repeated cuisine, which reverses what this skill used to assume.
+- **Preparation signals.** Cooked-to-order, raw fish and aggressive seasoning predict a 4. Cold assembly, held pita and shawarma, chain burrito bowls and tofu predict a 2.
+- **Tofu is never the protein.** The Life Alive bowl is the only 1 in the log.
+- **`carb-base` is rationed, not disliked.** It is 26 of 40 orders and carries nine of the sixteen 4s.
+- **Under-used formats.** `soup-forward` has one order (Zuzumomo, rated 4) and `bowl-no-grain` has none. `soup-forward` has the best record of any format and the least use — reach for it when rotation needs a fresh slot.
 
-Indian has never scored below 4 and East/Southeast Asian carries seven of the sixteen `loved` orders. **When a day's menu offers an Indian or Asian kitchen alongside a shawarma counter, the shawarma counter is the weaker bet** even when the shawarma build looks better on paper.
-
-The one Mediterranean exception is **GRECO**, which scored 4 on a hot burger build. GRECO cooks to order; Noor and Cafe Landwer do not.
-
-## Execution signals that predict a good rating
-
-Derived from the 4s versus the 2s, not stated by him.
-
-**Predicts 4:**
-- Cooked to order and served hot. Every 4 except the sushi and poke was hot food.
-- Raw fish. Sushi and poke cannot be dried out or held badly — Umai, Poke City, Sake and Meet Us all rated 3 or 4, none lower.
-- Aggressive seasoning — curry, jerk, gochujang, holy basil, harissa.
-- A cuisine-specific kitchen rather than a generic bowl-and-sandwich chain.
-
-**Predicts 2:**
-- Cold assembly — deli sandwiches, wraps, pre-built boxes.
-- Pita and shawarma held between cook and delivery.
-- Chain burrito-bowl formats.
-- Tofu in any role.
-
-## Format reality check
-
-Twenty-six of forty orders are `carb-base`, and it carries nine of the sixteen `loved` ratings. The `carb-base` cooldown is a **stated preference** ("not every week") and it stands — but do not read it as a dislike. It is a rationing rule against a format he rates well, so when the cooldown forces a non-`carb-base` pick, spend it on a `loved` kitchen rather than on a mediocre plate that happens to fit the slot.
-
-Formats barely used: `soup-forward` once (Zuzumomo, rated 4) and `bowl-no-grain` never. `soup-forward` is the most under-used format with the best record — reach for it when rotation needs a fresh slot.
-
-## Component preferences
-
-The part that generalizes across restaurants. Apply these to any menu, not just the one they came from.
-
-**Wants:**
-
-- tahini
-- hummus
-- feta
-- olives
-- tomato
-- onion
-- cucumber
-
-These are components he likes, and the log confirms he orders them when offered — hummus twice at The Chicken & Rice Guys, tzatziki and pepper paprika dip at GRECO, fattoush and pickled turnips at Aceituna. **Read them as components to include, not as a reason to pick a Mediterranean restaurant.** The cuisine table above is the restaurant-level signal; this list is the build-level one.
-
-**Wants less of:**
-
-- **Lettuce.** The standing complaint. Filler that displaces real food. Order salads light-lettuce or no-lettuce where mods are accepted; do not treat lettuce volume as part of the meal.
-
-**Never:**
-
-- **Tofu as the protein.** The only 1 in the log.
-
-**Grain choice, when a grain base is happening:**
-
-Stated 2026-09-09, and the log backs it — brown rice chosen at Mae Asian Eatery, Boloco and Atlantic Poké; brown rice & red quinoa at WOW TIKKA. Whenever the build includes a grain and the restaurant offers a choice, pick **quinoa** first, **brown rice** second. Both beat white rice and both beat the default.
-
-If neither is on the menu, white rice is acceptable rather than a reason to drop the item — Basil Rice was white rice and still rated 4 — but say in the writeup that the grain was not their pick.
-
-**Paid vs. free asks, stated 2026-09-16:**
-
-Never use the notes box to ask for more meat. Protein is the costed component — most kitchens ignore a free ask for it, and some read it as trying to get the expensive part for nothing. Buy protein in the modal, where the upcharge shows in the cart.
-
-Garnish-tier asks are fine and usually honored: cheese, olives, pickles, pickled onion, herbs, spice, lemon, extra tomato or onion, and anything held, light, or on the side. Reductions are the safest asks of all.
-
-Macro consequence: a note's protein never counts toward the 40g floor, but its calories always count against the 800 ceiling.
-
-**Paid protein does not always arrive.** Boloco, 2026-01-06: steak and chicken were both bought and the review reads "Plenty of chicken, but barely any steak." When a build buys two proteins, expect the cheaper one and treat the premium one as at risk. Prefer **one protein bought well** over two split upgrades.
-
-**Notes-box style, stated 2026-09-16:**
-
-Brief and courteous. One or two sentences with a please and a thank you — the kitchen is reading it mid-rush. Never repeat a selection the order already carries (side, protein, sauce, grain), and never ask about a component the dish does not contain. The 2026-09-16 GRECO note opened by asking for the lemon pilaf that was already selected; that line was dead weight.
-
-**Freshness asks are worth a line.** Two of the six written reviews are about food held too long. At a pita, shawarma or wrap counter, a short "fresh off the grill if you can, please" is a reduction-tier ask that costs the kitchen nothing and targets the exact failure mode that produced both 2s.
-
-**Wants rationed:**
-
-- **Starch bases** — wrap, sandwich, sub, rice bowl, grain bowl. Not disliked, explicitly stated as "not every week." This is what the `carb-base` cooldown enforces. The grain-choice rule above governs *which* grain once the slot is being spent; it does not unlock the slot more often.
+**After any scrape that adds ratings, re-derive these against `dietary-preferences.md`** and update that file. See **How this file evolves** there for what promotes a pattern to a rule.
 
 ## Observed preferences
 
