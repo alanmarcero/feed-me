@@ -24,7 +24,7 @@ hungry. unacceptable.
 
 | | |
 |---|---|
-| `/feed-me` | orders lunch for every open day. this is the one you'll use |
+| `/feed-me` | orders lunch for every open day, then syncs. this is the one you'll use |
 | `/feed-me sync` | reconciles the log against ezCater and orders nothing |
 
 it opens the ordering site in a real browser, finds **every day** still open, reads every
@@ -137,8 +137,17 @@ better becomes the floor, the 75th percentile of calories becomes the ceiling, c
 by average rating, components come from what keeps showing up in your 4s. all of it tagged
 `provisional`, each shown with the number it came from, and yours to overrule on sight.
 
-run plain `/feed-me` with no history and no preferences and it syncs first, says so, then
-carries on into the order. your account has your lunches on it even when the skill doesn't.
+**and every plain `/feed-me` ends with one anyway.** you don't have to remember to run it. the
+books staying straight is the skill's problem, not yours.
+
+it's also the only thing that turns "i placed four orders" into "i placed four orders and
+all four are actually there." a confirmation page is a claim; the upcoming tab is the fact.
+if an order it just placed isn't on the site, that's the run failing, not finishing, and it
+says so loudly and re-places it if the cutoff hasn't passed.
+
+run plain `/feed-me` with no history and no preferences and it syncs *first* too, says so,
+then carries on into the order. your account has your lunches on it even when the skill
+doesn't.
 
 ## it works better with preferences. it works without them.
 

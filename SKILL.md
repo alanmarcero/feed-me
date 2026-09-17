@@ -25,9 +25,11 @@ Fall back to **advise-only** (slate, no order placed) in exactly three cases:
 
 | Mode | How it starts | What it does |
 |---|---|---|
-| **order** | `/feed-me`, or any ask for lunch | The default. Reads the menus, places one order per open day. |
+| **order** | `/feed-me`, or any ask for lunch | The default. Reads the menus, places one order per open day, **then syncs.** |
 | **sync** | `/feed-me sync` | Reconciles the log against the site. **Places nothing.** See below. |
-| **advise** | pasted menus, or a request for options | Ranked slate, no order placed. |
+| **advise** | pasted menus, or a request for options | Ranked slate, no order placed, no sync. |
+
+**A bare `/feed-me` ends with a sync, always.** It is the last step of the run, not an optional extra, and it is what keeps the files current without the user ever having to think about it. See **The closing sync**.
 
 ### `/feed-me sync`
 
@@ -45,6 +47,24 @@ Run the whole pass, not a sample. **Every reconciliation rule in *The order life
 **Report what moved, in greentext, with counts.** Name every status change, every newly found order, every rating that landed, and anything left `missing`. **If nothing changed, say that plainly** — "41 completed, 10 cancelled, no drift" is a successful sync and a useful answer. Do not invent findings to justify the run.
 
 **A sync never places or cancels an order.** If the scan turns up something that wants action — an open day about to hit its cutoff, a leftover from a half-finished swap — say so and let them decide. They asked for a sync.
+
+### The closing sync
+
+**Every bare `/feed-me` finishes with a full sync. It is the last step of the run.**
+
+The point is that the user never has to remember to reconcile. They asked for lunch; the books staying straight is the skill's problem, not theirs.
+
+It does three things, and the first is the one that earns it:
+
+1. **Confirms the orders just placed are actually on the site.** A confirmation page is a claim; the Upcoming tab is the fact. **This is the only thing that turns "I placed four orders" into "I placed four orders and all four are there."** Never report a batch as complete without it.
+2. **Writes the rows from scraped data**, so the real order id, delivery time and final subtotal come off the site rather than off a confirmation screen that may have rounded or reworded something.
+3. **Picks up everything else that moved** — ratings that landed since the last run, orders placed outside the skill, anything the user cancelled without saying so.
+
+**If the closing sync cannot find an order that was just placed, say so loudly and treat it as the run failing, not finishing.** Then check the cutoff: if that day is still open, rebuild and place it again. If it has passed, say plainly that the day was lost and why. A silent gap here is the single worst outcome this skill can produce, because the user believes lunch is coming and it is not.
+
+**Do not double-sync.** `/feed-me sync` is already a sync and does not run another. Advise-mode places nothing, so it has nothing to confirm and skips the closing sync too.
+
+**Report it as one line inside the run's writeup**, not as a separate report. "all 4 on the site, 2 ratings landed since last week, no drift" is the whole thing. A clean sync after a clean order does not deserve its own section.
 
 #### Sync is a valid first run
 
@@ -813,6 +833,7 @@ Each day is a separate cart and a separate order. Run this loop once per open da
 8. Confirm the review page still shows Total $0.00 and no card request, then place the order.
 9. Read the confirmation and check its lines against what was recalculated at step 7. If anything drifted, fix it before that day's cutoff.
 10. Move to the next day. Carts do not span days, so nothing from the previous order carries over.
+11. **When every day is placed, run the closing sync.** Required, see **The closing sync**. The run is not finished until the site confirms every order it claims to have placed.
 
 **Finish the batch.** If one day fails — no qualifying item, a card requested, a cutoff that lapsed mid-run — place the remaining days anyway and report exactly which day was skipped and why. Do not abandon four days of stipend over one bad menu.
 
@@ -839,6 +860,8 @@ An order is not a single event, so the log does not treat it as one. It is place
 ### Write the row the moment it is placed
 
 **Log an order as soon as the confirmation comes back. Do not wait for it to arrive, and do not wait for a rating.** Write the row at status `placed` with delivery date, restaurant, item and every add-on, **format**, subtotal, and the order id from the confirmation URL.
+
+**That row is provisional until the closing sync confirms it.** The confirmation page is a claim about what happened; the Upcoming tab is what actually did. Writing the row immediately means nothing is lost if the run is interrupted, and the sync at the end corrects any field the confirmation got wrong.
 
 An order that exists on the site and not in the log is invisible to every rule in this skill. It will not block a repeat, will not advance rotation, and will not be there to collect a rating later. The gap between placing and logging is the only window where that can happen, so close it immediately.
 
@@ -919,6 +942,8 @@ The skill cancels when asked. On the order's detail page: **Cancel order**, then
 Say in the writeup when rows are still open. "Two orders from last week are still unrated" tells them a star click is all it takes.
 
 ## After they order
+
+**The closing sync has already written the rows.** An order run ends by reconciling against the site, so by the time this section applies, every order placed is logged at its real id with its real delivery time and subtotal. See **The closing sync**. What follows is about the verdict, which arrives later.
 
 **The star rating comes off ezCater, not out of a conversation.** They rate on the site, so scrape it rather than asking — see **Their reviews live on ezCater**. **Review text comes from both places and gets merged**, and a sync never overwrites what they said in chat. See **Reviews arrive from two places**.
 
