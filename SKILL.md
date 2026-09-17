@@ -165,7 +165,7 @@ async () => {
 
 Loop it over the ids with ~100ms between fetches. Forty orders takes a few seconds.
 
-**Two traps on the Upcoming tab.** Its pagination links point at `/customer_orders/past?page=N`, so a scraper that follows them silently walks the Completed list instead. And a day's order appears there on its delivery day, already delivered and rateable, before it moves to Completed. Read the tab you fetched, not the tab the links imply.
+**Three traps on the Upcoming tab.** Its pagination links point at `/customer_orders/past?page=N`, so a scraper that follows them silently walks the Completed list instead. A day's order appears there on its delivery day, already delivered and rateable, while also appearing on Completed. And it is not an upcoming-only list: on 2026-09-17 every id it returned was also on Completed, so **its contents are not evidence that an order is still pending.** Read the tab you fetched, not the tab the links imply, and decide status by the precedence rules in **The order lifecycle**.
 
 The details page also carries a **Customer Details** block and a **Delivery details** block. The delivery day and time are worth keeping. The name and street address are not useful to the skill — they are the same on every order — so there is no reason to copy them into the log, but this is a housekeeping point, not a redaction rule. See **The data files are personal**.
 
@@ -708,19 +708,42 @@ An order that exists on the site and not in the log is invisible to every rule i
 
 **Before building any slate, scrape all three tabs and check the log against them.** This is what catches an order the user cancelled without saying so, an order they placed outside the skill, and a delivery that has quietly become rateable.
 
-| Tab | URL |
-|---|---|
-| Upcoming | `/customer_orders` |
-| Completed | `/customer_orders/past?page=N` |
-| Canceled | `/customer_orders/cancelled` |
+| Tab | URL | Paging |
+|---|---|---|
+| Upcoming | `/customer_orders` | single page |
+| Completed | `/customer_orders/past?page=N` | **loop until a page returns no orders** |
+| Canceled | `/customer_orders/cancelled` | single page, but probe `?page=2` to be sure |
 
-Build one id-to-tab map across all three, then walk the log:
+**Never hardcode a page count for Completed.** It was four pages at 40 orders and became five the moment a 41st landed, with a single order on page five. Loop until a page comes back empty.
+
+**Do not trust the pager to tell you when to stop.** The Canceled tab held exactly ten orders, a full page, and rendered no pagination nav at all. Ten is the page size, so "no pager" and "there is more" look identical. Probing `?page=2` and getting nothing is what proves the set is complete.
+
+A full pass over three tabs plus every detail page is about 41 fetches at ~80ms. It takes seconds. There is no budget reason to skip it or to sample.
+
+**An order can sit on two tabs at once.** On its delivery day it appears on **Upcoming** *and* on **Completed**, already rateable. Verified 2026-09-17: the day's GRECO order was on both. So build an id-to-**tabs** map, not id-to-tab, and resolve status by precedence rather than by whichever tab you read last:
+
+1. **On Canceled** wins over everything else.
+2. Otherwise, **a rating on the detail page** makes it `rated`.
+3. Otherwise, **on Completed** makes it `delivered`.
+4. Otherwise, **on Upcoming only** makes it `placed`.
+
+Then walk the log:
 
 - **On the tab its status expects** — nothing to do.
 - **Moved forward** (`placed` now on Completed, `delivered` now carrying a rating) — advance the status and pull the new data.
 - **On the Canceled tab** — set `cancelled`, whether or not this skill did it. **This is the case that matters most.** The user cancels for their own reasons and owes you no notice, so the Canceled tab is checked every run and not only when a cancellation is expected.
 - **On the site but not in the log** — add it. They ordered without the skill, and it still counts for rotation and still earns a rating.
 - **In the log but on no tab** — set `missing` and say so in the writeup. Do not guess and do not delete the row. An order that vanished is a fact about the account, not a typo.
+
+### Prove it, do not eyeball it
+
+**Reconciliation finishes with a set comparison, not an impression.** Collect the site's ids and the log's ids and diff them in both directions:
+
+- on the site, missing from the log
+- in the log, on no tab
+- cancelled ids sitting in the main table, or delivered ids sitting in the cancelled table
+
+Then compare **every rating and status**, not a sample. A drifted rating is invisible to an id-level check, and a rating is the one field the whole skill ranks on. Report the counts. "41 completed and 10 cancelled, all statuses and ratings match" is an answer; "looks synced" is not.
 
 **Never delete a row during reconciliation.** Statuses change; rows do not disappear. A log that quietly drops what it cannot explain is a log that cannot be trusted about anything else.
 
