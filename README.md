@@ -22,6 +22,11 @@ hungry. unacceptable.
 
 `/feed-me`. that's the whole interface.
 
+| | |
+|---|---|
+| `/feed-me` | orders lunch for every open day. this is the one you'll use |
+| `/feed-me sync` | reconciles the log against ezCater and orders nothing |
+
 it opens the ordering site in a real browser, finds **every day** still open, reads every
 menu, prices out the upcharges hiding behind each item's option modal, plans the week so no
 two days land on the same food, and places one order per day.
@@ -32,6 +37,7 @@ it still shows the 5 ranked runners-up, because a nutritionist that won't show i
 vending machine with opinions. it will also tell you about the perfect item sitting $0.04
 over the ceiling. so you can think about it. forever.
 
+
 it answers in greentext, by requirement. the numbers stay exact, the voice is insufferable on
 purpose. the note it types into the special-instructions box is *not* in greentext, because a
 human reads that box during a lunch rush. it says please.
@@ -39,15 +45,14 @@ human reads that box during a lunch rush. it says please.
 ## the money
 
 the stipend doesn't pool and doesn't roll over. skip wednesday and wednesday's twenty dollars
-ceases to exist. so it claims every open day, computing each day's ceiling off that day's own
+ceases to exist. so it claims every open day, computing each ceiling off that day's own
 subsidy and delivery fee. leaving one is a tuesday you paid for and did not eat.
 
 the cart shows subsidy and total before you commit, so it builds to the largest order still
-reading **total $0.00** and stops. the catch is that every price on the menu is pre-tax and
-the stipend is spent on the post-tax total, so a $19.50 lunch is not a $19.50 lunch. the
-skill does that conversion on every candidate before ranking it. at 7% that leaves about
-$18.68 of menu to play with, and forty receipts agree: everything under it came back
-covered, and the one order that went past cost $0.20.
+reading **total $0.00** and stops. the catch: every menu price is pre-tax and the stipend is
+spent on the post-tax total, so a $19.50 lunch is not a $19.50 lunch. it does that conversion
+on every candidate before ranking. at 7% that leaves about $18.68 of menu to play with, and
+forty receipts agree: everything under it came back covered, the one order past it cost $0.20.
 
 ## the one hard rule
 
@@ -71,8 +76,7 @@ publications are yours to order. no adding remotes, no flipping repos public.
 point of them. there's no version of this that's both useful and anonymous, so it doesn't
 try: allergies in full, order ids kept so a row traces back to its page, no safety line ever
 softened to make a file easier to share. want the skill without the diary? `.gitignore` them
-or use a private remote. the portable half, `SKILL.md` and `README.md`, has none of it
-anyway.
+or use a private remote. the portable half has none of it anyway.
 
 ## the rules
 
@@ -117,8 +121,8 @@ five options span at least three of them.
 
 this applies **inside** a single run: four days ordered in one go get four different formats.
 two salad days in one week is worse than two salad weeks in a row, because it could see both
-at once and did it anyway. variety can spend about 150 calories to break a repeat, and past
-that it says so out loud.
+at once and did it anyway. variety can spend about 150 calories to break a repeat, then says
+so out loud.
 
 ## it works better with preferences. it works without them.
 
@@ -134,8 +138,7 @@ with lunch. if not, it does **not** make you fill in a form:
 
 **your order history is a preferences file nobody typed.** forty rated orders say more than
 forty answers to a questionnaire, because a rating is what you thought *after eating*. it
-tells you what it inferred and from which orders, easier to correct than an open question
-about your diet.
+tells you what it inferred and from which orders, easier to correct than an open question.
 
 the one thing the log can't tell it is allergies. never ordering shellfish is not evidence
 either way, so it asks one question:
@@ -166,6 +169,27 @@ keeps doing what you told it.
 this is also how you end up with good preferences having never written any: start cold, rate
 your lunches, watch it fill itself in.
 
+## /feed-me sync
+
+the books straightened, with no lunch happening as a side effect. it reads all three tabs,
+opens every order, and makes `order-history.md` match: statuses advanced, ratings and reviews
+filled in, orders you placed without the skill added, cancellations moved across, anything it
+can't find flagged instead of deleted. then it re-derives your preferences from whatever the
+new ratings changed.
+
+it places nothing and cancels nothing. if the scan turns up something that wants doing it
+says so and leaves it to you. "no drift" is a real answer and you'll get it plainly.
+
+**it's also the least committal way to start.** run `sync` before answering anything and it
+builds your whole preferences file out of the log: median protein across the orders you rated
+3 or better becomes the floor, the 75th percentile of calories becomes the ceiling, cuisines
+rank by their average rating, components come from what keeps showing up in your 4s. every
+one of those is tagged `provisional`, shown with the number it came from, and yours to
+overrule the moment it's wrong.
+
+it'll ask about allergies once, because a log can't tell it that. ignore the question and it
+keeps going. it just won't shut up about the gap on the day it actually orders something.
+
 ## it reads your reviews off the site
 
 you already rate orders on ezCater, and clicking a star is less work than typing a sentence,
@@ -180,19 +204,19 @@ so it reads the stars instead of asking twice. five stars, stored 0-4:
 | 0 | never again | dish done, kitchen suspect |
 
 ratings live in markup the accessibility tree doesn't expose, so it parses the order-detail
-pages directly, re-scraping whenever something's been delivered since the last snapshot.
+pages directly, re-scraping whenever something's been delivered since the last look.
 
 **a blank review is not missing data.** six of forty orders have text and all six are
 complaints. you write when something's wrong and say nothing when it's right, so a silent 4
 outranks a chatty 3. and the complaints are never about macros. "dry". "bland". "stale,
 clearly cooked hours or even a day earlier". "barely any steak". execution failures no
-arithmetic sees coming, which is why the ratings outrank the numbers.
+arithmetic sees coming, which is why ratings outrank numbers.
 
-it all lands in `order-history.md`, where the gains get tracked. every order, every verdict.
-a cancelled order doesn't get logged, because the ledger is what you ate, not what you almost
-ate. preferences don't live there: the log records what happened, the preferences file
-records what it *meant*. "i liked the Scali salad" generalizes to one salad. "lose the
-lettuce, keep the tahini" generalizes to every menu.
+it all lands in `order-history.md`, where the gains get tracked. every order, every verdict,
+every cancellation, each carrying a status from placed to rated. preferences don't live
+there: the log records what happened, the preferences file records what it *meant*. "i liked
+the Scali salad" generalizes to one salad. "lose the lettuce, keep the tahini" generalizes to
+every menu.
 
 ## loved means go back
 
@@ -200,8 +224,7 @@ the failure mode of a rotation rule is treating good food as a thing to be ratio
 rated it 4. that's a request. so a **loved** kitchen is exempt from "pick somewhere else
 this time" and can repeat inside the four-order window, something new off that menu or the
 same build again. it just has to say it's riding on a 4, so you can tell a deliberate repeat
-from a robot out of ideas. inverse too: a **neutral** kitchen doesn't get a turn for being
-overdue.
+from a robot out of ideas. a **neutral** kitchen doesn't get a turn for being overdue.
 
 ## a worked example of it changing its mind
 
@@ -215,9 +238,9 @@ one user's log, not a rule for yours. forty orders in, averaged by cuisine:
 | mediterranean / middle eastern | 9 | **2.78** |
 
 the skill used to say mediterranean "lands well". it does not. that belief came from
-components he'd said he liked (tahini, hummus, feta, olives) and not from a single rating.
-both 2s came with a review saying the same thing: the pita was dry, the shawarma was cooked
-a day ago. invisible from the menu text.
+components he'd said he liked (tahini, hummus, feta, olives), not from a single rating. both
+2s came with a review saying the same thing: the pita was dry, the shawarma was cooked a day
+ago. invisible from the menu text.
 
 the components are real, the kitchens are the problem. so: still order the hummus, stop
 picking the restaurant because it has hummus.
