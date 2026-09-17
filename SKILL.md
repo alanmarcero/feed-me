@@ -916,7 +916,22 @@ Component-level preferences live in `dietary-preferences.md` under **Components*
 
 Recommend the modification alongside the item — one short line, phrased the way they would type it into the ezCater special-instructions box. A mod that removes an unwanted component is free and always worth stating. Do not invent mods a restaurant plainly will not honor, and do not use mods to reshape a dish into a different dish.
 
-**Write the note short and polite.** Confirmed preference, restated 2026-09-16: a real person reads that box during a weekday lunch rush, with a stack of other orders behind yours. They do not have time for a paragraph. One or two sentences, plain courteous English, with room for a please and a thank you. The greentext voice is for the user; the notes box gets none of it.
+**One ask per note.** `stated` 2026-09-17, on a note reading *"Extra pickled jalapeño, please, and hot sauce on the side if you have it"* — **that is two requests and it should have been one.** A box with two asks in it gets one of them honored at best, and it is never the one you cared about. Pick the single highest-value ask and delete the rest, however reasonable they look on their own.
+
+**What counts as one ask is the action, not the ingredient.** "Heavy on the feta and olives" is **one** — one instruction, one person, one station, one motion. "Extra jalapeño **and** hot sauce on the side" is **two** — two separate actions at two points in the build. When in doubt, ask whether one hand does it in one go.
+
+**Rank the survivors and keep the top one.** Strongest first:
+
+| | Ask | Why it outranks the rest |
+|---|---|---|
+| 1 | **a reduction or removal** | free, honored most often, and it takes off the plate the thing that would have ruined it |
+| 2 | **a freshness ask**, at a counter whose failure mode is held food | targets the exact failure that produced both 2s in the log |
+| 3 | **heat** — hot sauce on the side, the spicy version — when the modal did not already capture it | `stated` standing instruction, costs the kitchen nothing, threatens no gate |
+| 4 | **a garnish-tier addition** — extra feta, olives, pickles | pleasant, marginal, and the first thing to cut |
+
+**Asking for more of something the dish already contains is the weakest ask on that list.** The bowl already has pickled jalapeño; asking for extra spends the note's one slot on a component that was arriving anyway. **An ask for something the plate does not otherwise have beats an ask for more of what it does** — that is what decided the 2026-09-17 Cosi note in favour of the hot sauce.
+
+**Write it short and polite.** Confirmed preference, restated 2026-09-16: a real person reads that box during a weekday lunch rush, with a stack of other orders behind yours. They do not have time for a paragraph. One sentence, plain courteous English, with room for a please and a thank you. The greentext voice is for the user; the notes box gets none of it.
 
 **Never restate a choice the order already carries.** The structured selectors — protein, side, sauce, bun, grain — are already on the ticket. Repeating one in the notes box ("lemon rice pilaf for the side, please" when Lemon Pilaf is the selected side) is pure noise and buries the ask that actually matters. Before typing the note, check what the modal already captured and write only what it could not.
 
@@ -953,14 +968,18 @@ First assemble the order's real ingredient list from two places:
 
 That list is the whole universe the kitchen is working with. Nothing else is in the order.
 
-Then take the note one clause at a time. Every clause must pass all four tests, or it gets cut:
+Then take the note one clause at a time. **Tests 1-4 kill a clause on its own merits. Test 5 then picks between whatever is left.**
 
 1. **Does the ingredient appear in the list?** Asking to change something the dish does not contain tells the kitchen you did not read the menu. Cut it.
 2. **Is it already set by a selector?** If the modal captured it, the ticket already says it. Cut it.
 3. **Is it asking for more of something the menu charges for?** Protein above all, plus any priced add-on. Cut it and buy it in the modal instead — see **Modifications**.
 4. **Can the kitchen act on it?** A preference with no corresponding action ("mediterranean flavors please") is noise. Cut it.
 
-What survives is the note. If nothing survives, submit an empty box.
+Then the fifth cut, which runs on whatever is left:
+
+5. **Is more than one ask still standing?** Keep the highest-ranked one and delete the others. See the ladder under **Modifications**. Two survivors is not a shorter note, it is a diluted one.
+
+What survives is **one ask**. If nothing survives, submit an empty box.
 
 Worked example, the 2026-09-16 GRECO order. Ingredient list: two beef bifteki patties, Greek salad (tomato, cucumber, red onion, Kalamata olives, crumbled feta, olive oil, red wine vinegar), pita bread, lemon rice pilaf (selected side), tzatziki (separate line).
 
@@ -968,11 +987,22 @@ Worked example, the 2026-09-16 GRECO order. Ingredient list: two beef bifteki pa
 |---|---|---|
 | "lemon rice pilaf for the side" | 2 — Lemon Pilaf was the selected side | cut |
 | "light on any lettuce" | 1 — no lettuce anywhere in the list | cut |
-| "heavy on the feta and olives" | passes all three | keep |
+| "heavy on the feta and olives" | passes 1-4, and it is one ask | keep |
 
 Final note: `Heavy on the feta and olives, please. Thank you!`
 
-Two of the three clauses died on the check. That is the normal yield — run it every time, on every day of a batch, because each day has its own ingredient list.
+Two of the three clauses died on the check, and the survivor is a single ask — one motion at one station — so the fifth cut had nothing to do. That is the normal yield.
+
+**Worked example of the fifth cut, the 2026-09-17 Cosi order.** Ingredient list: adobo chicken, avocado, hearth roasted veggies, corn and black beans, pico de gallo, pickled jalapeño, chopped cilantro, cauliflower rice (selected base), no side (selected), 2 hard boiled eggs (selected add-on).
+
+| Clause | Tests 1-4 | Test 5 | Result |
+|---|---|---|---|
+| "extra pickled jalapeño" | passes — in the list, garnish-tier, unpriced | **rank 4**, and the dish already contains it | **cut** |
+| "hot sauce on the side if you have it" | passes — `stated` standing instruction, actionable | **rank 3**, and the plate has none otherwise | keep |
+
+Final note: `Hot sauce on the side, please. Thank you!`
+
+**Both clauses were individually legitimate, which is the point.** Nothing in tests 1 through 4 catches this — it takes the fifth cut to notice the note was asking for two things and to pick. Run it every time, on every day of a batch, because each day has its own ingredient list.
 
 ## Output style
 
