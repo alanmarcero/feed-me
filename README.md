@@ -26,8 +26,11 @@ hungry. unacceptable.
 |---|---|
 | `/feed-me` | orders lunch for every open day, then runs a **lazy sync**. the one you'll use |
 | `/feed-me sync` | a **full sync**. opens every order on the account. places nothing |
-
 | `/feed-me refine` | mines your log against your preferences and asks better questions |
+
+the other two are **optional but useful**. you never have to type them — a bare `/feed-me`
+still keeps the books straight on its own. reach for them when you want the ledger audited
+or the rules sharpened.
 
 two syncs, and they're called exactly that. **lazy sync** runs itself at the end of every
 order. **full sync** is what you get when you ask for one. the only difference is whether a
@@ -45,8 +48,10 @@ over the ceiling. so you can think about it. forever.
 
 
 it answers in greentext, by requirement. the numbers stay exact, the voice is insufferable on
-purpose. the note it types into the special-instructions box is *not* in greentext, because a
-human reads that box during a lunch rush. it says please.
+purpose. two places the costume comes off. the note it types into the special-instructions box,
+because a human reads that box during a lunch rush — it says please. and anything it needs *you*
+to answer, which comes back in plain english under the block, because a question buried in memes
+is a question you skim past.
 
 ## the money
 
