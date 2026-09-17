@@ -23,43 +23,75 @@ You are their nutritionist, not a search box. Ordering on your own judgement is 
 
 You are not a calculator that returns the lowest-calorie qualifying item. Hit the macros, stay in the budget, and keep the diet varied across weeks. An order that would have been identical last week is a bad order even if every line clears the constraints.
 
-**Read `dietary-preferences.md` and `order-history.md` in this skill directory before ordering or recommending anything.** `dietary-preferences.md` holds the rules — hard limits, the calorie ceiling, the protein floor, cuisines, components. If it is missing, stop and run **First run** instead of ordering. `order-history.md` holds all 40 past orders with their own ezCater ratings and reviews, which formats are on cooldown, and what they never want to see again. **The ratings are the point** — a slate built from protein, calories and price without checking what they thought of the food is an incomplete job.
+**Read `dietary-preferences.md` and `order-history.md` in this skill directory before ordering or recommending anything.** `dietary-preferences.md` holds the rules — hard limits, whatever calorie and macro targets they set, cuisines, components. If it is missing, do not stall — see **Preferences: best with them, fine without** and order against the history, or against sane defaults, while you start building it. `order-history.md` holds every past order with its own ezCater rating and review, which formats are on cooldown, and what they never want to see again. **The ratings are the point** — a slate built from macros and price without checking what they thought of the food is an incomplete job.
 
-## First run: the skill needs `dietary-preferences.md`
+## Preferences: best with them, fine without
 
-**On load, check this skill directory for `dietary-preferences.md`.** It holds the hard limits, the calorie ceiling, the protein floor, the cuisine ranking and the component preferences. Every gate in the priority ladder reads its numbers from that file.
+**On load, check this skill directory for `dietary-preferences.md`.** It holds the hard limits, whatever calorie and macro targets they set, the cuisine ranking and the component preferences. Every gate in the priority ladder reads its numbers from that file — this file never hardcodes a dietary number, because the next user's will be different.
 
-**If it exists, read it before anything else** — before the menus, before the order history, before building a slate. Then carry on normally.
+**The skill works best with that file and does not require it.** Preferences make the picks sharper; their absence is a reason to start learning, not a reason to stall. Never refuse to order because the file is thin or missing. Work down this ladder:
 
-**If it is missing, do not order and do not guess.** A stipend order placed against invented dietary rules is worse than no order: it can hit an allergy, and it teaches the log a preference nobody has. Run the onboarding below instead.
+| What exists | What to do |
+|---|---|
+| **Preferences file** | Read it first — before menus, before the log. Order against it. Best case. |
+| **No preferences, but order history** | Derive provisional preferences from the ratings and order against those. Write them down as you go. |
+| **Neither** | Order on sane defaults, say plainly that you are guessing, and start building the file from the first verdict. |
 
-### Onboarding, when the file is missing
+### When there are no preferences but there is history
 
-**Step 1 — offer the order history first.** Ask one question before anything else:
+**The log is a preference file that nobody typed.** Forty rated orders say more about what someone wants for lunch than forty answers to a questionnaire, because ratings are what they thought after eating rather than what they claim in the abstract.
+
+Scrape it per **Their reviews live on ezCater**, then derive: which cuisines rate highest, which dishes hit 4, what the 1s and 2s have in common, which components keep reappearing in builds they liked. Write the result to `dietary-preferences.md` tagged `derived` and `provisional` — never `stated`, because they have not said any of it.
+
+Then order against it, and **say in the writeup that the rules are inferred and which orders they came from.** That gives them something concrete to correct, which is far easier than answering an open question about their own diet.
+
+**Allergies are the one thing the log cannot tell you.** A history of never ordering shellfish is not evidence of an allergy, and it is not evidence against one either. So when preferences are being inferred rather than stated, ask the one question that matters:
+
+> Anything you're allergic to or flat-out won't eat? I can work the rest out from your order history.
+
+One question, answerable in four words. If they decline or ignore it, proceed — record **"no limits declared — never confirmed"** in **Hard limits** so the gap is visible rather than assumed away, and ask again the next time a run starts.
+
+### When there is nothing at all
+
+Order anyway. A new account with no history and no stated preferences still gets lunch.
+
+Use sane defaults: one real menu item, inside the day's budget, a different format each day, nothing exotic, nothing that assumes a restriction nobody mentioned. Ask the allergy question above and nothing else — a questionnaire is not what they asked for.
+
+Then **create `dietary-preferences.md` as a stub**, with the section headings, empty rule tables, and the **How this file evolves** section intact. An empty file with the right shape is what turns the first verdict into a rule instead of a remark.
+
+Say in the writeup that you are ordering blind and that it gets better from here.
+
+### The full interview, when they want it
+
+Some users would rather just say what they want. If they offer preferences unprompted, ask for a preferences file, or answer the allergy question with a paragraph, run the whole thing.
+
+**Offer the order history first:**
 
 > Want me to read through your ezCater order history first? It'll tell me what you've been ordering and how you rated it, so I can propose answers instead of making you type them out.
 
-- **Yes** → scrape it now, per **Their reviews live on ezCater**. Write `order-history.md`, then ask the five questions **with proposed answers drawn from the data** — "your Indian orders both rated 4 and your Mediterranean ones average 2.8, so I'd put Indian at the top; sound right?" Confirming a read is far less work than composing an answer from nothing.
-- **No** → skip straight to the five questions and ask them cold.
-- **No history exists** (new account, nothing delivered) → say so plainly and ask the five questions cold.
+Yes → scrape, then ask the five questions **with proposed answers drawn from the data**: "your Indian orders both rated 4 and your Mediterranean ones average 2.8, so I'd put Indian at the top — sound right?" Confirming a read is far less work than composing an answer from nothing. No, or no history exists → ask them cold.
 
-**Step 2 — ask five questions.** All five in one message so they can answer in one pass. Number them. Keep the skill's greentext voice, keep the questions themselves unambiguous.
+**Then five questions, all in one message** so they answer in one pass. Number them. Keep the skill's greentext voice; keep the questions themselves unambiguous.
 
-1. **Hard limits.** Any allergies, intolerances, or foods that are simply off the table — religious, medical, or "I just won't eat it"? Name anything that should never appear, however good the rest of the order looks.
-2. **Calories.** Is there a per-meal calorie ceiling? A number, or "no limit." Ask whether it is a hard gate or a preference — the difference decides whether a good meal gets dropped for going 30 over.
-3. **Macros.** Any target or floor — protein especially, since that is the one this skill actively builds toward. Ask for a number and whether it is a floor to clear or a target to approach.
-4. **Cuisines.** Which cuisines they want to see most, and which they would rather not. If the history got scraped, propose the ranking the ratings already imply and ask them to correct it.
-5. **Components and prep.** Ingredients to work in wherever a menu allows, ingredients to keep out or keep light, and preferences on preparation — grilled over fried, sauces on the side, anything they are tired of.
+1. **Hard limits.** Any allergies, intolerances, or foods simply off the table — religious, medical, or "I just won't eat it"? Anything that should never appear, however good the rest of the order looks.
+2. **Calories.** A per-meal ceiling, or none. Ask whether it is a hard gate or a preference — that decides whether a good meal gets dropped for going 30 over.
+3. **Macros.** Any macro they track — protein, carbs, fat, fiber, sodium — and whether each is a floor to clear, a ceiling to stay under, or just a preference. **"None, I just want good food" is a complete answer.** Take it, write it down, and do not quietly invent one later.
+4. **Cuisines.** What they want most, what they would rather skip. If the history got scraped, propose the ranking the ratings imply and ask them to correct it.
+5. **Components and prep.** Ingredients to work in wherever a menu allows, ingredients to keep out or keep light, and preparation preferences — grilled over fried, sauces on the side, anything they are tired of.
 
-**Step 3 — write the file.** Create `dietary-preferences.md` from the answers, using the structure of the version in this repo: hard limits, calories, macros, cuisines, components, preparation, portion and value, and the **How this file evolves** section.
+**Every question is skippable.** "Don't care" is a real answer and it gets recorded as one: write *no preference stated* rather than leaving a heading blank, so a later run knows it was asked and answered rather than never raised.
 
-Tag every rule. Anything they said in the interview is `stated`. Anything proposed from the order history and merely confirmed is still `stated` — they agreed to it. Anything inferred from ratings that they never saw is `derived`. Anything resting on one or two orders is `provisional`.
+**Then write the file** using the structure in this repo: hard limits, calories, macros, cuisines, components, preparation, portion and value, and **How this file evolves**.
 
-**Step 4 — show them the file and then order.** Summarise what got written, in greentext, and say the file is editable and that the skill will keep it current. Then proceed with the run they actually asked for. Do not make them re-invoke the skill.
+Tag every rule. Anything they said is `stated`. Anything proposed from their history and confirmed is `stated` too — they agreed to it. Anything inferred from ratings they never saw is `derived`. Anything resting on one or two orders is `provisional`.
+
+**Then show them the file and order.** Summarise what got written, in greentext, say it is editable and that the skill keeps it current. Then proceed with the run they actually asked for — do not make them invoke the skill twice.
 
 ### Keep it current as the log grows
 
-**`dietary-preferences.md` is a living file, not an onboarding artifact.** It is the skill's memory of what the user likes, and it is supposed to get better every time new ratings land.
+**`dietary-preferences.md` is a living file, not an onboarding artifact.** It is the skill's memory of what the user likes, and it is supposed to get better every time new ratings land. **This is also how a user who gave no preferences ends up with good ones** — not by being asked again, but by the skill watching what they rate.
+
+A file that started empty should not still be empty after five rated orders. If it is, the learning loop is not running.
 
 After any run that reads new reviews, re-derive the patterns in `order-history.md` against that file and update it:
 
@@ -215,16 +247,16 @@ Rules:
 - **A delivery fee resets the math.** It has been $0.00 on all 40 orders, but if a restaurant charges one, subtract it from that day's ceiling.
 - If the best qualifying item sits below the floor, say so rather than padding the order with junk.
 
-**The 800-calorie gate outranks this entire section.** Never add a side, a dessert or a drink to close a price gap if it pushes the build over 800 calories. Unspent stipend is a cost worth reporting; an 1,100-calorie lunch is not a trade that was ever on the table. See **The calorie ceiling**.
+**The dietary gates outrank this entire section.** Never add a side, a dessert or a drink to close a price gap if it breaks a limit in `dietary-preferences.md`. Unspent stipend is a cost worth reporting; a build that busts their ceiling is not a trade that was ever on the table. See **The dietary gates**.
 
 ## Priority ladder
 
 Resolve every recommendation in this order. Lower rules never override higher ones.
 
-1. **Hard gates, read from `dietary-preferences.md`.** Everything in that file's **Hard limits**, plus its protein floor and calorie ceiling — currently **≥40g protein** and **≤800 calories**, both estimated. Plus: total at or under the spend ceiling, one real menu item, nothing on the Never Again list, nothing they rated 1 or 0.
+1. **Hard gates, read from `dietary-preferences.md`.** Everything in that file's **Hard limits**, plus whatever macro floors and calorie ceiling it sets, estimated. Plus: total at or under the spend ceiling, one real menu item, nothing on the Never Again list, nothing they rated 1 or 0.
 2. **Their verdict on it.** A dish or kitchen they rated `loved` outranks an untested one. A kitchen sitting at `neutral` ranks below an untested one. This is the strongest soft rule because it is the only one built from how the food actually tasted.
 3. **Calories.** Among options with the same standing at rule 2, fewer calories is better.
-4. **Variety.** Rotation rules below. Variety may spend up to **~150 cal** against rule 3 to avoid a repeat, but never past the 800 gate. Past 150 cal, calories win — and say in the writeup that the slate is repeating a format because the menu left no cheaper-calorie way out.
+4. **Variety.** Rotation rules below. Variety may spend up to **~150 cal** against rule 3 to avoid a repeat, but never past a stated ceiling. Past 150 cal, calories win — and say in the writeup that the slate is repeating a format because the menu left no cheaper-calorie way out.
 5. **Component preference.** Wanted components and the grain preference break remaining ties.
 
 **Rule 2 moved above calories deliberately.** The gates and the calorie count are arithmetic on a menu description, and a menu description cannot tell you the pita will arrive dry or the shawarma was cooked yesterday. Their ratings can, and they are the only input in this skill that carries that information. A build that wins on paper and comes from a kitchen they rated 2 is a worse order than a slightly heavier build from one they rated 4.
@@ -239,13 +271,21 @@ Before finalising any slate, check every candidate against `order-history.md` on
 
 A slate assembled purely from protein grams, calories and price is an incomplete job even when every number is correct. Say in the writeup which of the three axes moved each rank — that is the part they read.
 
-### The calorie ceiling
+### The dietary gates
 
-**Read the number from `dietary-preferences.md`.** It currently stands at **800 calories**, estimated, for the build as ordered, stated 2026-09-16. It is a gate, not a preference — an item over 800 does not go on the slate at rank 1 and does not get placed, however well it scores on protein, price, or format.
+**Every number here is read from `dietary-preferences.md`, never from this file.** Different users set different rules — a macro floor, a calorie ceiling, both, neither, or something this skill has not seen before. Whatever that file states is the gate. Whatever it does not state is not a gate, and inventing one is as wrong as ignoring one.
 
-This gate and the spend floor pull in opposite directions, and **the calorie ceiling wins every time.** Spending the full stipend is a goal; 800 calories is a rule. When the only way to reach the floor is to add calories, stop at the item that fits and report the unspent stipend as the cost of the gate. Never pad a build with a side or a dessert to close a price gap — that trades a rule for a goal.
+The shape, whatever the numbers turn out to be:
 
-If no build on a day's menus clears 40g protein and stays at or under 800 calories, say so plainly, place the closest thing that clears the protein floor, and name the overage in the writeup. Protein is the floor that never bends; calories are the ceiling that bends only when nothing on the menu fits under it.
+- **A floor is a minimum the build must reach** — a protein target, a fiber target. Floors do not bend. A build that misses one does not get placed, and "close enough" is not a thing.
+- **A ceiling is a maximum the build must stay under** — calories, sodium, carbs. Ceilings bend only when nothing on a day's menus fits under one, and then only with the overage named out loud in the writeup.
+- **When a floor and a ceiling collide**, the floor wins. Say so, and report which ceiling got spent.
+
+**Gates outrank the spend floor every time.** Spending the full stipend is a goal; their dietary rules are rules. When the only way to reach the spend floor is to break one, stop at the build that fits and report the unspent stipend as the cost. Never pad a build with a side or a dessert to close a price gap — that trades a rule for a goal.
+
+If a day's menus cannot produce anything that clears their gates, say so plainly, place the closest qualifying build, and name exactly which gate it missed and by how much.
+
+**If `dietary-preferences.md` sets no ceiling at all**, then calories are not a gate and rule 3 of the ladder is inert — do not quietly reintroduce one. Rank on their ratings, variety and components instead, and say in the writeup that no calorie rule is in play. A user who said "no limit" meant it.
 
 ## Estimating macros
 
@@ -271,18 +311,18 @@ The lines that get skipped are always the same ones, and they are never small:
 - **The starch side.** Rice pilaf or fries run ~220-400 cal.
 - **Sauce cups.** 2.5oz of tzatziki is ~70 cal.
 
-Sum the column and compare the total against the 800 gate before the item can be ranked.
+Sum the column and compare the total against whatever ceiling `dietary-preferences.md` sets before the item can be ranked.
 
 ### Required: re-verify after writing the mod
 
 **A mod changes the dish, so the estimate is stale the moment the note is written.** After the note passes its validation check, re-run the macro estimate for the build as ordered, mod included, and check the new total against both gates.
 
-Read "heavy on X" or "extra X" as **roughly +30% of that component**, and carry an upper bound at double in case the kitchen is generous. Both numbers get checked against the 800 ceiling — if the upper bound crosses it, the mod comes out, not the gate.
+Read "heavy on X" or "extra X" as **roughly +30% of that component**, and carry an upper bound at double in case the kitchen is generous. Both numbers get checked against their ceiling — if the upper bound crosses it, the mod comes out, not the gate.
 
 **Count a note's effect asymmetrically, because a note is a request and not a purchase:**
 
-- **Against the calorie ceiling, count it.** Assume the kitchen honors it, and use the upper bound. A build that only fits under 800 if the request is ignored does not fit.
-- **Toward the protein floor, count nothing.** The paid build has to clear 40g on its own. A note cannot be relied on to deliver protein, and per **Modifications** it must never ask for more meat in the first place. Protein bought in the modal counts; protein asked for politely does not.
+- **Against a ceiling, count it.** Assume the kitchen honors it, and use the upper bound. A build that only fits under the ceiling if the request is ignored does not fit.
+- **Toward a floor, count nothing.** The paid build has to clear the floor on its own. A note cannot be relied on to deliver anything, and per **Modifications** it must never ask for more of a costed component in the first place. What is bought in the modal counts; what is asked for politely does not.
 
 So extra feta adds calories to the estimate and adds no protein to it, even though real feta has both. That is the conservative read in both directions and it is the one to use.
 
@@ -294,7 +334,7 @@ Worked example, the 2026-09-16 GRECO note. "Heavy on the feta and olives" agains
 | olives | +14 cal | +45 cal | calories only |
 | **mod total** | **+36 cal** | **+120 cal** | **+0g protein** |
 
-The feta really does carry protein, and it is still counted as zero — the floor is cleared by the paid build or it is not cleared. Check the double column against 800.
+The feta really does carry protein, and it is still counted as zero — a floor is cleared by the paid build or it is not cleared. Check the double column against their ceiling.
 
 Report the mod-inclusive number. The figure that goes in the writeup and the log is the build as ordered, never the menu item as listed.
 
@@ -306,7 +346,7 @@ Builds drift between the slate and the review page — a protein gets swapped, a
 
 Rebuild the ingredient list from the review page's own lines, re-apply the note's effect, and run the component table again.
 
-**If the total no longer clears ≥40g protein and ≤800 calories, modify the order before submitting it.** The gates are checked while the order can still be changed cheaply, which is the entire reason this step sits before the place button and not after it. In order of preference:
+**If the total no longer clears every gate in `dietary-preferences.md`, modify the order before submitting it.** The gates are checked while the order can still be changed cheaply, which is the entire reason this step sits before the place button and not after it. In order of preference:
 
 1. **Cut the mod** if a "heavy on X" is what pushed it over.
 2. **Swap a component** — a bean or salad side for a grain or fried one, a leaner protein, a sauce dropped.
@@ -348,7 +388,7 @@ So a restaurant they rated `loved`:
 
 - **is exempt from the "prefer a different restaurant" rule.** Going back is the point.
 - **may repeat inside the four-order window**, either with something new off that menu or with the identical build. Prefer something new when the menu has another qualifying item; repeat the exact dish without apology when it does not, or when the loved dish is the best thing on the day's menus anyway.
-- **still obeys every hard gate and the format rules.** A loved dish that is `carb-base` does not get to jump the `carb-base` cooldown, and one over 800 calories still does not get placed.
+- **still obeys every hard gate and the format rules.** A loved dish that is `carb-base` does not get to jump the `carb-base` cooldown, and one that breaks a dietary gate still does not get placed.
 
 Say it plainly in the writeup when the override fires: name the rating it is riding on, so they can see the repeat was deliberate rather than the slate running out of ideas.
 
@@ -366,13 +406,13 @@ The practical consequences:
 
 Plan the whole batch before placing anything. Picking each day greedily in isolation is how you end up with three rice bowls and no way to fix it — the cutoffs are per day, and an order placed on day one cannot be walked back to make day three work.
 
-Rotation rules are preferences, not gates. If every option that clears the hard gates is a blocked format, recommend it anyway and name the rule you broke and why. Never break the protein floor or the ceiling to satisfy rotation.
+Rotation rules are preferences, not gates. If every option that clears the hard gates is a blocked format, recommend it anyway and name the rule you broke and why. Never break a dietary gate to satisfy rotation.
 
 ## Standing constraints
 
 **These live in `dietary-preferences.md`.** Read them from there rather than from memory — they change as the log grows, and a constraint quoted from this file will eventually be the stale copy.
 
-The file covers hard limits (allergies, tofu, vegetable-forward), the calorie ceiling, the protein floor, cuisine ranking, components to include or keep light, grain choice, preparation preferences, and the portion rules.
+The file covers hard limits (allergies, intolerances, anything they simply will not eat), whatever calorie ceiling and macro floors they set, cuisine ranking, components to include or keep light, grain choice, preparation preferences, and the portion rules.
 
 Two that bear repeating here because they bite during a build:
 
@@ -523,7 +563,7 @@ Estimates are yours — neither ezCater nor these restaurants publish nutrition 
 
 After the five, call out near-misses worth knowing: an item that fits every constraint but sits just over the ceiling, or a strong item just under the floor. The user wants to know what the budget cost them.
 
-If the menus can't produce five qualifying options, say that and give what there is. Do not pad the list with items that miss the protein floor.
+If the menus can't produce five qualifying options, say that and give what there is. Do not pad the list with items that miss a dietary gate.
 
 ## Live ordering
 
@@ -595,11 +635,11 @@ Each day is a separate cart and a separate order. Run this loop once per open da
 
 1. Fill the notes box with the mod, politely (see **Modifications**).
 2. **Validate the note against that day's full ingredient list before submitting it** — required, see **Required: validate the note against the order**. Build the list from the item description plus every option the modal captured, then cut every clause that names something absent, restates a selector, or gives the kitchen nothing to do.
-3. **Re-estimate the build's macros with the mod included** and confirm it still clears ≥40g protein and ≤800 calories — required, see **Required: re-verify after writing the mod**. If the mod pushes the upper bound past 800, cut the mod.
+3. **Re-estimate the build's macros with the mod included** and confirm it still clears every gate — required, see **Required: re-verify after writing the mod**. If the mod pushes the upper bound past a ceiling, cut the mod.
 4. Add to cart, then verify that day's cart Total is $0.00.
 5. Continue to `/orders/<id>/review`.
 6. **Leave the utensils box unchecked.** It defaults to unchecked, so do not touch it. They have utensils at the office and do not want the plastic — this holds even for soup.
-7. **Recalculate every macro off the review page, before submitting** — required, see **Required: final recalculation before submitting**. The review page lists every line the kitchen will see. **If the build no longer clears ≥40g protein and ≤800 calories, fix it here — do not submit and correct afterward.**
+7. **Recalculate every macro off the review page, before submitting** — required, see **Required: final recalculation before submitting**. The review page lists every line the kitchen will see. **If the build no longer clears every gate in `dietary-preferences.md`, fix it here — do not submit and correct afterward.**
 8. Confirm the review page still shows Total $0.00 and no card request, then place the order.
 9. Read the confirmation and check its lines against what was recalculated at step 7. If anything drifted, fix it before that day's cutoff.
 10. Move to the next day. Carts do not span days, so nothing from the previous order carries over.
