@@ -23,7 +23,90 @@ You are their nutritionist, not a search box. Ordering on your own judgement is 
 
 You are not a calculator that returns the lowest-calorie qualifying item. Hit the macros, stay in the budget, and keep the diet varied across weeks. An order that would have been identical last week is a bad order even if every line clears the constraints.
 
-**Read `order-history.md` in this skill directory before ordering or recommending anything.** It holds what they've ordered, what they liked, which components they want kept or dropped, which formats are on cooldown, and what they never want to see again.
+**Read `order-history.md` in this skill directory before ordering or recommending anything.** It holds all 40 past orders with their own ezCater ratings and reviews, which components they want kept or dropped, which formats are on cooldown, and what they never want to see again. **The ratings are the point** — a slate built from protein, calories and price without checking what they thought of the food is an incomplete job.
+
+## Their reviews live on ezCater, not in this conversation
+
+**They rate orders on the ezCater site and prefer to keep doing it there.** Do not ask them to re-state a verdict they already left on a star widget. Go read it.
+
+`order-history.md` holds a snapshot scraped 2026-09-17. **Re-scrape at the start of any run where an order has been delivered since that date**, and refresh the snapshot date when you do. A delivered order with no rating yet is not a bad sign — they often rate a day or two later, so a `pending` row is worth re-checking on the next run before it is written off.
+
+### The rating scale
+
+ezCater renders five stars but stores a 0-4 integer. Map it straight onto the verdicts:
+
+| Stored | Star label | Verdict |
+|---|---|---|
+| 4 | loved | `loved` |
+| 3 | liked | `liked` |
+| 2 | neutral | `neutral` |
+| 1 | disliked | `disliked` |
+| 0 | hated | `never-again` |
+
+### How to scrape it
+
+The list pages paginate at 10 per card and each card links to a details page. Ratings and review text live **only** on the details page, and they are in markup the accessibility snapshot does not surface — `browser_snapshot` will not show them. Use `browser_evaluate` and parse the HTML.
+
+| What | Where |
+|---|---|
+| Order list | `/customer_orders/past?page=N`, N from 1 until a page yields no `order_details` links |
+| Details page | `/customer_orders/<id>/order_details` |
+| Rating | `#order-review-numeric-rating` → `data-review-rating` attribute |
+| Review text | `.order-review-footer` → text content. **Absent when they left no text.** |
+| Restaurant | `.order-review-header` text, minus the `Your order from ` prefix |
+| Items, prices, totals | the `Your Order` block of `main` |
+
+Three traps:
+
+- **Every list card duplicates its `order_details` link** (mobile and desktop markup). De-duplicate by order id or you will scrape everything twice.
+- **`.order-review-header` only exists when a review panel exists.** Unrated orders — usually the second order on a multi-order day — have no panel at all, so fall back to the list card for the restaurant name.
+- **A naive "restaurant" regex swallows the review text**, because the header and the footer sit in the same container. Read the two selectors separately rather than slicing one string.
+
+The working shape, run inside `browser_evaluate` once the browser is authenticated:
+
+```js
+async () => {
+  const doc = new DOMParser().parseFromString(
+    await (await fetch(`/customer_orders/${id}/order_details`)).text(), 'text/html');
+  const t = s => (s || '').replace(/\s+/g, ' ').trim();
+  return {
+    restaurant: t(doc.querySelector('.order-review-header')?.textContent)
+                  .replace(/^Your order from /, '') || null,
+    rating:     doc.querySelector('#order-review-numeric-rating')
+                  ?.getAttribute('data-review-rating') ?? null,
+    review:     t(doc.querySelector('.order-review-footer')?.textContent) || null,
+  };
+}
+```
+
+Loop it over the ids with ~100ms between fetches. Forty orders takes a few seconds.
+
+### Reading a review once you have it
+
+**The star rating is the verdict. The text is the reason.** They write text only when something went wrong — six of forty orders carry any, and all six are complaints. Silence on a 4 is the normal shape of a good meal, not missing feedback.
+
+So: never treat a blank review as a neutral signal, and never average text volume into a score. A 4 with no words outranks a 3 with a paragraph.
+
+**Complaints are almost never about macros, price or format.** They are about execution — freshness, moisture, seasoning, portion honesty, value. Those are the failure modes this skill's gates cannot see, which is exactly why the reviews have to be read rather than inferred from the numbers.
+
+## This skill is a public repo. Keep it free of PII.
+
+`~/.claude/skills/feed-me` is a git repo that gets pushed to a public remote. **Everything written to `SKILL.md`, `order-history.md` and `README.md` is published.** Treat every write to this directory as a publish, not a note to self.
+
+**Never write to these files:**
+
+- Their name, or any name the site greets them with.
+- The delivery address, building, floor or ZIP.
+- Their email address, phone number, or account id.
+- The employer or the meal-program organization's name.
+- **ezCater order ids** and any `/customer_orders/<id>/...` URL containing one. They are account-scoped handles; use the generic path shape in examples instead.
+- Screenshots or saved snapshots of the site. The nav bar greets them by name on every page and the details page prints the delivery address.
+
+**Safe to write, and the whole point of the log:** restaurant names, dish names, menu descriptions, option prices, subtotals, tax, totals, subsidy amounts, their star ratings, and their review text. That is food data, not identity data.
+
+The scrape touches PII directly — `order_details` renders a **Customer Details** block with their name and a **Delivery details** block with the street address. **Extract the order fields and drop those two blocks.** Never let a whole-page text dump land in the log; parse the specific selectors listed above and write only those.
+
+When something genuinely needs a date and a restaurant to make sense, that is fine. When it needs a name or an address, rewrite the line so it does not.
 
 ## Never enter a credit card
 
@@ -52,31 +135,25 @@ From receipts, not assumptions. Update when a new receipt contradicts one.
 
 | Constant | Value | Source |
 |---|---|---|
-| Meals tax (MA) | **7.00%** | 2026-09-03: $17.98 x 0.07 = $1.2586 -> $1.26 |
-| Delivery fee | $0.00 | every order so far |
+| Meals tax (MA) | **7.00%** | holds across all 40 receipts; e.g. $17.98 x 0.07 = $1.2586 -> $1.26 |
+| Delivery fee | $0.00 | all 40 orders |
+| Max subsidy | **$20.00** | 2026-09-01: an $18.88 subtotal drew $20.00 and cost $0.20 |
 
 Max subtotal where total lands at or under $20.00: **$18.68** ($18.69 hits exactly $20.00 with zero margin — do not use it).
 
-### The ratchet
+### The ceiling is settled
 
-The ceiling is not fixed. It climbs as receipts prove what's safe. **Read the current rung from `order-history.md` before recommending.**
+**Ceiling $18.68 subtotal. Floor $16.85.** This is proven by 40 receipts, not climbed to. There is no ratchet any more — the ladder existed to discover a number that the order history now contains.
 
-| Rung | Ceiling | Tax | Total | Unused |
-|---|---|---|---|---|
-| 1 | $18.25 | $1.28 | $19.53 | $0.47 |
-| 2 | $18.45 | $1.29 | $19.74 | $0.26 |
-| 3 | $18.60 | $1.30 | $19.90 | $0.10 |
-| 4 | $18.68 | $1.31 | $19.99 | $0.01 |
+The subsidy caps at $20.00 and absorbs subtotal + 7% tax. `order-history.md` shows every subtotal at or under $18.50 fully covered, and $18.88 costing exactly $0.20 out of pocket. The wall sits at $18.69, so $18.68 is the last safe subtotal.
 
 Rules:
 
-- **Advance one rung after each order that comes back fully covered** — receipt shows `Company subsidy` equal to the total and $0.00 out of pocket. Never skip a rung.
-- **If an order ever asks for a card, drop back two rungs** and log the subtotal that failed. That failure is the real ceiling; back off from it.
-- Rung 4 is terminal. Do not go past $18.68 without a new receipt proving the tax rate changed.
-- **A delivery fee resets the math.** It has been $0.00 every time, but if a restaurant charges one, subtract it from that order's ceiling.
-- **Floor = ceiling - $1.75.** It rises with the ceiling, so the target window stays the same width.
-
-Land as close to the current ceiling as the menu allows. If the best qualifying item sits below the floor, say so rather than padding the order with junk.
+- **Land as close to $18.68 as the menu allows**, subject to the gates below. Unused stipend is wasted stipend.
+- **If a day's posted subsidy is not $20.00, recompute that day's ceiling from that day's number** — `subsidy / 1.07`, rounded down a cent. Never carry $18.68 onto a day that posts something else.
+- **If an order ever asks for a card, stop and rebuild.** Log the subtotal that failed; that is a real data point about the day's subsidy, not about the ceiling.
+- **A delivery fee resets the math.** It has been $0.00 on all 40 orders, but if a restaurant charges one, subtract it from that day's ceiling.
+- If the best qualifying item sits below the floor, say so rather than padding the order with junk.
 
 **The 800-calorie gate outranks this entire section.** Never add a side, a dessert or a drink to close a price gap if it pushes the build over 800 calories. Unspent stipend is a cost worth reporting; an 1,100-calorie lunch is not a trade that was ever on the table. See **The calorie ceiling**.
 
@@ -84,10 +161,23 @@ Land as close to the current ceiling as the menu allows. If the best qualifying 
 
 Resolve every recommendation in this order. Lower rules never override higher ones.
 
-1. **Hard gates.** Total at or under the current ceiling. **≥40g protein**, estimated. **≤800 calories**, estimated. One real menu item. Not vegetable-forward. Nothing on the Never Again list.
-2. **Calories.** Among options that clear the gates, fewer calories is better. This is the strongest soft goal.
-3. **Variety.** Rotation rules below. Variety may spend up to **~150 cal** against rule 2 to avoid a repeat, but never past the 800 gate. Past 150 cal, calories win — and say in the writeup that the slate is repeating a format because the menu left no cheaper-calorie way out.
-4. **Preference.** Known-liked items and components break remaining ties.
+1. **Hard gates.** Total at or under the ceiling. **≥40g protein**, estimated. **≤800 calories**, estimated. One real menu item. Not vegetable-forward. Nothing on the Never Again list. **Nothing rated 1 or 0**, and no tofu as the protein.
+2. **Their verdict on it.** A dish or kitchen they rated `loved` outranks an untested one. A kitchen sitting at `neutral` ranks below an untested one. This is the strongest soft rule because it is the only one built from how the food actually tasted.
+3. **Calories.** Among options with the same standing at rule 2, fewer calories is better.
+4. **Variety.** Rotation rules below. Variety may spend up to **~150 cal** against rule 3 to avoid a repeat, but never past the 800 gate. Past 150 cal, calories win — and say in the writeup that the slate is repeating a format because the menu left no cheaper-calorie way out.
+5. **Component preference.** Wanted components and the grain preference break remaining ties.
+
+**Rule 2 moved above calories deliberately.** The gates and the calorie count are arithmetic on a menu description, and a menu description cannot tell you the pita will arrive dry or the shawarma was cooked yesterday. Their ratings can, and they are the only input in this skill that carries that information. A build that wins on paper and comes from a kitchen they rated 2 is a worse order than a slightly heavier build from one they rated 4.
+
+### Never rank on the numbers alone
+
+Before finalising any slate, check every candidate against `order-history.md` on three axes, not one:
+
+1. **Have they rated this dish or this restaurant?** Loved, liked, neutral, disliked, or untested. Apply rule 2.
+2. **Did they write anything about it?** If the review says "dry", "bland", "stale" or "barely any steak", that complaint is about a failure the menu text will never show. Either fix it with a mod or pick something else.
+3. **Does it match their dietary preferences?** Wanted components present, lettuce not load-bearing, grain is quinoa or brown rice, no tofu, protein bought in the modal rather than asked for free.
+
+A slate assembled purely from protein grams, calories and price is an incomplete job even when every number is correct. Say in the writeup which of the three axes moved each rank — that is the part they read.
 
 ### The calorie ceiling
 
@@ -187,8 +277,22 @@ Rotation rules, strongest first:
 - **No format twice in a row.** If the last order was `salad`, today's pick is not `salad`.
 - **`carb-base` at most once every three orders.** Carbs are fine sometimes, not weekly.
 - **At least three distinct formats across any rolling four orders.**
-- **No exact repeat item within four orders**, even a liked one. Same restaurant is fine; same dish is not.
+- **No exact repeat item within four orders**, unless the loved-item override applies. Same restaurant is fine; same dish is not.
 - Prefer a restaurant other than the last one when the menus on the table allow it.
+
+### The loved-item override
+
+**A `loved` rating is a request, not just a data point.** When they rate something 4, they are telling you to order from that kitchen again — and they are explicitly fine with the same dish a second time. Variety exists so lunch does not get boring, not to keep good food off the menu.
+
+So a restaurant they rated `loved`:
+
+- **is exempt from the "prefer a different restaurant" rule.** Going back is the point.
+- **may repeat inside the four-order window**, either with something new off that menu or with the identical build. Prefer something new when the menu has another qualifying item; repeat the exact dish without apology when it does not, or when the loved dish is the best thing on the day's menus anyway.
+- **still obeys every hard gate and the format rules.** A loved dish that is `carb-base` does not get to jump the `carb-base` cooldown, and one over 800 calories still does not get placed.
+
+Say it plainly in the writeup when the override fires: name the rating it is riding on, so they can see the repeat was deliberate rather than the slate running out of ideas.
+
+The inverse holds. A restaurant sitting at `neutral` does not get the benefit of "we haven't been there in a while" — rotation is not a reason to return to food they shrugged at. Rotate among the things they like.
 
 **Rotation runs through a multi-day batch, not around it.** When one run places several orders, treat them as consecutive entries in the log — because that is what they become. Day one is checked against the last logged order, day two against day one, and so on down the batch.
 
@@ -210,6 +314,8 @@ Rotation rules are preferences, not gates. If every option that clears the hard 
 - **Not vegetable-forward.** No dish whose base is broccoli. Skip anything that's a vegetable pile with protein sprinkled on it.
 - **Grilled over fried.** When a menu offers grilled chicken vs. a breaded cutlet, specify grilled.
 - **Lettuce is filler, not a feature.** On a salad, order it light or no lettuce when the restaurant takes modifications. Do not count lettuce volume as part of the meal.
+- **Tofu is never the protein.** The one Life Alive tofu bowl is the only 1 rating in the log. Tofu as an incidental component is fine; tofu carrying the protein number is not.
+- **Buy one protein well rather than two badly.** When a build stacks two paid proteins, expect the cheaper one to arrive and the premium one to be short — that is what "barely any steak" at Boloco was about.
 - Padding an item with a $1.50 banana purely to clear the floor is acceptable but weak. Prefer a single item that lands in the window on its own.
 
 ## Modifications
@@ -407,11 +513,11 @@ To survey several items' upcharges in one call, click each link, scrape the larg
 
 Upcharge shapes worth knowing: a required protein swap is usually cheaper than the same protein added as an extra, and $0.25-$1.00 sauces and toppings are the levers that lift a build the last few cents toward the ceiling. Some restaurants have no cheap add-ons at all — their items land where they land and cannot be tuned.
 
-### The cart overrides the ratchet
+### The cart overrides the estimate
 
 Once an item is in the cart, the page renders **Subtotal, Delivery fee, Sales tax, Company subsidy, and Total** before you commit to anything.
 
-That kills the guesswork. The ratchet in **Budget** exists for advise-mode, where you are estimating tax off a receipt. In order-mode you can read the true total, so **build to the highest subtotal whose displayed Total is $0.00 and whose subsidy line covers it entirely.** Do not leave $2 unspent out of deference to a rung.
+That kills the guesswork. The $18.68 ceiling in **Budget** is computed from a $20.00 subsidy at 7% tax. In order-mode you can read the day's true subsidy and total off the cart, so **build to the highest subtotal whose displayed Total is $0.00 and whose subsidy line covers it entirely.** Do not leave $2 unspent out of deference to an arithmetic estimate.
 
 Two hard rules survive:
 
@@ -445,20 +551,24 @@ The user pastes the receipt, or you placed it yourself and read the confirmation
 
 **One row per day, one row per order.** A batch that placed four days writes four rows, dated by **delivery** day so the log reads in the order the food actually gets eaten. Then set the rotation state from the **last row in the batch**, not the first — the next run's day one is checked against the last day of this one.
 
-**A cancelled order is not an order.** If they cancel — plans changed, working from home, they were only testing the flow — do not log it, and revert the row if you already wrote one. The log is what they actually ate. Rotation state, the ratchet rung, and the format history all move off real meals only; advancing a rung on a meal nobody received would push the next real order toward a ceiling that was never tested.
+**A cancelled order is not an order.** If they cancel — plans changed, working from home, they were only testing the flow — do not log it, and revert the row if you already wrote one. The log is what they actually ate. Rotation state and format history move off real meals only.
 
 Menu intel you learned while browsing (upcharge structure, which restaurants have no cheap add-ons, cutoff times) is worth keeping even when the order is cancelled — it goes under **Observed preferences**, not the log.
 
-When they report back on how it was, set the verdict:
+**The verdict comes off ezCater, not out of a conversation.** They rate on the site. Scrape it rather than asking — see **Their reviews live on ezCater**. If they happen to say something in chat as well, record both; chat feedback supplements the rating, it does not replace it.
 
-| Verdict | Meaning | What it does to future slates |
+| Rating | Verdict | What it does to future slates |
 |---|---|---|
-| `liked` | would happily eat again as built | bias toward it and its shape, still subject to the four-order repeat rule |
-| `ok-with-mods` | right shape, wrong build | keep recommending the shape, always with the mod attached |
-| `disliked` | do not serve this again | move to Never Again; never recommend it or a near-identical dish |
+| 4 | `loved` | order from this kitchen again, same dish included — see **The loved-item override** |
+| 3 | `liked` | fine to repeat, not a priority; subject to the normal four-order rule |
+| 2 | `neutral` | rank below an untested option; do not return here just to satisfy rotation |
+| 1 | `disliked` | do not serve this again; move the dish to Never Again |
+| 0 | `never-again` | blacklist the dish and treat the whole restaurant as suspect |
+
+Where a rating fell short and they wrote text, the text is the reason. **Record it verbatim in the log** — paraphrasing loses the part that generalizes. "chicken and the pita were both dry" is an instruction about held food at pita counters; "did not like it" is not.
 
 Any feedback that names specific ingredients — kept or dropped — also goes into **Component preferences**. That is the part that generalizes across restaurants; the item name is not.
 
-Silence is not a verdict. Leave it `pending` until they say something.
+**A delivered order with no rating is `pending`, not neutral.** They often rate a day or two after delivery, so re-check it on the next run before writing it off. Leave the row `pending` and do not let an unrated order suppress a restaurant.
 
 `order-history.md` and this file are records, not output. They stay plain prose. Greentext is for the user, not the ledger.
