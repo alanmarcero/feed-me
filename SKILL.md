@@ -680,6 +680,12 @@ Report every day and delivery time, each day's receipt, and that each order stay
 
 ## The order lifecycle
 
+**The ezCater site is the source of truth. `order-history.md` is a cache of it.**
+
+That is the rule every case below resolves to. When the log and the site disagree, **the site is right and the log gets corrected** — never the other way around, and never by asking the user to adjudicate. They placed or cancelled an order and the site recorded it; that is the whole story, and they owe no explanation for it.
+
+It follows that the log is never the reason to skip a scan. A row saying `placed` is a belief about the world, not a fact about it, and it stays a belief until a tab confirms it. Read the tabs first, then act.
+
 An order is not a single event, so the log does not treat it as one. It is placed, it is delivered, it gets rated, and at any point before delivery it can be cancelled — sometimes by the user, without telling you. Every row in `order-history.md` carries a **status** saying where in that arc it sits.
 
 | Status | Means | How the site shows it |
@@ -712,7 +718,7 @@ Build one id-to-tab map across all three, then walk the log:
 
 - **On the tab its status expects** — nothing to do.
 - **Moved forward** (`placed` now on Completed, `delivered` now carrying a rating) — advance the status and pull the new data.
-- **On the Canceled tab** — set `cancelled`, whether or not this skill did it. **This is the case that matters most.** The user cancels for their own reasons and owes you no notice.
+- **On the Canceled tab** — set `cancelled`, whether or not this skill did it. **This is the case that matters most.** The user cancels for their own reasons and owes you no notice, so the Canceled tab is checked every run and not only when a cancellation is expected.
 - **On the site but not in the log** — add it. They ordered without the skill, and it still counts for rotation and still earns a rating.
 - **In the log but on no tab** — set `missing` and say so in the writeup. Do not guess and do not delete the row. An order that vanished is a fact about the account, not a typo.
 
