@@ -4,9 +4,11 @@
 
 The skill reads this file on load. If it is missing, the skill does not order — it runs the onboarding interview in **First run** in `SKILL.md` and writes this file from the answers.
 
-Last reviewed: 2026-09-17 (two refine passes).
+Last reviewed: 2026-09-17 (two refine passes, then an order run the same day).
 
-**First refine pass — nine answers, every one written in below as `stated`.** The big ones: the protein floor is **45g**, not 40g; carbs are **wanted but light** rather than being reduced; the vegetable limit is about **cheapness, not vegetables**; full portions get bought and under-eaten rather than ordered small; spicy Indian is a standing yes; spice goes to the **top of any heat scale**; novelty is the default but **a 4 plus a re-order is an anchor that beats it**, which is what GRECO is; the GRECO plate itself settled at **3**, which reads as what to order there rather than whether. Cancelled days are usually him not being in the office and mean nothing about the food.
+**Third pass, 2026-09-17, after the 09-22 order was placed.** One rating landed between scrapes and it corrected a conclusion this file had already settled: **the GRECO 09-17 plate is a `4 loved`, not a `3`.** ezCater stores `4`, which is the fifth of five stars; the chat "4/5" had been read as the fourth. **The site owns the star rating**, so the derived numbers below are recounted — Mediterranean moves 2.80 to **2.90**, `protein-plate` moves 3.43 to **3.57**, the rated-lunch average moves 3.24 to **3.26**, and GRECO becomes **two visits, two 4s**. Nothing `stated` changed.
+
+**First refine pass — nine answers, every one written in below as `stated`.** The big ones: the protein floor is **45g**, not 40g; carbs are **wanted but light** rather than being reduced; the vegetable limit is about **cheapness, not vegetables**; full portions get bought and under-eaten rather than ordered small; spicy Indian is a standing yes; spice goes to the **top of any heat scale**; novelty is the default but **a 4 plus a re-order is an anchor that beats it**, which is what GRECO is; the GRECO plate itself was read as a **3** — *since corrected to a **4** by the site rating, see the third pass above*. Cancelled days are usually him not being in the office and mean nothing about the food.
 
 **Second refine pass, same day — eight more answers, also all `stated`.** The schedule is **Tuesday always, Thursday added for the next few months, Monday a few times a year**, and anything the site shows is fair game. **Sushi stays**, with the 45g floor as best-effort on those days and a filling alternative offered alongside. **There is no separate calorie floor** — the protein floor implies it. **The spend floor is retired**; the only money rule is $0.00 out of pocket. **The Atlantic Poké bowl is a 4** and poke is a standing yes. **Soup only when it is a unique soup.** **No drinks, no desserts, ever.** **Take the add-on whenever the budget allows.** A third update landed after those: **every free premium vegetable gets taken, all of them on a build-your-own bowl**, while cheap salad greens stay skipped, **corn is scored as a grain and skipped with them**, and **broccoli is out on its own terms**.
 
@@ -182,9 +184,9 @@ Ranked by their own ratings across 40 orders. `derived` — revise this table wh
 | Cuisine | Rated orders | Avg | Read |
 |---|---|---|---|
 | Indian | 2 | **4.00** | **Take it whenever a day offers it.** `stated` — see below. |
-| East / Southeast Asian | 13 | **3.38** | Eight of the seventeen 4s. The deepest reliable bench. **3.58 with the Life Alive tofu bowl set aside.** |
+| East / Southeast Asian | 13 | **3.38** | Eight of the eighteen 4s. The deepest reliable bench. **3.58 with the Life Alive tofu bowl set aside.** |
 | Latin | 3 | 3.00 | Wide spread — a 4, a 3 and a 2. |
-| Mediterranean / Middle Eastern | 10 | **2.80** | The weakest repeated cuisine. **2.63 with GRECO set aside.** |
+| Mediterranean / Middle Eastern | 10 | **2.90** | Still the weakest repeated cuisine. **2.63 with GRECO set aside** — and that gap is the whole point. |
 
 **Recounted 2026-09-17 after the Atlantic Poké bowl was rated 4 in chat.** East/SE Asian moves from 3.33 to 3.38 and now ranks 13 of the 35 rated orders.
 
@@ -196,13 +198,15 @@ Ranked by their own ratings across 40 orders. `derived` — revise this table wh
 
 **The Mediterranean line is a correction, and it is worth understanding rather than just obeying.** This file used to claim Mediterranean builds land well. That came from components the user listed — tahini, hummus, feta, olives — and not from a single rating. Nine rated orders say otherwise: two 2s, both with freshness complaints attached, four 3s, and one 4.
 
-Recounted 2026-09-17 across all 41 orders: **10 rated, averaging 2.80** — three 2s (Noor, Shy Bird, Cafe Landwer), six 3s, and one 4. Set GRECO's two aside and the remaining eight average **2.63**, with no order above a 3. The rule holds and the evidence behind it got stronger.
+Recounted 2026-09-17 across all 41 orders, **then again when the GRECO star landed**: **10 rated, averaging 2.90** — three 2s (Noor, Shy Bird, Cafe Landwer), five 3s, and **two 4s, both GRECO**. Set GRECO's two aside and the remaining eight average **2.63**, with no order above a 3.
+
+**The recount sharpened the rule rather than softening it.** The whole of the cuisine's improvement is one kitchen, and every non-GRECO Mediterranean order in 42 deliveries still sits at 3 or below. Order the hummus; stop picking the restaurant because it has hummus; go to GRECO.
 
 The components are genuinely liked. The kitchens serving them on this program mostly hold the food too long. **Order the hummus; stop picking the restaurant because it has hummus.**
 
-The one exception is **GRECO**, which cooks to order. Two orders, a **4** in April and a **3** in September — the chat "4/5" was confirmed as the fourth of five stars, so the second plate is a `3 liked`.
+The one exception is **GRECO**, which cooks to order. Two orders, a **4** in April and a **4** in September. The September star landed late on 2026-09-17 and overturned the `3` this file had inferred from a chat "4/5".
 
-**That does not demote GRECO, because the second order is itself the signal.** He went back. Given a live slate and a preference for novelty, he chose GRECO again, and that choice is evidence the star click cannot carry. A 4 plus a re-order makes GRECO **the only anchor in the log** — see **Two signals to return** in `SKILL.md`, and **Novelty is the default** below.
+**GRECO now carries both signals at full strength.** He went back — given a live slate and a stated preference for novelty, he chose GRECO again, which is evidence the star click cannot carry — and then rated the return a 4 as well. Two visits, two 4s, the only kitchen in 42 orders with that record. That makes GRECO **the only anchor in the log** — see **Two signals to return** in `SKILL.md`, and **Novelty is the default** below.
 
 Read the 3 as instruction about *what* to order there, not *whether*. The plate was short on food, which the 45g floor now handles. **Treat GRECO as separate from the cuisine average**, which is dragged down by kitchens that hold food.
 
@@ -298,14 +302,14 @@ Eggs are the cheapest protein-per-dollar add-on anywhere in the log, they carry 
 
 - **Starch bases** — wrap, sandwich, sub, burrito, pizza, rice bowl, grain bowl. `stated`: "not every week." Enforced by the `carb-base` cooldown in `SKILL.md`.
 
-  **This is a rationing rule, not a dislike, and the difference matters.** `carb-base` is **27 of 41 orders** and carries **13 of the 17 fours** — 12 if the Levain side order is set aside. Recounted 2026-09-17 after the Atlantic Poké bowl was rated 4.
+  **This is a rationing rule, not a dislike, and the difference matters.** `carb-base` is **27 of 41 orders** and carries **13 of the 18 fours** — 12 if the Levain side order is set aside. Recounted 2026-09-17 after the Atlantic Poké bowl was rated 4, then again when the GRECO 09-17 star landed. **Both recounts moved fours out of `carb-base`'s share, not into it.**
 
   **It is also the only format that has ever failed.** All six 2s and the single 1 are `carb-base`. No `salad`, `protein-plate` or `soup-forward` order has ever rated below 3.
 
 | Format | Rated | Avg | Worst | Best |
 |---|---|---|---|---|
 | `soup-forward` | 1 | **4.00** | 4 | 4 |
-| `protein-plate` | 7 | **3.43** | 3 | 4 |
+| `protein-plate` | 7 | **3.57** | 3 | 4 |
 | `carb-base` | 23 | 3.17 | **1** | 4 |
 | `salad` | 3 | 3.00 | 3 | 3 |
 | `bowl-no-grain` | **0** | — | — | — |
@@ -316,7 +320,7 @@ Eggs are the cheapest protein-per-dollar add-on anywhere in the log, they carry 
 
     **Soup counts only when the soup is interesting.** `stated` 2026-09-17: *"soup is an ok option if it's a unique soup. nothing boring."* Kao soi, momo jhol, pho, tonkotsu, a real tom yum — yes. Chicken noodle, minestrone, a generic soup-and-half-sandwich box — no, and a boring soup does not get picked just because rotation wants the format. **`soup-forward` is a permission with a taste filter on it**, which is why the format sits at one order in nine months despite rating 4.
 
-  **The two formats at the top of that table are the two least used, and one has never been used at all.** `derived` 2026-09-17. `soup-forward` has a single order and it rated 4. `bowl-no-grain` has never been ordered once in 41 deliveries — and it is the exact shape of three rules this file now carries: carbs down, beans first, satiety from bulk rather than starch. **An absence in a log is not a preference.** Reach for both when rotation opens a slot, and treat `bowl-no-grain` as untested rather than unwanted until an order says otherwise.
+  **The two formats at the top of that table are the two least used, and one had never been used at all until 2026-09-17.** `derived` 2026-09-17. `soup-forward` has a single order and it rated 4. **`bowl-no-grain` went 0 for 41 and is now on order** — the Cosi Adobo bowl on cauliflower rice, delivering 2026-09-22, is the first one ever placed. Its rating is the single most informative one this log can collect next. Until it lands, `bowl-no-grain` has never been ordered in 41 deliveries — and it is the exact shape of three rules this file now carries: carbs down, beans first, satiety from bulk rather than starch. **An absence in a log is not a preference.** Reach for both when rotation opens a slot, and treat `bowl-no-grain` as untested rather than unwanted until an order says otherwise.
 
   **And `salad` is the flat one.** Three orders, all rated exactly 3, no 4 and no 2. It never fails and it never delights, which makes it the right pick only when rotation demands a format and nothing better is open.
 
@@ -383,12 +387,12 @@ Confirmed in the log: brown rice at Mae Asian Eatery, Boloco and Atlantic Poké;
 
   | Rating | Rated lunches | Avg subtotal |
   |---|---|---|
-  | **4** | 16 | **$17.59** |
-  | 3 | 11 | $17.69 |
+  | **4** | 17 | **$17.55** |
+  | 3 | 10 | $17.77 |
   | 2 | 6 | $17.87 |
   | 1 | 1 | $17.95 |
 
-  **A clean inverse ladder, monotonic at every step.** The 34 rated lunches average **3.24**. Orders at or above $18.00 average **3.29** across 14; orders under $17.00 average **3.33** across 6. The cheapest 4 in the log is Perillas at **$14.59**; the most expensive order in it is Roots to Rise at $18.88, rated 2.
+  **A clean inverse ladder, monotonic at every step, and the GRECO recount tightened it** — that $16.85 plate moved from the 3s to the 4s and pulled both rows further apart. The 34 rated lunches average **3.26**. Orders at or above $18.00 average **3.29** across 14; orders under $17.00 average **3.33** across 6. The cheapest 4 in the log is Perillas at **$14.59**; the most expensive order in it is Roots to Rise at $18.88, rated 2.
 
   The sample is small and the spread is narrow, so do not read this as *cheaper is better*. Read it as **spending more has never once bought better food**, which is the same conclusion with none of the overreach.
 

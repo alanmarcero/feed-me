@@ -1,8 +1,10 @@
 # Order History
 
-Scraped from ezCater 2026-09-17. 41 delivered orders, 2025-12-09 through 2026-09-17, and 10 cancelled.
+Scraped from ezCater 2026-09-17. 41 delivered orders, 2025-12-09 through 2026-09-17, 1 placed for 2026-09-22, and 10 cancelled.
 
 **Verified fully in sync with the site on 2026-09-17**: all three tabs diffed both directions, every status and every rating checked against its detail page, no drift.
+
+**Second pass the same day, after the 09-22 order was placed.** 41 completed and 10 cancelled, both unchanged, and one order on Upcoming. **One rating landed between the two passes: GRECO 20957854 now carries a site rating of `4`, not the `3` this file had settled on.** The chat "4/5" was read as the fourth of five stars; ezCater's stored value is 4, which is the fifth. Per **Their reviews live on ezCater** in `SKILL.md` the site owns the star, so the row is now `4 loved` and every average below is recounted against it.
 
 **Every rating in this file is the user's own, pulled off the ezCater site.** They rate on the site rather than in conversation, so the site is the source of truth. Re-scrape it at the start of a run — see **Their reviews live on ezCater** in `SKILL.md`. Do not ask them to re-state a verdict the site already holds.
 
@@ -34,10 +36,11 @@ $18.50 is proven safe. $18.88 is proven to cost $0.20. The wall sits between the
 
 Read this before building a slate.
 
-- **Last format:** `protein-plate` (2026-09-16 GRECO, delivered 2026-09-17, rated **3 liked** — the chat "4/5" was the fourth of five stars, settled 2026-09-17).
-- **Last restaurant:** GRECO.
-- **Formats in the last four orders:** `salad` (09-08), `carb-base` (09-01), `salad` (08-25), `protein-plate` (09-16). Needs a fourth distinct format.
+- **Last format:** `bowl-no-grain` (2026-09-22 Cosi, placed 2026-09-17). **The first `bowl-no-grain` in 42 orders.**
+- **Last restaurant:** Cosi.
+- **Formats in the last four orders:** `bowl-no-grain` (09-22), `protein-plate` (09-17), `salad` (09-08), `carb-base` (09-01). **Four distinct formats — the rolling-four rule is satisfied with room to spare.**
 - **`carb-base` last used:** 2026-09-01. Off cooldown.
+- **Do not pick `bowl-no-grain` next**, and prefer a restaurant other than Cosi.
 
 ## Log
 
@@ -47,7 +50,8 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 
 | ID | Delivered | Status | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 20957854 | 2026-09-17 | `delivered` | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | 3 liked | chat: "4/5" *(= the fourth of five stars, so `3 liked`; settled 2026-09-17)*. "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
+| 20976469 | 2026-09-22 | `placed` | Cosi | Adobo Chicken Bistro Bowl — cauliflower rice, no side + 2 Hard Boiled Eggs ($2.09) | `bowl-no-grain` | $17.48 | $1.22 | $0.00 | — | — |
+| 20957854 | 2026-09-17 | `rated` | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | **4 loved** | **Site rating `4`, read 2026-09-17 after it landed.** Supersedes the chat "4/5" that this file had settled as a `3`. "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
 | 20755521 | 2026-09-08 | `rated` | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | chat: "ok, too much lettuce" |
 | 20658056 | 2026-09-01 | `rated` | Roots to Rise | Supreme Turkey BLT Sandwich, multi-grain, no mayo + Organic Hard-Boiled Eggs ($3.79) | `carb-base` | $18.88 | $1.32 | **$0.20** | 2 neutral | "Pretty basic sandwich" |
 | 20586963 | 2026-08-25 | `rated` | The Chicken & Rice Guys | Chicken & Gyro Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) + hot & BBQ sauce | `salad` | $17.06 | $1.19 | $0.00 | 3 liked | — |
@@ -99,9 +103,11 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 | pita bread | ~5g | ~165 |
 | **total** | **~53g** | **~735** |
 
-**Settled 2026-09-17: it was a 3.** They confirmed the chat "4/5" meant the fourth of five stars, which is ezCater's `3 liked`. The row stands as recorded, and the flag this entry carried is closed — do not reopen it from the "4/5" wording, which was always the ambiguity and never a second opinion.
+**Re-settled 2026-09-17, later the same day: it is a 4.** The site rating landed after the first scrape and ezCater stores `4`, which is `loved` — the fifth of five stars, not the fourth. This file had inferred a `3` from the chat "4/5" and that inference is now overturned by the star itself. **The site owns the star rating, always**, so the row reads `4 loved` and every average in this file is recounted against it. Raise the one-notch gap with him once and then stop reopening it.
 
-**GRECO is still an anchor, and this order is half the reason why.** The 3 is the verdict on this plate; the fact that he came back to GRECO in September after a 4 in April is a separate signal and it is the scarcer one. See **Two signals to return** in `SKILL.md`. Read the 3 as instruction about *what to order here* — the plate was short on food — not as a reason to stop ordering here.
+**GRECO is now the strongest record in the log: two visits, two 4s.** A 4 in April, a return in September given a live slate and a stated preference for novelty, and a 4 on that return. That is both signals in **Two signals to return** at full strength, and no other kitchen in 42 orders carries it.
+
+**But read the satiety note as instruction, not as a verdict.** He rated this plate `loved` and still reported being a little hungry at ~50g protein and ~650 calories eaten. The food was right and the volume was not — which is what the 45g floor and the satiety rule now exist to fix. Order here again; order more of it.
 
 **As actually eaten:** half the pita was left on purpose, so roughly **~50g protein and ~650 calories** went down — **and they were still a little hungry at that.** The build cleared the protein floor by 13g and came in 150 calories under the ceiling. The gates were satisfied and the meal was not. See the satiety note in `dietary-preferences.md`.
 
@@ -120,7 +126,7 @@ Six of forty orders carry text written on ezCater, plus two given in chat. The e
 | 2026-03-31 | Dora Taqueria | 2 | "bland" |
 | 2026-01-06 | Boloco | 3 | "Plenty of chicken, but barely any steak." |
 | 2026-09-08 | Scali Deli & Cafe | 3 | **chat:** "ok, too much lettuce" |
-| 2026-09-17 | GRECO | 3 liked | **chat:** beans a good sub for rice, "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
+| 2026-09-17 | GRECO | **4 loved** | **chat:** beans a good sub for rice, "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
 
 **The 2026-09-17 GRECO review is the exception, and the most useful entry here.** The first substantially positive review in the log, it arrived in chat rather than on the site, and it names components instead of verdicts: beans beat rice, hot sauce on everything, pita deliberately left, and the plate still came up short on volume. Four preferences out of one paragraph. Ask for this kind of feedback when a run lands well.
 
@@ -137,7 +143,7 @@ What the ezCater six have in common: **none of them is about macros, price cover
 
 Repeating any of these is **encouraged**, including the exact same dish. See **Two signals to return** in `SKILL.md`.
 
-**A second visit promotes a loved kitchen to `anchor`, which is the only tier that beats novelty.** Three restaurants in this log have been ordered from on two different days: **GRECO** (4 then 3), **The Chicken & Rice Guys** (3 then 3) and **Bom Dough** (4, then a bacon side order). Only GRECO carries both a 4 and a re-order, so **GRECO is the log's only anchor**. C&R Guys is a `habit` — twice ordered, never a 4. Everything else in this table is `loved` but unrepeated, which is permission to return rather than a reason to.
+**A second visit promotes a loved kitchen to `anchor`, which is the only tier that beats novelty.** Three restaurants in this log have been ordered from on two different days: **GRECO** (**4 then 4**), **The Chicken & Rice Guys** (3 then 3) and **Bom Dough** (4, then a bacon side order). Only GRECO carries both a 4 and a re-order, so **GRECO is the log's only anchor** — and as of 2026-09-17 it is an anchor with a perfect record rather than a slipping one. C&R Guys is a `habit` — twice ordered, never a 4. Everything else in this table is `loved` but unrepeated, which is permission to return rather than a reason to.
 
 Same-day cancellations are not second visits. Six rows in **Cancelled** are swap leftovers sitting on a day that also delivered; those are one visit each.
 
@@ -227,7 +233,7 @@ Thai Spice (2026-01-21), La Hacienda (2026-02-03), Fresh City (2026-03-16), WOW 
 
 Currently derived from the table above and recorded there:
 
-- **Cuisine ranking.** Indian 4.00, East/SE Asian **3.38**, Latin 3.00, Mediterranean/Middle Eastern 2.80. East/SE Asian moved up when Atlantic Poké was rated 4; **raw fish across all five rated orders averages 3.60**, and **poke alone is 2 for 2 at 4**. Mediterranean is the weakest repeated cuisine, which reverses what this skill used to assume. **Spicy Indian is now a stated standing yes**, and the table only ranks 27 of the 34 rated orders — the other seven are not a cuisine. See `dietary-preferences.md`.
+- **Cuisine ranking.** Indian 4.00, East/SE Asian **3.38**, Latin 3.00, Mediterranean/Middle Eastern **2.90** (was 2.80 before the GRECO star landed on 2026-09-17). East/SE Asian moved up when Atlantic Poké was rated 4; **raw fish across all five rated orders averages 3.60**, and **poke alone is 2 for 2 at 4**. Mediterranean is the weakest repeated cuisine, which reverses what this skill used to assume. **Spicy Indian is now a stated standing yes**, and the table only ranks 27 of the 34 rated orders — the other seven are not a cuisine. See `dietary-preferences.md`.
 - **Cancelled orders feed none of this.** The ten rows under **Cancelled** carry no rating and no verdict, so they change no average and no rule.
 - **Preparation signals.** Cooked-to-order, raw fish and aggressive seasoning predict a 4. Cold assembly, held pita and shawarma, chain burrito bowls and tofu predict a 2.
 - **Tofu is never the protein.** The Life Alive bowl is the only 1 in the log.
@@ -241,8 +247,8 @@ Currently derived from the table above and recorded there:
 Derived from actual orders, not stated preferences.
 
 - Chose the highest-priced qualifying option rather than the cheapest, consistently. Thirty-two of forty subtotals land between $16.00 and $18.90.
-- **And it has never paid off.** Recounted 2026-09-17 across the 34 rated lunches, side orders excluded: the 4s average a **$17.59** subtotal, the 3s $17.69, the 2s $17.87, and the single 1 cost $17.95. A clean inverse ladder at every step. The sample is small and the band is narrow, so the honest read is not *cheaper is better* — it is that **spending more has never once bought better food**. See the corrected bullet in `dietary-preferences.md`.
-- **Two rows in this log are side orders, not lunches**, and folding them into aggregates distorts them: Levain chips + roll ($4.13, rated 4) and Bom Dough bacon ($4.00, unrated). Exclude both from any price or format average. Doing so leaves the rated-lunch average at **3.24** and moves `carb-base` from 3.21 to **3.17**.
+- **And it has never paid off.** Recounted 2026-09-17 across the 34 rated lunches, side orders excluded, **after the GRECO 09-17 star moved that $16.85 plate from the 3s into the 4s**: the 4s average a **$17.55** subtotal across 17, the 3s $17.77 across 10, the 2s $17.87 across 6, and the single 1 cost $17.95. A clean inverse ladder at every step, and **the move made it more monotonic, not less**. The sample is small and the band is narrow, so the honest read is not *cheaper is better* — it is that **spending more has never once bought better food**. See the corrected bullet in `dietary-preferences.md`.
+- **Two rows in this log are side orders, not lunches**, and folding them into aggregates distorts them: Levain chips + roll ($4.13, rated 4) and Bom Dough bacon ($4.00, unrated). Exclude both from any price or format average. Doing so leaves the rated-lunch average at **3.26** — up from 3.24 when GRECO 09-17 went from a 3 to a 4 — and moves `carb-base` from 3.21 to **3.17**.
 - Willing to stack add-ons to reach the window: four sauces at Sake, two fried eggs at Saigon Tiger, chips-and-pico at Boloco.
 - Has broken the one-item rule himself and rated the result 4 — Santa Fe Burrito Grill, three tacos plus a bowl.
 - Picked Scali over Cafe Landwer and Life Alive when all three were available. The ratings say he was right: Scali 3, Landwer 2, Life Alive 1.
