@@ -1,6 +1,6 @@
 ---
 name: feed-me
-description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it runs a full sync: reconcile the order log against the ezCater site - every order, rating, review and cancellation - and place nothing. A lazy sync, which skips detail pages the log already has, closes every ordering run automatically. Invoked as `/feed-me refine` it mines the order history against the dietary preferences for patterns, contradictions and gaps, and asks questions to deepen the preferences file.
+description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it runs a full sync: reconcile the order log against the ezCater site - every order, rating, review and cancellation - and place nothing. A lazy sync, which skips detail pages the log already has, closes every ordering run automatically. Invoked as `/feed-me refine` it mines the order history against the dietary preferences for patterns, contradictions and gaps, and asks questions to deepen the preferences file. Invoked as `/feed-me cancel <which order>` it cancels a pending order - targeted by delivery day, restaurant or dish, verified against the site before anything is cancelled - and with `and reorder` it also places a replacement for that same day.
 ---
 
 # Feed Me
@@ -29,6 +29,8 @@ Fall back to **advise-only** (slate, no order placed) in exactly three cases:
 | **full sync** | `/feed-me sync`, or `/feed-me full sync` | Reconciles every order against the site, every detail page. **Places nothing.** |
 | **lazy sync** | automatic at the end of every order run, or `/feed-me lazy sync` | Same reconcile, but skips detail pages the log already has. |
 | **refine** | `/feed-me refine` | Mines the log against the preferences for patterns and gaps, then asks. **Local files only — no browser, places nothing.** |
+| **cancel** | `/feed-me cancel <which order>` | Cancels one pending order. **Then runs a lazy sync.** |
+| **swap** | `/feed-me cancel <which order> and reorder` | Cancels it and places a replacement for that same day. **Then runs a lazy sync.** |
 | **advise** | pasted menus, or a request for options | Ranked slate, no order placed, no sync. |
 
 **There are exactly two syncs and they are called `lazy sync` and `full sync`.** They differ in one thing only: whether a settled row gets its detail page re-opened. Everything else — which tabs, which diffs, which files get written — is identical.
@@ -128,6 +130,157 @@ If they answer, record it `stated`. If they ignore it, write **"no limits declar
 With no answers at all, build the whole file from the history. See **Deriving preferences from the log alone**.
 
 **A full sync is also where the good questions come from.** Reconciling reads every order and every rating, which is exactly the material that makes a question worth asking. Close the sync with the handful the log raised — see **Ask questions the log raised** — and let them answer none, some or all of them. Anything they confirm turns a `provisional` rule `stated`; silence leaves it exactly as it was.
+
+### Cancel and swap: `/feed-me cancel <which order>`
+
+**Only a pending order can be cancelled**, so this mode reads the **Upcoming** tab and works on what is actually live. An order that has already been delivered is history, and history does not get cancelled — it gets rated.
+
+Two shapes, and the difference is one clause:
+
+| They said | What happens |
+|---|---|
+| `/feed-me cancel the curry plate` | that order is cancelled. **Nothing replaces it.** The day is now empty |
+| `/feed-me cancel tuesday's` | same, targeted by delivery day |
+| `/feed-me cancel the current plate and reorder` | that order is cancelled **and a replacement is placed for the same day** |
+| `/feed-me cancel and re-order tuesday's` | same, targeted by delivery day |
+
+**Cancel-only is the default.** A cancellation usually means they are not coming in — `stated` 2026-09-17 — and inventing a replacement lunch for a day they will not be in the office is worse than doing nothing. **Only reorder when they asked for a reorder**, in whatever words: "and reorder", "and pick something else", "swap it", "replace it".
+
+#### Resolving which order
+
+**Read the Upcoming tab first. Never pick the target out of the log** — the log is a cache and this is a destructive action.
+
+| What is pending | What they named | Do |
+|---|---|---|
+| one order | nothing | that is the target. Proceed |
+| one order | something that matches it | proceed |
+| two or more | nothing | **ask which one.** Do not guess |
+| two or more | something matching exactly one | proceed |
+| anything | something matching more than one | **ask which one** |
+| anything | something matching nothing | say so, list what is pending, cancel nothing |
+
+**The delivery day is a first-class handle, and often the most natural one.** Each day is its own order, so "tuesday's" identifies one exactly — `/feed-me cancel and re-order tuesday's` needs no dish name at all. Resolve a weekday name against the delivery dates on the Upcoming tab, and take "today" and "tomorrow" the same way.
+
+Otherwise match loosely and on anything visible — restaurant, dish, format. "the curry plate" should find the Tabla curry without being told it is Tabla. **A day name and a dish name in the same breath must agree**; if "tuesday's curry" lands on a Tuesday order that is not a curry, that is an ambiguity, not a match. Ask.
+
+**Several targets in one ask is fine** — "cancel tuesday's and wednesday's", "cancel the rest of the week". Resolve each one, run the sequence below per day because each day is its own cart and its own cutoff, and report each day separately. One day failing does not abandon the others, exactly as in an order run.
+
+**Asking is a plain question in Claude's normal voice**, outside the greentext, per **Questions are never greentext**. Two pending orders is not a puzzle to solve by cleverness; it is one short question with the two orders listed.
+
+**Do not confirm beyond that.** They named the cancellation in the same breath as the request, which is the exception already written into **Cancelling on request**. Asking "are you sure?" after they typed `cancel the curry plate` is friction, not safety.
+
+#### Verify the target before cancelling it
+
+**Resolve, then verify, then cancel. Never skip the middle step.** Cancelling is destructive and the whole mode turns on hitting the right order, so the target gets proven rather than assumed.
+
+**A weekday name is not a date.** "tuesday's" has to be turned into a real calendar date before it means anything:
+
+1. **Resolve the weekday against the Upcoming tab's actual delivery dates**, not against a calendar in the abstract. The next occurrence with a live order is the one they mean.
+2. **If two pending orders fall on the same weekday** — this Tuesday and next — that is an ambiguity. Ask which.
+3. **If the named weekday has already passed this week**, that order is delivered, not pending. Say so, and say that a delivered order cannot be cancelled.
+
+**Then confirm an order actually exists for that date.** No order on that date means the ask has no target: say so, list what *is* pending with its dates, and **cancel nothing**. Never fall through to "the closest one" — a near-miss on a destructive action is worse than a question.
+
+**Then open the order's own detail page and read it back** before pressing anything. The list card is a summary; the detail page is the order. Confirm all four:
+
+- the **order id**, which is the thing actually being cancelled
+- the **delivery date**, matching the date resolved above
+- the **restaurant**
+- the **item**, matching whatever they named if they named one
+
+**If any of the four disagrees with what they asked for, stop and ask.** A mismatch means the resolution was wrong, and the cost of asking is a sentence while the cost of guessing is someone's lunch.
+
+**Say the resolved target back in the writeup, with its date and id.** "tuesday = 2026-09-22, Tabla chicken curry, order 21043117" lets them catch a wrong resolution at a glance. A cancellation reported only as "cancelled Tuesday's order" is unverifiable by the one person who knows which Tuesday they meant.
+
+#### Check the cutoff before touching anything
+
+**A day's cutoff decides whether this is reversible.** Read it off that day's page before cancelling.
+
+- **Cutoff still open** — everything below works.
+- **Cutoff passed, cancel-only** — cancel it. Say plainly that the day cannot be refilled and the stipend for it is gone.
+- **Cutoff passed, reorder asked for** — **do neither and say so.** The request cannot be completed: cancelling would lose the meal and no replacement can be placed. Cancelling anyway would be doing half of a thing they did not ask for. Tell them the cutoff passed, say the current order is still coming, and let them decide.
+
+#### The swap sequence, in this order
+
+**Build the replacement before destroying the original.** The day must never sit empty while a rebuild is still possible, and this is also the sequence proven against the site — see **Editing a submitted order** in `order-history.md`.
+
+1. **Read that day's menus and build a slate**, exactly as an order run does. The cancelled build is excluded, and so is anything that is obviously the same idea — swapping a chicken curry for a different chicken curry is not a swap.
+2. **Rotation is re-checked against the day before and the day after**, not against the order being cancelled. A cancelled order counts for nothing, so it does not hold a format slot.
+3. **Remove the old item's line from the existing order.** Do this before placing anything. **The stipend is per day and shared across every order on that day** — the log has days carrying two orders against one $20.00 subsidy — so leaving the old line live while adding a new one can push the day's combined total over and trigger a card prompt. Removing the line first frees the budget.
+4. **Place the replacement** and verify its cart reads **Total $0.00**.
+5. **Then cancel the emptied original.** Removing its last line does not cancel it — it sits at a ~$1.00 subtotal looking placed, and leaving it there is the bug this step exists to prevent.
+6. **Confirm exactly one live order remains for that day** on `/customer_orders`.
+
+**If the replacement cannot be built** — nothing on that day's menus clears the gates under the ceiling — **stop and leave the original alone.** Say which gate blocked it. A day with food they did not want is better than a day with no food, and they can still ask for a plain cancel.
+
+#### Then run a lazy sync
+
+**Both shapes close with a lazy sync**, same as an order run. It is what turns "I cancelled it" into "I cancelled it and the site agrees," and on a swap it is what proves exactly one order is live for that day rather than two or none.
+
+If the sync finds the cancelled order still on Upcoming, or finds both orders live, **say so loudly and fix it before the cutoff.** A half-finished swap is the worst outcome this mode can produce.
+
+#### Writing it down
+
+- **The cancelled row moves to the `Cancelled` table** in `order-history.md` with its shape and, when known, its reason. It is never deleted.
+- **The replacement is written as a new row** at status `placed`, dated by delivery day.
+- **Rotation state is set from the replacement**, not from the cancelled order.
+
+#### A cancellation they chose is a signal. A cancellation the calendar chose is not.
+
+This is the mirror of **Two signals to return**, and the same logic applies. A re-order is a choice made with a live slate; **so is cancelling a build they can see.** Both are revealed preference, and neither is a verdict on how the food tasted, because in one case nobody has eaten yet and in the other nobody ever will.
+
+So the `Shape` column carries three values now, and only one of them means anything:
+
+| Shape | What happened | Signal? |
+|---|---|---|
+| `swap leftover` | mechanical cleanup of an entree change this skill made | **None.** Not a decision, just the second half of one |
+| `day dropped` | no delivery that day, usually not in the office | **None.** Attendance — `stated` 2026-09-17 |
+| `rejected` | **they looked at a placed order and did not want that food** | **Yes.** Read it |
+
+**Which shape a cancel-mode run writes is decided by what they asked for, not by what was cancelled:**
+
+| They asked for | Shape | Why |
+|---|---|---|
+| a plain cancel, no reason | **`day dropped`** | The likeliest explanation is that they will not be in the office. Assume that |
+| a plain cancel, with a reason about the day | **`day dropped`** | They said so |
+| a plain cancel, with a reason about the food | `rejected` | They named the food |
+| **cancel and reorder** | `rejected` | They still want lunch that day. It was the build they did not want |
+
+**A plain cancel is not a rejection and must never be read as one.** `stated` 2026-09-17. Wanting no lunch on Tuesday says nothing about Tuesday's menu — it says they are not going to be there. Penalising a restaurant for a day he worked from home is exactly the kind of invented pattern this skill has already had to undo once.
+
+**The reorder is what separates the two.** Someone who still wants lunch that day, just not *that* lunch, has rejected a build. Someone who wants no lunch has cancelled a day.
+
+**A `rejected` build never gets re-picked as though it were untested**, and if rejections start clustering — one restaurant, one format, one protein — that is worth raising.
+
+##### A stated reason is the strongest signal this skill can get
+
+`stated` 2026-09-17: *"if the user gives a reason why they want to cancel and re-order, that's a strong signal."*
+
+**A rejection with a reason is not in the same class as a rejection without one.** Silent rejection says a build did not appeal. **A reason says why, before the food ever existed, in their own words** — which is `stated` feedback and outranks anything derived from a rating. It is also cleaner evidence than a review: a review is a verdict tangled up with how one kitchen cooked on one day, while a reason given at cancel time is about the build itself.
+
+So the two cases are written down differently:
+
+| | Goes in the log | Goes in `dietary-preferences.md` |
+|---|---|---|
+| **rejected, no reason** | `Reason: not stated`. Do not re-pick the build | nothing |
+| **rejected, with a reason** | their words, verbatim | **yes — as `stated`, dated** |
+
+**Sort the reason before writing it, because two kinds arrive and only one generalizes:**
+
+- **About the day** — "not in the mood for that", "too heavy for today", "I want something else". Transient. Record it in the log, change no rule. Apply it to *this* replacement and nothing beyond.
+- **About the food** — "I don't want curry again this soon", "too much rice", "I'm off shawarma", "nothing creamy". **That is a preference and it goes straight into `dietary-preferences.md` as `stated`**, in their words, with the date. It applies to every future slate, not just this swap.
+
+When it is genuinely unclear which kind it is, **treat it as about the day and say so in the writeup** — a rule invented from an ambiguous aside is exactly the mistake the Mediterranean entry is in this skill to prevent. One line is enough: "took that as a today thing, tell me if it's a standing rule."
+
+**And use the reason to build the replacement.** A reason given at cancel time is the sharpest constraint available on that day's slate, because it was stated about the exact thing being replaced. "Too heavy" means the replacement is lighter, not merely different.
+
+**Ask why only on a reorder, only once, and only in one line. Never ask on a plain cancel.** A plain cancel is almost always "not in the office," and asking someone to justify not coming to work is the wrong instinct entirely. A swap is them rejecting something specific, and the reason is the whole value of it:
+
+> Anything about that plate you want me to avoid next time, or was it just not what you felt like?
+
+**Do not ask when they already said why.** "cancel the curry plate, too heavy for today" is the answer; asking again is not listening.
+
+Record whatever comes back in the `Reason` column, in their words. **"Not stated" is a normal entry** — record it rather than leaving the cell blank, so a later run can tell an unasked question from an unanswered one.
 
 You are their nutritionist, not a search box. Ordering on your own judgement is the job: curate, hit the macros, rotate the formats, spend the stipend. Do not stall on a decision they delegated to you.
 
@@ -1079,13 +1232,14 @@ Then compare **every rating and status**, not a sample. A drifted rating is invi
 
 - It does not advance rotation, and its format does not count toward the rolling-four rule.
 - It never earns a verdict. A cancelled order has no rating and the site gives it no review panel.
-- It contributes nothing to `dietary-preferences.md`. Nobody ate it, so it is evidence of nothing.
+- It contributes nothing to `dietary-preferences.md` **on its own**. Nobody ate it, so it is evidence about the appeal of a build, never about how food tasted. **The exception is a reason they stated when cancelling** — that is their words about the build, it is `stated`, and it goes in the preferences file. See **A stated reason is the strongest signal this skill can get**.
 
 The row survives so the same build does not get re-picked as though it were untested, and so a repeated cancellation at one restaurant is visible rather than invisible. That is worth more than a tidy table.
 
-**Two shapes of cancellation, and they mean different things.** Read which one happened before drawing any conclusion:
+**Three shapes of cancellation, and they mean different things.** Read which one happened before drawing any conclusion. The full table is in **Cancel and swap**.
 
 - **A swap leftover** — a cancelled order on a day that also has a delivered one. This is the cleanup half of changing an entree, and it says nothing about the food. Do not read it as a rejection.
+- **A `rejected` build** — they looked at a placed order and asked for it gone. **This one is signal**, in the same way a re-order is: a choice made against a live slate. It never becomes a dietary rule on its own, because nobody ate it, but the build does not get re-picked as untested.
 - **A day with no delivered order** — the day was dropped. **Usually this is attendance and nothing else.** Confirmed 2026-09-17: *"i just had a change of plans for that day and didn't come in. that's going to happen, too. i'll have to cancel for no reason other than i'm not in the office."*
 
   So the default reading is a calendar, not a menu. **Do not treat a dropped day as a rejection of the restaurant**, do not move that kitchen down a slate for it, and do not ask about it unless something else points at the food. The order it replaced stays untested, which means it is still a live option rather than a spent one.
@@ -1101,6 +1255,8 @@ The skill cancels when asked. On the order's detail page: **Cancel order**, then
 **Check `/customer_orders` afterward** and confirm what remains for that day. Cancelling is also the cleanup half of swapping an entree, and a half-finished swap leaves two live orders or none.
 
 **Cancelling is outward-facing, so confirm before doing it** unless they asked for that specific cancellation in the same breath. The exception is a leftover order this skill created during a swap: clean that up without asking, because leaving it is the bug.
+
+**`/feed-me cancel <which order>` is the mode built on this.** It resolves which pending order they mean, handles the cutoff, optionally places a replacement, and closes with a lazy sync. See **Cancel and swap**.
 
 ### Come back for the rating
 
