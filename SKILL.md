@@ -130,7 +130,10 @@ The list pages paginate at 10 per card and each card links to a details page. Ra
 | What | Where |
 |---|---|
 | Order list | `/customer_orders/past?page=N`, N from 1 until a page yields no `order_details` links |
-| Order id | the digits in the `order_details` href. **Record it in the log** — it is how a row gets traced back to its page, and how an order gets reopened to edit. |
+| Upcoming / Canceled | `/customer_orders` and `/customer_orders/cancelled`. Both are single pages. Needed for reconciliation — see **The order lifecycle**. |
+| Order id | the digits in the `order_details` href. **Record it in the log** — it is how a row gets traced back to its page, and how an order gets reopened to edit or cancel. |
+| Rated or not | the list card carries `Reviewed on <date>` once rated, and a `Leave a Review` link while it is not. Cheaper than opening the detail page to find a null rating. |
+| Cancelled | the detail page opens with `This order was canceled.` and has **no** `.order-review-ratings` panel at all. |
 | Details page | `/customer_orders/<id>/order_details` |
 | Rating | `#order-review-numeric-rating` → `data-review-rating` attribute |
 | Review text | `.order-review-footer` → text content. **Absent when they left no text.** |
@@ -161,6 +164,8 @@ async () => {
 ```
 
 Loop it over the ids with ~100ms between fetches. Forty orders takes a few seconds.
+
+**Two traps on the Upcoming tab.** Its pagination links point at `/customer_orders/past?page=N`, so a scraper that follows them silently walks the Completed list instead. And a day's order appears there on its delivery day, already delivered and rateable, before it moves to Completed. Read the tab you fetched, not the tab the links imply.
 
 The details page also carries a **Customer Details** block and a **Delivery details** block. The delivery day and time are worth keeping. The name and street address are not useful to the skill — they are the same on every order — so there is no reason to copy them into the log, but this is a housekeeping point, not a redaction rule. See **The data files are personal**.
 
@@ -673,15 +678,78 @@ Each day is a separate cart and a separate order. Run this loop once per open da
 
 Report every day and delivery time, each day's receipt, and that each order stays editable until its own cutoff.
 
+## The order lifecycle
+
+An order is not a single event, so the log does not treat it as one. It is placed, it is delivered, it gets rated, and at any point before delivery it can be cancelled — sometimes by the user, without telling you. Every row in `order-history.md` carries a **status** saying where in that arc it sits.
+
+| Status | Means | How the site shows it |
+|---|---|---|
+| `placed` | submitted, not yet delivered | on the **Upcoming** tab |
+| `delivered` | arrived, not yet rated | on **Completed** with a `Leave a Review` link |
+| `rated` | has their star rating | on **Completed** with a `Reviewed on <date>` line |
+| `cancelled` | cancelled by anyone, for any reason | on the **Canceled** tab; its detail page says `This order was canceled.` |
+| `missing` | in the log, nowhere on the site | reconciliation found nothing. Investigate, do not delete |
+
+### Write the row the moment it is placed
+
+**Log an order as soon as the confirmation comes back. Do not wait for it to arrive, and do not wait for a rating.** Write the row at status `placed` with delivery date, restaurant, item and every add-on, **format**, subtotal, and the order id from the confirmation URL.
+
+An order that exists on the site and not in the log is invisible to every rule in this skill. It will not block a repeat, will not advance rotation, and will not be there to collect a rating later. The gap between placing and logging is the only window where that can happen, so close it immediately.
+
+**One row per order, not per day.** A day with two orders gets two rows. A batch that placed four days writes four rows, dated by **delivery** day so the log reads in the order the food gets eaten. Set the rotation state from the **last row in the batch**.
+
+### Reconcile against the site every run
+
+**Before building any slate, scrape all three tabs and check the log against them.** This is what catches an order the user cancelled without saying so, an order they placed outside the skill, and a delivery that has quietly become rateable.
+
+| Tab | URL |
+|---|---|
+| Upcoming | `/customer_orders` |
+| Completed | `/customer_orders/past?page=N` |
+| Canceled | `/customer_orders/cancelled` |
+
+Build one id-to-tab map across all three, then walk the log:
+
+- **On the tab its status expects** — nothing to do.
+- **Moved forward** (`placed` now on Completed, `delivered` now carrying a rating) — advance the status and pull the new data.
+- **On the Canceled tab** — set `cancelled`, whether or not this skill did it. **This is the case that matters most.** The user cancels for their own reasons and owes you no notice.
+- **On the site but not in the log** — add it. They ordered without the skill, and it still counts for rotation and still earns a rating.
+- **In the log but on no tab** — set `missing` and say so in the writeup. Do not guess and do not delete the row. An order that vanished is a fact about the account, not a typo.
+
+**Never delete a row during reconciliation.** Statuses change; rows do not disappear. A log that quietly drops what it cannot explain is a log that cannot be trusted about anything else.
+
+### Cancelled rows stay, and count for nothing
+
+**Keep the row. Mark it `cancelled` and move it to the `Cancelled` table** at the bottom of `order-history.md`, so the main log stays what it claims to be: food that arrived. Then exclude it from everything downstream:
+
+- It does not advance rotation, and its format does not count toward the rolling-four rule.
+- It never earns a verdict. A cancelled order has no rating and the site gives it no review panel.
+- It contributes nothing to `dietary-preferences.md`. Nobody ate it, so it is evidence of nothing.
+
+The row survives so the same build does not get re-picked as though it were untested, and so a repeated cancellation at one restaurant is visible rather than invisible. That is worth more than a tidy table.
+
+**Two shapes of cancellation, and they mean different things.** Read which one happened before drawing any conclusion:
+
+- **A swap leftover** — a cancelled order on a day that also has a delivered one. This is the cleanup half of changing an entree, and it says nothing about the food. Do not read it as a rejection.
+- **A day with no delivered order** — the day was dropped. They worked from home, plans changed, or the food was not wanted. **This is the only kind that is worth a second look**, and a run of them at one restaurant is a signal the ratings will never show you.
+
+**Menu intel learned while browsing survives a cancellation** — upcharge structure, which restaurants have no cheap add-ons, cutoff times. It goes under **Observed preferences**, not the log.
+
+### Cancelling on request
+
+The skill cancels when asked. On the order's detail page: **Cancel order**, then confirm on the **Yes, cancel** link. Then set the row to `cancelled` and say which order went.
+
+**Check `/customer_orders` afterward** and confirm what remains for that day. Cancelling is also the cleanup half of swapping an entree, and a half-finished swap leaves two live orders or none.
+
+**Cancelling is outward-facing, so confirm before doing it** unless they asked for that specific cancellation in the same breath. The exception is a leftover order this skill created during a swap: clean that up without asking, because leaving it is the bug.
+
+### Come back for the rating
+
+**A `delivered` row is unfinished work.** They rate a day or two after eating, so a row with no rating is not a verdict of indifference. Re-check it on the next run, and keep re-checking until it is `rated` or the trail goes cold.
+
+Say in the writeup when rows are still open. "Two orders from last week are still unrated" tells them a star click is all it takes.
+
 ## After they order
-
-The user pastes the receipt, or you placed it yourself and read the confirmation. Append a row to `order-history.md` with date, restaurant, item, add-ons, **format**, subtotal, and verdict `pending`.
-
-**One row per day, one row per order.** A batch that placed four days writes four rows, dated by **delivery** day so the log reads in the order the food actually gets eaten. Then set the rotation state from the **last row in the batch**, not the first — the next run's day one is checked against the last day of this one.
-
-**A cancelled order is not an order.** If they cancel — plans changed, working from home, they were only testing the flow — do not log it, and revert the row if you already wrote one. The log is what they actually ate. Rotation state and format history move off real meals only.
-
-Menu intel you learned while browsing (upcharge structure, which restaurants have no cheap add-ons, cutoff times) is worth keeping even when the order is cancelled — it goes under **Observed preferences**, not the log.
 
 **The verdict comes off ezCater, not out of a conversation.** They rate on the site. Scrape it rather than asking — see **Their reviews live on ezCater**. If they happen to say something in chat as well, record both; chat feedback supplements the rating, it does not replace it.
 
@@ -699,6 +767,6 @@ Any feedback that names specific ingredients — kept or dropped — goes into `
 
 **Then update `dietary-preferences.md` itself.** A run that reads new ratings and leaves the rules untouched has wasted the ratings. Re-derive its patterns against the log, revise what no longer holds, and move its `Last reviewed` date. See **Keep it current as the log grows**. Respect the tags — `derived` rules are yours to revise, `stated` rules are theirs.
 
-**A delivered order with no rating is `pending`, not neutral.** They often rate a day or two after delivery, so re-check it on the next run before writing it off. Leave the row `pending` and do not let an unrated order suppress a restaurant.
+**A delivered order with no rating stays `delivered`, which is not a verdict.** They often rate a day or two later, so re-check on the next run rather than writing it off, and never let an unrated order suppress a restaurant. See **Come back for the rating**.
 
 `order-history.md` and this file are records, not output. They stay plain prose. Greentext is for the user, not the ledger.
