@@ -4,7 +4,7 @@
 
 The skill reads this file on load. If it is missing, the skill does not order — it runs the onboarding interview in **First run** in `SKILL.md` and writes this file from the answers.
 
-Last reviewed: 2026-09-17, refined against all 41 delivered orders. The refine pass corrected the `carb-base` share (12 of the 16 fours, not nine), added the format-variance table, added the price-does-not-predict-rating rule, refreshed the Mediterranean average, and opened eggs as a provisional protein lever. The 2026-09-17 GRECO review set four rules on its own: beans over rice, spice as a standing instruction, the topping axis, and the satiety note.
+Last reviewed: 2026-09-17, second refine pass the same day, local files only. This pass found no arithmetic errors in the previous one — every count and average re-derived clean. What it added: the cuisine table's coverage gap (it ranks 27 of 34 rated orders and the other 7 are not a cuisine), the note that East/SE Asian's 3.33 carries the tofu bowl, `bowl-no-grain` written into the format table as the never-used format, and the observation that the two formats that have never failed are also the two least used.
 
 ## Provenance, and why it matters
 
@@ -87,6 +87,26 @@ The components are genuinely liked. The kitchens serving them on this program mo
 
 The one exception is **GRECO**, which cooks to order. Two orders now, a 4 and a chat-stated 4/5, and the second came with the most detailed positive review in the log. **Treat GRECO as separate from the cuisine average**, which is dragged down by kitchens that hold food.
 
+### What the table does not cover
+
+`derived` 2026-09-17. **The four rows above rank 27 of the 34 rated orders.** The other seven are not a cuisine and should not be forced into one:
+
+| Order | Rating |
+|---|---|
+| Reunion BBQ — sliced prime brisket | **4** |
+| Dirty Water Dough — pizza + chicken | **4** |
+| Stubbys — jerk chicken bowl | **4** |
+| Bom Dough — egg & greens bowl | **4** |
+| B.GOOD — grilled chicken pesto sandwich | 3 |
+| Roots to Rise — turkey BLT | 2 |
+| Levain — chips + roll *(side order, not a lunch)* | 4 |
+
+**Six lunches, average 3.50** — higher than every row in the table except Indian, and above East/SE Asian's 3.33. American BBQ, a pizza counter, a jerk counter and a Brazilian egg bowl have no cuisine in common, so **do not read this as "American rates well."**
+
+What they share is the axis already in **Preparation**: the four 4s were all cooked hot to order, and the 3 and the 2 were both assembly-counter food. **Cuisine is the proxy; hot-versus-held is the thing.** When a day's menus offer a kitchen that cooks on the line, it does not need a row in this table to be the right pick.
+
+**East/SE Asian's 3.33 includes the Life Alive tofu bowl**, the only 1 in the log. The eleven cuisine-native Asian kitchens average **3.55**. The row stays as counted, but the bench is stronger than the number reads.
+
 Practical rule: when a day's menus offer an Indian or Asian kitchen alongside a shawarma counter, **the shawarma counter is the weaker bet even when its build looks better on paper.**
 
 ## Components
@@ -143,8 +163,11 @@ Eggs are the cheapest protein-per-dollar add-on anywhere in the log, they carry 
 | `protein-plate` | 7 | **3.43** | 3 | 4 |
 | `carb-base` | 23 | 3.17 | **1** | 4 |
 | `salad` | 3 | 3.00 | 3 | 3 |
+| `bowl-no-grain` | **0** | — | — | — |
 
   **So `carb-base` is the high-variance bet, not the bad one.** It holds the best food in the log and every disappointment in it. That sharpens the cooldown into a real rule: when a `carb-base` slot is spent, spend it on a kitchen with a rating behind it — never on an untested sandwich or wrap counter, which is where all seven failures came from.
+
+  **The two formats at the top of that table are the two least used, and one has never been used at all.** `derived` 2026-09-17. `soup-forward` has a single order and it rated 4. `bowl-no-grain` has never been ordered once in 41 deliveries — and it is the exact shape of three rules this file now carries: carbs down, beans first, satiety from bulk rather than starch. **An absence in a log is not a preference.** Reach for both when rotation opens a slot, and treat `bowl-no-grain` as untested rather than unwanted until an order says otherwise.
 
   **And `salad` is the flat one.** Three orders, all rated exactly 3, no 4 and no 2. It never fails and it never delights, which makes it the right pick only when rotation demands a format and nothing better is open.
 
