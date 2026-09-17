@@ -301,6 +301,7 @@ What to do with new evidence:
 - **A pattern across one or two orders** — write it in as `provisional`, or leave it out. Do not harden a rule on a single meal.
 - **A `stated` rule the log contradicts** — do not touch it. Raise it with them once, in the writeup, with the ratings that disagree. They decide.
 - **Anything they say in conversation** — write it in as `stated`, dated, in their words where possible. Stated beats derived on the same subject.
+- **A reason given when cancelling an order** — `stated` 2026-09-17: *"if the user gives a reason why they want to cancel and re-order, that's a strong signal."* It is their words about a specific build, given before anyone ate, which makes it cleaner evidence than a review tangled up with how one kitchen cooked that day. **Sort it first**: a reason about the day ("not in the mood", "too heavy for today") is transient and changes no rule, while a reason about the food ("no more curry this soon", "nothing creamy") is a preference and goes in here as `stated`. When it is unclear, treat it as about the day and say so. See **Cancel and swap** in `SKILL.md`.
 - **A new allergy or medical limit** — goes straight into **Hard limits** as `stated`, and outranks everything else in the file.
 
 Keep the tags current. An untagged rule is one nobody can safely revise, which is how the Mediterranean claim survived nine contradicting orders.

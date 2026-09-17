@@ -178,18 +178,22 @@ _(empty — nothing has been rated 0)_
 
 Reconciled off the **Canceled** tab on 2026-09-17. None of these were in the log before that scan, which is the reason reconciliation now runs every session. Cancelled orders count for nothing: no verdict, no rotation, no input to `dietary-preferences.md`. They are kept so a build is not re-picked as though it were untested, and so a pattern at one restaurant stays visible.
 
-| ID | Date | Restaurant | Item | Shape |
-|---|---|---|---|---|
-| 20957421 | 2026-09-17 | GRECO | Tzatziki Sauce | swap leftover |
-| 20839618 | 2026-09-10 | Boonnoon Market | Kao Soi Noodle Soup | **day dropped** |
-| 20636999 | 2026-09-01 | Dora Taqueria | The Gringa Taco Plate | swap leftover |
-| 20524566 | 2026-08-25 | The Chicken & Rice Guys | Chicken & Gyro Salad Plate | swap leftover |
-| 19947229 | 2026-07-22 | Shy Bird | Half Rotisserie Chicken | swap leftover |
-| 19724164 | 2026-07-07 | Laughing Monk Cafe | Pad Thai | swap leftover |
-| 19518520 | 2026-06-23 | Toscano's Italian Kitchen | Chicken Parmigiana | **day dropped** |
-| 19167407 | 2026-06-02 | Halal Indian Cuisine | Chicken Dopizza + Mint Chutney | **day dropped** |
-| 18743824 | 2026-05-05 | Saigon Tiger | Lemongrass Chicken Rice Bowl + Fried Egg | swap leftover |
-| 17592459 | 2026-02-24 | Bon Me | Food Truck Fave Bowl | **day dropped** |
+**`Shape` carries one of three values, and only `rejected` is signal.** `swap leftover` is the mechanical second half of an entree change. `day dropped` is attendance. **`rejected`** is a placed order they looked at and did not want, which is revealed preference in the same way a re-order is — see **A cancellation they chose is a signal** in `SKILL.md`. **`Reason`** holds their words when they gave any; `not stated` means it was never asked or never answered, which is different from there being no reason.
+
+| ID | Date | Restaurant | Item | Shape | Reason |
+|---|---|---|---|---|---|
+| 20957421 | 2026-09-17 | GRECO | Tzatziki Sauce | swap leftover | not stated |
+| 20839618 | 2026-09-10 | Boonnoon Market | Kao Soi Noodle Soup | **day dropped** | "change of plans for that day and didn't come in" — not the food, the soup order "was fine" |
+| 20636999 | 2026-09-01 | Dora Taqueria | The Gringa Taco Plate | swap leftover | not stated |
+| 20524566 | 2026-08-25 | The Chicken & Rice Guys | Chicken & Gyro Salad Plate | swap leftover | not stated |
+| 19947229 | 2026-07-22 | Shy Bird | Half Rotisserie Chicken | swap leftover | not stated |
+| 19724164 | 2026-07-07 | Laughing Monk Cafe | Pad Thai | swap leftover | not stated |
+| 19518520 | 2026-06-23 | Toscano's Italian Kitchen | Chicken Parmigiana | **day dropped** | not stated — attendance is the default read |
+| 19167407 | 2026-06-02 | Halal Indian Cuisine | Chicken Dopizza + Mint Chutney | **day dropped** | not stated — attendance is the default read |
+| 18743824 | 2026-05-05 | Saigon Tiger | Lemongrass Chicken Rice Bowl + Fried Egg | swap leftover | not stated |
+| 17592459 | 2026-02-24 | Bon Me | Food Truck Fave Bowl | **day dropped** | not stated — attendance is the default read |
+
+**No row here is `rejected`.** Every cancellation on record is either cleanup or a day he was not in, so nothing in this table is a verdict on a build. The shape exists because `/feed-me cancel <order> and reorder` will start producing them.
 
 **Six are swap leftovers** and say nothing about the food. Each sits on a day that also has a delivered order, so it is the cleanup half of changing an entree. The 2026-08-25 pair is the clearest case: the same restaurant and the same dish, cancelled and re-placed.
 

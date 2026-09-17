@@ -27,10 +27,11 @@ hungry. unacceptable.
 | `/feed-me` | orders lunch for every open day, then runs a **lazy sync**. the one you'll use |
 | `/feed-me sync` | a **full sync**. opens every order on the account. places nothing |
 | `/feed-me refine` | mines your log against your preferences and asks better questions |
+| `/feed-me cancel <which>` | kills a pending order. add **and reorder** and it picks you something else |
 
-the other two are **optional but useful**. you never have to type them — a bare `/feed-me`
-still keeps the books straight on its own. reach for them when you want the ledger audited
-or the rules sharpened.
+the other three are **optional but useful**. you never have to type them — a bare `/feed-me`
+still keeps the books straight on its own. reach for them when you want the ledger audited,
+the rules sharpened, or a plate you've changed your mind about taken off the books.
 
 two syncs, and they're called exactly that. **lazy sync** runs itself at the end of every
 order. **full sync** is what you get when you ask for one. the only difference is whether a
@@ -315,6 +316,54 @@ placed.
 
 it says which signals a repeat is riding on, so you can tell a deliberate return from a robot
 out of ideas.
+
+## changed your mind
+
+`/feed-me cancel the curry plate` kills it. that's it, no replacement — most cancellations
+are you not coming in, and inventing a lunch for a day you won't be there is worse than
+nothing.
+
+`/feed-me cancel the current plate and reorder` kills it **and** puts something else on that
+day.
+
+**the delivery day works as the handle, and it's usually the easy one.** each day is its own
+order, so `/feed-me cancel and re-order tuesday's` is unambiguous without naming a dish. so is
+"cancel tuesday's and wednesday's" — it runs them one day at a time, because each day has its
+own cart and its own cutoff.
+
+two pending orders and you didn't say which? it asks, in plain english, and lists them. it
+won't guess at a destructive action. it reads the **upcoming** tab to find the target, never
+the log — a cache is not a good enough reason to cancel someone's lunch.
+
+**then it proves the target before it touches it.** "tuesday" gets resolved to a real date
+against the live delivery dates, it confirms an order actually exists on that date, and it
+opens that order's own page to check the id, the day, the restaurant and the dish all agree
+with what you asked for. anything off and it stops and asks. it reads the target back to you
+with its date and order id, so a wrong tuesday is obvious at a glance instead of after lunch
+doesn't show up. no order on that date? it says so and cancels nothing — it never falls
+through to "the closest one".
+
+**a plain cancel is not a complaint.** cancelling tuesday means you won't be in on tuesday, and
+that says nothing about tuesday's menu. it logs that as a dropped day and the restaurant keeps
+its record clean. the *reorder* is what makes it a rejection: you still want lunch, just not
+that lunch. and it won't ask you to justify not coming into the office.
+
+**it builds the replacement before it destroys the original.** the day never sits empty while
+a rebuild is still possible. it also strips the old line out first, because the stipend is per
+*day* and shared across every order on it — two live orders on one day can blow the ceiling
+between them and summon the card prompt. if nothing on that day's menu clears your gates, it
+leaves your original order alone and tells you why. food you didn't want beats no food.
+
+cutoff already passed? cancel-only still works and it'll tell you the day is gone. asked for a
+swap? it does **neither** and says so, because cancelling without being able to rebuild is
+half of a thing you didn't ask for.
+
+**tell it why and that's the strongest signal it gets.** "cancel the curry, too much rice
+lately" is you stating a preference about a build before anyone cooked it — cleaner than a
+review, which is always tangled up with how one kitchen did that day. it sorts a *today* reason
+from a *food* reason and only the second one becomes a rule. the reason also shapes the
+replacement: "too heavy" means lighter, not merely different. then it closes with a sync,
+because "i cancelled it" and "the site agrees i cancelled it" are different claims.
 
 ## install
 
