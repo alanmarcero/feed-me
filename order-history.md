@@ -1,6 +1,8 @@
 # Order History
 
-Scraped from ezCater 2026-09-17. 40 delivered orders, 2025-12-09 through 2026-09-08, plus the 2026-09-16 GRECO order still pending at scrape time.
+Scraped from ezCater 2026-09-17. 41 delivered orders, 2025-12-09 through 2026-09-17, and 10 cancelled.
+
+**Verified fully in sync with the site on 2026-09-17**: all three tabs diffed both directions, every status and every rating checked against its detail page, no drift.
 
 **Every rating in this file is the user's own, pulled off the ezCater site.** They rate on the site rather than in conversation, so the site is the source of truth. Re-scrape it at the start of a run — see **Their reviews live on ezCater** in `SKILL.md`. Do not ask them to re-state a verdict the site already holds.
 
