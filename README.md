@@ -14,8 +14,9 @@
 ## the problem
 
 a stipend is use it or lose it. spend $16 like a coward and $4 evaporates into the void.
-spend $18.75 and ezCater asks for your credit card like some kind of animal. the good zone is
-narrow, it moves with sales tax, and you rediscover it daily while hungry. unacceptable.
+land on $20.01 and ezCater asks for your credit card like some kind of animal, over one (1)
+cent. the good zone is narrow, it moves with sales tax, and you rediscover it daily while
+hungry. unacceptable.
 
 ## what it does
 
