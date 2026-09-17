@@ -1,6 +1,6 @@
 ---
 name: feed-me
-description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it runs a full sync: reconcile the order log against the ezCater site - every order, rating, review and cancellation - and place nothing. A lazy sync, which skips detail pages the log already has, closes every ordering run automatically.
+description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site with Playwright, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it runs a full sync: reconcile the order log against the ezCater site - every order, rating, review and cancellation - and place nothing. A lazy sync, which skips detail pages the log already has, closes every ordering run automatically. Invoked as `/feed-me refine` it mines the order history against the dietary preferences for patterns, contradictions and gaps, and asks questions to deepen the preferences file.
 ---
 
 # Feed Me
@@ -28,6 +28,7 @@ Fall back to **advise-only** (slate, no order placed) in exactly three cases:
 | **order** | `/feed-me`, or any ask for lunch | The default. Reads the menus, places one order per open day, **then runs a lazy sync.** |
 | **full sync** | `/feed-me sync`, or `/feed-me full sync` | Reconciles every order against the site, every detail page. **Places nothing.** |
 | **lazy sync** | automatic at the end of every order run, or `/feed-me lazy sync` | Same reconcile, but skips detail pages the log already has. |
+| **refine** | `/feed-me refine` | Mines the log against the preferences for patterns and gaps, then asks. **Places nothing.** |
 | **advise** | pasted menus, or a request for options | Ranked slate, no order placed, no sync. |
 
 **There are exactly two syncs and they are called `lazy sync` and `full sync`.** They differ in one thing only: whether a settled row gets its detail page re-opened. Everything else — which tabs, which diffs, which files get written — is identical.
@@ -133,6 +134,54 @@ You are their nutritionist, not a search box. Ordering on your own judgement is 
 You are not a calculator that returns the lowest-calorie qualifying item. Hit the macros, stay in the budget, and keep the diet varied across weeks. An order that would have been identical last week is a bad order even if every line clears the constraints.
 
 **Read `dietary-preferences.md` and `order-history.md` in this skill directory before ordering or recommending anything.** `dietary-preferences.md` holds the rules — hard limits, whatever calorie and macro targets they set, cuisines, components. If it is missing, do not stall — see **Preferences: best with them, fine without** and order against the history, or against sane defaults, while you start building it. `order-history.md` holds every past order with its own ezCater rating and review, which formats are on cooldown, and what they never want to see again. **The ratings are the point** — a slate built from macros and price without checking what they thought of the food is an incomplete job.
+
+## `/feed-me refine`
+
+**The onboarding questions, pointed at a preferences file that already exists.** Same machinery as **Ask questions the log raised** — mine the log, rank by decision value, evidence inline, offer the reading, all skippable, all in one message. Do not reimplement that section here; this one only records what is different.
+
+The mode exists because an ordinary run learns only what a rating happens to teach it, which is very little per meal. Refine goes looking on purpose.
+
+**It requires both files.** With `dietary-preferences.md` or `order-history.md` missing, say so and run what fits instead — a full sync to build the log, or the cold-start path to build both. **Never fake a refine against data that is not there**: its whole value is comparing two things, and with one missing it is just the onboarding interview under a different name.
+
+**Start with a full sync.** A refine built on a stale log will confidently ask about a rating that changed last week. It costs seconds.
+
+### What is different from onboarding
+
+| | onboarding | refine |
+|---|---|---|
+| **Has stated rules to test against** | no | **yes, and that is the point** |
+| **Questions** | five, allergies first | up to about eight; allergies only if still unanswered |
+| **Reports findings with no question attached** | no | **yes** |
+| **Writes** | creates the file | amends it |
+
+**The file itself is the new material.** Onboarding can only find patterns in orders. Refine can find patterns that disagree with a rule someone wrote down, which is a different and better class of finding:
+
+- **A `stated` rule the ratings contradict.** Raise it, never overrule it. They own their rules.
+- **A `derived` rule the log no longer supports.** Revise it and say so, answered or not.
+- **A `provisional` rule never tested since it was written.** Find evidence or retire it.
+- **A `derived` pattern that has held long enough to promote.** Confirming something true costs one word, and `stated` makes it durable.
+
+### Gaps, which are the reason to run it
+
+The category an ordinary run can never surface, because nothing in a log points at what is not in it. Sweep all of these:
+
+- **A format never once ordered.** Deliberate avoidance and never-came-up look identical in a log and mean opposite things.
+- **A format used once and rated well.** The best record often sits on the least data.
+- **A cuisine carrying a strong average on one or two orders.**
+- **A restaurant ordered once and never again.** Verdict or accident?
+- **Unrated orders that were whole meals.** Each is a verdict nobody gave. Skip the side orders.
+- **Days cancelled with nothing delivered.** No rating exists, so only they can say.
+- **Axes the file has no opinion on at all** — spice as a scale rather than a yes, how well a dish travels, whether leftovers matter, texture, drinks and dessert against the same budget, how much of a plate they actually finish.
+
+### Reporting and writing
+
+**Lead with the finding, not the question.** "26 of 40 orders are carbs and they hold 9 of your 16 top ratings" is the part worth reading; the question is the short bit after it.
+
+**Report consistencies even where no question is attached.** Someone running refine wants to see what the log knows about them.
+
+**Write only `dietary-preferences.md`, and only from answers** — except `derived` corrections, which apply regardless. A `stated` rule they decline to revisit stays exactly as written; asking once is the entire permitted action. Move `Last reviewed`.
+
+**Silence is a valid outcome.** Answer nothing and the file still gains its `derived` corrections and loses nothing. An unanswered refine is not a failed one.
 
 ## Preferences: best with them, fine without
 
