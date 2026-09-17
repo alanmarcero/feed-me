@@ -156,9 +156,14 @@ the fact. orders it just placed are new, so laziness never applies to them. if o
 the site, that's the run failing rather than finishing, and it says so loudly and re-places it
 if the cutoff hasn't passed.
 
-run plain `/feed-me` with no history and no preferences and it syncs *first* too, says so,
-then carries on into the order. your account has your lunches on it even when the skill
-doesn't.
+run plain `/feed-me` with no history and no preferences and it does the **full** one first,
+says so, builds your log and your preferences out of it, asks the questions that log raised,
+and then orders anyway without waiting for you to answer. nothing to be lazy against on a
+first run, and the ratings are exactly what the first order needs.
+
+it won't hold lunch hostage to a questionnaire. you typed `/feed-me` because you wanted food.
+answer whenever, and since orders stay editable until each day's cutoff it can still apply
+your answer to today's lunch rather than next week's.
 
 ## it works better with preferences. it works without them.
 
@@ -169,7 +174,7 @@ not, it does **not** make you fill in a form:
 |---|---|
 | a preferences file | reads it, orders against it. best case |
 | no file, but order history | infers preferences from what you rated, writes them down |
-| neither | syncs first, and if that's empty too, sane defaults and says it's guessing |
+| neither | full sync first, then questions, then orders. if that's empty too, sane defaults |
 
 **your order history is a preferences file nobody typed.** forty rated orders say more than
 forty answers to a questionnaire, because a rating is what you thought *after eating*.
