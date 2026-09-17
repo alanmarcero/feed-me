@@ -6,6 +6,8 @@ Scraped from ezCater 2026-09-17. 40 delivered orders, 2025-12-09 through 2026-09
 
 This is a personal record and is meant to be one. The `ID` column is the ezCater order id: `/customer_orders/<id>/order_details` reopens the original. Publishing this file is the user's decision and never the skill's.
 
+**Every row carries a `Status`.** An order is written here the moment it is placed and the status tracks it from there: `placed`, `delivered`, `rated`, `cancelled`, or `missing` when the site no longer shows it at all. Reconcile the whole file against the Upcoming, Completed and Canceled tabs at the start of every run. See **The order lifecycle** in `SKILL.md`. Rows never get deleted, only re-statused.
+
 ## The ceiling is proven, not a ratchet
 
 **Ceiling $18.68 subtotal. Floor $16.85.**
@@ -37,49 +39,49 @@ Read this before building a slate.
 
 Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 neutral, 3 liked, 4 loved. `—` means they never rated it.
 
-| ID | Delivered | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
-|---|---|---|---|---|---|---|---|---|---|
-| — | 2026-09-17 | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | pending | — |
-| 20755521 | 2026-09-08 | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | — (said in chat: "ok, too much lettuce") |
-| 20658056 | 2026-09-01 | Roots to Rise | Supreme Turkey BLT Sandwich, multi-grain, no mayo + Organic Hard-Boiled Eggs ($3.79) | `carb-base` | $18.88 | $1.32 | **$0.20** | 2 neutral | "Pretty basic sandwich" |
-| 20586963 | 2026-08-25 | The Chicken & Rice Guys | Chicken & Gyro Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) + hot & BBQ sauce | `salad` | $17.06 | $1.19 | $0.00 | 3 liked | — |
-| 20425087 | 2026-08-18 | Umai | 8-Piece Nigiri (Raw) Combo | `carb-base` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
-| 20297862 | 2026-08-11 | Tabla Cuisine | Tabla's Chicken Curry (Large) + Biryani Rice ($1.99) | `carb-base` | $17.44 | $1.22 | $0.00 | **4 loved** | — |
-| 20177734 | 2026-08-04 | B.GOOD | Grilled Chicken Pesto Sandwich + Bacon ($2.50) + Double Protein ($2.65) | `carb-base` | $18.38 | $1.29 | $0.00 | 3 liked | — |
-| 20065688 | 2026-07-28 | Dirty Water Dough | Cheese Pizza Boxed Meal + Small Greek Salad ($2.00) + Roasted Chicken ($1.00) | `carb-base` | $17.75 | $1.24 | $0.00 | **4 loved** | — |
-| 20023715 | 2026-07-22 | Shy Bird | Charred Chicken Pita | `carb-base` | $16.25 | $1.14 | $0.00 | 2 neutral | "chicken and the pita were both dry" |
-| 19947158 | 2026-07-20 | Reunion BBQ | Sliced Prime Brisket, rice & roasted veg | `protein-plate` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
-| 19725173 | 2026-07-07 | Laughing Monk Cafe | Cashew Nut + Pork ($2.00) | `protein-plate` | $17.50 | $1.22 | $0.00 | 3 liked | — |
-| 19637902 | 2026-06-30 | Noor Mediterranean Grill | Chicken Shawarma Bowl (rice pilaf) + 2 Falafel ($2.60) | `carb-base` | $18.17 | $1.27 | $0.00 | 2 neutral | "stale, clearly cooked hours or even a day earlier" |
-| 19070134 | 2026-05-26 | Publico Street Bistro & Garden | 2 × Grilled Fish Taco | `carb-base` | $14.00 | $0.98 | $0.00 | — | — |
-| 19070161 | 2026-05-26 | Levain Bakery | Sea Salt Cape Cod Chips + Whole Wheat Walnut Raisin Roll *(side order)* | `carb-base` | $4.13 | $0.29 | $0.00 | **4 loved** | — |
-| 18958135 | 2026-05-19 | Aceituna Grill | Build-Your-Own Plate (XL) — falafel + spicy chicken shawarma ($2.00), tabbouleh, fattoush, onion, pickled turnips, tomatoes | `protein-plate` | $18.25 | $1.28 | $0.00 | 3 liked | — |
-| 18843202 | 2026-05-12 | Perillas Korean Kitchen | Bulgogi Beef Bibimbap + house gochujang | `carb-base` | $14.59 | $1.02 | $0.00 | **4 loved** | — |
-| 18843220 | 2026-05-12 | Bom Dough | Bacon, 3 slices *(side order)* | — | $4.00 | $0.28 | $0.00 | — | — |
-| 18747404 | 2026-05-05 | Saigon Tiger | Beef Noodle Bowl + Fried Egg ($2.00) + second Fried Egg ($2.00) | `carb-base` | $18.50 | $1.30 | $0.00 | **4 loved** | — |
-| 18633845 | 2026-04-29 | GRECO | Spicy Feta & Beef + Lemon Chive Yogurt + Pepper Paprika Dip ($1.00) + Tzatziki ($1.00) | `carb-base` | $18.50 | $1.30 | $0.00 | **4 loved** | — |
-| 18633831 | 2026-04-28 | Sake Japanese | Tuna Avocado Roll + avocado, cucumber, tobiko, eel sauce ($1.00 ea) | `carb-base` | $17.95 | $1.26 | $0.00 | 3 liked | "expensive" |
-| 18632192 | 2026-04-27 | WOW TIKKA | Build-Your-Own Bowl — lamb kofta ($4.00), brown rice & red quinoa, samosa ($2.49), papads ($1.99), vindaloo, mint dressing, veg | `carb-base` | $18.47 | $1.29 | $0.00 | — | — |
-| 18519518 | 2026-04-21 | Stubbys | Jerk Chicken Rice Bowl | `carb-base` | $16.95 | $1.19 | $0.00 | **4 loved** | — |
-| 18386707 | 2026-04-14 | Garlic'n Lemons | Spicy Beef Shawarma Boxed Lunch + hummus, spicy potatoes, fatoush ($1.00), spicy garlic, hummus 2oz ($1.00) | `protein-plate` | $18.00 | $1.26 | $0.00 | 3 liked | — |
-| 18283187 | 2026-04-07 | Mae Asian Eatery | Pad Krapow + Brown Rice ($1.00) | `carb-base` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
-| 18156514 | 2026-03-31 | Dora Taqueria | Grilled Chicken Bowl + Pico ($1.99) + Extra Meat ($3.00) | `carb-base` | $17.98 | $1.26 | $0.00 | 2 neutral | "bland" |
-| 18045904 | 2026-03-24 | Lotus Test Kitchen | Spicy Korean BBQ Beef Bowl Boxed Lunch + kale mix | `carb-base` | $17.95 | $1.26 | $0.00 | 2 neutral | — |
-| 17936674 | 2026-03-17 | Cafe Landwer | Chicken Shawarma & Rice + Tzatziki ($1.00) | `carb-base` | $18.00 | $1.26 | $0.00 | 2 neutral | — |
-| 17936567 | 2026-03-16 | Fresh City | Napa Valley Sandwich | `carb-base` | $14.00 | $0.98 | $0.00 | — | — |
-| 17819626 | 2026-03-10 | Zuzumomo | Tato Jhol Momo + Chicken Momo | `soup-forward` | $15.99 | $1.12 | $0.00 | **4 loved** | — |
-| 17712657 | 2026-03-03 | Life Alive | Teriyaki Tofu Bowl + scallion, egg, charred onions | `carb-base` | $17.95 | $1.26 | $0.00 | **1 disliked** | — |
-| 17502222 | 2026-02-17 | Basil Rice | Spicy Basil Entree + Chicken & Shrimp ($4.00) + white rice + Peanut Sauce ($1.50) | `carb-base` | $18.45 | $1.29 | $0.00 | **4 loved** | — |
-| 17389853 | 2026-02-10 | Santa Fe Burrito Grill | 3 × GF Chicken Taco ($7.95) + Carne Asada Bowl ($10.25) | `carb-base` | $18.20 | $1.27 | $0.00 | **4 loved** | — |
-| 17278576 | 2026-02-03 | La Hacienda | Carne Asada — rice, house salad, beans | `protein-plate` | $18.50 | $1.30 | $0.00 | — | — |
-| 17177762 | 2026-01-27 | Atlantic Poké | The Atlantic (salmon + ahi) + Seaweed Salad ($1.75) + brown rice | `carb-base` | $18.20 | $1.27 | $0.00 | — | — |
-| 17089440 | 2026-01-22 | Meet Us Asian Cuisine | Spicy Blue Crab Maki Roll | `carb-base` | $17.95 | $1.26 | $0.00 | 3 liked | — |
-| 17089406 | 2026-01-21 | Thai Spice | Veggie Fresh Rolls ($8.45) + Chicken Satay ($9.45) | `protein-plate` | $17.90 | $1.25 | $0.00 | — | — |
-| 17089390 | 2026-01-20 | Nirvana: Taste of India | Chicken Do Piaza | `protein-plate` | $18.00 | $1.26 | $0.00 | **4 loved** | — |
-| 16965013 | 2026-01-13 | Poke City MA - Boston | Spicy Salmon Bowl + Grilled Chicken ($2.50) + light sauce | `carb-base` | $18.00 | $1.26 | $0.00 | **4 loved** | — |
-| 16768002 | 2026-01-06 | Boloco | Modern Mexican Bowl + steak ($1.00), chicken ($1.40), guac ($1.00), chips & pico ($3.50), brown rice | `carb-base` | $18.40 | $1.29 | $0.00 | 3 liked | "Plenty of chicken, but barely any steak." |
-| 16636553 | 2025-12-23 | The Chicken & Rice Guys | Chicken Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) | `salad` | $16.24 | $1.14 | $0.00 | 3 liked | — |
-| 16340896 | 2025-12-09 | Bom Dough | Egg & Greens Bowl + Traditional Pao De Queijo ($3.50) | `protein-plate` | $17.00 | $1.19 | $0.00 | **4 loved** | — |
+| ID | Delivered | Status | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 20957854 | 2026-09-17 | `delivered` | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | pending | — |
+| 20755521 | 2026-09-08 | `rated` | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | — (said in chat: "ok, too much lettuce") |
+| 20658056 | 2026-09-01 | `rated` | Roots to Rise | Supreme Turkey BLT Sandwich, multi-grain, no mayo + Organic Hard-Boiled Eggs ($3.79) | `carb-base` | $18.88 | $1.32 | **$0.20** | 2 neutral | "Pretty basic sandwich" |
+| 20586963 | 2026-08-25 | `rated` | The Chicken & Rice Guys | Chicken & Gyro Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) + hot & BBQ sauce | `salad` | $17.06 | $1.19 | $0.00 | 3 liked | — |
+| 20425087 | 2026-08-18 | `rated` | Umai | 8-Piece Nigiri (Raw) Combo | `carb-base` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
+| 20297862 | 2026-08-11 | `rated` | Tabla Cuisine | Tabla's Chicken Curry (Large) + Biryani Rice ($1.99) | `carb-base` | $17.44 | $1.22 | $0.00 | **4 loved** | — |
+| 20177734 | 2026-08-04 | `rated` | B.GOOD | Grilled Chicken Pesto Sandwich + Bacon ($2.50) + Double Protein ($2.65) | `carb-base` | $18.38 | $1.29 | $0.00 | 3 liked | — |
+| 20065688 | 2026-07-28 | `rated` | Dirty Water Dough | Cheese Pizza Boxed Meal + Small Greek Salad ($2.00) + Roasted Chicken ($1.00) | `carb-base` | $17.75 | $1.24 | $0.00 | **4 loved** | — |
+| 20023715 | 2026-07-22 | `rated` | Shy Bird | Charred Chicken Pita | `carb-base` | $16.25 | $1.14 | $0.00 | 2 neutral | "chicken and the pita were both dry" |
+| 19947158 | 2026-07-20 | `rated` | Reunion BBQ | Sliced Prime Brisket, rice & roasted veg | `protein-plate` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
+| 19725173 | 2026-07-07 | `rated` | Laughing Monk Cafe | Cashew Nut + Pork ($2.00) | `protein-plate` | $17.50 | $1.22 | $0.00 | 3 liked | — |
+| 19637902 | 2026-06-30 | `rated` | Noor Mediterranean Grill | Chicken Shawarma Bowl (rice pilaf) + 2 Falafel ($2.60) | `carb-base` | $18.17 | $1.27 | $0.00 | 2 neutral | "stale, clearly cooked hours or even a day earlier" |
+| 19070134 | 2026-05-26 | `delivered` | Publico Street Bistro & Garden | 2 × Grilled Fish Taco | `carb-base` | $14.00 | $0.98 | $0.00 | — | — |
+| 19070161 | 2026-05-26 | `rated` | Levain Bakery | Sea Salt Cape Cod Chips + Whole Wheat Walnut Raisin Roll *(side order)* | `carb-base` | $4.13 | $0.29 | $0.00 | **4 loved** | — |
+| 18958135 | 2026-05-19 | `rated` | Aceituna Grill | Build-Your-Own Plate (XL) — falafel + spicy chicken shawarma ($2.00), tabbouleh, fattoush, onion, pickled turnips, tomatoes | `protein-plate` | $18.25 | $1.28 | $0.00 | 3 liked | — |
+| 18843202 | 2026-05-12 | `rated` | Perillas Korean Kitchen | Bulgogi Beef Bibimbap + house gochujang | `carb-base` | $14.59 | $1.02 | $0.00 | **4 loved** | — |
+| 18843220 | 2026-05-12 | `delivered` | Bom Dough | Bacon, 3 slices *(side order)* | — | $4.00 | $0.28 | $0.00 | — | — |
+| 18747404 | 2026-05-05 | `rated` | Saigon Tiger | Beef Noodle Bowl + Fried Egg ($2.00) + second Fried Egg ($2.00) | `carb-base` | $18.50 | $1.30 | $0.00 | **4 loved** | — |
+| 18633845 | 2026-04-29 | `rated` | GRECO | Spicy Feta & Beef + Lemon Chive Yogurt + Pepper Paprika Dip ($1.00) + Tzatziki ($1.00) | `carb-base` | $18.50 | $1.30 | $0.00 | **4 loved** | — |
+| 18633831 | 2026-04-28 | `rated` | Sake Japanese | Tuna Avocado Roll + avocado, cucumber, tobiko, eel sauce ($1.00 ea) | `carb-base` | $17.95 | $1.26 | $0.00 | 3 liked | "expensive" |
+| 18632192 | 2026-04-27 | `delivered` | WOW TIKKA | Build-Your-Own Bowl — lamb kofta ($4.00), brown rice & red quinoa, samosa ($2.49), papads ($1.99), vindaloo, mint dressing, veg | `carb-base` | $18.47 | $1.29 | $0.00 | — | — |
+| 18519518 | 2026-04-21 | `rated` | Stubbys | Jerk Chicken Rice Bowl | `carb-base` | $16.95 | $1.19 | $0.00 | **4 loved** | — |
+| 18386707 | 2026-04-14 | `rated` | Garlic'n Lemons | Spicy Beef Shawarma Boxed Lunch + hummus, spicy potatoes, fatoush ($1.00), spicy garlic, hummus 2oz ($1.00) | `protein-plate` | $18.00 | $1.26 | $0.00 | 3 liked | — |
+| 18283187 | 2026-04-07 | `rated` | Mae Asian Eatery | Pad Krapow + Brown Rice ($1.00) | `carb-base` | $17.95 | $1.26 | $0.00 | **4 loved** | — |
+| 18156514 | 2026-03-31 | `rated` | Dora Taqueria | Grilled Chicken Bowl + Pico ($1.99) + Extra Meat ($3.00) | `carb-base` | $17.98 | $1.26 | $0.00 | 2 neutral | "bland" |
+| 18045904 | 2026-03-24 | `rated` | Lotus Test Kitchen | Spicy Korean BBQ Beef Bowl Boxed Lunch + kale mix | `carb-base` | $17.95 | $1.26 | $0.00 | 2 neutral | — |
+| 17936674 | 2026-03-17 | `rated` | Cafe Landwer | Chicken Shawarma & Rice + Tzatziki ($1.00) | `carb-base` | $18.00 | $1.26 | $0.00 | 2 neutral | — |
+| 17936567 | 2026-03-16 | `delivered` | Fresh City | Napa Valley Sandwich | `carb-base` | $14.00 | $0.98 | $0.00 | — | — |
+| 17819626 | 2026-03-10 | `rated` | Zuzumomo | Tato Jhol Momo + Chicken Momo | `soup-forward` | $15.99 | $1.12 | $0.00 | **4 loved** | — |
+| 17712657 | 2026-03-03 | `rated` | Life Alive | Teriyaki Tofu Bowl + scallion, egg, charred onions | `carb-base` | $17.95 | $1.26 | $0.00 | **1 disliked** | — |
+| 17502222 | 2026-02-17 | `rated` | Basil Rice | Spicy Basil Entree + Chicken & Shrimp ($4.00) + white rice + Peanut Sauce ($1.50) | `carb-base` | $18.45 | $1.29 | $0.00 | **4 loved** | — |
+| 17389853 | 2026-02-10 | `rated` | Santa Fe Burrito Grill | 3 × GF Chicken Taco ($7.95) + Carne Asada Bowl ($10.25) | `carb-base` | $18.20 | $1.27 | $0.00 | **4 loved** | — |
+| 17278576 | 2026-02-03 | `delivered` | La Hacienda | Carne Asada — rice, house salad, beans | `protein-plate` | $18.50 | $1.30 | $0.00 | — | — |
+| 17177762 | 2026-01-27 | `delivered` | Atlantic Poké | The Atlantic (salmon + ahi) + Seaweed Salad ($1.75) + brown rice | `carb-base` | $18.20 | $1.27 | $0.00 | — | — |
+| 17089440 | 2026-01-22 | `rated` | Meet Us Asian Cuisine | Spicy Blue Crab Maki Roll | `carb-base` | $17.95 | $1.26 | $0.00 | 3 liked | — |
+| 17089406 | 2026-01-21 | `delivered` | Thai Spice | Veggie Fresh Rolls ($8.45) + Chicken Satay ($9.45) | `protein-plate` | $17.90 | $1.25 | $0.00 | — | — |
+| 17089390 | 2026-01-20 | `rated` | Nirvana: Taste of India | Chicken Do Piaza | `protein-plate` | $18.00 | $1.26 | $0.00 | **4 loved** | — |
+| 16965013 | 2026-01-13 | `rated` | Poke City MA - Boston | Spicy Salmon Bowl + Grilled Chicken ($2.50) + light sauce | `carb-base` | $18.00 | $1.26 | $0.00 | **4 loved** | — |
+| 16768002 | 2026-01-06 | `rated` | Boloco | Modern Mexican Bowl + steak ($1.00), chicken ($1.40), guac ($1.00), chips & pico ($3.50), brown rice | `carb-base` | $18.40 | $1.29 | $0.00 | 3 liked | "Plenty of chicken, but barely any steak." |
+| 16636553 | 2025-12-23 | `rated` | The Chicken & Rice Guys | Chicken Salad Plate + Hummus ($2.49) + Mint-Cilantro-Jalapeño ($0.50) | `salad` | $16.24 | $1.14 | $0.00 | 3 liked | — |
+| 16340896 | 2025-12-09 | `rated` | Bom Dough | Egg & Greens Bowl + Traditional Pao De Queijo ($3.50) | `protein-plate` | $17.00 | $1.19 | $0.00 | **4 loved** | — |
 
 **2026-09-17 GRECO plate, macro breakdown.** Note box submitted empty, so no mod adjustment applies.
 
@@ -154,6 +156,27 @@ Roots to Rise, Shy Bird, Noor Mediterranean Grill, Dora Taqueria, Lotus Test Kit
 
 _(empty — nothing has been rated 0)_
 
+## Cancelled
+
+Reconciled off the **Canceled** tab on 2026-09-17. None of these were in the log before that scan, which is the reason reconciliation now runs every session. Cancelled orders count for nothing: no verdict, no rotation, no input to `dietary-preferences.md`. They are kept so a build is not re-picked as though it were untested, and so a pattern at one restaurant stays visible.
+
+| ID | Date | Restaurant | Item | Shape |
+|---|---|---|---|---|
+| 20957421 | 2026-09-17 | GRECO | Tzatziki Sauce | swap leftover |
+| 20839618 | 2026-09-10 | Boonnoon Market | Kao Soi Noodle Soup | **day dropped** |
+| 20636999 | 2026-09-01 | Dora Taqueria | The Gringa Taco Plate | swap leftover |
+| 20524566 | 2026-08-25 | The Chicken & Rice Guys | Chicken & Gyro Salad Plate | swap leftover |
+| 19947229 | 2026-07-22 | Shy Bird | Half Rotisserie Chicken | swap leftover |
+| 19724164 | 2026-07-07 | Laughing Monk Cafe | Pad Thai | swap leftover |
+| 19518520 | 2026-06-23 | Toscano's Italian Kitchen | Chicken Parmigiana | **day dropped** |
+| 19167407 | 2026-06-02 | Halal Indian Cuisine | Chicken Dopizza + Mint Chutney | **day dropped** |
+| 18743824 | 2026-05-05 | Saigon Tiger | Lemongrass Chicken Rice Bowl + Fried Egg | swap leftover |
+| 17592459 | 2026-02-24 | Bon Me | Food Truck Fave Bowl | **day dropped** |
+
+**Six are swap leftovers** and say nothing about the food. Each sits on a day that also has a delivered order, so it is the cleanup half of changing an entree. The 2026-08-25 pair is the clearest case: the same restaurant and the same dish, cancelled and re-placed.
+
+**Four are days that got dropped** with no lunch at all: 2026-09-10 Boonnoon Market, 2026-06-23 Toscano's, 2026-06-02 Halal Indian, 2026-02-24 Bon Me. These are the ones worth a second look. They explain four gaps in the log that previously looked like weeks with no order, and none of the four restaurants has ever produced a delivered meal. **Treat all four as untested rather than as rejected** — a cancellation has no rating behind it, and the reason could as easily have been a schedule as the menu.
+
 ## Unrated
 
 Thai Spice (2026-01-21), Atlantic Poké (2026-01-27), La Hacienda (2026-02-03), Fresh City (2026-03-16), WOW TIKKA (2026-04-27), Publico Street Bistro (2026-05-26), Bom Dough bacon (2026-05-12). Treat as untested, not as bad. Several are second orders placed the same day as a rated one.
@@ -165,6 +188,7 @@ Thai Spice (2026-01-21), Atlantic Poké (2026-01-27), La Hacienda (2026-02-03), 
 Currently derived from the table above and recorded there:
 
 - **Cuisine ranking.** Indian 4.00, East/SE Asian 3.33, Latin 3.00, Mediterranean/Middle Eastern 2.78. Mediterranean is the weakest repeated cuisine, which reverses what this skill used to assume.
+- **Cancelled orders feed none of this.** The ten rows under **Cancelled** carry no rating and no verdict, so they change no average and no rule.
 - **Preparation signals.** Cooked-to-order, raw fish and aggressive seasoning predict a 4. Cold assembly, held pita and shawarma, chain burrito bowls and tofu predict a 2.
 - **Tofu is never the protein.** The Life Alive bowl is the only 1 in the log.
 - **`carb-base` is rationed, not disliked.** It is 26 of 40 orders and carries nine of the sixteen 4s.
