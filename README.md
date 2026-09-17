@@ -11,10 +11,6 @@
 > make the ai order my protons
 ```
 
-that was the origin story. the skill is about whatever *you* are trying to eat: cutting,
-bulking, keto, kosher, allergic to shellfish, or just food that isn't sad. the protons are
-one guy's preferences file, not the law.
-
 ## the problem
 
 a stipend is use it or lose it. spend $16 like a coward and $4 evaporates into the void.
