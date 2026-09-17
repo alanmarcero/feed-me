@@ -268,9 +268,23 @@ tahini · hummus · feta · olives · tomato · onion · cucumber
 
 Take this as a standing instruction, not a garnish note. **Where a menu offers a heat scale, pick the top of it** — Thai 5-star, vindaloo, extra-spicy, hot rather than medium. **Order the spicy version where one exists**, take the hot sauce or chili option whenever the modal offers it free, and ask for hot sauce on the side in the notes box when it does not.
 
+**When heat has to go in the notes box, it is usually the one ask that box gets** — see **One ask in the notes box** above. It ranks below a reduction and below a freshness ask at a counter that holds food, and above any garnish-tier addition.
+
 No hedging on this one. There is no evidence of a heat level being too much for him anywhere in the log, and the spiciest things he has eaten — Pad Krapow, jerk chicken, gochujang, vindaloo, spicy basil — are where the 4s are. It costs nothing, it never threatens a gate, and it confirms what the ratings already implied — Pad Krapow, jerk chicken, gochujang and spicy basil all rated 4.
 
 Read as components to add to a build, **not as a reason to choose a restaurant.** The cuisine table above is the restaurant-level signal; this list is the build-level one.
+
+### One ask in the notes box
+
+`stated` 2026-09-17, on a Cosi note reading *"Extra pickled jalapeño, please, and hot sauce on the side if you have it"*:
+
+> "let's keep any special requests to one. 'extra pickled jalapenos' and 'hot sauce on the side' is two requests"
+
+**Every note carries exactly one ask.** Not two short ones, not a main ask with a small favour attached. A kitchen working a lunch rush honors one thing; asking for two means choosing for them, and they will not choose the one that mattered.
+
+**One ask is measured by the action, not the ingredient.** "Heavy on the feta and olives" is one — a single motion at a single station. "Extra jalapeño and hot sauce on the side" is two, at two points in the build. The ranking that decides which survives lives in **Modifications** in `SKILL.md`; the short version is that a reduction beats a freshness ask beats heat beats a garnish addition, and **asking for more of something already in the dish is the weakest ask there is.**
+
+This does not shrink what the *order* can carry. Everything structured still goes in the modal, where it costs nothing to be thorough — every free premium vegetable, every heat option, the paid protein. **The one-ask limit is about the free-text box only**, which is the one place a human has to read and remember.
 
 ### Toppings and sauces: protein up, fat down
 

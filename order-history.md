@@ -50,7 +50,7 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 
 | ID | Delivered | Status | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 20976469 | 2026-09-22 | `placed` | Cosi | Adobo Chicken Bistro Bowl — cauliflower rice, no side + 2 Hard Boiled Eggs ($2.09) | `bowl-no-grain` | $17.48 | $1.22 | $0.00 | — | — |
+| 20976469 | 2026-09-22 | `placed` | Cosi | Adobo Chicken Bistro Bowl — cauliflower rice, no side + 2 Hard Boiled Eggs ($2.09). Note: *"Hot sauce on the side, please. Thank you!"* | `bowl-no-grain` | $17.48 | $1.22 | $0.00 | — | — |
 | 20957854 | 2026-09-17 | `rated` | GRECO | Create-Your-Own Plate — pork souvlaki, lemon-dill beans, tzatziki, pita | `protein-plate` | $16.85 | $1.18 | $0.00 | **4 loved** | **Site rating `4`, read 2026-09-17 after it landed.** Supersedes the chat "4/5" that this file had settled as a `3`. "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
 | 20755521 | 2026-09-08 | `rated` | Scali Deli & Cafe | Chicken Mediterranean Salad + Grilled Chicken ($0.00) | `salad` | $17.98 | $1.26 | $0.00 | 3 liked | chat: "ok, too much lettuce" |
 | 20658056 | 2026-09-01 | `rated` | Roots to Rise | Supreme Turkey BLT Sandwich, multi-grain, no mayo + Organic Hard-Boiled Eggs ($3.79) | `carb-base` | $18.88 | $1.32 | **$0.20** | 2 neutral | "Pretty basic sandwich" |
@@ -279,7 +279,11 @@ Derived from actual orders, not stated preferences.
 
 **B.GOOD.** Salads $13.80-$14.95, sandwiches $9.50-$13.23. Nothing reaches the floor alone. The 2026-08-04 order got there with Bacon ($2.50) + Double Protein ($2.65) and rated 3.
 
-**Editing a submitted order (learned 2026-09-16).** The order-details page offers Edit Item, Remove Item and Cancel order.
+**Cosi.** Untested as of 2026-09-22. The Adobo Chicken Bistro Bowl is the tunable one: base selector carries **cauliflower rice**, which is the only `bowl-no-grain` build found on any menu so far, and the side selector carries **No Side** so no chips have to be taken. `2 Hard Boiled Eggs` at $2.09 is the only protein lever on that bowl — there is no extra-chicken option — which caps it near ~50g. The Cobb Salad does offer `Chicken +$2.99`, but it is built on mixed greens. Corn comes pre-mixed with the black beans and cannot be separated, which is the documented exception to the corn rule. No hot sauce anywhere in the modal, so heat goes in the notes box.
+
+**Editing a submitted order (learned 2026-09-16, re-confirmed 2026-09-17).** The order-details page offers Edit Item, Remove Item and Cancel order.
+
+- **Editing the note in place works exactly as advertised.** On 2026-09-17 the 09-22 Cosi note was rewritten from two asks to one: `Edit Item` on the submitted line re-opens the same modal with every selector still set, the button reads `Update - $17.48` instead of `Add to cart`, and submitting it leaves the order id, the selections and all three money lines untouched. **Use this rather than cancel-and-replace whenever only the note or a selector changes.**
 
 - **Edit Item works in place.** Changing the notes box or a selector on an existing line updates the submitted order and leaves totals alone. Prefer it.
 - **Adding an item does not.** Clicking a menu item while an order is already submitted opens a fresh cart and a *new* pending order. Swapping an entree means: remove the old line, build the new one, place the new order, then cancel the leftover original. Check `/customer_orders` afterward to confirm exactly one upcoming order for that day.

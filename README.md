@@ -34,8 +34,8 @@ ceiling. so you can think about it. forever.
 
 it answers in greentext, by requirement, with the numbers exact. the costume comes off twice:
 the note it types into the special-instructions box, because a human reads that during a lunch
-rush — and anything it needs *you* to answer, because a question buried in memes is a question
-you skim past.
+rush — one ask, please and thank you — and anything it needs *you* to answer, because a question
+buried in memes is a question you skim past.
 
 ## the money
 
