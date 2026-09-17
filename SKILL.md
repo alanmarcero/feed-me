@@ -98,6 +98,7 @@ The list pages paginate at 10 per card and each card links to a details page. Ra
 | What | Where |
 |---|---|
 | Order list | `/customer_orders/past?page=N`, N from 1 until a page yields no `order_details` links |
+| Order id | the digits in the `order_details` href. **Record it in the log** — it is how a row gets traced back to its page, and how an order gets reopened to edit. |
 | Details page | `/customer_orders/<id>/order_details` |
 | Rating | `#order-review-numeric-rating` → `data-review-rating` attribute |
 | Review text | `.order-review-footer` → text content. **Absent when they left no text.** |
@@ -129,6 +130,8 @@ async () => {
 
 Loop it over the ids with ~100ms between fetches. Forty orders takes a few seconds.
 
+The details page also carries a **Customer Details** block and a **Delivery details** block. The delivery day and time are worth keeping. The name and street address are not useful to the skill — they are the same on every order — so there is no reason to copy them into the log, but this is a housekeeping point, not a redaction rule. See **The data files are personal**.
+
 ### Reading a review once you have it
 
 **The star rating is the verdict. The text is the reason.** They write text only when something went wrong — six of forty orders carry any, and all six are complaints. Silence on a 4 is the normal shape of a good meal, not missing feedback.
@@ -137,26 +140,33 @@ So: never treat a blank review as a neutral signal, and never average text volum
 
 **Complaints are almost never about macros, price or format.** They are about execution — freshness, moisture, seasoning, portion honesty, value. Those are the failure modes this skill's gates cannot see, which is exactly why the reviews have to be read rather than inferred from the numbers.
 
-## This skill is a public repo. Keep it free of PII.
+## The data files are personal. Publishing them is the user's call.
 
-`~/.claude/skills/feed-me` is a git repo that gets pushed to a public remote. **Everything written to `SKILL.md`, `dietary-preferences.md`, `order-history.md` and `README.md` is published.** Treat every write to this directory as a publish, not a note to self.
+**`order-history.md` and `dietary-preferences.md` are personal records, and they are supposed to be.** They hold what someone eats, what they thought of it, and what they cannot safely be served. That is personal data by definition — the skill does not work without it, and there is no version of this that is both useful and anonymous.
 
-**Never write to these files:**
+So: **record whatever makes the skill work better.** Order ids so a row can be traced back to its page. Delivery days and times. Allergies in full, including how severe and what happens — a gate that reads "shellfish, anaphylaxis" gets treated more carefully than one that reads "no shellfish," and that is the entire point of writing it down. Do not water down a safety-critical line to make a file more shareable.
 
-- Their name, or any name the site greets them with.
-- The delivery address, building, floor or ZIP.
-- Their email address, phone number, or account id.
-- The employer or the meal-program organization's name.
-- **ezCater order ids** and any `/customer_orders/<id>/...` URL containing one. They are account-scoped handles; use the generic path shape in examples instead.
-- Screenshots or saved snapshots of the site. The nav bar greets them by name on every page and the details page prints the delivery address.
+**The two file groups are different things:**
 
-**Safe to write, and the whole point of the log:** restaurant names, dish names, menu descriptions, option prices, subtotals, tax, totals, subsidy amounts, their star ratings, and their review text. That is food data, not identity data.
+| File | What it is | Contains personal data? |
+|---|---|---|
+| `SKILL.md`, `README.md` | the portable part — process, selectors, rules, voice | **No.** Write these so anyone could clone and use them. Examples use `<id>` placeholders and no personal detail. |
+| `order-history.md`, `dietary-preferences.md` | this user's own records | **Yes, by design.** |
 
-The scrape touches PII directly — `order_details` renders a **Customer Details** block with their name and a **Delivery details** block with the street address. **Extract the order fields and drop those two blocks.** Never let a whole-page text dump land in the log; parse the specific selectors listed above and write only those.
+### Publishing is a separate, explicit decision
 
-When something genuinely needs a date and a restaurant to make sense, that is fine. When it needs a name or an address, rewrite the line so it does not.
+**Default is local.** This directory is a git repo, but a repo is not a publication until someone pushes it.
 
-**`dietary-preferences.md` needs particular care**, because the onboarding interview asks directly about allergies and medical limits. Record the constraint, never the diagnosis: "no shellfish — allergy, hard gate" is the right shape; the condition behind it is not this repo's business.
+- **Never run `git push` on your own initiative.** Not to "back up" the log, not because a commit is sitting unpushed, not as a tidy-up at the end of a run. Committing locally is fine and useful; pushing is theirs to ask for.
+- **Never add a remote, change one, or make a repo public.** If there is no remote, that is a choice, not an oversight.
+- **When they do ask for a push, do it** — it is their data and their repo. Say once, in one line, what is going up: that `order-history.md` and `dietary-preferences.md` carry their order history and dietary rules. Then push. Do not relitigate it on later pushes.
+- **If a user wants to keep the data private while still taking skill updates**, the answer is `.gitignore` on the two data files, or a private remote. Offer that once if they seem unsure; do not impose it.
+
+The user of this repo has chosen to publish. A fresh clone has not, and the default stands until that user says otherwise.
+
+### What still does not belong anywhere
+
+Regardless of publishing: **never write a password, session cookie, or payment detail to any file.** Those are not personal records, they are credentials — and this skill never enters a card in the first place.
 
 ## Never enter a credit card
 

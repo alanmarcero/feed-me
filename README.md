@@ -84,11 +84,27 @@ it will not type your password. if it hits the login wall it stops, tells you th
 window is sitting right there, and waits for you to do the one (1) thing that is actually
 yours to do.
 
-it will not write your name, your delivery address, your email or your order ids into any
-file in this repo. this thing is public. the order-detail page it scrapes prints your name
-and the street address right next to the food, so the skill is told, explicitly, to parse
-the food fields and throw the rest away. restaurants, dishes, prices and star ratings are
-food data. everything else stays out.
+it will not push. not to back up the log, not because there's an unpushed commit sitting
+there, not as a tidy-up at the end of a run. it commits locally all day long — that's
+useful — but `git push` is a publication and publications are yours to order. it also
+won't add a remote, change one, or flip a repo public. no remote configured is a decision,
+not an oversight.
+
+## about the data files
+
+`order-history.md` and `dietary-preferences.md` are personal records. that is the entire
+point of them. they know what you eat, what you thought of it, and what you cannot safely
+be served. there is no version of this that is both useful and anonymous, so the skill does
+not try — it writes allergies in full, keeps your order ids so a row traces back to its
+page, and does not soften a safety line to make a file easier to share.
+
+what happens to those files after that is your call. this particular repo is public because
+its owner decided it should be. a fresh clone has decided nothing, and the default is local
+until you say otherwise. want the skill without the diary? `.gitignore` the two data files,
+or point it at a private remote. it'll keep working.
+
+the portable half — `SKILL.md` and `README.md` — has none of that in it. process, selectors,
+rules, voice. clone it and it's yours.
 
 ## the thing the log actually told us
 
@@ -123,6 +139,7 @@ so: still order the hummus. stop picking the restaurant because it has hummus.
 | grilled not breaded | every time the menu offers the choice |
 | lettuce | filler. order it light. it is not food, it is packing peanuts |
 | the numbers | live in `dietary-preferences.md`. the skill reads them from there, not from memory |
+| pushing | never on its own. commits yes, publishes no. your repo, your call |
 | your reviews | outrank the calorie count. a 4 you never wrote a word about beats a 3 with a paragraph |
 | tofu | never the protein. the only 1-star in the log and we all know why |
 | rotation | no same format twice in a row. it is a nutritionist, not a vending machine |
