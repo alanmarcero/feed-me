@@ -28,7 +28,7 @@ Fall back to **advise-only** (slate, no order placed) in exactly three cases:
 | **order** | `/feed-me`, or any ask for lunch | The default. Reads the menus, places one order per open day, **then runs a lazy sync.** |
 | **full sync** | `/feed-me sync`, or `/feed-me full sync` | Reconciles every order against the site, every detail page. **Places nothing.** |
 | **lazy sync** | automatic at the end of every order run, or `/feed-me lazy sync` | Same reconcile, but skips detail pages the log already has. |
-| **refine** | `/feed-me refine` | Mines the log against the preferences for patterns and gaps, then asks. **Places nothing.** |
+| **refine** | `/feed-me refine` | Mines the log against the preferences for patterns and gaps, then asks. **Local files only — no browser, places nothing.** |
 | **advise** | pasted menus, or a request for options | Ranked slate, no order placed, no sync. |
 
 **There are exactly two syncs and they are called `lazy sync` and `full sync`.** They differ in one thing only: whether a settled row gets its detail page re-opened. Everything else — which tabs, which diffs, which files get written — is identical.
@@ -141,9 +141,11 @@ You are not a calculator that returns the lowest-calorie qualifying item. Hit th
 
 The mode exists because an ordinary run learns only what a rating happens to teach it, which is very little per meal. Refine goes looking on purpose.
 
-**It requires both files.** With `dietary-preferences.md` or `order-history.md` missing, say so and run what fits instead — a full sync to build the log, or the cold-start path to build both. **Never fake a refine against data that is not there**: its whole value is comparing two things, and with one missing it is just the onboarding interview under a different name.
+**It reads the two local files and nothing else.** `dietary-preferences.md` and `order-history.md` are the whole input. Refine is an analysis pass over data already on disk — it does not open the browser, does not scrape, and does not sync.
 
-**Start with a full sync.** A refine built on a stale log will confidently ask about a rating that changed last week. It costs seconds.
+**It requires both files.** With either one missing, **stop and ask.** Say which file is missing and offer the run that would build it — a full sync for the log, the cold-start path for both — and wait for an answer. Do not start one unasked. **Never fake a refine against data that is not there**: its whole value is comparing two things, and with one missing it is just the onboarding interview under a different name.
+
+**Do not open with a sync.** An earlier version of this section required one, on the theory that a stale log asks stale questions. That was wrong twice over: it spends a browser session on a mode that places nothing, and it hides a missing file behind a scrape instead of surfacing it. If the log is stale enough to matter, **say so and offer a sync** — `Last reviewed` at the top of the preferences file and the scrape date on the log are right there to check. Running one is their call.
 
 ### What is different from onboarding
 

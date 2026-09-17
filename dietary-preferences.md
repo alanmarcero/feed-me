@@ -4,7 +4,7 @@
 
 The skill reads this file on load. If it is missing, the skill does not order — it runs the onboarding interview in **First run** in `SKILL.md` and writes this file from the answers.
 
-Last reviewed: 2026-09-17, against 41 orders and two chat reviews. The 2026-09-17 GRECO review set four rules on its own: beans over rice, spice as a standing instruction, the topping axis, and the satiety note.
+Last reviewed: 2026-09-17, refined against all 41 delivered orders. The refine pass corrected the `carb-base` share (12 of the 16 fours, not nine), added the format-variance table, added the price-does-not-predict-rating rule, refreshed the Mediterranean average, and opened eggs as a provisional protein lever. The 2026-09-17 GRECO review set four rules on its own: beans over rice, spice as a standing instruction, the topping axis, and the satiety note.
 
 ## Provenance, and why it matters
 
@@ -77,9 +77,11 @@ Ranked by their own ratings across 40 orders. `derived` — revise this table wh
 | Indian | 2 | **4.00** | Never below 4. Small sample, strong signal. |
 | East / Southeast Asian | 12 | **3.33** | Seven of the sixteen 4s. The deepest reliable bench. |
 | Latin | 3 | 3.00 | Wide spread — a 4, a 3 and a 2. |
-| Mediterranean / Middle Eastern | 9 | **2.78** | The weakest repeated cuisine. |
+| Mediterranean / Middle Eastern | 10 | **2.80** | The weakest repeated cuisine. **2.63 with GRECO set aside.** |
 
 **The Mediterranean line is a correction, and it is worth understanding rather than just obeying.** This file used to claim Mediterranean builds land well. That came from components the user listed — tahini, hummus, feta, olives — and not from a single rating. Nine rated orders say otherwise: two 2s, both with freshness complaints attached, four 3s, and one 4.
+
+Recounted 2026-09-17 across all 41 orders: **10 rated, averaging 2.80** — three 2s (Noor, Shy Bird, Cafe Landwer), six 3s, and one 4. Set GRECO's two aside and the remaining eight average **2.63**, with no order above a 3. The rule holds and the evidence behind it got stronger.
 
 The components are genuinely liked. The kitchens serving them on this program mostly hold the food too long. **Order the hummus; stop picking the restaurant because it has hummus.**
 
@@ -117,6 +119,12 @@ Tzatziki stays acceptable and was liked. It is simply not the best available ans
 
 This also sharpens the satiety rule above. A creamy dressing spends the calorie budget without filling anything, which is exactly the trade to stop making.
 
+### Eggs as a protein lever
+
+`provisional` 2026-09-17 — two orders, both rated 4. Saigon Tiger with two fried eggs at $2.00 each, and the Bom Dough Egg & Greens Bowl with egg as the entree protein itself.
+
+Eggs are the cheapest protein-per-dollar add-on anywhere in the log, they carry no starch, and they are bought in the modal rather than asked for, which satisfies the protein rule above. **Take the egg add-on wherever a menu offers one**, and treat an egg-based entree as a real lunch rather than a breakfast item. The Roots to Rise hard-boiled eggs sit on a 2, but the review blamed the sandwich, not the eggs.
+
 ### Wants less of
 
 - **Lettuce.** `stated`. The standing complaint — filler that displaces real food. Order salads light-lettuce or no-lettuce wherever mods are accepted, and never count lettuce volume as part of the meal.
@@ -125,7 +133,20 @@ This also sharpens the satiety rule above. A creamy dressing spends the calorie 
 
 - **Starch bases** — wrap, sandwich, sub, burrito, pizza, rice bowl, grain bowl. `stated`: "not every week." Enforced by the `carb-base` cooldown in `SKILL.md`.
 
-  **This is a rationing rule, not a dislike, and the difference matters.** `carb-base` is 26 of 40 orders and carries nine of the sixteen 4s. When the cooldown forces a non-`carb-base` pick, spend that slot on a kitchen they rated well rather than on a mediocre plate that merely fits the slot.
+  **This is a rationing rule, not a dislike, and the difference matters.** `carb-base` is **27 of 41 orders** and carries **12 of the 16 fours** — 11 if the Levain side order is set aside. Corrected 2026-09-17: this file previously said nine, which understated the format's record by a third.
+
+  **It is also the only format that has ever failed.** All six 2s and the single 1 are `carb-base`. No `salad`, `protein-plate` or `soup-forward` order has ever rated below 3.
+
+| Format | Rated | Avg | Worst | Best |
+|---|---|---|---|---|
+| `soup-forward` | 1 | **4.00** | 4 | 4 |
+| `protein-plate` | 7 | **3.43** | 3 | 4 |
+| `carb-base` | 23 | 3.17 | **1** | 4 |
+| `salad` | 3 | 3.00 | 3 | 3 |
+
+  **So `carb-base` is the high-variance bet, not the bad one.** It holds the best food in the log and every disappointment in it. That sharpens the cooldown into a real rule: when a `carb-base` slot is spent, spend it on a kitchen with a rating behind it — never on an untested sandwich or wrap counter, which is where all seven failures came from.
+
+  **And `salad` is the flat one.** Three orders, all rated exactly 3, no 4 and no 2. It never fails and it never delights, which makes it the right pick only when rotation demands a format and nothing better is open.
 
 ### Base and side choice
 
@@ -172,6 +193,10 @@ Confirmed in the log: brown rice at Mae Asian Eatery, Boloco and Atlantic Poké;
 - **Padding to reach the spend floor is weak.** `stated`. Adding a $1.50 banana purely to clear the floor is acceptable but poor; prefer one item that lands in the window on its own.
 
 - **Value is part of the verdict.** `derived`. A $17.95 build assembled out of $1.00 add-ons earned "expensive" at a 3. Reaching the ceiling through many small upcharges reads as padding even when the arithmetic is right.
+
+- **Price does not predict the verdict.** `derived` 2026-09-17. Orders at or above $18.00 average **3.23** across 13 rated. Orders under $17.00 average **3.43** across 7. The whole log averages **3.24**. The cheapest 4 in it is Perillas at **$14.59**; the most expensive order in it is Roots to Rise at $18.88, rated 2.
+
+  **So the spend floor is a stipend-usage goal and nothing else.** It has never once bought better food. Spending toward $18.68 is worth doing when the candidates are otherwise equal, and **never worth dropping a better-rated item to reach $16.85.**
 
 ## How this file evolves
 
