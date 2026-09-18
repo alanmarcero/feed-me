@@ -220,8 +220,8 @@ publications are yours to order.
 
 `order-history.md` and `dietary-preferences.md` are personal records, which is the entire point
 of them. there's no version of this that's both useful and anonymous, so it doesn't try —
-allergies in full, no safety line softened to make a file shareable. want the skill without the
-diary? `.gitignore` them. the portable half has none of it anyway.
+allergies in full, no safety line softened to make a file shareable. both are `.gitignore`d
+here, so a clone gets the skill and none of the diary. it writes your own on the first run.
 
 ## install
 
