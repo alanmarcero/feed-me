@@ -34,23 +34,22 @@ ceiling. so you can think about it. forever.
 
 it answers in greentext, by requirement, with the numbers exact. the costume comes off twice:
 the note it types into the special-instructions box, because a human reads that during a lunch
-rush — one ask, please and thank you — and anything it needs *you* to answer, because a question
-buried in memes is a question you skim past.
+rush, and anything it needs *you* to answer, because a question buried in memes is a question
+you skim past.
 
 ## the money
 
 land on $20.01 and ezCater asks for your credit card like some kind of animal, over one (1)
 cent. so: **a credit card is never entered.** ever. not for four cents. a card prompt is a bug
-report — the build went over, or the run wandered somewhere wrong — so it backs the order down
-and rebuilds until the total reads $0.00. if nothing on that day's menu gets there, it buys
-nothing and says why. it will not spend your money. it only spends theirs.
+report, so it backs the order down and rebuilds until the total reads $0.00, and if nothing on
+that day's menu gets there it buys nothing and says why.
 
 the stipend doesn't pool or roll over — skip wednesday and wednesday's twenty dollars ceases to
 exist — so it claims every open day off that day's own subsidy.
 
-the catch: menu prices are pre-tax and the stipend is spent on the post-tax total, so a $19.50
-lunch is not a $19.50 lunch. at 7% that leaves about $18.68 of menu to play with. forty-one
-receipts agree: everything under it came back covered, the one past it cost $0.20.
+the catch: menu prices are pre-tax and the stipend is spent on the post-tax total. at 7% that
+leaves about $18.68 of menu to play with. forty-one receipts agree: everything under it came
+back covered, the one past it cost $0.20.
 
 ## the rules
 
@@ -84,23 +83,20 @@ the money rules are the skill's. the food rules are yours.
 
 the example file here says 45g protons, 800 calories, beans over rice, top of every heat scale,
 and lettuce is packing peanuts — not because it's a vegetable, but because it's the cheapest
-thing a kitchen can put under your protein. that's one person. the skill only cares that yours is
-written down.
+thing a kitchen can put under your protein. that's one person. the skill only cares that yours
+is written down.
 
 ## rotation
 
 the failure mode of a robot with a calorie rule is that it finds the one lowest-calorie
 qualifying salad and serves you that salad until you die. so every order is tagged with a
 **format** — `salad`, `carb-base`, `protein-plate`, `bowl-no-grain`, `soup-forward` — the slate
-spans at least three, and four days ordered at once get four different ones.
-
-a format at zero orders is **untested, not unwanted.** it'll reach for one rather than treat the
-gap as a decision you made.
+spans at least three, and four days ordered at once get four different ones. a format at zero
+orders is **untested, not unwanted.**
 
 ## preferences
 
-it looks for `dietary-preferences.md`. if it's there it reads it and gets on with lunch. if not,
-it does **not** hand you a form:
+it looks for `dietary-preferences.md`. if it's not there, it does **not** hand you a form:
 
 | what you've got | what it does |
 |---|---|
@@ -110,7 +106,7 @@ it does **not** hand you a form:
 
 **your order history is a preferences file nobody typed.** a rating is what you thought *after
 eating*, which beats anything you'd say about your diet in the abstract. so the questions it
-does ask come off your log rather than a form — the one thing that doesn't add up, evidence
+asks come off your log rather than a form — the one thing that doesn't add up, evidence
 attached, with the reading it would take so agreeing is one word. five at most, allergies first
 because it's the only one a log can't answer. answer none and nothing breaks.
 
@@ -122,10 +118,9 @@ every rule is tagged:
 | `derived` | inferred from your ratings | yes, when the log stops backing it up |
 | `provisional` | inferred from one or two orders | yes, and it hunts for more evidence |
 
-that's how you end up with good preferences having never written any: start cold, rate your
-lunches, watch it fill itself in. it's also how it catches itself being wrong — it once insisted
-mediterranean food "landed well" through nine contradicting ratings, because nothing marked the
-belief as revisable.
+that's how you end up with good preferences having never written any. it's also how it catches
+itself being wrong — it once insisted mediterranean food "landed well" through nine
+contradicting ratings, because nothing marked the belief as revisable.
 
 ## your reviews
 
@@ -141,17 +136,15 @@ stored 0-4:
 | 0 | never again | dish done, kitchen suspect |
 
 **a blank review is not missing data.** six of forty-one orders have text and all six are
-complaints — you write when something's wrong and say nothing when it's right, so a silent 4
-outranks a chatty 3. and none of them are about macros. "dry". "bland". "barely any steak".
-execution failures no arithmetic sees coming, which is why ratings outrank numbers.
+complaints — you write when something's wrong and say nothing when it's right. and none of them
+are about macros. "dry". "bland". "barely any steak". execution failures no arithmetic sees
+coming, which is why ratings outrank numbers.
 
 **you can also just tell it here.** that lands in the log tagged `chat:` and a sync **never**
 overwrites it, though the star still comes off ezCater because that's the only place a number
-lives.
-
-it all lands in `order-history.md`. the log records what happened; the preferences file records
-what it *meant*. "i liked the Scali salad" generalizes to one salad. "lose the lettuce, keep the
-tahini" generalizes to every menu.
+lives. the log records what happened; the preferences file records what it *meant*. "i liked the
+Scali salad" generalizes to one salad. "lose the lettuce, keep the tahini" generalizes to every
+menu.
 
 ## two signals to go back
 
@@ -172,14 +165,13 @@ another qualifying restaurant was open that day. neither signal clears a gate.
 
 ## cheat day
 
-your favourite cuisine and your macro floor are going to collide eventually. sushi day costs
-$18 and lands seven grams short. so it does **not** quietly rank your favourite last and hope
-you don't look.
+your favourite cuisine and your macro floor are going to collide eventually. sushi day costs $18
+and lands seven grams short. so it does **not** quietly rank your favourite last and hope you
+don't look.
 
 it reads the favourites off your ratings rather than off anything you typed: several 4s, nothing
 under a 3, more than two orders. five perfect sushi ratings means you love sushi whether or not
 that's written down anywhere, and the same read works for pizza, thai, burgers, barbecue, tacos.
-
 then when one of them lands on a menu it can't build to your floor, you get asked:
 
 > sushi lands on thursday — your best-rated cuisine, five 4s. the nigiri gets to about 38g,
@@ -192,47 +184,39 @@ then when one of them lands on a menu it can't build to your floor, you get aske
 | that day's format rotation | anything you said was absolute |
 
 one or two favourites, not six. and if the cheat day fires most weeks, it isn't a cheat day, it's
-a floor you don't actually want — it says so instead of waiving it forever. `/feed-me refine`
-settles it up front: it names your top cuisines, you decide once, it stops asking.
+a floor you don't actually want — it says so instead of waiving it forever.
 
 ## the other three
 
 **`/feed-me sync`** — the books straightened with no lunch as a side effect. reads all three
 tabs, opens every order, makes `order-history.md` match, places nothing. "no drift" is a real
 answer. it's also the least committal way to start: run it before answering anything and it
-builds your preferences out of the log, yours to overrule on sight.
-
-every plain `/feed-me` ends with a lazy version anyway, which turns "i placed four orders" into
-"i placed four orders and all four are actually there." a confirmation page is a claim; the
-upcoming tab is the fact.
+builds your preferences out of the log, yours to overrule on sight. every plain `/feed-me` ends
+with a lazy version anyway, which turns "i placed four orders" into "i placed four orders and
+all four are actually there."
 
 **`/feed-me refine`** — the ordinary run only learns what a rating happens to teach it. refine
-goes looking, and it's also where **cheat day** gets settled rather than asked day by day. it
-goes looking: a rule you stated that your ratings argue with, a rule it inferred that stopped
-being true, and the thing nothing in a log points at — **the gaps.** **an absence in a log is
-not a preference.** never ordering something and deliberately avoiding it look identical on
-paper and mean opposite things.
+goes looking, and it's where **cheat day** gets settled rather than asked day by day: a rule you
+stated that your ratings argue with, a rule it inferred that stopped being true, and the thing
+nothing in a log points at — **the gaps.** never ordering something and deliberately avoiding it
+look identical on paper and mean opposite things.
 
-**`/feed-me cancel <which>`** — kills it, no replacement. most cancellations are you not coming
-in, and inventing a lunch for a day you won't be there is worse than nothing. add **and reorder**
-and it puts something else on that day.
+**`/feed-me cancel <which>`** — kills it, no replacement, because most cancellations are you not
+coming in. add **and reorder** and it puts something else on that day. the delivery day is the
+easy handle, so `/feed-me cancel and re-order tuesday's` needs no dish name; two pending orders
+and it asks which. then it **proves the target** against the live site — right date, right id,
+right dish — so a wrong tuesday is obvious at a glance instead of after lunch doesn't show up.
+it builds the replacement before destroying the original.
 
-the delivery day is the easy handle, so `/feed-me cancel and re-order tuesday's` needs no dish
-name. it won't guess at a destructive action: two pending orders and it asks which. then it
-**proves the target** against the live site — right date, right id, right dish — and reads it
-back, so a wrong tuesday is obvious at a glance instead of after lunch doesn't show up. it
-builds the replacement before destroying the original.
-
-**a plain cancel is not a complaint.** cancelling tuesday means you won't be in on tuesday. the
-*reorder* is what makes it a rejection. tell it why and that's the strongest signal it gets — a
-preference stated about a build before anyone cooked it — and it sorts a *today* reason from a
-*food* reason, keeping only the second.
+**a plain cancel is not a complaint.** the *reorder* is what makes it a rejection — and that's
+the strongest signal it gets, a preference stated about a build before anyone cooked it. it
+sorts a *today* reason from a *food* reason and keeps only the second.
 
 ## your data, your call
 
-it will not type your password — it hits the login wall, stops, and waits for you to do the one
-(1) thing that's yours to do. it will not push on its own either. it commits locally all day
-long, but `git push` is a publication and publications are yours to order.
+it will not type your password — it hits the login wall, stops, and waits. it will not push on
+its own either: it commits locally all day long, but `git push` is a publication and
+publications are yours to order.
 
 `order-history.md` and `dietary-preferences.md` are personal records, which is the entire point
 of them. there's no version of this that's both useful and anonymous, so it doesn't try —
