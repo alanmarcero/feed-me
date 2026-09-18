@@ -8,7 +8,7 @@ Last reviewed: 2026-09-17 (two refine passes, then an order run the same day).
 
 **Third pass, 2026-09-17, after the 09-22 order was placed.** One rating landed between scrapes and it corrected a conclusion this file had already settled: **the GRECO 09-17 plate is a `4 loved`, not a `3`.** ezCater stores `4`, which is the fifth of five stars; the chat "4/5" had been read as the fourth. **The site owns the star rating**, so the derived numbers below are recounted — Mediterranean moves 2.80 to **2.90**, `protein-plate` moves 3.43 to **3.57**, the rated-lunch average moves 3.24 to **3.26**, and GRECO becomes **two visits, two 4s**. Nothing `stated` changed.
 
-**First refine pass — nine answers, every one written in below as `stated`.** The big ones: the protein floor is **45g**, not 40g; carbs are **wanted but light** rather than being reduced; the vegetable limit is about **cheapness, not vegetables**; full portions get bought and under-eaten rather than ordered small; spicy Indian is a standing yes; spice goes to the **top of any heat scale**; novelty is the default but **a 4 plus a re-order is an anchor that beats it**, which is what GRECO is; the GRECO plate itself was read as a **3** — *since corrected to a **4** by the site rating, see the third pass above*. Cancelled days are usually him not being in the office and mean nothing about the food.
+**First refine pass — nine answers, every one written in below as `stated`.** The big ones: the protein floor is **45g**, not 40g; carbs are **wanted but light** rather than being reduced; the vegetable limit is about **cheapness, not vegetables**; full portions get bought and under-eaten rather than ordered small; spicy Indian is a standing yes; spice goes to the **top of any heat scale**; novelty is the default but **a 4 plus a re-order is an anchor that beats it**, which is what GRECO is; the GRECO plate itself was read as a **3** — *since corrected to a **4** by the site rating, see the third pass above*. Cancelled days are usually them not being in the office and mean nothing about the food.
 
 **Second refine pass, same day — eight more answers, also all `stated`.** The schedule is **Tuesday always, Thursday added for the next few months, Monday a few times a year**, and anything the site shows is fair game. **Sushi stays**, with the 45g floor as best-effort on those days and a filling alternative offered alongside. **There is no separate calorie floor** — the protein floor implies it. **The spend floor is retired**; the only money rule is $0.00 out of pocket. **The Atlantic Poké bowl is a 4** and poke is a standing yes. **Soup only when it is a unique soup.** **No drinks, no desserts, ever.** **Take the add-on whenever the budget allows.** A third update landed after those: **every free premium vegetable gets taken, all of them on a build-your-own bowl**, while cheap salad greens stay skipped, **corn is scored as a grain and skipped with them**, and **broccoli is out on its own terms**.
 
@@ -51,7 +51,7 @@ Gates. Nothing overrides these — not price, not macros, not rotation, not a lo
 | cabbage slaw, pickled vegetables, roasted vegetables | spring mix used as volume |
 | beans, legumes, quinoa salad | raw greens as the majority of the container |
 
-This is the same axis as the `expensive` complaint at Sake and the "basic sandwich" at Roots to Rise. **He is not counting calories on the vegetable, he is counting what the kitchen spent.** A dish reads cheap when its bulk is the cheapest ingredient available, and that reads through as a 2 whatever the macros say.
+This is the same axis as the `expensive` complaint at Sake and the "basic sandwich" at Roots to Rise. **They are not counting calories on the vegetable, they are counting what the kitchen spent.** A dish reads cheap when its bulk is the cheapest ingredient available, and that reads through as a 2 whatever the macros say.
 
 Practical test before ranking a salad or a bowl: **if the base were removed, would the rest still look like lunch?** Cucumber salad, beans and roasted vegetables pass. A bed of lettuce does not.
 
@@ -70,7 +70,7 @@ Practical test before ranking a salad or a bowl: **if the base were removed, wou
 | pickled vegetables, kimchi, cabbage slaw, radish, jalapeño, olives | plain lettuce in any role |
 | cucumber, tomato, red onion, scallion, cilantro, mango | **corn** and **broccoli** — see below |
 
-**On a build-your-own bowl, take all of them.** `stated`, and he named the two formats: **Mexican and poke**. Those modals list eight or twelve free vegetable checkboxes and there is no reason to leave one unticked. The same applies to any counter that works this way — shawarma plates, grain bowls, burrito bowls, build-your-own salads.
+**On a build-your-own bowl, take all of them.** `stated`, and they named the two formats: **Mexican and poke**. Those modals list eight or twelve free vegetable checkboxes and there is no reason to leave one unticked. The same applies to any counter that works this way — shawarma plates, grain bowls, burrito bowls, build-your-own salads.
 
 **Corn is out, free or not.** `stated` 2026-09-17: *"we skip corn when we can. corn is a grain disguised as a vegetable. very sneak corn, but it won't work."*
 
@@ -78,15 +78,15 @@ Practical test before ranking a salad or a bowl: **if the base were removed, wou
 
 The rule generalizes past corn: **starchy things wearing a vegetable label get scored as starch.** Peas, potato, plantain and sweet potato all belong to **Base and side choice**, not to the free-vegetable sweep.
 
-**Broccoli is out too, and for a different reason.** `stated` 2026-09-17: *"broccoli bowl is still out, we skip broccoli too."* No reclassification and no argument behind it — he does not want it, which is reason enough and outranks anything this file could derive.
+**Broccoli is out too, and for a different reason.** `stated` 2026-09-17: *"broccoli bowl is still out, we skip broccoli too."* No reclassification and no argument behind it — they do not want it, which is reason enough and outranks anything this file could derive.
 
 **So broccoli is skipped wherever the modal allows, and a bowl built on broccoli is not a candidate at all**, whatever it does for the macros. It is genuinely a good vegetable on every axis this file otherwise cares about, and none of that matters.
 
-**Do not extend this to anything else.** Broccoli is not a proxy for cruciferous vegetables or for green vegetables: **cabbage slaw, kimchi and pickled vegetables stay on the take-everything list** above, where he put them. Cauliflower, brussels sprouts and broccolini have never been mentioned either way and stay untested rather than assumed out. Widening a named dislike into a category is exactly the mistake the Mediterranean entry is in this file to prevent.
+**Do not extend this to anything else.** Broccoli is not a proxy for cruciferous vegetables or for green vegetables: **cabbage slaw, kimchi and pickled vegetables stay on the take-everything list** above, where they put them. Cauliflower, brussels sprouts and broccolini have never been mentioned either way and stay untested rather than assumed out. Widening a named dislike into a category is exactly the mistake the Mediterranean entry is in this file to prevent.
 
 Three things this does not license:
 
-- **A vegetable that costs money competes with protein, and protein wins.** `derived` — he said *free*. A paid vegetable add-on only goes in when the build already clears 45g and there is still room under the ceiling. Avocado at $1.50 is the usual case, and it loses to an egg or an extra scoop of meat every time.
+- **A vegetable that costs money competes with protein, and protein wins.** `derived` — they said *free*. A paid vegetable add-on only goes in when the build already clears 45g and there is still room under the ceiling. Avocado at $1.50 is the usual case, and it loses to an egg or an extra scoop of meat every time.
 - **Vegetables never become the base.** Taking all the peppers does not make a pepper bowl into lunch. The protein floor and the cheapness test are unchanged.
 - **They still get counted.** Every line goes in the macro estimate — see **Estimating macros** in `SKILL.md`. Most are 10-30 calories and vanish. **Avocado at ~80 cal a scoop is the one that actually moves a total** against the 800 ceiling; the rest are free in both budgets. Corn would have been the other, and it is barred above on its own merits.
 
@@ -98,7 +98,7 @@ Three things this does not license:
 
 > "historically the schedule was every tuesday. for the next few months they added thursday. a few times per year it's on monday's, too. if it's available on the site, it's available to feed me."
 
-**The last line is the rule: if the site shows a day, it gets an order.** There is no day that is skipped on principle, no weekday that is "not his day," and no reason to stop at one order because one order is what the history shows.
+**The last line is the rule: if the site shows a day, it gets an order.** There is no day that is skipped on principle, no weekday that is "not their day," and no reason to stop at one order because one order is what the history shows.
 
 | Day | Expect it |
 |---|---|
@@ -107,9 +107,9 @@ Three things this does not license:
 | **Monday** | a few times a year |
 | anything else | the site decides, not this file |
 
-**So expect two-day weeks to be the normal case for a while**, and plan the batch whole across both — see **Variety and rotation** in `SKILL.md`. The single-day history is what the program offered, not what he chose.
+**So expect two-day weeks to be the normal case for a while**, and plan the batch whole across both — see **Variety and rotation** in `SKILL.md`. The single-day history is what the program offered, not what they chose.
 
-**Never infer the schedule from this table.** It records what he said to expect; the site records what is actually open. Enumerate the days on `/schedule` every run and order every one of them.
+**Never infer the schedule from this table.** It records what they said to expect; the site records what is actually open. Enumerate the days on `/schedule` every run and order every one of them.
 
 ## Calories
 
@@ -153,11 +153,17 @@ The floor that never bends. 43g is not close enough. Among options that clear it
 
 **Sushi is not dropped and the floor is not waived.** Poke bowls reach 45g with a paid protein add-on and should always take one. Sushi rolls mostly cannot reach it under the ceiling — build the highest-protein combination the menu allows, take nigiri over rolls where both exist, and **say in the writeup how far short it landed.**
 
-**And offer the alternative rather than deciding for him.** His own phrasing of what he wants to see:
+**And offer the alternative rather than deciding for them.** Their own phrasing of what they want to see:
 
-> "maybe give the user options like 'yo my dude. you love sushi, and it's on the menu. but i found this as well that would be more filling'"
+> "maybe give the user options like 'yo. you love sushi, and it's on the menu. but i found this as well that would be more filling'"
 
-So on any day where sushi is available and cannot reach 45g, **the slate presents both** — the sushi build and the most filling qualifying build on that day's menus — and **asks which one he wants, in Claude's normal voice, outside the greentext.** See **Questions are never greentext** in `SKILL.md`. Do not silently rank the filling option first and bury the sushi; he has stated he loves it, and the hunger is a known, accepted trade.
+**The address in that example is not the register.** `stated` 2026-09-18: no `bro`, no `my dude`, no gendered term for the user anywhere. The original phrasing carried one and it is struck from the quote. See **Output style** in `SKILL.md`.
+
+So on any day where sushi is available and cannot reach 45g, **the slate presents both** — the sushi build and the most filling qualifying build on that day's menus — and **asks which one they want, in Claude's normal voice, outside the greentext.** See **Questions are never greentext** in `SKILL.md`. Do not silently rank the filling option first and bury the sushi; they have stated they love it, and the hunger is a known, accepted trade.
+
+**This is the `Cheat day` case and sushi is the standing instance of it** — see **Cheat day** in `SKILL.md` for the general rule. Two favourites qualify here: **Indian** is a favourite outright because it is `stated`, and **raw fish is a `derived` favourite** off the log alone — five rated orders, three 4s, nothing under a 3, the best record behind Indian. Indian clears the floor without help, so it never collides. Sushi collides almost every time, which is what makes it the worked case.
+
+**The open cheat-day question, for the next refine.** Whether sushi should simply be *ordered* when it collides with the 45g floor, rather than asked about day by day. Until that is answered the per-day ask above stands, because nothing `stated` covers it yet.
 
 **Protein is bought, not asked for.** `stated` 2026-09-16. It is the costed component, so it gets purchased in the option modal where the upcharge shows in the cart. A note asking for extra meat is ignored at most kitchens and reads badly at some. **A note's protein never counts toward the 45g floor; a note's calories always count against the 800 ceiling.**
 
@@ -165,15 +171,15 @@ So on any day where sushi is available and cannot reach 45g, **the slate present
 
 **A carb is always wanted. A light one.** `stated` 2026-09-17, correcting the "actively reducing carbs" reading this file carried for a day: *"i always want some sort of carb, just light carb. a side of flatbread, beans, quinoa salad, brown rice, etc."*
 
-**Every build should carry a carb component, and it should be a side rather than the base.** A plate with no starch at all is not the goal and never was — the half-pita left at GRECO was portion control on a carb he wanted there, not a rejection of the pita.
+**Every build should carry a carb component, and it should be a side rather than the base.** A plate with no starch at all is not the goal and never was — the half-pita left at GRECO was portion control on a carb they wanted there, not a rejection of the pita.
 
-His own examples are the spec: **flatbread, beans, quinoa salad, brown rice.** Note that beans are on that list. He counts them as the carb *and* as the fibre *and* as part of the protein, which is why the bean swap wins on every axis at once — see **Base and side choice**.
+Their own examples are the spec: **flatbread, beans, quinoa salad, brown rice.** Note that beans are on that list. They count them as the carb *and* as the fibre *and* as part of the protein, which is why the bean swap wins on every axis at once — see **Base and side choice**.
 
 So the `carb-base` rationing below governs the **format**, not the presence of starch. A `protein-plate` with a quinoa side is a light-carb build and is exactly right. A rice bowl where rice is the meal is the thing being rationed.
 
 **Fibre is wanted, for satiety and on its own terms.** `stated` 2026-09-17, cited as a reason beans beat rice. No number.
 
-**Portion control is his job, not the order's.** `stated` 2026-09-17: *"i prefer to get the food and just eat less of it versus paying regular price for less food, or all lettuce."* This outranks a lot of instinct in this file — see **Buy the full plate** under **Portion and value**.
+**Portion control is their job, not the order's.** `stated` 2026-09-17: *"i prefer to get the food and just eat less of it versus paying regular price for less food, or all lettuce."* This outranks a lot of instinct in this file — see **Buy the full plate** under **Portion and value**.
 
 No stated targets for fat or sodium as numbers, but see the topping rule under **Components**. Do not invent targets that were never given.
 
@@ -190,11 +196,11 @@ Ranked by their own ratings across 40 orders. `derived` — revise this table wh
 
 **Recounted 2026-09-17 after the Atlantic Poké bowl was rated 4 in chat.** East/SE Asian moves from 3.33 to 3.38 and now ranks 13 of the 35 rated orders.
 
-**Spicy Indian is a standing yes.** `stated` 2026-09-17: *"spicy indian is always a good choice, yes."* This promotes a two-order pattern into a rule the log could not have justified on its own — Tabla and Nirvana both rated 4, WOW TIKKA went unrated, and Halal Indian was cancelled on a day he was not in the office. **When an Indian kitchen is on a day's list, it is the default pick for that day**, subject only to the hard gates and the format rotation. Order it at the highest heat offered.
+**Spicy Indian is a standing yes.** `stated` 2026-09-17: *"spicy indian is always a good choice, yes."* This promotes a two-order pattern into a rule the log could not have justified on its own — Tabla and Nirvana both rated 4, WOW TIKKA went unrated, and Halal Indian was cancelled on a day they were not in the office. **When an Indian kitchen is on a day's list, it is the default pick for that day**, subject only to the hard gates and the format rotation. Order it at the highest heat offered.
 
 **Poke is a standing yes, alongside spicy Indian.** `stated` 2026-09-17: *"i know the poke bowl is always a great choice, can give that a 4/4."* That settled the unrated 2026-01-27 Atlantic Poké bowl at **4 loved** and made poke **two orders, two 4s** — Poke City and Atlantic Poké. Raw fish overall is now **five rated orders averaging 3.60**, the best record in the log after Indian.
 
-**Poke is also the raw-fish format that can reach the protein floor**, because every poke counter sells a second scoop or a grilled-protein add-on. Poke City's rated-4 build did exactly that. **When a day offers poke, take it and buy the extra protein** — it is the one place where "he loves it" and "it clears 45g" stop competing.
+**Poke is also the raw-fish format that can reach the protein floor**, because every poke counter sells a second scoop or a grilled-protein add-on. Poke City's rated-4 build did exactly that. **When a day offers poke, take it and buy the extra protein** — it is the one place where "they love it" and "it clears 45g" stop competing.
 
 **The Mediterranean line is a correction, and it is worth understanding rather than just obeying.** This file used to claim Mediterranean builds land well. That came from components the user listed — tahini, hummus, feta, olives — and not from a single rating. Nine rated orders say otherwise: two 2s, both with freshness complaints attached, four 3s, and one 4.
 
@@ -206,7 +212,7 @@ The components are genuinely liked. The kitchens serving them on this program mo
 
 The one exception is **GRECO**, which cooks to order. Two orders, a **4** in April and a **4** in September. The September star landed late on 2026-09-17 and overturned the `3` this file had inferred from a chat "4/5".
 
-**GRECO now carries both signals at full strength.** He went back — given a live slate and a stated preference for novelty, he chose GRECO again, which is evidence the star click cannot carry — and then rated the return a 4 as well. Two visits, two 4s, the only kitchen in 42 orders with that record. That makes GRECO **the only anchor in the log** — see **Two signals to return** in `SKILL.md`, and **Novelty is the default** below.
+**GRECO now carries both signals at full strength.** They went back — given a live slate and a stated preference for novelty, they chose GRECO again, which is evidence the star click cannot carry — and then rated the return a 4 as well. Two visits, two 4s, the only kitchen in 42 orders with that record. That makes GRECO **the only anchor in the log** — see **Two signals to return** in `SKILL.md`, and **Novelty is the default** below.
 
 Read the 3 as instruction about *what* to order there, not *whether*. The plate was short on food, which the 45g floor now handles. **Treat GRECO as separate from the cuisine average**, which is dragged down by kitchens that hold food.
 
@@ -240,7 +246,7 @@ This settles a gap the log could not: sixteen kitchens have rated 4 and only GRE
 
 So **a 4 on its own is permission, not instruction.** A `loved` rating means a repeat is welcome; it does not mean a repeat is preferred. Between an untested kitchen that clears the gates and a `loved` one that also clears them, **take the untested one** and say in the writeup that novelty broke the tie.
 
-**A second signal changes that.** `stated` 2026-09-17: *"a re-order is signal and also a perfect rating is a signal — both to reorder again from the same restaurant."* A kitchen that earned a 4 **and** was chosen again is an **anchor**, and an anchor is the one thing that beats novelty on a tie. The preference for novelty is exactly what makes a repeat worth reading — going back cost him a chance to try something new, and he did it anyway.
+**A second signal changes that.** `stated` 2026-09-17: *"a re-order is signal and also a perfect rating is a signal — both to reorder again from the same restaurant."* A kitchen that earned a 4 **and** was chosen again is an **anchor**, and an anchor is the one thing that beats novelty on a tie. The preference for novelty is exactly what makes a repeat worth reading — going back cost them a chance to try something new, and they did it anyway.
 
 The full ranking lives in **Two signals to return** in `SKILL.md`. In this file, what matters is the order of precedence:
 
@@ -270,7 +276,7 @@ Take this as a standing instruction, not a garnish note. **Where a menu offers a
 
 **When heat has to go in the notes box, it is usually the one ask that box gets** — see **One ask in the notes box** above. It ranks below a reduction and below a freshness ask at a counter that holds food, and above any garnish-tier addition.
 
-No hedging on this one. There is no evidence of a heat level being too much for him anywhere in the log, and the spiciest things he has eaten — Pad Krapow, jerk chicken, gochujang, vindaloo, spicy basil — are where the 4s are. It costs nothing, it never threatens a gate, and it confirms what the ratings already implied — Pad Krapow, jerk chicken, gochujang and spicy basil all rated 4.
+No hedging on this one. There is no evidence of a heat level being too much for them anywhere in the log, and the spiciest things they have eaten — Pad Krapow, jerk chicken, gochujang, vindaloo, spicy basil — are where the 4s are. It costs nothing, it never threatens a gate, and it confirms what the ratings already implied — Pad Krapow, jerk chicken, gochujang and spicy basil all rated 4.
 
 Read as components to add to a build, **not as a reason to choose a restaurant.** The cuisine table above is the restaurant-level signal; this list is the build-level one.
 
@@ -378,20 +384,20 @@ Confirmed in the log: brown rice at Mae Asian Eatery, Boloco and Atlantic Poké;
 
 - **One real menu item**, plus at most one add-on or upgrade. `stated`. A salad with a meat add-on is fine; three à-la-carte sides stacked into a fake entree is not.
 
-  **Take the add-on whenever the budget allows.** `stated` 2026-09-17, asked whether the one-item rule still holds given he broke it himself at Santa Fe Burrito Grill: *"yes we can always do an addon if the budget allows."*
+  **Take the add-on whenever the budget allows.** `stated` 2026-09-17, asked whether the one-item rule still holds given they broke it themselves at Santa Fe Burrito Grill: *"yes we can always do an addon if the budget allows."*
 
-  **So the add-on is the default, not the exception.** A build that leaves room under the ceiling and takes no upgrade is an under-built order — that room should have gone to protein, per **Macros**. What he did *not* license is stacking several entrees: the Santa Fe order stays a logged exception rather than a pattern to copy.
+  **So the add-on is the default, not the exception.** A build that leaves room under the ceiling and takes no upgrade is an under-built order — that room should have gone to protein, per **Macros**. What they did *not* license is stacking several entrees: the Santa Fe order stays a logged exception rather than a pattern to copy.
 
 - **Buy the full plate and eat less of it.** `stated` 2026-09-17: *"i prefer to get the food and just eat less of it versus paying regular price for less food, or all lettuce."*
 
-  **This is a purchasing rule and it cuts against the instinct to order light.** Given a full-size item and a smaller one at a similar price, take the full-size one. Given a plate with a starch side and the same plate without, take the one with the side. Leftover food on the plate is a choice he makes at the desk; it is never a reason to buy less at the menu.
+  **This is a purchasing rule and it cuts against the instinct to order light.** Given a full-size item and a smaller one at a similar price, take the full-size one. Given a plate with a starch side and the same plate without, take the one with the side. Leftover food on the plate is a choice they make at the desk; it is never a reason to buy less at the menu.
 
   Two things it rules out, both of which this skill would otherwise have drifted toward:
 
   - **Never downsize to hit the calorie ceiling.** Change what is on the plate, not how much of it there is. A smaller portion of the same thing is the worst available answer, because it costs the same and delivers less.
   - **Never substitute greens for a component to save calories.** That is the "all lettuce" case by name — paying full price for filler.
 
-  It also resolves the GRECO half-pita. He wanted the pita on the plate and ate half of it. The correct build still includes the pita.
+  It also resolves the GRECO half-pita. They wanted the pita on the plate and ate half of it. The correct build still includes the pita.
 
 - **Padding to reach the spend floor is weak — and now moot.** `stated`. Adding a $1.50 banana purely to clear the floor was always poor; with the floor retired below there is no floor to pad toward, and with drinks and desserts barred there is nothing to pad with. Kept as the reasoning behind both.
 
@@ -419,7 +425,7 @@ Confirmed in the log: brown rice at Mae Asian Eatery, Boloco and Atlantic Poké;
   What this kills outright:
 
   - **Padding.** Never add anything to a build to lift a subtotal. Combined with the drinks-and-desserts limit, there is nothing left to pad with anyway.
-  - **"Unspent stipend" as a cost.** Do not report it as one. The stipend is theirs to offer, not his to maximise.
+  - **"Unspent stipend" as a cost.** Do not report it as one. The stipend is the program's to offer, not the user's to maximise.
   - **Ranking on spend.** Two builds that both clear the gates are separated by their ratings and the rotation, never by which costs more.
 
   **What survives is the add-on rule above**, and the two are not in tension: the budget buys *protein* when protein is what the build needs. It does not buy dollars for their own sake.
