@@ -4,21 +4,21 @@ Scraped from ezCater 2026-09-17. 41 delivered orders, 2025-12-09 through 2026-09
 
 **Verified fully in sync with the site on 2026-09-17**: all three tabs diffed both directions, every status and every rating checked against its detail page, no drift.
 
-**Second pass the same day, after the 09-22 order was placed.** 41 completed and 10 cancelled, both unchanged, and one order on Upcoming. **One rating landed between the two passes: GRECO 20957854 now carries a site rating of `4`, not the `3` this file had settled on.** The chat "4/5" was read as the fourth of five stars; ezCater's stored value is 4, which is the fifth. Per **Their reviews live on ezCater** in `SKILL.md` the site owns the star, so the row is now `4 loved` and every average below is recounted against it.
+**Second pass the same day, after the 09-22 order was placed.** 41 completed and 10 cancelled, both unchanged, one order on Upcoming. **One rating landed between the passes: GRECO 20957854 carries a site rating of `4`, not the `3` this file had settled on** — the chat "4/5" was read as the fourth of five stars, and ezCater's stored value is the fifth. The site owns the star, so the row is now `4 loved` and every average below is recounted against it.
 
-**Every rating in this file is the user's own, pulled off the ezCater site.** They rate on the site rather than in conversation, so the site is the source of truth. Re-scrape it at the start of a run — see **Their reviews live on ezCater** in `SKILL.md`. Do not ask them to re-state a verdict the site already holds.
+**Every rating here is the user's own, pulled off the ezCater site**, which is the source of truth — see **Their reviews live on ezCater** in `SKILL.md`. Re-scrape at the start of a run, and do not ask them to re-state a verdict the site already holds.
 
 This is a personal record and is meant to be one. The `ID` column is the ezCater order id: `/customer_orders/<id>/order_details` reopens the original. Publishing this file is the user's decision and never the skill's.
 
-**Every row carries a `Status`.** An order is written here the moment it is placed and the status tracks it from there: `placed`, `delivered`, `rated`, `cancelled`, or `missing` when the site no longer shows it at all. Reconcile the whole file against the Upcoming, Completed and Canceled tabs at the start of every run. See **The order lifecycle** in `SKILL.md`. Rows never get deleted, only re-statused.
+**Every row carries a `Status`** — `placed`, `delivered`, `rated`, `cancelled`, or `missing` when the site no longer shows it. Reconcile the whole file against all three tabs at the start of every run; see **The order lifecycle** in `SKILL.md`. Rows never get deleted, only re-statused.
 
 ## The ceiling is proven, not a ratchet
 
 **Ceiling $18.68 subtotal. No floor.**
 
-**The $16.85 floor is retired**, `stated` 2026-09-17: *"we just dont want to spend extra money. they're buying me lunch, not the other way around."* The ceiling is a hard gate against a card prompt and stays exactly where it is. There is no minimum any more, nothing gets padded toward one, and unspent stipend is not a cost to report. See **Portion and value** in `dietary-preferences.md`.
+**The $16.85 floor is retired**, `stated` 2026-09-17: *"we just dont want to spend extra money. they're buying me lunch, not the other way around."* The ceiling stays as a hard gate against a card prompt; there is no minimum, nothing gets padded toward one, and unspent stipend is not a cost to report. See **Portion and value** in `dietary-preferences.md`.
 
-Forty receipts settle what the ratchet ladder was built to discover. The subsidy caps at **$20.00** and absorbs subtotal + 7% tax. Every subtotal at or under $18.50 came back fully covered at $0.00 out of pocket. The one order that crossed cost exactly what the arithmetic predicted:
+Forty receipts settle it. The subsidy caps at **$20.00** and absorbs subtotal + 7% tax. Every subtotal at or under $18.50 came back covered at $0.00; the one order that crossed cost exactly what the arithmetic predicted:
 
 | Date | Subtotal | Tax | Total | Subsidy | Out of pocket |
 |---|---|---|---|---|---|
@@ -28,9 +28,9 @@ Forty receipts settle what the ratchet ladder was built to discover. The subsidy
 | 2026-02-17 Basil Rice | $18.45 | $1.29 | $19.74 | -$19.74 | $0.00 |
 | **2026-09-01 Roots to Rise** | **$18.88** | **$1.32** | **$20.20** | **-$20.00** | **$0.20** |
 
-$18.50 is proven safe. $18.88 is proven to cost $0.20. The wall sits between them at $18.69, so **$18.68 is the ceiling** — no climbing required. A day whose posted subsidy is not $20.00 recomputes its own ceiling from its own number.
+$18.50 is proven safe, $18.88 is proven to cost $0.20, and the wall sits between them at $18.69 — so **$18.68 is the ceiling**. A day whose posted subsidy is not $20.00 recomputes its own ceiling from its own number.
 
-**The 800-calorie gate binds before the ceiling usually does.** Expect builds to land below $18.68 and leave stipend unspent. That is the gate working, not a miss.
+**The 800-calorie gate usually binds first.** Expect builds to land below $18.68 and leave stipend unspent. That is the gate working, not a miss.
 
 ## Rotation state
 
@@ -46,7 +46,7 @@ Read this before building a slate.
 
 Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 neutral, 3 liked, 4 loved. `—` means they never rated it.
 
-**`Their review` merges two sources.** Plain quotes are what they wrote on ezCater; `chat:` marks what they said in conversation; both appear separated by `·` when both exist. A sync fills the site's half and **never overwrites the chat half** — the site knows nothing about a conversation, so an empty `.order-review-footer` is not evidence that they said nothing.
+**`Their review` merges two sources.** Plain quotes are from ezCater, `chat:` marks what they said in conversation, and both appear separated by `·`. A sync fills the site's half and **never overwrites the chat half** — an empty `.order-review-footer` is not evidence that they said nothing.
 
 | ID | Delivered | Status | Restaurant | Item (as ordered) | Format | Subtotal | Tax | Out of pocket | Rating | Their review |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -103,19 +103,17 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 | pita bread | ~5g | ~165 |
 | **total** | **~53g** | **~735** |
 
-**Re-settled 2026-09-17, later the same day: it is a 4.** The site rating landed after the first scrape and ezCater stores `4`, which is `loved` — the fifth of five stars, not the fourth. This file had inferred a `3` from the chat "4/5" and that inference is now overturned by the star itself. **The site owns the star rating, always**, so the row reads `4 loved` and every average in this file is recounted against it. Raise the one-notch gap with them once and then stop reopening it.
+**Re-settled 2026-09-17, later the same day: it is a 4.** The site rating landed after the first scrape and ezCater stores `4`, the fifth of five stars, which overturns the `3` this file had inferred from the chat "4/5". **The site owns the star rating, always.** Raise the one-notch gap with them once and then stop reopening it.
 
-**GRECO is now the strongest record in the log: two visits, two 4s.** A 4 in April, a return in September given a live slate and a stated preference for novelty, and a 4 on that return. That is both signals in **Two signals to return** at full strength, and no other kitchen in 42 orders carries it.
+**GRECO is now the strongest record in the log: two visits, two 4s** — a 4 in April, a return in September given a live slate and a stated preference for novelty, and a 4 on that return. Both signals in **Two signals to return** at full strength, and no other kitchen in 42 orders carries it.
 
-**But read the satiety note as instruction, not as a verdict.** They rated this plate `loved` and still reported being a little hungry at ~50g protein and ~650 calories eaten. The food was right and the volume was not — which is what the 45g floor and the satiety rule now exist to fix. Order here again; order more of it.
-
-**As actually eaten:** half the pita was left on purpose, so roughly **~50g protein and ~650 calories** went down — **and they were still a little hungry at that.** The build cleared the protein floor by 13g and came in 150 calories under the ceiling. The gates were satisfied and the meal was not. See the satiety note in `dietary-preferences.md`.
+**But read the satiety note as instruction, not as a verdict.** **As actually eaten:** half the pita was left on purpose, so roughly **~50g protein and ~650 calories** went down — 13g over the protein floor, 150 under the ceiling, **and still a little hungry at that.** The gates were satisfied and the meal was not, which is what the 45g floor and the satiety rule now exist to fix. Order here again; order more of it.
 
 **Cancelled 2026-09-16, not an order:** the GRECO Bifteki Plate build ($18.55, ~58g protein, ~1,175 cal). Recorded only so it is not re-picked as untested — it will not clear 800 calories.
 
 ## Their reviews, verbatim
 
-Six of forty orders carry text written on ezCater, plus two given in chat. The ezCater six are all complaints, which is the tell: **they write when something is wrong and stay silent when it is right.** The absence of text on a 4 is not missing data — it is the normal shape of a good order. Read the star rating as the verdict and the text as the reason a rating fell short.
+Six of forty orders carry text written on ezCater, plus two given in chat. The ezCater six are all complaints, which is the tell: **they write when something is wrong and stay silent when it is right.** The star rating is the verdict; the text is the reason one fell short.
 
 | Date | Restaurant | Rating | What they wrote |
 |---|---|---|---|
@@ -128,9 +126,9 @@ Six of forty orders carry text written on ezCater, plus two given in chat. The e
 | 2026-09-08 | Scali Deli & Cafe | 3 | **chat:** "ok, too much lettuce" |
 | 2026-09-17 | GRECO | **4 loved** | **chat:** beans a good sub for rice, "beans > rice"; souvlaki tasty "but i was still a little hungry"; ate all but half the pita, "trying to reduce carbs"; "doused the whole thing in hot sauce, as i do. i do love spicy food"; tzatziki good "but a higher protein lower fat topping is always preferred" |
 
-**The 2026-09-17 GRECO review is the exception, and the most useful entry here.** The first substantially positive review in the log, it arrived in chat rather than on the site, and it names components instead of verdicts: beans beat rice, hot sauce on everything, pita deliberately left, and the plate still came up short on volume. Four preferences out of one paragraph. Ask for this kind of feedback when a run lands well.
+**The 2026-09-17 GRECO review is the exception, and the most useful entry here.** The first substantially positive review in the log, given in chat, naming components instead of verdicts: beans beat rice, hot sauce on everything, pita deliberately left, plate short on volume. Four preferences out of one paragraph — ask for this kind of feedback when a run lands well.
 
-What the ezCater six have in common: **none of them is about macros, price coverage, or format.** Every complaint is about execution — freshness, moisture, seasoning, portion honesty, value. A build can clear every gate in this skill and still earn a 2. That is what these lines are for.
+**None of the ezCater six is about macros, price coverage or format.** Every complaint is about execution — freshness, moisture, seasoning, portion honesty, value. A build can clear every gate in this skill and still earn a 2.
 
 - "Pretty basic sandwich" and "bland" → under-seasoned, assembly-line food. Both were cold-or-generic builds from kitchens that make one thing for everybody.
 - "dry" and "stale, clearly cooked hours or even a day earlier" → both Mediterranean pita/shawarma formats, both held too long before delivery. This is the recurring failure mode of the cuisine on this program.
@@ -143,9 +141,7 @@ What the ezCater six have in common: **none of them is about macros, price cover
 
 Repeating any of these is **encouraged**, including the exact same dish. See **Two signals to return** in `SKILL.md`.
 
-**A second visit promotes a loved kitchen to `anchor`, which is the only tier that beats novelty.** Three restaurants in this log have been ordered from on two different days: **GRECO** (**4 then 4**), **The Chicken & Rice Guys** (3 then 3) and **Bom Dough** (4, then a bacon side order). Only GRECO carries both a 4 and a re-order, so **GRECO is the log's only anchor** — and as of 2026-09-17 it is an anchor with a perfect record rather than a slipping one. C&R Guys is a `habit` — twice ordered, never a 4. Everything else in this table is `loved` but unrepeated, which is permission to return rather than a reason to.
-
-Same-day cancellations are not second visits. Six rows in **Cancelled** are swap leftovers sitting on a day that also delivered; those are one visit each.
+**A second visit promotes a loved kitchen to `anchor`, the only tier that beats novelty.** Three restaurants here were ordered from on two different days: **GRECO** (**4 then 4**), **The Chicken & Rice Guys** (3 then 3) and **Bom Dough** (4, then a bacon side order). Only GRECO carries both a 4 and a re-order, so **GRECO is the log's only anchor**. C&R Guys is a `habit` — twice ordered, never a 4. Everything else in this table is `loved` but unrepeated, which is permission to return rather than a reason to. Same-day cancellations are not second visits: the six swap leftovers under **Cancelled** sit on days that also delivered.
 
 | Restaurant | Dish | Why it works |
 |---|---|---|
@@ -169,11 +165,11 @@ Same-day cancellations are not second visits. Six rows in **Cancelled** are swap
 
 ### Liked — rated 3, fine to repeat, not a priority
 
-Scali Deli (Chicken Mediterranean Salad, **light lettuce**), The Chicken & Rice Guys (both plates), B.GOOD (Grilled Chicken Pesto Sandwich), Laughing Monk Cafe (Cashew Nut + pork), Aceituna Grill (BYO Plate XL), Sake Japanese (Tuna Avocado Roll — *but* "expensive"), Garlic'n Lemons (Spicy Beef Shawarma box), Meet Us Asian Cuisine (Spicy Blue Crab Maki), Boloco (Modern Mexican Bowl — *but* the steak did not show).
+Scali Deli (**light lettuce**), The Chicken & Rice Guys (both plates), B.GOOD, Laughing Monk Cafe, Aceituna Grill, Sake Japanese (*but* "expensive"), Garlic'n Lemons, Meet Us Asian Cuisine, Boloco (*but* the steak did not show). Dishes are in the **Log**.
 
 ### Neutral — rated 2, deprioritize the dish and be wary of the kitchen
 
-Roots to Rise, Shy Bird, Noor Mediterranean Grill, Dora Taqueria, Lotus Test Kitchen, Cafe Landwer. Six restaurants, and four of the six are cold-assembly or held-Mediterranean. Do not rank any of these at 1 when a `loved` kitchen is open the same day.
+Roots to Rise, Shy Bird, Noor Mediterranean Grill, Dora Taqueria, Lotus Test Kitchen, Cafe Landwer. Four of the six are cold-assembly or held-Mediterranean. Never rank one of these at 1 when a `loved` kitchen is open the same day.
 
 ### Disliked — rated 1
 
@@ -181,11 +177,11 @@ Roots to Rise, Shy Bird, Noor Mediterranean Grill, Dora Taqueria, Lotus Test Kit
 
 ### Never Again
 
-**Life Alive — Teriyaki Tofu Bowl.** `1 disliked`, 2026-03-03. Added 2026-09-17 by the refine pass: the rating table in `SKILL.md` says a 1 retires the dish and moves it here, and this row had been sitting at `disliked` without ever being written down. **The list is for dishes, not kitchens** — nothing here is rated 0, so no restaurant is blacklisted outright. Life Alive itself stays deprioritized rather than banned, for the reasons under **Observed preferences**.
+**Life Alive — Teriyaki Tofu Bowl.** `1 disliked`, 2026-03-03. A 1 retires the dish and moves it here. **The list is for dishes, not kitchens** — nothing here is rated 0, so no restaurant is blacklisted outright. Life Alive stays deprioritized rather than banned, for the reasons under **Observed preferences**.
 
 ## Cancelled
 
-Reconciled off the **Canceled** tab on 2026-09-17. None of these were in the log before that scan, which is the reason reconciliation now runs every session. Cancelled orders count for nothing: no verdict, no rotation, no input to `dietary-preferences.md`. They are kept so a build is not re-picked as though it were untested, and so a pattern at one restaurant stays visible.
+Reconciled off the **Canceled** tab on 2026-09-17. None of these were in the log before that scan, which is why reconciliation now runs every session. Cancelled orders count for nothing — no verdict, no rotation, no input to `dietary-preferences.md` — and are kept so a build is not re-picked as untested and a pattern at one restaurant stays visible.
 
 **`Shape` carries one of three values, and only `rejected` is signal.** `swap leftover` is the mechanical second half of an entree change. `day dropped` is attendance. **`rejected`** is a placed order they looked at and did not want, which is revealed preference in the same way a re-order is — see **A cancellation they chose is a signal** in `SKILL.md`. **`Reason`** holds their words when they gave any; `not stated` means it was never asked or never answered, which is different from there being no reason.
 
@@ -204,20 +200,16 @@ Reconciled off the **Canceled** tab on 2026-09-17. None of these were in the log
 
 **No row here is `rejected`.** Every cancellation on record is either cleanup or a day they were not in, so nothing in this table is a verdict on a build. The shape exists because `/feed-me cancel <order> and reorder` will start producing them.
 
-**Six are swap leftovers** and say nothing about the food. Each sits on a day that also has a delivered order, so it is the cleanup half of changing an entree. The 2026-08-25 pair is the clearest case: the same restaurant and the same dish, cancelled and re-placed.
+**Six are swap leftovers** and say nothing about the food: each sits on a day that also delivered, so it is the cleanup half of changing an entree. The 2026-08-25 pair is the clearest case, the same restaurant and dish cancelled and re-placed.
 
-**Four are days that got dropped** with no lunch at all: 2026-09-10 Boonnoon Market, 2026-06-23 Toscano's, 2026-06-02 Halal Indian, 2026-02-24 Bon Me.
-
-**These mean nothing about the food, and that is now stated rather than assumed.** Asked about the Boonnoon kao soi on 2026-09-10, the answer was direct:
+**Four are days that got dropped** with no lunch at all — 2026-09-10 Boonnoon Market, 2026-06-23 Toscano's, 2026-06-02 Halal Indian, 2026-02-24 Bon Me — and that is `stated` rather than assumed:
 
 > "the soup order was fine, i just had a change of plans for that day and didn't come in. that's going to happen, too. i'll have to cancel for no reason other than i'm not in the office."
 
-So a dropped day is an **attendance** event. It is not a menu rejection, not a bad pick, and not a signal to avoid the restaurant. **Treat all four as untested and as fine** — Boonnoon explicitly so, and the other three by the same default until something says otherwise.
+So a dropped day is an **attendance** event, not a menu rejection and not a signal to avoid the restaurant. **Treat all four as untested and as fine.** Two consequences:
 
-Two consequences worth holding onto:
-
-- **Boonnoon Market is a live lead, not a dead one.** `soup-forward` is the best-rated format in the log on its single order, it is the least used format there is, and the one other soup day was lost to a calendar rather than to a kitchen.
-- **Expect more of these, and do not read into them.** Cancelling for no reason other than not being in the office is normal and will keep happening. Never let a run of cancellations at one restaurant harden into a pattern about that restaurant without a rating behind it.
+- **Boonnoon Market is a live lead, not a dead one.** `soup-forward` is the best-rated format in the log, on its single order, and the least used; the one other soup day was lost to a calendar rather than to a kitchen.
+- **Expect more of these and do not read into them.** Never let a run of cancellations at one restaurant harden into a pattern about that restaurant without a rating behind it.
 
 ## Unrated
 
@@ -225,20 +217,18 @@ Thai Spice (2026-01-21), La Hacienda (2026-02-03), Fresh City (2026-03-16), WOW 
 
 **Atlantic Poké came off this list on 2026-09-17** with a chat rating of **4** — see the log row. That is the only one of the seven that will ever be recovered: asked about the rest, the answer was *"can't rate at this point, it was too far away."* **So these six are permanently unrated and that is now settled** — do not raise them again, and do not chase a verdict that no longer exists.
 
-**WOW TIKKA is the expensive one to lose**: an $18.47 lamb kofta build with vindaloo, brown rice and red quinoa, from an Indian kitchen — and Indian is a `stated` standing yes resting on exactly two ratings. **The lesson is timing, not the dish.** A rating is recoverable for a week or two and gone after that, so `delivered` rows get chased on the next run, not the next quarter. See **Come back for the rating** in `SKILL.md`.
+**WOW TIKKA is the expensive one to lose**: an $18.47 lamb kofta build with vindaloo, brown rice and red quinoa, from an Indian kitchen — and Indian is a `stated` standing yes resting on exactly two ratings. **The lesson is timing.** A rating is recoverable for a week or two and gone after that, so `delivered` rows get chased on the next run, not the next quarter. See **Come back for the rating** in `SKILL.md`.
 
 ## What these ratings mean for future orders
 
-**The patterns derived from this log live in `dietary-preferences.md`, not here.** This file is the evidence; that file is the conclusions. Keeping them apart is what stopped a belief about Mediterranean food from surviving nine ratings that disagreed with it.
+**The patterns derived from this log live in `dietary-preferences.md`, not here.** This file is the evidence; that file is the conclusions. Keeping them apart is what stopped a belief about Mediterranean food from surviving nine ratings that disagreed with it. What is currently derived and recorded there:
 
-Currently derived from the table above and recorded there:
-
-- **Cuisine ranking.** Indian 4.00, East/SE Asian **3.38**, Latin 3.00, Mediterranean/Middle Eastern **2.90** (was 2.80 before the GRECO star landed on 2026-09-17). East/SE Asian moved up when Atlantic Poké was rated 4; **raw fish across all five rated orders averages 3.60**, and **poke alone is 2 for 2 at 4**. Mediterranean is the weakest repeated cuisine, which reverses what this skill used to assume. **Spicy Indian is now a stated standing yes**, and the table only ranks 27 of the 34 rated orders — the other seven are not a cuisine. See `dietary-preferences.md`.
+- **Cuisine ranking.** Indian 4.00, East/SE Asian **3.38**, Latin 3.00, Mediterranean/Middle Eastern **2.90** (2.80 before the GRECO star landed). **Raw fish across all five rated orders averages 3.60** and **poke alone is 2 for 2 at 4**. Mediterranean is the weakest repeated cuisine. **Spicy Indian is a stated standing yes**, and the table ranks only 27 of the 34 rated orders — the other seven are not a cuisine.
 - **Cancelled orders feed none of this.** The ten rows under **Cancelled** carry no rating and no verdict, so they change no average and no rule.
 - **Preparation signals.** Cooked-to-order, raw fish and aggressive seasoning predict a 4. Cold assembly, held pita and shawarma, chain burrito bowls and tofu predict a 2.
 - **Tofu is never the protein.** The Life Alive bowl is the only 1 in the log.
-- **`carb-base` is rationed, not disliked.** It is 27 of 41 orders and carries **13** of the seventeen 4s — and also every rating below 3. It is the high-variance format, not the bad one. **The rationing governs the format, not the presence of a carb**: a light carb side is wanted on every build. `stated` 2026-09-17.
-- **Under-used formats.** `soup-forward` has one order (Zuzumomo, rated 4) and `bowl-no-grain` has **none in 41 deliveries**. `soup-forward` has the best record of any format and the least use — reach for it when rotation needs a fresh slot, and note that the only other soup day on record was lost to a calendar rather than to the kitchen. **But only for an interesting soup**: `stated` 2026-09-17, *"soup is an ok option if it's a unique soup. nothing boring."* That is why the format is rare despite rating 4, and it is a taste filter rather than a rotation problem. An absence in this log is not a preference.
+- **`carb-base` is rationed, not disliked.** 27 of 41 orders, **13** of the seventeen 4s, and also every rating below 3 — the high-variance format, not the bad one. **The rationing governs the format, not the presence of a carb.** `stated` 2026-09-17.
+- **Under-used formats.** `soup-forward` has one order (Zuzumomo, rated 4) and `bowl-no-grain` had **none in 41 deliveries**. `soup-forward` has the best record of any format and the least use, so reach for it when rotation needs a fresh slot — **but only for an interesting soup**: `stated` 2026-09-17, *"soup is an ok option if it's a unique soup. nothing boring."* That taste filter is why the format is rare despite rating 4. An absence in this log is not a preference.
 
 **After any scrape that adds ratings, re-derive these against `dietary-preferences.md`** and update that file. See **How this file evolves** there for what promotes a pattern to a rule.
 
@@ -246,16 +236,15 @@ Currently derived from the table above and recorded there:
 
 Derived from actual orders, not stated preferences.
 
-- Chose the highest-priced qualifying option rather than the cheapest, consistently. Thirty-two of forty subtotals land between $16.00 and $18.90.
-- **And it has never paid off.** Recounted 2026-09-17 across the 34 rated lunches, side orders excluded, **after the GRECO 09-17 star moved that $16.85 plate from the 3s into the 4s**: the 4s average a **$17.55** subtotal across 17, the 3s $17.77 across 10, the 2s $17.87 across 6, and the single 1 cost $17.95. A clean inverse ladder at every step, and **the move made it more monotonic, not less**. The sample is small and the band is narrow, so the honest read is not *cheaper is better* — it is that **spending more has never once bought better food**. See the corrected bullet in `dietary-preferences.md`.
-- **Two rows in this log are side orders, not lunches**, and folding them into aggregates distorts them: Levain chips + roll ($4.13, rated 4) and Bom Dough bacon ($4.00, unrated). Exclude both from any price or format average. Doing so leaves the rated-lunch average at **3.26** — up from 3.24 when GRECO 09-17 went from a 3 to a 4 — and moves `carb-base` from 3.21 to **3.17**.
+- Chose the highest-priced qualifying option rather than the cheapest, consistently: 32 of 40 subtotals land between $16.00 and $18.90.
+- **And it has never paid off.** Recounted 2026-09-17 across the 34 rated lunches, side orders excluded: the 4s average a **$17.55** subtotal across 17, the 3s $17.77 across 10, the 2s $17.87 across 6, and the single 1 cost $17.95. A clean inverse ladder at every step. The sample is small and the band is narrow, so the honest read is not *cheaper is better* — it is that **spending more has never once bought better food**.
+- **Two rows in this log are side orders, not lunches**: Levain chips + roll ($4.13, rated 4) and Bom Dough bacon ($4.00, unrated). Exclude both from any price or format average, which leaves the rated-lunch average at **3.26** and `carb-base` at **3.17**.
 - Willing to stack add-ons to reach the window: four sauces at Sake, two fried eggs at Saigon Tiger, chips-and-pico at Boloco.
 - Has broken the one-item rule themselves and rated the result 4 — Santa Fe Burrito Grill, three tacos plus a bowl.
-- Picked Scali over Cafe Landwer and Life Alive when all three were available. The ratings say they were right: Scali 3, Landwer 2, Life Alive 1.
+- Picked Scali over Cafe Landwer and Life Alive when all three were available, and the ratings say they were right: 3, 2, 1.
 - Life Alive is a vegetable-and-tofu menu, nothing clears 40g protein, and it holds the only 1 in the log. Do not build options from it.
-
-- **Never once ordered a drink or a dessert** in 41 deliveries. Confirmed 2026-09-17 as deliberate: *"i dont order drinks or desserts, save that money for protons."* It is now a hard limit in `dietary-preferences.md`, not an observation.
-- **The schedule is Tuesday, plus Thursday for the next few months.** 33 of the 41 delivered orders landed on a Tuesday, and 29 of the 33 delivery weeks carried exactly one day. That is the program's shape, not a choice: *"if it's available on the site, it's available to feed me."* Expect two-day weeks from 2026-09-17 and order every open day.
+- **Never once ordered a drink or a dessert** in 41 deliveries, confirmed 2026-09-17 as deliberate. Now a hard limit in `dietary-preferences.md`, not an observation.
+- **The schedule is Tuesday, plus Thursday for the next few months.** 33 of the 41 delivered orders landed on a Tuesday and 29 of the 33 delivery weeks carried exactly one day — the program's shape, not a choice. Expect two-day weeks from 2026-09-17.
 
 ### Restaurant intel
 
@@ -283,9 +272,7 @@ Derived from actual orders, not stated preferences.
 
 **Editing a submitted order (learned 2026-09-16, re-confirmed 2026-09-17).** The order-details page offers Edit Item, Remove Item and Cancel order.
 
-- **Editing the note in place works exactly as advertised.** On 2026-09-17 the 09-22 Cosi note was rewritten from two asks to one: `Edit Item` on the submitted line re-opens the same modal with every selector still set, the button reads `Update - $17.48` instead of `Add to cart`, and submitting it leaves the order id, the selections and all three money lines untouched. **Use this rather than cancel-and-replace whenever only the note or a selector changes.**
-
-- **Edit Item works in place.** Changing the notes box or a selector on an existing line updates the submitted order and leaves totals alone. Prefer it.
+- **Edit Item works in place.** On 2026-09-17 the 09-22 Cosi note was rewritten from two asks to one: `Edit Item` on the submitted line re-opens the same modal with every selector still set, the button reads `Update - $17.48` instead of `Add to cart`, and submitting leaves the order id, the selections and all three money lines untouched. **Use this rather than cancel-and-replace whenever only the note or a selector changes.**
 - **Adding an item does not.** Clicking a menu item while an order is already submitted opens a fresh cart and a *new* pending order. Swapping an entree means: remove the old line, build the new one, place the new order, then cancel the leftover original. Check `/customer_orders` afterward to confirm exactly one upcoming order for that day.
 - Removing the last line does not auto-cancel; the order sits at a $1.00 subtotal looking placed. Cancel it explicitly.
 - Cancel flow is Cancel order, then confirm on the "Yes, cancel" link.
