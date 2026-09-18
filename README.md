@@ -226,7 +226,7 @@ first run.
 
 ## install
 
-feed this to your LLM harness of choice:
+to install, feed this to your LLM harness of choice:
 
 ```
 install https://github.com/alanmarcero/feed-me as a skill in ~/.claude/skills/feed-me, with SKILL.md directly in that folder. no git needed — curl the tarball or download the zip.
