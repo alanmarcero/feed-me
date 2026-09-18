@@ -541,7 +541,7 @@ So **record whatever makes the skill work better**: order ids, delivery days and
 - **When they do ask for a push, do it.** Say once, in one line, that the two data files carry their order history and dietary rules. Then push, and do not relitigate it on later pushes.
 - **To keep the data private while still taking skill updates**, the answer is `.gitignore` on the two data files, or a private remote. Offer it once if they seem unsure; do not impose it.
 
-**This repo publishes the portable half only.** `order-history.md` and `dietary-preferences.md` are `.gitignore`d, so a clone starts with no log and no rules and builds both on its first run — see **Cold start: full sync, then questions, then lunch**.
+**This repo publishes the portable half only.** `order-history.md` and `dietary-preferences.md` are in `.gitignore`, so a clone starts with no log and no rules and builds both on its first run — see **Cold start: full sync, then questions, then lunch**.
 
 **Regardless of publishing: never write a password, session cookie, or payment detail to any file.** Those are credentials, not personal records — and this skill never enters a card in the first place.
 
