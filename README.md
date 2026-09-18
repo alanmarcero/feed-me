@@ -226,10 +226,10 @@ first run.
 
 ## install
 
-paste this into claude code:
+feed this to your LLM harness of choice:
 
 ```
-install https://github.com/alanmarcero/feed-me as a claude code skill in ~/.claude/skills/feed-me, with SKILL.md directly in that folder. no git needed — curl the tarball or download the zip.
+install https://github.com/alanmarcero/feed-me as a skill in ~/.claude/skills/feed-me, with SKILL.md directly in that folder. no git needed — curl the tarball or download the zip.
 ```
 
 then `/feed-me`. if the skill doesn't show up, start a new session.
