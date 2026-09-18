@@ -19,7 +19,7 @@
 |---|---|
 | `/feed-me` | orders lunch for every open day, then syncs the log. the one you'll use |
 | `/feed-me sync` | reconciles every order on the account. places nothing |
-| `/feed-me refine` | mines your log against your preferences and asks better questions |
+| `/feed-me refine` | mines your log against your preferences, asks better questions, sets cheat day |
 | `/feed-me cancel <which>` | kills a pending order. add **and reorder** and it replaces it |
 
 the last three are optional. a bare `/feed-me` keeps the books straight on its own.
@@ -66,6 +66,7 @@ the money rules are the skill's. the food rules are yours.
 | one (1) real item | three $5 sides in a trenchcoat is not an entree |
 | your reviews | outrank the arithmetic. a silent 4 beats a 3 with a paragraph |
 | questions | plain english, outside the greentext |
+| how it talks to you | second person, always. it never guesses your gender |
 | pushing | never on its own. commits yes, publishes no |
 
 **yours, and it just does what you said:**
@@ -83,7 +84,7 @@ the money rules are the skill's. the food rules are yours.
 
 the example file here says 45g protons, 800 calories, beans over rice, top of every heat scale,
 and lettuce is packing peanuts — not because it's a vegetable, but because it's the cheapest
-thing a kitchen can put under your protein. that's one guy. the skill only cares that yours is
+thing a kitchen can put under your protein. that's one person. the skill only cares that yours is
 written down.
 
 ## rotation
@@ -169,6 +170,31 @@ afterward.
 a repeat *it* placed for rotation isn't your preference reflected back, so it only counts when
 another qualifying restaurant was open that day. neither signal clears a gate.
 
+## cheat day
+
+your favourite cuisine and your macro floor are going to collide eventually. sushi day costs
+$18 and lands seven grams short. so it does **not** quietly rank your favourite last and hope
+you don't look.
+
+it reads the favourites off your ratings rather than off anything you typed: several 4s, nothing
+under a 3, more than two orders. five perfect sushi ratings means you love sushi whether or not
+that's written down anywhere, and the same read works for pizza, thai, burgers, barbecue, tacos.
+
+then when one of them lands on a menu it can't build to your floor, you get asked:
+
+> sushi lands on thursday — your best-rated cuisine, five 4s. the nigiri gets to about 38g,
+> seven under your floor. the curry clears it at 52g. cheat day, or the curry?
+
+| bends on a cheat day | never bends |
+|---|---|
+| a macro floor | allergies. that's a wall, not a gate |
+| a calorie, carb or sodium ceiling | $0.00 out of pocket, and the ceiling |
+| that day's format rotation | anything you said was absolute |
+
+one or two favourites, not six. and if the cheat day fires most weeks, it isn't a cheat day, it's
+a floor you don't actually want — it says so instead of waiving it forever. `/feed-me refine`
+settles it up front: it names your top cuisines, you decide once, it stops asking.
+
 ## the other three
 
 **`/feed-me sync`** — the books straightened with no lunch as a side effect. reads all three
@@ -181,6 +207,7 @@ every plain `/feed-me` ends with a lazy version anyway, which turns "i placed fo
 upcoming tab is the fact.
 
 **`/feed-me refine`** — the ordinary run only learns what a rating happens to teach it. refine
+goes looking, and it's also where **cheat day** gets settled rather than asked day by day. it
 goes looking: a rule you stated that your ratings argue with, a rule it inferred that stopped
 being true, and the thing nothing in a log points at — **the gaps.** **an absence in a log is
 not a preference.** never ordering something and deliberately avoiding it look identical on

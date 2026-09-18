@@ -103,11 +103,11 @@ Newest first. `Rating` is theirs on ezCater's 0-4 scale: 0 hated, 1 disliked, 2 
 | pita bread | ~5g | ~165 |
 | **total** | **~53g** | **~735** |
 
-**Re-settled 2026-09-17, later the same day: it is a 4.** The site rating landed after the first scrape and ezCater stores `4`, which is `loved` — the fifth of five stars, not the fourth. This file had inferred a `3` from the chat "4/5" and that inference is now overturned by the star itself. **The site owns the star rating, always**, so the row reads `4 loved` and every average in this file is recounted against it. Raise the one-notch gap with him once and then stop reopening it.
+**Re-settled 2026-09-17, later the same day: it is a 4.** The site rating landed after the first scrape and ezCater stores `4`, which is `loved` — the fifth of five stars, not the fourth. This file had inferred a `3` from the chat "4/5" and that inference is now overturned by the star itself. **The site owns the star rating, always**, so the row reads `4 loved` and every average in this file is recounted against it. Raise the one-notch gap with them once and then stop reopening it.
 
 **GRECO is now the strongest record in the log: two visits, two 4s.** A 4 in April, a return in September given a live slate and a stated preference for novelty, and a 4 on that return. That is both signals in **Two signals to return** at full strength, and no other kitchen in 42 orders carries it.
 
-**But read the satiety note as instruction, not as a verdict.** He rated this plate `loved` and still reported being a little hungry at ~50g protein and ~650 calories eaten. The food was right and the volume was not — which is what the 45g floor and the satiety rule now exist to fix. Order here again; order more of it.
+**But read the satiety note as instruction, not as a verdict.** They rated this plate `loved` and still reported being a little hungry at ~50g protein and ~650 calories eaten. The food was right and the volume was not — which is what the 45g floor and the satiety rule now exist to fix. Order here again; order more of it.
 
 **As actually eaten:** half the pita was left on purpose, so roughly **~50g protein and ~650 calories** went down — **and they were still a little hungry at that.** The build cleared the protein floor by 13g and came in 150 calories under the ceiling. The gates were satisfied and the meal was not. See the satiety note in `dietary-preferences.md`.
 
@@ -177,7 +177,7 @@ Roots to Rise, Shy Bird, Noor Mediterranean Grill, Dora Taqueria, Lotus Test Kit
 
 ### Disliked — rated 1
 
-**Life Alive — Teriyaki Tofu Bowl.** The lowest rating in the entire log. Tofu as the protein does not work for him; the menu is vegetable-and-tofu bowls throughout, so the whole restaurant is deprioritized, not just the dish.
+**Life Alive — Teriyaki Tofu Bowl.** The lowest rating in the entire log. Tofu as the protein does not work for them; the menu is vegetable-and-tofu bowls throughout, so the whole restaurant is deprioritized, not just the dish.
 
 ### Never Again
 
@@ -202,7 +202,7 @@ Reconciled off the **Canceled** tab on 2026-09-17. None of these were in the log
 | 18743824 | 2026-05-05 | Saigon Tiger | Lemongrass Chicken Rice Bowl + Fried Egg | swap leftover | not stated |
 | 17592459 | 2026-02-24 | Bon Me | Food Truck Fave Bowl | **day dropped** | not stated — attendance is the default read |
 
-**No row here is `rejected`.** Every cancellation on record is either cleanup or a day he was not in, so nothing in this table is a verdict on a build. The shape exists because `/feed-me cancel <order> and reorder` will start producing them.
+**No row here is `rejected`.** Every cancellation on record is either cleanup or a day they were not in, so nothing in this table is a verdict on a build. The shape exists because `/feed-me cancel <order> and reorder` will start producing them.
 
 **Six are swap leftovers** and say nothing about the food. Each sits on a day that also has a delivered order, so it is the cleanup half of changing an entree. The 2026-08-25 pair is the clearest case: the same restaurant and the same dish, cancelled and re-placed.
 
@@ -250,8 +250,8 @@ Derived from actual orders, not stated preferences.
 - **And it has never paid off.** Recounted 2026-09-17 across the 34 rated lunches, side orders excluded, **after the GRECO 09-17 star moved that $16.85 plate from the 3s into the 4s**: the 4s average a **$17.55** subtotal across 17, the 3s $17.77 across 10, the 2s $17.87 across 6, and the single 1 cost $17.95. A clean inverse ladder at every step, and **the move made it more monotonic, not less**. The sample is small and the band is narrow, so the honest read is not *cheaper is better* — it is that **spending more has never once bought better food**. See the corrected bullet in `dietary-preferences.md`.
 - **Two rows in this log are side orders, not lunches**, and folding them into aggregates distorts them: Levain chips + roll ($4.13, rated 4) and Bom Dough bacon ($4.00, unrated). Exclude both from any price or format average. Doing so leaves the rated-lunch average at **3.26** — up from 3.24 when GRECO 09-17 went from a 3 to a 4 — and moves `carb-base` from 3.21 to **3.17**.
 - Willing to stack add-ons to reach the window: four sauces at Sake, two fried eggs at Saigon Tiger, chips-and-pico at Boloco.
-- Has broken the one-item rule himself and rated the result 4 — Santa Fe Burrito Grill, three tacos plus a bowl.
-- Picked Scali over Cafe Landwer and Life Alive when all three were available. The ratings say he was right: Scali 3, Landwer 2, Life Alive 1.
+- Has broken the one-item rule themselves and rated the result 4 — Santa Fe Burrito Grill, three tacos plus a bowl.
+- Picked Scali over Cafe Landwer and Life Alive when all three were available. The ratings say they were right: Scali 3, Landwer 2, Life Alive 1.
 - Life Alive is a vegetable-and-tofu menu, nothing clears 40g protein, and it holds the only 1 in the log. Do not build options from it.
 
 - **Never once ordered a drink or a dessert** in 41 deliveries. Confirmed 2026-09-17 as deliberate: *"i dont order drinks or desserts, save that money for protons."* It is now a hard limit in `dietary-preferences.md`, not an observation.
