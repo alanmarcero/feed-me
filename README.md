@@ -235,6 +235,14 @@ needs a browser for the ordering half: the playwright mcp server in the terminal
 browser pane in the claude desktop app. it drives either one. with no browser at all it still
 works, it just goes back to being a thing you paste menus into like it's 2024.
 
+## license
+
+[MIT](LICENSE). take it, fork it, point it at your own meal program.
+
+the license is for the skill — `SKILL.md` and this readme, the portable half. `order-history.md`
+and `dietary-preferences.md` are one person's lunch diary that ships with it as a worked example.
+copy the shape, not the broccoli opinion.
+
 ## disclaimer
 
 protein and calorie numbers are estimates. nobody on ezCater publishes macros, so these are
