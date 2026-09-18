@@ -226,25 +226,13 @@ first run.
 
 ## install
 
-it's markdown in a folder, so git is optional:
+paste this into claude code:
 
-```sh
-mkdir -p ~/.claude/skills/feed-me
-curl -fsSL https://github.com/alanmarcero/feed-me/tarball/main \
-  | tar xz --strip-components=1 -C ~/.claude/skills/feed-me
+```
+install https://github.com/alanmarcero/feed-me as a claude code skill in ~/.claude/skills/feed-me, with SKILL.md directly in that folder. no git needed — curl the tarball or download the zip.
 ```
 
-no curl either? **Code → Download ZIP** on the repo page, then unzip it and move the *contents*
-of `feed-me-main` into `~/.claude/skills/feed-me` — `SKILL.md` has to sit directly in that
-folder, not one level down.
-
-with git, if you'd rather updates be a `git pull`:
-
-```sh
-git clone https://github.com/alanmarcero/feed-me.git ~/.claude/skills/feed-me
-```
-
-then `/feed-me`
+then `/feed-me`. if the skill doesn't show up, start a new session.
 
 needs a browser for the ordering half: the playwright mcp server in the terminal, the built-in
 browser pane in the claude desktop app. it drives either one. with no browser at all it still
