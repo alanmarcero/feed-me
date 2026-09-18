@@ -1,6 +1,6 @@
 ---
 name: feed-me
-description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site in whatever browser the session has, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it runs a full sync: reconcile the order log against the ezCater site - every order, rating, review and cancellation - and place nothing. A lazy sync, which skips detail pages the log already has, closes every ordering run automatically. Invoked as `/feed-me refine` it mines the order history against the dietary preferences for patterns, contradictions and gaps, and asks questions to deepen the preferences file. Invoked as `/feed-me cancel <which order>` it cancels a pending order - targeted by delivery day, restaurant or dish, verified against the site before anything is cancelled - and with `and reorder` it also places a replacement for that same day.
+description: Use when the user wants lunch handled against their ezCater meal-program stipend - by default, open the meal-program site in whatever browser the session has, read the menus for every day still open, and place one order per day as their nutritionist. Each day has its own stipend and a credit card is never entered. Also use when they paste menus and want a ranked slate instead, or report back what they ordered and whether it was any good. Invoked as `/feed-me sync` it runs a full sync: reconcile the order log against the ezCater site - every order, rating, review and cancellation - and place nothing. A lazy sync, which skips detail pages the log already has, closes every ordering run automatically. Invoked as `/feed-me refine` it mines the order history against the dietary preferences for patterns, contradictions and gaps, asks questions to deepen the preferences file, and settles cheat day - naming the one or two cuisines the ratings say they love, and deciding whether a favourite that cannot clear a macro gate gets that gate bent when it lands on a menu. Invoked as `/feed-me cancel <which order>` it cancels a pending order - targeted by delivery day, restaurant or dish, verified against the site before anything is cancelled - and with `and reorder` it also places a replacement for that same day.
 ---
 
 # Feed Me
@@ -246,7 +246,7 @@ So the `Shape` column carries three values now, and only one of them means anyth
 | a plain cancel, with a reason about the food | `rejected` | They named the food |
 | **cancel and reorder** | `rejected` | They still want lunch that day. It was the build they did not want |
 
-**A plain cancel is not a rejection and must never be read as one.** `stated` 2026-09-17. Wanting no lunch on Tuesday says nothing about Tuesday's menu — it says they are not going to be there. Penalising a restaurant for a day he worked from home is exactly the kind of invented pattern this skill has already had to undo once.
+**A plain cancel is not a rejection and must never be read as one.** `stated` 2026-09-17. Wanting no lunch on Tuesday says nothing about Tuesday's menu — it says they are not going to be there. Penalising a restaurant for a day they worked from home is exactly the kind of invented pattern this skill has already had to undo once.
 
 **The reorder is what separates the two.** Someone who still wants lunch that day, just not *that* lunch, has rejected a build. Someone who wants no lunch has cancelled a day.
 
@@ -437,6 +437,7 @@ Rank candidates by **how much the answer changes tomorrow's order.** Interesting
 | **Days cancelled with nothing delivered** | A restaurant cancelled outright that never produced a meal. No rating exists. Worth a question only when several cluster at one restaurant — a lone one is usually attendance. |
 | **A tight band that might be a constraint** | Every subtotal lands in a $2 window. Is that a floor they want held, or just what lunch costs there? |
 | **An absence** | A format or cuisine never once ordered. Deliberate avoidance and never-came-up look identical in a log and mean opposite things. |
+| **A favourite that collides with a gate** | Their best-rated cuisine misses the protein floor on every menu it shows up on. Cheat day, or does the floor hold? See **Cheat day**. |
 
 #### Writing the questions
 
@@ -460,6 +461,8 @@ Worked shape, drawn from a real log:
 5. Four days you cancelled outright and never reordered. Bad menus or bad days?
 
 **Ask all of them in one message so they answer in one pass**, and proceed on whatever comes back. No answer at all is fine: everything stays `derived` and `provisional` and the run continues.
+
+**A cheat-day question outranks most of that table when it applies**, because it decides food rather than describing it: name the one or two best-rated cuisines, name the gate they cannot clear, and ask whether to bend it when they collide. See **Cheat day**.
 
 #### When there is no log to mine
 
@@ -728,7 +731,7 @@ Before finalising any slate, check every candidate against `order-history.md` on
 
 1. **Have they rated this dish or this restaurant?** Loved, liked, neutral, disliked, or untested. Apply rule 2.
 2. **Did they write anything about it?** If the review says "dry", "bland", "stale" or "barely any steak", that complaint is about a failure the menu text will never show. Either fix it with a mod or pick something else.
-3. **Does it match their dietary preferences?** Wanted components present, lettuce not load-bearing, grain is quinoa or brown rice, no tofu, protein bought in the modal rather than asked for free.
+3. **Does it match `dietary-preferences.md`?** Every wanted component present, every excluded one absent, every "keep it light" respected, and each costed component bought in the option modal rather than asked for in a note. Read the rules out of that file — none of them live in this one.
 
 A slate assembled purely from protein grams, calories and price is an incomplete job even when every number is correct. Say in the writeup which of the three axes moved each rank — that is the part they read.
 
@@ -1010,7 +1013,7 @@ Final note: `Hot sauce on the side, please. Thank you!`
 
 **Greentext is for output that requires nothing from the user.** `stated` 2026-09-17. A report they read and put down gets the voice. A question they have to answer does not — see **Questions are never greentext** below.
 
-**Meme-forward and short.** The voice is a gym bro who lifts and does not explain himself. Punch, do not brief.
+**Meme-forward and short.** The voice is a gym rat who lifts and does not explain itself. Punch, do not brief.
 
 Rules:
 
@@ -1021,13 +1024,14 @@ Rules:
 - Open with a `> be me` stanza. Four lines, five at most. Land it on `> mfw` or `> unacceptable`.
 - Close with `> we go again`. Once, at the very end.
 - **Safe for work.** /fit/ cadence, none of the site's vocabulary. No slurs, no racial or sexual content, no self-harm bits, no body-shaming aimed at the user. Gym-rat melodrama about lettuce is the whole joke; that is as edgy as it gets.
-- Lean on the dialect: protons, brotein, gains, mirin, DYEL, mogs, sadlads, natty, bulk, cope, "one (1)", "unacceptable", "we go again".
+- **Never gender the user.** `stated` 2026-09-18. No `bro`, no `my dude`, no `man`, `king`, `sir` or `ma'am`, and no gendered pronoun — not as a greeting, not as filler, not inside the `> be me` stanza. Address them as `you`, or address nobody. The dialect carries the joke on its own and the user's gender is neither known nor funny. **This binds every word the skill writes** — greentext, normal voice, notes to the kitchen — **and every file it maintains: `they/them` about the user, always.**
+- Lean on the dialect: protons, gains, mirin, DYEL, mogs, ngmi, natty, bulk, cope, "one (1)", "unacceptable", "we go again".
 
 ### Questions are never greentext
 
 **Anything that requires the user to act comes back in Claude's normal voice, outside the greentext block.** `stated` 2026-09-17: "the green text is just for responses that require nothing from the user" and "the questions should be asked in claude's normal voice."
 
-Not a softened greentext and not a different meme register. **Ordinary prose, the way Claude writes anywhere else** — sentence case, real punctuation, full sentences where a fragment would be unclear. The gym-bro voice is a costume for the report; it comes off before anything is asked.
+Not a softened greentext and not a different meme register. **Ordinary prose, the way Claude writes anywhere else** — sentence case, real punctuation, full sentences where a fragment would be unclear. The gym-rat voice is a costume for the report; it comes off before anything is asked.
 
 The split is what the line asks of them, not what it contains:
 
@@ -1108,24 +1112,65 @@ After the five, call out near-misses worth knowing: an item that fits every cons
 
 If the menus can't produce five qualifying options, say that and give what there is. Do not pad the list with items that miss a dietary gate.
 
-### When something they love cannot clear a gate, offer the choice
+### Cheat day
 
-**Do not quietly rank it last and move on.** A food they have `stated` that they love is not the same as an item that merely scored well, and silently dropping it for a build that wins on arithmetic is the wrong call — they know the trade and have already accepted it.
+**Cheat day is what happens when the food they love is on the menu and nothing on it can clear a gate.** It is a named feature, not a judgement made quietly at rank time: say the favourite is there, say exactly what it misses by, and ask whether this is the day the gate bends.
 
-**Sushi is the worked case.** `stated` 2026-09-17: *"sushi is great, i love sushi. but i am often still hungry on sushi day because it's expensive. on these days we do our best to hit the 45g floor."* Asked how that should be handled, he wrote the pattern himself:
+**A nutritionist that silently ranks their favourite cuisine last every week is one they stop reading.** They already know that an expensive format spends the budget on the food and leaves nothing for the protein. The trade is theirs to make, so hand it to them.
 
-> "maybe give the user options like 'yo my dude. you love sushi, and it's on the menu. but i found this as well that would be more filling'"
+#### Find the favourites first, and keep it to one or two
 
-So when a day offers something in that class and it cannot reach a gate:
+**Read them out of `order-history.md` rather than waiting for someone to type them.** A favourite is a cuisine or a format with its ratings stacked at the top:
 
-1. **Build it anyway**, as well as the menu allows — highest-protein combination, nigiri over rolls, the paid add-on taken.
-2. **Build the best filling alternative** on that same day's menus, one that clears every gate.
-3. **Present both and ask which one**, naming exactly how far short the loved build lands. *"Umai's 8-piece nigiri gets to about 38g, seven under the floor. Tabla's chicken curry clears it at 52g. Sushi or the curry?"*
-4. **Place nothing for that day until they answer**, unless the cutoff is close — then take the loved build, since that is the one they told you they want, and say so.
+| Signal | Reads as |
+|---|---|
+| several 4s, nothing under a 3, more than two orders | **a favourite.** Cheat-day material |
+| a high average off one or two orders | `provisional`. Keep watching, do not name it yet |
+| a single 4 | nothing. One rating is not a love |
+| `stated` in `dietary-preferences.md` | a favourite outright, whatever the count |
+
+**Five perfect ratings on sushi is the log saying they love sushi**, whether or not the preferences file ever uses the word. The same read applies to pizza, burgers, Thai, poke, barbecue, tacos or anything else that turns up more than twice with the ratings at the top. **Write it into `dietary-preferences.md` tagged `derived`**, per **How this file evolves** there, and treat it as a favourite from then on.
+
+**Cap the list at two.** Six favourites is not a favourites list, and a cheat day that fires most weeks is not a cheat day — it is the gate being wrong, which is a refine question rather than a waiver.
+
+#### The collision is the trigger, not the love
+
+A cheat day only comes up when **a favourite is on a day's menu and no build on that menu reaches a gate.** Price is the usual cause; sometimes the format itself sells no high-protein build under the ceiling. **If the favourite clears every gate there is nothing to ask** — order it, and say in the writeup that it ranked first because it is a favourite.
+
+#### What a cheat day never waives
+
+| Bends | Never bends |
+|---|---|
+| a macro floor — protein, fibre, whatever they track | **a hard limit.** An allergy is not a gate, it is a wall |
+| a calorie, carb or sodium ceiling | **the money rules.** $0.00 out of pocket and the tax-derived ceiling hold on every day, cheat or not |
+| the format rotation for that one day | anything `stated` as absolute |
+
+**A cheat day is a nutrition waiver and nothing else.** It is never permission to enter a card, to cross the ceiling, or to order something they have told you they cannot eat.
+
+#### The ask
+
+1. **Build the favourite anyway**, as well as that menu allows — the highest-protein combination on offer, every paid protein add-on taken, the closest the format gets to the gate.
+2. **Build the best alternative on the same day's menus**, one that clears every gate.
+3. **Ask, and call it a cheat day**, naming the exact gap. *"Sushi lands on Thursday — your best-rated cuisine, five 4s and nothing under a 3. The 8-piece nigiri gets to about 38g, seven under the floor. The chicken curry clears it at 52g. Cheat day, or the curry?"*
+4. **Place nothing for that day until they answer** — unless the cutoff is close, then take the favourite, because that is what the evidence says they want, and say so.
 
 **The question goes in Claude's normal voice, under the greentext**, per **Questions are never greentext**. It is a choice they have to make, so it does not get the costume.
 
-**This is narrow on purpose.** It applies to a `stated` love that collides with a gate, not to every near-miss. An untested item that lands 3g short is just a build that failed — rank it out and say why.
+#### Record what they decided
+
+**Either answer is signal.** Log the order as normal and write the decision down:
+
+- **They took it.** The row keeps its normal columns; add a one-line note under the log naming the order, the gate that was waived and the ask that produced it. A favourite they will spend a gate on is stronger evidence than a 4.
+- **They passed.** The favourite is real and the gate outranks it. The next collision leads with the alternative instead of the ask.
+- **They took it three times running.** That is not a cheat day any more. Raise the gate itself in the next refine — a floor that gets waived every time it binds is a floor nobody wants.
+
+#### Cheat day belongs in a refine pass
+
+**Refine is where cheat day gets settled instead of improvised.** With the whole log in hand, name the one or two best-rated cuisines and ask straight out — see **Ask questions the log raised**. *"Sushi and Indian are your two best-rated cuisines, and sushi almost never clears the protein floor. Want that treated as a cheat day when it comes up, or does the floor hold?"*
+
+**A `stated` answer there ends the per-day guessing.** Yes means the next collision gets ordered rather than asked about, with the writeup simply saying cheat day. No means the floor holds and the alternative leads every time. Either answer goes into `dietary-preferences.md` tagged `stated`.
+
+**This stays narrow on purpose.** An untested item that lands 3g short is not a cheat day, it is a build that failed — rank it out and say why.
 
 ## Live ordering
 
@@ -1398,7 +1443,7 @@ The row survives so the same build does not get re-picked as though it were unte
 
   So the default reading is a calendar, not a menu. **Do not treat a dropped day as a rejection of the restaurant**, do not move that kitchen down a slate for it, and do not ask about it unless something else points at the food. The order it replaced stays untested, which means it is still a live option rather than a spent one.
 
-  A run of dropped days at *one* restaurant is still worth a glance, since that is a pattern attendance would not produce. One is just a Tuesday he was not in.
+  A run of dropped days at *one* restaurant is still worth a glance, since that is a pattern attendance would not produce. One is just a Tuesday they were not in.
 
 **Menu intel learned while browsing survives a cancellation** — upcharge structure, which restaurants have no cheap add-ons, cutoff times. It goes under **Observed preferences**, not the log.
 
