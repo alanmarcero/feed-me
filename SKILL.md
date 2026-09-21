@@ -1219,11 +1219,18 @@ Report every day and delivery time, each day's receipt, and that each order stay
 - **Days appear well before their cutoff** — a 09-22 delivery was orderable on 09-17 — so ordering days ahead is normal rather than early.
 - **A missed run is caught by the next one**, which turns a single point of failure into a daily retry.
 
-### Do not schedule it for the morning of a cutoff
+### The hour barely matters. Pick a morning anyway.
 
-The obvious design is a 7 AM run ahead of the 9:10-9:50 cutoffs, and it is the wrong one. **A scheduled task only fires while the app is open**; if the machine is asleep at 7 AM the run lands after the cutoff and the day is gone. Pair that with a once-a-week cadence and a single closed laptop costs a lunch.
+`stated` 2026-09-21: *"the days to order are available far enough in advance that the time of day doesn't matter — but morning is probably better."*
 
-**Frequency beats timing here.** Pick an hour they are normally at the machine, let it claim days several ahead, and let tomorrow's run cover today's miss.
+**The lead time is what makes the clock unimportant.** Days show up on the site well before their cutoff — a 09-22 delivery was orderable on 09-17 — so a daily run is almost never racing a deadline. It claims a day, and the cutoff arrives days later.
+
+**Morning is the mild preference, for two reasons that are both upside rather than necessity:**
+
+- A run that lands before the earliest cutoff (~9:10 AM) can also claim a day that opened *that same morning*, which an afternoon run would leave for tomorrow.
+- It leaves the rest of the day as a repair window. An expired session caught at 8:30 is fixable; the same failure at 5 PM is not looked at until tomorrow.
+
+**What to actually avoid is depending on the hour.** A scheduled task only fires while the app is open, so a run timed to beat a cutoff will eventually miss one to a sleeping machine. **Frequency is the safety margin, not the clock** — build it so any single skipped run is covered by the next day's, and then a missed morning costs nothing.
 
 ### Write the task prompt to survive on its own
 
