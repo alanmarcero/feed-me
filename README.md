@@ -22,7 +22,9 @@
 | `/feed-me refine` | mines your log against your preferences, asks better questions, sets cheat day |
 | `/feed-me cancel <which>` | kills a pending order. add **and reorder** and it replaces it |
 
-the last three are optional. a bare `/feed-me` keeps the books straight on its own.
+the last three are optional. a bare `/feed-me` keeps the books straight on its own. in the
+claude desktop app it'll also offer, once, to run itself daily on a schedule — the open days
+move around week to week, so checking daily is how you stop missing one.
 
 it opens the ordering site in a real browser, finds **every day** still open, reads every menu,
 prices the upcharges hiding behind each option modal, plans the week so no two days land on the

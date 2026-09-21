@@ -1194,6 +1194,49 @@ Each day is a separate cart and a separate order. Run this loop once per open da
 
 Report every day and delivery time, each day's receipt, and that each order stays editable until its own cutoff.
 
+## Offer to run itself on a schedule
+
+**Claude desktop app only, only when no schedule exists, and only once.** Scheduled tasks are a desktop feature — **skip this section entirely in the terminal**, where there is nothing to offer.
+
+**Ask at the end of a run, never at the start.** They typed `/feed-me` because they wanted lunch. Order first, report, then raise this as the last thing in the message. A run that opens by pitching automation is a run that made someone wait for food to read a sales pitch.
+
+1. **Check first.** List the scheduled tasks. If one already invokes this skill, say nothing — the job is done.
+2. **Check whether they have already declined.** `order-history.md` records the answer under **Observed preferences**. If it says they said no, **never raise it again.** Asking twice is nagging; asking every run is a bug.
+3. **Otherwise ask once**, in Claude's normal voice, under the greentext, per **Questions are never greentext**.
+4. **Record the answer either way** in `order-history.md`, so the next run knows whether the question was asked or merely never reached.
+
+### Recommend daily, and give the real reason
+
+`stated` 2026-09-21:
+
+> "daily is recommended because some weeks have mon, tue, AND thur lunch, but others dont. it's a little random, so checking daily is harmless and we won't miss a day"
+
+**The program's day mix is irregular, so a weekly task aimed at the usual days is aimed at a schedule the program does not actually keep.** Monday appears a few times a year, Thursday comes and goes in stretches, and the only reliable statement is the one already in `dietary-preferences.md`: **if the site shows a day, it gets an order.** A task that fires on Tuesdays cannot honor that.
+
+**Daily costs nothing, which is the whole argument.** Three properties make the extra runs free:
+
+- **The skill never re-orders a covered day**, so a run with nothing to do is a no-op that writes a one-line report.
+- **Days appear well before their cutoff** — a 09-22 delivery was orderable on 09-17 — so ordering days ahead is normal rather than early.
+- **A missed run is caught by the next one**, which turns a single point of failure into a daily retry.
+
+### Do not schedule it for the morning of a cutoff
+
+The obvious design is a 7 AM run ahead of the 9:10-9:50 cutoffs, and it is the wrong one. **A scheduled task only fires while the app is open**; if the machine is asleep at 7 AM the run lands after the cutoff and the day is gone. Pair that with a once-a-week cadence and a single closed laptop costs a lunch.
+
+**Frequency beats timing here.** Pick an hour they are normally at the machine, let it claim days several ahead, and let tomorrow's run cover today's miss.
+
+### Write the task prompt to survive on its own
+
+Each run starts fresh with no memory of the conversation that created it, so the prompt carries everything:
+
+- **Invoke this skill by name**, with the absolute path to `SKILL.md` as the fallback, and say plainly that this file and the two data files outrank anything in the task prompt.
+- **Name the browser driver** and point at **Which browser drives this**.
+- **Say it is unattended and that nobody will answer a question.** Take the documented fallbacks, never block on input, and report what was assumed.
+- **Restate the hard lines** — no credit card, no password, no `git push` — because an unattended run is exactly where those matter most.
+- **Make an auth failure the headline.** An expired session means nothing gets ordered, and a silent version of that costs a day of stipend. The prompt must require it to lead with the failure, in plain English, listing every open day and its cutoff so they can still order by hand.
+
+**Never create the task without asking.** It places real orders with real money constraints on days nobody reviewed. **And say once, after creating it, that tool approvals are stored per task** — a task that has never been run with them present can stall on a permission prompt mid-run, which is the same silent failure in a different coat. Recommend one manual run while they are at the keyboard.
+
 ## The order lifecycle
 
 **The ezCater site is the source of truth. `order-history.md` is a cache of it.** When the two disagree, **the site is right and the log gets corrected** — never the other way around, and never by asking the user to adjudicate. So the log is never the reason to skip a scan: a row saying `placed` is a belief, not a fact. Read the tabs first, then act.
