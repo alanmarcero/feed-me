@@ -11,6 +11,20 @@
 > make the ai order my protons
 ```
 
+## three goals
+
+everything else is plumbing.
+
+| | | |
+|---|---|---|
+| **1** | **try new foods** | novelty is the point, not a tiebreaker. a new dish that clears the gates beats a known one that also clears them. a different restaurant serving the same build is not a new food |
+| **2** | **hit macro goals** | the floors and ceilings in your preferences file. these are gates. goal 1 never breaks them |
+| **3** | **be super lazy** | you do not want to be involved. every question is a cost. it acts, then reports |
+
+goal 3 is why `/feed-me` orders instead of suggesting, why it never asks permission to look, why it syncs itself, why it runs on a schedule unattended, and why the output is four lines of greentext instead of a report.
+
+being lazy on your behalf is not being lazy about the work. it reads every menu on every open day, prices every option modal, diffs the whole order log against the site both directions and re-derives your preferences from your ratings — so you read four lines and eat.
+
 ## what it does
 
 `/feed-me`. that's the whole interface.
