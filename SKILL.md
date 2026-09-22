@@ -7,6 +7,46 @@ description: Use when the user wants lunch handled against their ezCater meal-pr
 
 The user has an ezCater meal-program stipend through their employer. They will not pay an overage, so the budget ceiling is hard.
 
+## The three goals
+
+`stated` 2026-09-22. **Everything below serves these three, in this order, and a rule that stops serving them is the rule that is wrong.**
+
+| | Goal | What it actually means here |
+|---|---|---|
+| **1** | **Try new foods** | Novelty is the point, not a tiebreaker. A new dish or kitchen that clears the gates beats a known one that also clears them. |
+| **2** | **Hit macro goals** | The floors and ceilings in `dietary-preferences.md`. These are gates — goal 1 never breaks them. |
+| **3** | **Be super lazy** | **They do not want to be involved.** Every question is a cost. Act, then report. |
+
+**These are goals, not the priority ladder.** The ladder under **Priority ladder** still resolves a single build; this is what the skill is *for*. When the ladder and these disagree, say so out loud rather than quietly picking one.
+
+### Goal 1 makes novelty the default, not the tiebreaker
+
+Already `stated` in `dietary-preferences.md` — *"i prefer novelty but greco is good"* — and this promotes it. **The job is to widen what they eat** — new food, not merely a new logo over the same plate — so an untested dish that clears every gate is the right pick even when a `loved` one is open. **A different restaurant serving the same build is not a new food**, which is why the no-repeat-dish rule bites even at a kitchen they like. Sixteen kitchens have rated 4 and only GRECO was ever returned to; that is the shape of the goal, not a gap to close.
+
+The format rotation and the `carb-base` cooldown are this goal wearing working clothes. **An anchor is the only thing that beats it**, and there is exactly one.
+
+### Goal 2 is the wall goal 1 does not get to climb
+
+**Novelty is never a reason to miss a macro.** An untested kitchen that cannot reach the protein floor under the calorie ceiling is not interesting, it is disqualified — stated plainly in **Novelty is the default** in `dietary-preferences.md` and worth repeating because goal 1 is the one that tempts.
+
+The gates are read from that file and never from this one.
+
+### Goal 3 is the one that decides how this skill behaves
+
+**The laziness is the feature.** It is why ordering is the default, why the skill never asks permission to look, why the sync runs itself at the end of every run, why it runs unattended on a schedule, and why the output is a short greentext block instead of a report. **A run that ends with food ordered and nothing asked is the ideal run.**
+
+So treat every question as spending something:
+
+- **Prefer a documented fallback to a question.** Take it, then say what was assumed. Nearly every branch in this file already names one.
+- **Ask only when the answer changes the food and the fallback could be wrong** — a cheat-day collision, an ambiguous cancel target.
+- **Never ask what the log already answers.** Mining the history is the skill's job, not theirs.
+- **Batch whatever survives into one message, at the end**, in Claude's normal voice. See **Questions are never greentext**.
+- **Never ask twice.** An answer goes into `dietary-preferences.md` as `stated` so the question dies permanently.
+
+**The honest tension is between goal 3 and the asks this file mandates** — the sushi collision, the cheat-day ask, the refine questions. Those exist because getting the food wrong costs more than one question does. **That is the only defence a question has**, and a question that cannot make it is one to cut.
+
+**Being lazy on their behalf is not being lazy about the work.** The skill reads every menu on every open day, prices every modal, diffs 53 orders both directions and re-derives the preferences — so that they read four lines and eat. **Effort moves from them to here; it does not disappear.**
+
 **Ordering is the default, and it covers every open day.** Invoked with no menus and no other instruction, do not ask what they want and do not ask permission to look — open the site, enumerate every orderable day, and place one order per day. See **Live ordering**. The deliverable is food, not a list of suggestions.
 
 **Each day is its own budget.** The stipend does not pool and does not carry over, so a day left unordered is a day of stipend burned.
