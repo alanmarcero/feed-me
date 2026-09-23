@@ -1068,29 +1068,30 @@ This is the default path. Drive the site end to end in a browser.
 |---|---|---|---|
 | **1** | **Playwright MCP** | `browser_navigate`, `browser_evaluate`, `browser_click`, `browser_snapshot` | **Claude Code in the terminal.** The default — every snippet below is written for it |
 | **2** | **the built-in browser pane** | `mcp__Claude_Browser__navigate`, `…__javascript_tool`, `…__read_page`, `…__computer` | **the Claude desktop app.** **Verified end to end 2026-09-17** — order placed, cart verified, log synced |
-| **3** | Claude in Chrome | `mcp__claude-in-chrome__*` | when the user asks for it by name, and **always for a scheduled run**, because the pane loses the ezCater login when the app restarts. See **Running it on a schedule** |
+| **3** | Claude in Chrome | `mcp__claude-in-chrome__*` | when the user asks for it by name, and **always for a scheduled run**, because the pane loses the ezCater login when the app restarts. **Verified end to end 2026-09-23** — the ezCater session survived a Chrome restart and a full lazy sync ran. See **Running it on a schedule** |
 | — | nothing | — | **advise-only.** See the three fallback cases at the top of this file |
 
 **Reach for Playwright by name first.** Do not improvise with shell tools and do not ask the user how to browse. **Take driver 2 when Playwright is absent or its server will not connect** — a failed MCP connection is a connection failure, not a missing capability, and **dropping to advise-only while a working browser sits in the session** is never right. **Say which driver you used only when it was not the first choice.**
 
 **Everything below is written in Playwright's vocabulary.** Translate as you read:
 
-| This file says | Desktop app equivalent |
+| This file says | Pane and Chrome equivalent |
 |---|---|
 | `browser_evaluate` | `javascript_tool` with `action: "javascript_exec"` |
 | `browser_click` | an `el.click()` inside `javascript_tool` — see below |
 | `browser_snapshot` | `read_page`, no better at surfacing ratings than Playwright's |
 | navigating | `navigate`, or `preview_start` with a `url` to open the pane |
 
-#### Two differences that will cost a run if you miss them
+#### Three differences that will cost a run if you miss them
 
-**1. The JavaScript in this file is written as functions. The desktop tool evaluates expressions.**
+**1. The JavaScript in this file is written as functions. The pane and Chrome tools evaluate expressions.**
 
 `browser_evaluate` takes a function and calls it. `javascript_tool` is a REPL: it returns the value of the **last expression**, and top-level `await` works. So **wrap every snippet in this file in an IIFE**:
 
 ```js
-async () => { ... }        // as written here, for browser_evaluate
-(async () => { ... })()    // what javascript_tool needs
+async () => { ... }              // as written here, for browser_evaluate
+(async () => { ... })()          // what the pane's javascript_tool needs
+await (async () => { ... })()    // what Claude in Chrome's javascript_tool needs
 ```
 
 A bare `async () => {...}` hands back the function object rather than its result, which reads exactly like a page that returned nothing.
@@ -1100,6 +1101,10 @@ A bare `async () => {...}` hands back the function object rather than its result
 The live price in `input[name="commit"]` is recalculated by a change handler. `el.checked = true` does not fire it, so the price silently stays at the base and **the one number the spend ceiling is checked against is wrong**. `el.click()` does fire it.
 
 Same for the notes box: set `.value`, then dispatch `input` and `change`, or the note may not survive the add-to-cart.
+
+**3. Under Claude in Chrome, `await` the IIFE.**
+
+Chrome's `javascript_tool` does not wait for a returned promise. A bare `(async () => {...})()` comes back as `{}`, which reads like a page with nothing on it. **Write `await (async () => {...})()`.** This is a wrong answer with no error, so it is easy to miss: an empty scrape of the order tabs looks like an account with no orders.
 
 ### Getting in
 
@@ -1248,7 +1253,7 @@ Report every day and delivery time, each day's receipt, and that each order stay
 |---|---|
 | **Chrome** | Install the Claude in Chrome extension and sign in with the same Claude account as the desktop app. Then open `https://mealprogram.ezcater.com` in that profile and sign in once. |
 | **Claude desktop app** | Enable the Claude in Chrome connection so the app can see the browser. Then create a scheduled task that runs daily in the morning, with a prompt written per **The scheduled prompt has to stand on its own**. |
-| **First run** | Run the task once by hand while they are at the keyboard. Tool approvals are stored per task, and a task that has never been approved can stall on a permission prompt in the middle of an unattended run. |
+| **First run** | Run the task once by hand while they are at the keyboard. Tool approvals are stored per task, and a task that has never been approved can stall on a permission prompt in the middle of an unattended run. **Approve the Chrome launch command during this run too** (`open -g -a "Google Chrome"`), so the run can start Chrome later with nobody there. |
 
 **Create the task for them only when they ask for it.** It places real orders on days nobody reviewed.
 
@@ -1257,7 +1262,7 @@ Report every day and delivery time, each day's receipt, and that each order stay
 | Needs | Can it be minimized or in the background? | Why |
 |---|---|---|
 | **Claude desktop app** | Yes. It must not be quit. | It is the scheduler. There is no system-level job, so a quit app means the run is skipped with no notification. |
-| **Chrome** | Yes, in any window. No focus is needed. | It is the browser the run drives. |
+| **Chrome** | No. The run starts it if it is not running. | The extension connects only to a running Chrome, so the run launches Chrome in the background and waits for it. |
 | **The Mac is awake** | A locked screen is fine. Sleep is not. | A sleeping machine skips the run. |
 
 **A skipped run is not a crisis.** The next day's run covers it; see **Recommend daily** below.
@@ -1295,7 +1300,7 @@ Each run starts with no memory of the conversation that created it, so the promp
 
 - **Invoke this skill by name** and say plainly that this file and the two data files outrank anything in the prompt.
 - **Name the browser: Claude in Chrome (`mcp__claude-in-chrome__*`), never the built-in pane.** Its tools are deferred, so load them in one `ToolSearch` call before starting. The two JavaScript differences in **Which browser drives this** still apply.
-- **Treat "no connected browser" like an auth failure.** If Chrome is not running, nothing can be ordered, and the run must say so first.
+- **Start Chrome when no browser is connected.** If `list_connected_browsers` comes back empty, run `open -g -a "Google Chrome"` with Bash. The `-g` keeps it in the background so it does not steal focus. Wait about 15 seconds and check again, at most twice. **If it is still empty, treat it like an auth failure**: nothing can be ordered, and the run must say so first.
 - **Say it is unattended and that nobody will answer a question.** Take the documented fallbacks, never block on input, and report what was assumed.
 - **Restate the hard lines** — no credit card, no password, no `git push` — because an unattended run is exactly where those matter most.
 - **Make an auth failure the headline.** An expired session means nothing gets ordered, and a silent version of that costs a day of stipend. The run must lead with the failure, in plain English, listing every open day and its cutoff so they can still order by hand.
