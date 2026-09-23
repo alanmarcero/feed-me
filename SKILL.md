@@ -818,9 +818,10 @@ Report every day and delivery time, each day's receipt, and that each order stay
 
 Tested 2026-09-23. Tell them this if they ask how the Chrome side works, or if a run reports no connected browser:
 
-- **Open the Claude panel in Chrome once per Chrome session, then close it.** The connection lives in the extension's background worker, not the tab, so the panel does not need to stay open. Closing the Claude tab with Chrome still running kept the connection, and the next run worked.
-- **After Chrome restarts, open the panel once again.** Whether a restarted Chrome reconnects on its own has not been tested, and neither has a Chrome the run launched itself. Until it is, treat a Chrome restart as needing one panel open.
-- **If a run says no browser was connected**, open Chrome, open the Claude panel once, close it, and run the task by hand to confirm.
+- **A normal Chrome quit and relaunch needs nothing from them.** Chrome was quit, the run relaunched it with `open -g -a "Google Chrome"`, and the extension reconnected on its own in about 40 seconds, with no Chrome windows open and the Claude panel never touched. The ezCater session was still signed in.
+- **A hard reset of Chrome needs one panel open.** After a force-kill or hard reset the extension never reconnected, however long the run waited. Opening the Claude panel in Chrome once fixed it.
+- **The panel never has to stay open.** The connection lives in the extension's background worker, not the tab. Closing the Claude tab with Chrome still running kept the connection.
+- **If a run says Chrome is running but Claude in Chrome is not connected**, that is the hard-reset case: open the Claude panel in Chrome once, close it, and run the task by hand to confirm.
 
 ### Daily, in the morning
 
@@ -836,7 +837,7 @@ Each run starts with no memory of the conversation that created it, so the promp
 
 - **Invoke this skill by name**, and say this file and the two data files outrank the prompt.
 - **Name the browser: Claude in Chrome (`mcp__claude-in-chrome__*`), never the pane.** Its tools are deferred, so load them in one `ToolSearch` call.
-- **Start Chrome when no browser is connected.** If `list_connected_browsers` comes back empty, run `open -g -a "Google Chrome"`, wait about 15 seconds and check again, at most twice. If still empty, treat it like an auth failure.
+- **Start Chrome when no browser is connected.** If `list_connected_browsers` comes back empty, run `open -g -a "Google Chrome"`. The extension takes about 40 seconds to attach, so poll every ~15 seconds for up to 2 minutes before giving up. If still empty, treat it like an auth failure, and say the fix is to open the Claude panel in Chrome once.
 - **Say it is unattended.** Take the documented fallbacks, never block on input, report what was assumed.
 - **Restate the hard lines** — no credit card, no password, no `git push`.
 - **Make an auth failure the headline**, in plain English, listing every open day and its cutoff so they can still order by hand.

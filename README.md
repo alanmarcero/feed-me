@@ -213,10 +213,10 @@ what has to be running when it fires:
 | chrome | no | the task starts it in the background if it isn't running |
 | your mac | awake. locked is fine, asleep is not | asleep means no run |
 
-the claude panel in chrome doesn't have to stay open. open it once per chrome session, close it,
-and the connection keeps working. after chrome restarts, open it once again. whether chrome
-reconnects on its own after a restart hasn't been tested yet. if a run says no browser was
-connected, that's the fix.
+chrome doesn't even need you. quit it and the task relaunches it in the background, and the
+extension reconnects on its own in about 40 seconds, no window, no clicks. the one exception is
+a hard reset of chrome: that seems to knock the extension offline, so open the claude panel once and
+close it again. the panel never has to stay open.
 
 daily, because the open days move around week to week. a run with nothing to do orders nothing,
 and a missed run gets caught the next day.
