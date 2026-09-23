@@ -269,16 +269,17 @@ one-time setup:
 2. in that chrome, sign in to the ezCater meal-program site once
 3. in claude desktop, turn on the chrome connection and create a daily morning scheduled task
    that runs `/feed-me` through claude in chrome. or ask `/feed-me` to set it up for you
-4. run the task once by hand, so you can approve its tool permissions. an unapproved task can
-   get stuck on a permission prompt with nobody there to click it
+4. run the task once by hand, so you can approve its tool permissions, including the command it
+   uses to start chrome. an unapproved task can get stuck on a permission prompt with nobody
+   there to click it
 
-then keep these running:
+what has to be running when it fires:
 
-| | minimized ok? | |
+| | needed? | |
 |---|---|---|
-| claude desktop | yes, just don't quit it | it's the scheduler. quit it and the run silently doesn't happen |
-| chrome | yes, any window | it's what gets driven |
-| your mac | locked is fine, asleep is not | asleep means no run |
+| claude desktop | yes. minimized is fine, quit is not | it's the scheduler. quit it and the run silently doesn't happen |
+| chrome | no | the task starts it in the background if it isn't running |
+| your mac | awake. locked is fine, asleep is not | asleep means no run |
 
 daily, because the open days move around week to week. a run with nothing to do orders nothing,
 and a missed run gets caught the next day.
