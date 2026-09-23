@@ -790,57 +790,37 @@ Report every day and delivery time, each day's receipt, and that each order stay
 
 ## Running it on a schedule
 
-**Never offer this unprompted.** If they ask to run `/feed-me` automatically, walk them through this.
+**Never offer this unprompted.** If they ask, give them this. Verified 2026-09-23.
 
-**A Claude desktop app scheduled task is the scheduler**; it fires the run and does the thinking. **Claude in Chrome is the browser that run drives** — the extension cannot act on its own.
+**Why it needs Chrome.** The Claude desktop app's built-in browser pane does not keep ezCater's login cookie between runs. It keeps other SSO logins, just not ezCater's, so every scheduled run in the pane lands on the sign-in screen and orders nothing. Chrome keeps it. So a **Claude desktop scheduled task** is the scheduler, and it drives **Claude in Chrome** as the browser.
 
-**The run must drive Chrome, never the built-in pane.** The pane keeps the ezCater login only in memory, so after an app restart every scheduled run lands on the sign-in screen and orders nothing. Chrome keeps the session in a real profile.
+### Setup, once
 
-### What has to be set up, and where
+1. **Chrome:** install the Claude in Chrome extension, sign in with the same Claude account as the desktop app, and sign in to `https://mealprogram.ezcater.com` once.
+2. **Claude desktop:** enable the Claude in Chrome connection and create a scheduled task that runs daily in the morning. Daily because the open days are irregular (`stated` 2026-09-21) and a run with nothing to do orders nothing; morning so it can claim a day before the earliest cutoff, ~9:10 AM.
+3. **Run the task once by hand** and approve its tools, including `open` and `osascript`. An unapproved task stalls on a permission prompt with nobody there.
 
-| Where | One-time setup |
-|---|---|
-| **Chrome** | Install the Claude in Chrome extension and sign in with the same Claude account as the desktop app. Sign in to `https://mealprogram.ezcater.com` in that profile once. |
-| **Claude desktop app** | Enable the Claude in Chrome connection. Create a scheduled task that runs daily in the morning, with a prompt per **The scheduled prompt has to stand on its own**. |
-| **First run** | Run the task once by hand while they are at the keyboard. Tool approvals are stored per task, and an unapproved task stalls on a permission prompt mid-run. **Approve `open -g -a "Google Chrome"` during this run too.** |
+**Create the task only when they ask.** It places real orders on days nobody reviewed.
 
-**Create the task only when they ask for it.** It places real orders on days nobody reviewed.
+### What has to be true when it fires
 
-### What has to be running
+- **Claude desktop is running.** Minimized is fine; quit means the run silently does not happen.
+- **The Mac is awake.** Locked is fine; asleep is not.
+- **Chrome does not need to be open.** The run fixes that itself.
 
-| Needs | Minimized or in the background? | Why |
-|---|---|---|
-| **Claude desktop app** | Yes. It must not be quit. | It is the scheduler. A quit app means the run is skipped with no notification. |
-| **Chrome** | Not needed. | The run launches it in the background if it is not running. |
-| **The Mac is awake** | A locked screen is fine. Sleep is not. | A sleeping machine skips the run. |
+### What the scheduled prompt must do
 
-### Help to give when they are setting it up
-
-Tested 2026-09-23. Tell them this if they ask how the Chrome side works, or if a run reports no connected browser:
-
-- **A normal Chrome quit and relaunch needs nothing from them.** Chrome was quit, the run relaunched it with `open -g -a "Google Chrome"`, and the extension reconnected on its own in about 40 seconds, with no Chrome windows open and the Claude panel never touched. The ezCater session was still signed in.
-- **A hard reset of Chrome needs one panel open.** After a force-kill or hard reset the extension never reconnected, however long the run waited. Opening the Claude panel in Chrome once fixed it.
-- **The panel never has to stay open.** The connection lives in the extension's background worker, not the tab. Closing the Claude tab with Chrome still running kept the connection.
-- **If a run says Chrome is running but Claude in Chrome is not connected**, that is the hard-reset case: open the Claude panel in Chrome once, close it, and run the task by hand to confirm.
-
-### Daily, in the morning
-
-`stated` 2026-09-21: *"daily is recommended because some weeks have mon, tue, AND thur lunch, but others dont"* and *"the time of day doesn't matter — but morning is probably better."*
-
-- **Daily costs nothing.** A run with nothing to do orders nothing, and a missed run is caught by the next one.
-- **Days appear well before their cutoff**, so the hour barely matters.
-- **Morning** can claim a day that opened that morning before the earliest cutoff (~9:10 AM), and leaves the rest of the day to fix an expired session.
-
-### The scheduled prompt has to stand on its own
-
-Each run starts with no memory of the conversation that created it, so the prompt carries everything:
+Each run starts with no memory, so the prompt carries all of this:
 
 - **Invoke this skill by name**, and say this file and the two data files outrank the prompt.
-- **Name the browser: Claude in Chrome (`mcp__claude-in-chrome__*`), never the pane.** Its tools are deferred, so load them in one `ToolSearch` call.
-- **Start Chrome when no browser is connected.** If `list_connected_browsers` comes back empty, run `open -g -a "Google Chrome"`. The extension takes about 40 seconds to attach, so poll every ~15 seconds for up to 2 minutes before giving up. If still empty, treat it like an auth failure, and say the fix is to open the Claude panel in Chrome once.
-- **Say it is unattended.** Take the documented fallbacks, never block on input, report what was assumed.
+- **Drive Claude in Chrome (`mcp__claude-in-chrome__*`), never the pane.** Load its deferred tools in one `ToolSearch` call.
+- **Get Chrome connected before anything else:**
+  1. If `list_connected_browsers` is empty and Chrome is not running, `open -g -a "Google Chrome"`.
+  2. **Always make sure Chrome has a window**: `osascript -e 'tell application "Google Chrome" to make new window'`. A Chrome with no windows drops the extension's connection, even with the process running. Closing every window on macOS leaves Chrome in exactly that state.
+  3. Poll `list_connected_browsers` every ~15 seconds for up to 2 minutes.
+- **Say it is unattended.** Take the documented fallbacks and never block on input.
 - **Restate the hard lines** — no credit card, no password, no `git push`.
-- **Make an auth failure the headline**, in plain English, listing every open day and its cutoff so they can still order by hand.
+- **Make a failure the headline**, in plain English, with every open day and its cutoff so they can order by hand. A login failure means ezCater needs signing in again in Chrome. Still not connected with Chrome running and a window open means the extension is signed out, usually after a hard reset of Chrome. **Only they can fix that: open the Claude panel in Chrome once.**
 
 ## The order lifecycle
 
