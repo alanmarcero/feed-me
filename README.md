@@ -38,12 +38,6 @@ being lazy on your behalf is not being lazy about the work. it reads every menu 
 
 the last three are optional. a bare `/feed-me` keeps the books straight on its own.
 
-want it on autopilot? run it daily from [claude in chrome](https://claude.com/chrome), not the
-claude desktop app. desktop scheduled runs don't keep your ezCater login between runs, so every
-one of them wakes up at the sign-in page and orders nothing. chrome uses your real profile, so
-the login sticks. daily, because the open days move around week to week and checking daily is
-how you stop missing one.
-
 it opens the ordering site in a real browser, finds **every day** still open, reads every menu,
 prices the upcharges hiding behind each option modal, plans the week so no two days land on the
 same food, and places one order per day. not one lunch. all of them.
@@ -257,6 +251,37 @@ then `/feed-me`. if the skill doesn't show up, start a new session.
 needs a browser for the ordering half: the playwright mcp server in the terminal, the built-in
 browser pane in the claude desktop app, or claude in chrome. it drives any of them. with no browser at all it still
 works, it just goes back to being a thing you paste menus into like it's 2024.
+
+## on a schedule
+
+want it on autopilot? it takes two apps, and each does a different job:
+
+- **claude desktop** runs a daily scheduled task. that's the scheduler, and it does the thinking
+- **[claude in chrome](https://claude.com/chrome)** is the browser that task drives
+
+the task has to drive chrome, not the desktop app's built-in browser pane. the pane forgets your
+ezCater login whenever the app restarts, so every scheduled run wakes up at the sign-in page and
+orders nothing. chrome keeps you signed in.
+
+one-time setup:
+
+1. install the claude in chrome extension and sign in with your claude account
+2. in that chrome, sign in to the ezCater meal-program site once
+3. in claude desktop, turn on the chrome connection and create a daily morning scheduled task
+   that runs `/feed-me` through claude in chrome. or ask `/feed-me` to set it up for you
+4. run the task once by hand, so you can approve its tool permissions. an unapproved task can
+   get stuck on a permission prompt with nobody there to click it
+
+then keep these running:
+
+| | minimized ok? | |
+|---|---|---|
+| claude desktop | yes, just don't quit it | it's the scheduler. quit it and the run silently doesn't happen |
+| chrome | yes, any window | it's what gets driven |
+| your mac | locked is fine, asleep is not | asleep means no run |
+
+daily, because the open days move around week to week. a run with nothing to do orders nothing,
+and a missed run gets caught the next day.
 
 ## disclaimer
 
