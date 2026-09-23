@@ -1068,7 +1068,7 @@ This is the default path. Drive the site end to end in a browser.
 |---|---|---|---|
 | **1** | **Playwright MCP** | `browser_navigate`, `browser_evaluate`, `browser_click`, `browser_snapshot` | **Claude Code in the terminal.** The default — every snippet below is written for it |
 | **2** | **the built-in browser pane** | `mcp__Claude_Browser__navigate`, `…__javascript_tool`, `…__read_page`, `…__computer` | **the Claude desktop app.** **Verified end to end 2026-09-17** — order placed, cart verified, log synced |
-| **3** | Claude in Chrome | `mcp__claude-in-chrome__*` | only when the user asks for it by name |
+| **3** | Claude in Chrome | `mcp__claude-in-chrome__*` | when the user asks for it by name, and **the only place a scheduled run works** — see **Running it on a schedule** |
 | — | nothing | — | **advise-only.** See the three fallback cases at the top of this file |
 
 **Reach for Playwright by name first.** Do not improvise with shell tools and do not ask the user how to browse. **Take driver 2 when Playwright is absent or its server will not connect** — a failed MCP connection is a connection failure, not a missing capability, and **dropping to advise-only while a working browser sits in the session** is never right. **Say which driver you used only when it was not the first choice.**
@@ -1234,16 +1234,13 @@ Each day is a separate cart and a separate order. Run this loop once per open da
 
 Report every day and delivery time, each day's receipt, and that each order stays editable until its own cutoff.
 
-## Offer to run itself on a schedule
+## Running it on a schedule
 
-**Claude desktop app only, only when no schedule exists, and only once.** Scheduled tasks are a desktop feature — **skip this section entirely in the terminal**, where there is nothing to offer.
+**Not in the Claude desktop app.** Its scheduled tasks start each run in a fresh browser session, and the ezCater login does not carry over from one run to the next. Every run lands on the sign-in screen, and the skill never types a password, so nothing gets ordered.
 
-**Ask at the end of a run, never at the start.** They typed `/feed-me` because they wanted lunch. Order first, report, then raise this as the last thing in the message. A run that opens by pitching automation is a run that made someone wait for food to read a sales pitch.
+**Point anyone who wants this automatic at Claude in Chrome.** It drives their own Chrome profile, where the ezCater session stays signed in between runs. Set the schedule up there, not here.
 
-1. **Check first.** List the scheduled tasks. If one already invokes this skill, say nothing — the job is done.
-2. **Check whether they have already declined.** `order-history.md` records the answer under **Observed preferences**. If it says they said no, **never raise it again.** Asking twice is nagging; asking every run is a bug.
-3. **Otherwise ask once**, in Claude's normal voice, under the greentext, per **Questions are never greentext**.
-4. **Record the answer either way** in `order-history.md`, so the next run knows whether the question was asked or merely never reached.
+**Never offer a schedule unprompted, and never create one from the desktop app.** If they ask for automation, give them the Claude in Chrome pointer and the guidance below, then get back to lunch.
 
 ### Recommend daily, and give the real reason
 
@@ -1251,7 +1248,7 @@ Report every day and delivery time, each day's receipt, and that each order stay
 
 > "daily is recommended because some weeks have mon, tue, AND thur lunch, but others dont. it's a little random, so checking daily is harmless and we won't miss a day"
 
-**The program's day mix is irregular, so a weekly task aimed at the usual days is aimed at a schedule the program does not actually keep.** Monday appears a few times a year, Thursday comes and goes in stretches, and the only reliable statement is the one already in `dietary-preferences.md`: **if the site shows a day, it gets an order.** A task that fires on Tuesdays cannot honor that.
+**The program's day mix is irregular, so a weekly schedule aimed at the usual days is aimed at a schedule the program does not actually keep.** Monday appears a few times a year, Thursday comes and goes in stretches, and the only reliable statement is the one already in `dietary-preferences.md`: **if the site shows a day, it gets an order.** A run that fires on Tuesdays cannot honor that.
 
 **Daily costs nothing, which is the whole argument.** Three properties make the extra runs free:
 
@@ -1263,26 +1260,23 @@ Report every day and delivery time, each day's receipt, and that each order stay
 
 `stated` 2026-09-21: *"the days to order are available far enough in advance that the time of day doesn't matter — but morning is probably better."*
 
-**The lead time is what makes the clock unimportant.** Days show up on the site well before their cutoff — a 09-22 delivery was orderable on 09-17 — so a daily run is almost never racing a deadline. It claims a day, and the cutoff arrives days later.
+**The lead time is what makes the clock unimportant.** Days show up on the site well before their cutoff, so a daily run is almost never racing a deadline. It claims a day, and the cutoff arrives days later.
 
 **Morning is the mild preference, for two reasons that are both upside rather than necessity:**
 
 - A run that lands before the earliest cutoff (~9:10 AM) can also claim a day that opened *that same morning*, which an afternoon run would leave for tomorrow.
 - It leaves the rest of the day as a repair window. An expired session caught at 8:30 is fixable; the same failure at 5 PM is not looked at until tomorrow.
 
-**What to actually avoid is depending on the hour.** A scheduled task only fires while the app is open, so a run timed to beat a cutoff will eventually miss one to a sleeping machine. **Frequency is the safety margin, not the clock** — build it so any single skipped run is covered by the next day's, and then a missed morning costs nothing.
+**What to actually avoid is depending on the hour.** A scheduled run only fires while the machine is awake and the browser is open, so a run timed to beat a cutoff will eventually miss one. **Frequency is the safety margin, not the clock** — any single skipped run is covered by the next day's.
 
-### Write the task prompt to survive on its own
+### The scheduled prompt has to stand on its own
 
-Each run starts fresh with no memory of the conversation that created it, so the prompt carries everything:
+Each run starts with no memory of the conversation that created it, so the prompt carries everything:
 
-- **Invoke this skill by name**, with the absolute path to `SKILL.md` as the fallback, and say plainly that this file and the two data files outrank anything in the task prompt.
-- **Name the browser driver** and point at **Which browser drives this**.
+- **Invoke this skill by name** and say plainly that this file and the two data files outrank anything in the prompt.
 - **Say it is unattended and that nobody will answer a question.** Take the documented fallbacks, never block on input, and report what was assumed.
 - **Restate the hard lines** — no credit card, no password, no `git push` — because an unattended run is exactly where those matter most.
-- **Make an auth failure the headline.** An expired session means nothing gets ordered, and a silent version of that costs a day of stipend. The prompt must require it to lead with the failure, in plain English, listing every open day and its cutoff so they can still order by hand.
-
-**Never create the task without asking.** It places real orders with real money constraints on days nobody reviewed. **And say once, after creating it, that tool approvals are stored per task** — a task that has never been run with them present can stall on a permission prompt mid-run, which is the same silent failure in a different coat. Recommend one manual run while they are at the keyboard.
+- **Make an auth failure the headline.** An expired session means nothing gets ordered, and a silent version of that costs a day of stipend. The run must lead with the failure, in plain English, listing every open day and its cutoff so they can still order by hand.
 
 ## The order lifecycle
 
