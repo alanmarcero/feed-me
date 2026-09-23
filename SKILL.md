@@ -814,6 +814,14 @@ Report every day and delivery time, each day's receipt, and that each order stay
 | **Chrome** | Not needed. | The run launches it in the background if it is not running. |
 | **The Mac is awake** | A locked screen is fine. Sleep is not. | A sleeping machine skips the run. |
 
+### Help to give when they are setting it up
+
+Tested 2026-09-23. Tell them this if they ask how the Chrome side works, or if a run reports no connected browser:
+
+- **Open the Claude panel in Chrome once per Chrome session, then close it.** The connection lives in the extension's background worker, not the tab, so the panel does not need to stay open. Closing the Claude tab with Chrome still running kept the connection, and the next run worked.
+- **After Chrome restarts, open the panel once again.** Whether a restarted Chrome reconnects on its own has not been tested, and neither has a Chrome the run launched itself. Until it is, treat a Chrome restart as needing one panel open.
+- **If a run says no browser was connected**, open Chrome, open the Claude panel once, close it, and run the task by hand to confirm.
+
 ### Daily, in the morning
 
 `stated` 2026-09-21: *"daily is recommended because some weeks have mon, tue, AND thur lunch, but others dont"* and *"the time of day doesn't matter — but morning is probably better."*

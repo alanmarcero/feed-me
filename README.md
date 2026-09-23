@@ -213,6 +213,11 @@ what has to be running when it fires:
 | chrome | no | the task starts it in the background if it isn't running |
 | your mac | awake. locked is fine, asleep is not | asleep means no run |
 
+the claude panel in chrome doesn't have to stay open. open it once per chrome session, close it,
+and the connection keeps working. after chrome restarts, open it once again. whether chrome
+reconnects on its own after a restart hasn't been tested yet. if a run says no browser was
+connected, that's the fix.
+
 daily, because the open days move around week to week. a run with nothing to do orders nothing,
 and a missed run gets caught the next day.
 
