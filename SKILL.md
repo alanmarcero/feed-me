@@ -535,7 +535,9 @@ If a menu forces a choice no rule covers, ask, then write the answer into `dieta
 
 ## Modifications
 
-Apply the **Components** rules in `dietary-preferences.md`. Write the note the way they would type it into the special-instructions box: one short, polite sentence, no greentext. Do not use mods to reshape a dish into a different dish.
+Apply the **Components** rules in `dietary-preferences.md`. Do not use mods to reshape a dish into a different dish.
+
+**Write it short and polite.** `stated` 2026-09-23: *"the kitchen has a lot of orders to fill, the skill needs to be polite and concise."* Earlier runs wrote long notes with several requests. A real person reads that box during a lunch rush, so write one sentence in plain courteous English, with a please and a thank you, phrased as a request the kitchen can decline. No greentext. `Hot sauce on the side, please. Thank you!` is the whole shape.
 
 **One ask per note.** `stated` 2026-09-17. A box with two asks gets one honored at best. **One ask is one action**: "heavy on the feta and olives" is one; "extra jalapeño **and** hot sauce on the side" is two.
 
