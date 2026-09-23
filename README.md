@@ -36,9 +36,13 @@ being lazy on your behalf is not being lazy about the work. it reads every menu 
 | `/feed-me refine` | mines your log against your preferences, asks better questions, sets cheat day |
 | `/feed-me cancel <which>` | kills a pending order. add **and reorder** and it replaces it |
 
-the last three are optional. a bare `/feed-me` keeps the books straight on its own. in the
-claude desktop app it'll also offer, once, to run itself daily on a schedule — the open days
-move around week to week, so checking daily is how you stop missing one.
+the last three are optional. a bare `/feed-me` keeps the books straight on its own.
+
+want it on autopilot? run it daily from [claude in chrome](https://claude.com/chrome), not the
+claude desktop app. desktop scheduled runs don't keep your ezCater login between runs, so every
+one of them wakes up at the sign-in page and orders nothing. chrome uses your real profile, so
+the login sticks. daily, because the open days move around week to week and checking daily is
+how you stop missing one.
 
 it opens the ordering site in a real browser, finds **every day** still open, reads every menu,
 prices the upcharges hiding behind each option modal, plans the week so no two days land on the
@@ -251,7 +255,7 @@ install https://github.com/alanmarcero/feed-me as a skill
 then `/feed-me`. if the skill doesn't show up, start a new session.
 
 needs a browser for the ordering half: the playwright mcp server in the terminal, the built-in
-browser pane in the claude desktop app. it drives either one. with no browser at all it still
+browser pane in the claude desktop app, or claude in chrome. it drives any of them. with no browser at all it still
 works, it just goes back to being a thing you paste menus into like it's 2024.
 
 ## disclaimer
