@@ -1068,7 +1068,7 @@ This is the default path. Drive the site end to end in a browser.
 |---|---|---|---|
 | **1** | **Playwright MCP** | `browser_navigate`, `browser_evaluate`, `browser_click`, `browser_snapshot` | **Claude Code in the terminal.** The default — every snippet below is written for it |
 | **2** | **the built-in browser pane** | `mcp__Claude_Browser__navigate`, `…__javascript_tool`, `…__read_page`, `…__computer` | **the Claude desktop app.** **Verified end to end 2026-09-17** — order placed, cart verified, log synced |
-| **3** | Claude in Chrome | `mcp__claude-in-chrome__*` | when the user asks for it by name, and **the only place a scheduled run works** — see **Running it on a schedule** |
+| **3** | Claude in Chrome | `mcp__claude-in-chrome__*` | when the user asks for it by name, and **always for a scheduled run**, because the pane loses the ezCater login when the app restarts. See **Running it on a schedule** |
 | — | nothing | — | **advise-only.** See the three fallback cases at the top of this file |
 
 **Reach for Playwright by name first.** Do not improvise with shell tools and do not ask the user how to browse. **Take driver 2 when Playwright is absent or its server will not connect** — a failed MCP connection is a connection failure, not a missing capability, and **dropping to advise-only while a working browser sits in the session** is never right. **Say which driver you used only when it was not the first choice.**
@@ -1236,11 +1236,31 @@ Report every day and delivery time, each day's receipt, and that each order stay
 
 ## Running it on a schedule
 
-**Not in the Claude desktop app.** Its scheduled tasks start each run in a fresh browser session, and the ezCater login does not carry over from one run to the next. Every run lands on the sign-in screen, and the skill never types a password, so nothing gets ordered.
+**Never offer this unprompted.** If they ask to run `/feed-me` automatically, walk them through the setup below, then get back to lunch.
 
-**Point anyone who wants this automatic at Claude in Chrome.** It drives their own Chrome profile, where the ezCater session stays signed in between runs. Set the schedule up there, not here.
+**Two apps do the work, and they have separate jobs.** A Claude desktop app scheduled task is the scheduler: it fires the run and does the thinking. Claude in Chrome is the browser that run drives. The extension cannot act on its own. It is a remote control, and the desktop app holds it.
 
-**Never offer a schedule unprompted, and never create one from the desktop app.** If they ask for automation, give them the Claude in Chrome pointer and the guidance below, then get back to lunch.
+**The run must drive Chrome, never the desktop app's built-in browser pane.** The pane keeps the ezCater login only in memory, so it is gone after the app restarts and every scheduled run lands on the sign-in screen. The skill never types a password, so those runs order nothing. Chrome keeps the session in a real profile that survives restarts.
+
+### What has to be set up, and where
+
+| Where | One-time setup |
+|---|---|
+| **Chrome** | Install the Claude in Chrome extension and sign in with the same Claude account as the desktop app. Then open `https://mealprogram.ezcater.com` in that profile and sign in once. |
+| **Claude desktop app** | Enable the Claude in Chrome connection so the app can see the browser. Then create a scheduled task that runs daily in the morning, with a prompt written per **The scheduled prompt has to stand on its own**. |
+| **First run** | Run the task once by hand while they are at the keyboard. Tool approvals are stored per task, and a task that has never been approved can stall on a permission prompt in the middle of an unattended run. |
+
+**Create the task for them only when they ask for it.** It places real orders on days nobody reviewed.
+
+### What has to stay running
+
+| Needs | Can it be minimized or in the background? | Why |
+|---|---|---|
+| **Claude desktop app** | Yes. It must not be quit. | It is the scheduler. There is no system-level job, so a quit app means the run is skipped with no notification. |
+| **Chrome** | Yes, in any window. No focus is needed. | It is the browser the run drives. |
+| **The Mac is awake** | A locked screen is fine. Sleep is not. | A sleeping machine skips the run. |
+
+**A skipped run is not a crisis.** The next day's run covers it; see **Recommend daily** below.
 
 ### Recommend daily, and give the real reason
 
@@ -1274,6 +1294,8 @@ Report every day and delivery time, each day's receipt, and that each order stay
 Each run starts with no memory of the conversation that created it, so the prompt carries everything:
 
 - **Invoke this skill by name** and say plainly that this file and the two data files outrank anything in the prompt.
+- **Name the browser: Claude in Chrome (`mcp__claude-in-chrome__*`), never the built-in pane.** Its tools are deferred, so load them in one `ToolSearch` call before starting. The two JavaScript differences in **Which browser drives this** still apply.
+- **Treat "no connected browser" like an auth failure.** If Chrome is not running, nothing can be ordered, and the run must say so first.
 - **Say it is unattended and that nobody will answer a question.** Take the documented fallbacks, never block on input, and report what was assumed.
 - **Restate the hard lines** — no credit card, no password, no `git push` — because an unattended run is exactly where those matter most.
 - **Make an auth failure the headline.** An expired session means nothing gets ordered, and a silent version of that costs a day of stipend. The run must lead with the failure, in plain English, listing every open day and its cutoff so they can still order by hand.
