@@ -192,9 +192,8 @@ want it on autopilot? it takes two apps:
 - **claude desktop** runs a daily scheduled task. that's the scheduler, and it does the thinking
 - **[claude in chrome](https://claude.com/chrome)** is the browser that task drives
 
-it has to be chrome, not the desktop app's built-in pane. the pane forgets your ezCater login
-whenever the app restarts, so every scheduled run wakes up at the sign-in page and orders
-nothing. chrome keeps you signed in.
+why chrome: the desktop app's built-in browser keeps your other SSO logins but not ezCater's, so
+every scheduled run there wakes up at the sign-in page and orders nothing. chrome keeps it.
 
 one-time setup:
 
@@ -202,21 +201,15 @@ one-time setup:
 2. in that chrome, sign in to the ezCater meal-program site once
 3. in claude desktop, turn on the chrome connection and create a daily morning scheduled task
    that runs `/feed-me` through claude in chrome. or ask `/feed-me` to set it up for you
-4. run the task once by hand to approve its tool permissions, including the command it uses to
-   start chrome. an unapproved task stalls on a permission prompt with nobody there to click it
+4. run the task once by hand to approve its tool permissions. an unapproved task stalls on a
+   permission prompt with nobody there to click it
 
-what has to be running when it fires:
+when it fires, claude desktop has to be running (minimized is fine, quit is not) and your mac has
+to be awake (locked is fine). chrome takes care of itself: the task launches it if it's quit and
+opens a window if it has none, because a chrome with zero windows drops the extension.
 
-| | needed? | |
-|---|---|---|
-| claude desktop | yes. minimized is fine, quit is not | it's the scheduler. quit it and the run silently doesn't happen |
-| chrome | no | the task starts it in the background if it isn't running |
-| your mac | awake. locked is fine, asleep is not | asleep means no run |
-
-chrome doesn't even need you. quit it and the task relaunches it in the background, and the
-extension reconnects on its own in about 40 seconds, no window, no clicks. the one exception is
-a hard reset of chrome: that seems to knock the extension offline, so open the claude panel once and
-close it again. the panel never has to stay open.
+the one thing it can't fix: a hard reset of chrome signs the extension out. open the claude panel
+in chrome once and you're back.
 
 daily, because the open days move around week to week. a run with nothing to do orders nothing,
 and a missed run gets caught the next day.
