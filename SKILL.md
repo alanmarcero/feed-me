@@ -862,6 +862,17 @@ Each run starts with no memory, so the prompt carries all of this:
 
 **Log an order as soon as the confirmation comes back**, at status `placed`, with delivery date, restaurant, item and every add-on, **format**, subtotal, and the order id from the confirmation URL. The lazy sync corrects it. **One row per order, not per day**, dated by **delivery** day. Set the rotation state from the last row in a batch.
 
+### An edit sends no email. Only a placement does.
+
+`stated` 2026-09-24, confirmed by the user after three edits to one order produced no mail: **ezCater emails a confirmation when an order is *placed*, and sends nothing when an existing one is edited.** `Edit Item` → `Update` modifies the order in place — the id never changes, so the platform has no new order to announce.
+
+Two consequences, and both have already caused confusion:
+
+- **Never read a missing email as a failed edit.** The absence of mail after an edit is the normal, expected outcome. **The order detail page is the confirmation** — read the build and the money lines back off it, as with any other verification in this skill.
+- **The email in their inbox goes stale the moment an order is edited, and nothing corrects it.** It still describes the build as first placed. **Say so in the writeup whenever an edit changes the item, the add-ons or the total**, so a receipt that no longer matches does not get trusted later. A run that edits an order it placed the same day has made that day's email wrong.
+
+**If a matching paper trail genuinely matters**, the only way to produce one is cancel-and-replace, which fires a fresh confirmation. That trades a correct order for a correct email and re-runs the build against the cutoff, so **offer it rather than doing it**, and only when they have said the receipt matters.
+
 ### Reconcile against the site every run
 
 **Before building any slate, scrape all three tabs and check the log against them.**
