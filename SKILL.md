@@ -137,10 +137,12 @@ Answered, record it `stated`. Ignored, write **"no limits declared — never con
 
 1. **Read that day's menus and build a slate**, exactly as an order run does. Exclude the cancelled build and anything that is obviously the same idea.
 2. **Check rotation against the day before and the day after.** A cancelled order holds no format slot.
-3. **Remove the old item's line from the existing order**, before placing anything. **The stipend is shared across every order on that day**, so leaving the old line live can push the day over and trigger a card prompt.
-4. **Place the replacement** and verify its cart reads **Total $0.00**.
-5. **Then cancel the emptied original.** Removing its last line does not cancel it; it sits at a ~$1.00 subtotal looking placed.
-6. **Confirm exactly one live order remains for that day** on `/customer_orders`.
+3. **Build the replacement into the cart, then read the cart — and expect it to be wrong.** **The stipend is shared across every order on that day**, so while the original is live the cart shows most of the subsidy already spent. Verified 2026-09-24: a $16.74 replacement read *Company subsidy -$1.52, Total $16.39*. **That is an amount due. Do not continue to checkout.**
+4. **Cancel the original while the replacement sits in the cart.** On the original's detail page click **Cancel order**, then **Yes, cancel**. **The draft cart survives the cancellation** as its own order id, and the freed subsidy moves onto it. `/customer_orders/<id>/confirm_cancel` returns **HTTP 406** if navigated to directly — it has to be clicked.
+5. **Open the draft's review page, `/orders/<draft id>/review`, and confirm Total $0.00** before placing it. The menu page's cart panel may not render after the cancellation even though the draft exists; the *Continue to checkout* link carries the draft id.
+6. **Confirm exactly one live order remains for that day** on `/customer_orders`, and that the original is on the Canceled tab.
+
+**Why not remove the old line first**, as this section used to say: a single-item order offers only **Edit Item** and **Cancel order** — there is no *Remove Item* to press. Removing a line only exists on multi-item orders, and even there it leaves the order sitting at a ~$1.00 subtotal that still has to be cancelled. **The day is empty only for the seconds between step 4 and step 5**, with the replacement already built, which keeps the spirit of building before destroying.
 
 **If no replacement clears the gates under the ceiling, stop and leave the original alone.** Say which gate blocked it.
 
