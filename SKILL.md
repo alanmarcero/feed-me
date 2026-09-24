@@ -385,7 +385,24 @@ Keep the delivery day and time from the details page. Do not copy the name or st
 
 **The number that matters is the total, tax included.** Default stipend is **$20.00 per day**, and crossing it by one cent makes the checkout ask for a card.
 
-**Unused stipend is not wasted stipend.** `stated` 2026-09-17: *"they're buying me lunch, not the other way around."* **The one money rule is $0.00 out of pocket.** There is no spend floor.
+**Spend between $18.00 and $20.00, tax included.** `stated` 2026-09-24: *"the spend floor is $18 and the ceiling is $20."* Both numbers are **totals**, not subtotals — $20.00 is the subsidy itself, and a $20.00 *subtotal* would gross to $21.40 and be impossible.
+
+**This reverses the 2026-09-17 retirement of the floor**, which said unused stipend was not wasted and set no minimum. That is now superseded: **an order under $18.00 all-in is an under-spent order and gets rebuilt.** The $0.00-out-of-pocket rule is unchanged and still absolute.
+
+| | Total | Subtotal at 7% |
+|---|---|---|
+| **floor** | **$18.00** | **$16.83** |
+| **ceiling** | **$19.99** | **$18.68** |
+
+**Aim inside that band and prefer the upper half of it**, since the point of the floor is to stop leaving the stipend on the table.
+
+**The dietary gates still outrank the floor, and so does the no-padding rule.** The floor buys *protein and real components* — an extra scoop, a second protein, edamame, a bean side. It never buys a drink, a dessert, a bag of chips or a banana, all of which stay barred by **Hard limits**. If a day's menus cannot reach $18.00 without padding or without breaking a dietary gate, **place the best qualifying build under the floor and say how far short it landed.** A cheap build that feeds them properly beats an expensive one that does not.
+
+**A calorie estimate that vetoes an add-on now costs the floor too, so show your working.** The 09-29 Bon Me bowl was placed at **$14.00** with the log noting *"the calorie ceiling blocked the $3.27 Deviled Tea Egg"* — a silent veto from an estimate nobody could check, and $4 of stipend left behind. A menu description does not carry calories, so an over-cautious guess reads exactly like a real gate.
+
+**When a ceiling blocks the add-on that would have reached the floor, write the component table into the log**, not just the conclusion. Then say in the writeup that the build landed under the floor and which estimated number stopped it. An estimate that is visible can be corrected by the next rating; one that only ever appears as *"blocked"* cannot, and it will keep producing cheap orders.
+
+**The log argues with this floor and it loses, because the floor is `stated`.** Across 34 rated lunches the price ladder runs backwards — the 4s average $17.55, the 3s $17.77, the 2s $17.87, the single 1 cost $17.95 — and the cheapest 4 on record is Perillas at **$14.59**. Spending more has never once bought better food. Raise that once if it ever comes up again; then obey the floor.
 
 **Budgets are per day and strictly independent.** Read each day's own subsidy off its page.
 
@@ -396,13 +413,20 @@ total = subtotal x (1 + tax rate)
 max subtotal = subsidy / 1.07, rounded DOWN to the cent, then back off one more cent
 ```
 
-At $20.00 the division gives $18.6915, which rounds down to $18.69 and grosses to exactly $20.00 with no margin. **$18.68** is the number to shop against:
+At $20.00 the division gives $18.6915, which rounds down to $18.69 and grosses to exactly $20.00 with no margin. **$18.68** is the number to shop against at the top, and **$16.83** at the bottom:
 
-| Subtotal | x 1.07 | Total | Out of pocket |
+| Subtotal | x 1.07 | Total | Verdict |
 |---|---|---|---|
+| $14.00 | $14.98 | $14.98 | **under the floor** — the 09-29 Bon Me bowl as first placed |
+| $16.81 | $17.9867 | $17.99 | **under the floor by a cent** |
+| $16.82 | $17.9974 | **$18.00** | exactly on the floor |
+| $16.83 | $18.0081 | **$18.01** | first clean clearance — shop against this |
+| $17.74 | $18.9818 | $18.98 | the same bowl with edamame added. In band |
 | $18.68 | $19.9876 | **$19.99** | $0.00 — the last safe subtotal |
 | $18.69 | $19.9983 | **$20.00** | $0.00, but zero margin. Do not use it. |
-| $18.88 | $20.2016 | $20.20 | $0.20 — the receipt that proved it |
+| $18.88 | $20.2016 | $20.20 | $0.20 — the receipt that proved the wall |
+
+**The floor is computed from the day's own subsidy too.** `floor subtotal = (subsidy - $2.00) / 1.07, rounded UP to the cent` — the $18.00 floor is the $20.00 stipend less two dollars, so a day posting a different subsidy scales both ends rather than keeping $16.83.
 
 ### Verified constants
 
@@ -767,7 +791,7 @@ async () => {
 
 ### The cart overrides the estimate
 
-The cart renders **Subtotal, Delivery fee, Sales tax, Company subsidy, and Total** before you commit. Build to the highest subtotal the build needs whose Total reads **$0.00 with the subsidy absorbing all of it**, and never past $18.68 at a $20.00 stipend and 7% tax. An amount due or a card request means back the build down.
+The cart renders **Subtotal, Delivery fee, Sales tax, Company subsidy, and Total** before you commit. Build so the Total reads **$0.00 with the subsidy absorbing all of it**, landing between **$18.00 and $19.99** at a $20.00 stipend — never past $18.68 subtotal, and not below $16.83 unless a dietary gate forced it. An amount due or a card request means back the build down; a total under $18.00 means build it up with protein, never with padding.
 
 ### Placing it
 
