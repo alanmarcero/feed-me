@@ -479,6 +479,8 @@ If nothing on a day clears the gates, place the closest qualifying build and nam
 
 **Required. Estimate component by component, never as a single guess.** A whole-plate eyeball once reported a GRECO order at ~830 cal when it was ~1,175 — the pita, the rice pilaf and the dressing oil were not counted.
 
+**A starch the menu does not mention is not a starch the plate lacks.** Descriptions list what is distinctive and skip the defaults. A teriyaki plate described only as *"Served with vegetables."* arrived with a large serving of rice that the estimate never counted. Teriyaki, hibachi, curry, stir-fry, and most Latin, Indian and Middle Eastern protein plates come with rice or bread by default. **Count the default starch unless the menu explicitly says it is absent**, and say in the writeup that it was assumed.
+
 | Component | Protein | Calories |
 |---|---|---|
 | the protein itself | | |
@@ -804,7 +806,7 @@ Each day is a separate cart and a separate order. Once per open day, in date ord
 3. **Re-estimate with the mod included** — see **Required: re-verify after writing the mod**.
 4. Add to cart, then verify that day's cart Total is $0.00.
 5. Continue to `/orders/<id>/review`.
-6. **Leave the utensils box unchecked.** It defaults to unchecked; they do not want the plastic, even for soup.
+6. **Confirm the utensils box is unchecked before placing**, by reading its checked state rather than assuming the default. It has always defaulted to unchecked; if it is ever checked, uncheck it. They do not want utensils, even for soup. **This is the only point it can be verified**: a placed order's detail page does not show the setting at all, so a wrong box cannot be caught or fixed afterward.
 7. **Run the final recalculation** — see **Required: final recalculation before submitting**.
 8. Confirm the review page still shows Total $0.00 and no card request, then place the order.
 9. Check the confirmation against step 7.
