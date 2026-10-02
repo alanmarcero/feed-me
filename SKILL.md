@@ -833,8 +833,22 @@ Report every day and delivery time, each day's receipt, and that each order stay
 ### What has to be true when it fires
 
 - **Claude desktop is running.** Minimized is fine; quit means the run silently does not happen.
+- **Claude desktop is signed in, and the sign-in is fresh.** A stale one stops the run before it starts. See **When a run never happened**.
 - **The Mac is awake.** Locked is fine; asleep is not.
 - **Chrome does not need to be open.** The run fixes that itself.
+
+### When a run never happened
+
+**A run can fail before it starts, and then nothing reports it.** Verified 2026-10-02. When the Claude desktop app's own sign-in has gone stale, the scheduler fires on time, the app refuses to open the session, and the job is dropped about 12 minutes later. No session means no notification and no log entry, so the prompt's failure headline never gets a chance to run.
+
+**It also looks like it ran.** The task's last-run time is stamped when the stale job is cleared, not when a run happens.
+
+**To check a missed run:**
+
+1. Compare the task's `lastRunAt` with its run list (`list_task_runs`). A last-run time with no session for that day is this failure.
+2. Search `~/Library/Logs/Claude/main.log` around the fire time for `CCDScheduledTasks` and `session_stale_relogin`. The sequence is `Dispatch acknowledged by renderer`, then `Cannot start session ... OAuthError (session_stale_relogin)`, then `Cleared stale pending dispatch`.
+
+**The fix is theirs:** sign in to the Claude desktop app again. It goes through the browser and takes under a minute, and new sessions start normally afterward. Then run the task once by hand, so it claims whatever the missed run would have.
 
 ### What the scheduled prompt must do
 
