@@ -456,6 +456,7 @@ Rules:
 Resolve every recommendation in this order. Lower rules never override higher ones.
 
 1. **Hard gates, read from `dietary-preferences.md`.** Its **Hard limits**, macro floors and calorie ceiling. Plus: total at or under the spend ceiling, one real menu item, nothing on the Never Again list, nothing they rated 1 or 0.
+   **A rule in `dietary-preferences.md` that names its own place in this ladder goes where it says.** Those are the user's own ranking rules and outrank the defaults below them. Say in the writeup when one decided the pick.
 2. **Their verdict on it, and whether they went back.** Rank by the tiers in **Two signals to return**.
 3. **Calories.** Among options with the same standing at rule 2, fewer is better.
 4. **Variety.** Variety may spend up to **~150 cal** against rule 3 to avoid a repeat, but never past a stated ceiling. Past that, calories win, and say so.
