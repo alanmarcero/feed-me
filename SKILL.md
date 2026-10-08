@@ -398,7 +398,7 @@ Keep the delivery day and time from the details page. Do not copy the name or st
 
 **Aim inside that band and prefer the upper half of it**, since the point of the floor is to stop leaving the stipend on the table.
 
-**The dietary gates still outrank the floor, and so does the no-padding rule.** The floor buys *protein and real components* — an extra scoop, a second protein, edamame, a bean side. It never buys a drink, a dessert, a bag of chips or a banana, all of which stay barred by **Hard limits**. If a day's menus cannot reach $18.00 without padding or without breaking a dietary gate, **place the best qualifying build under the floor and say how far short it landed.** A cheap build that feeds them properly beats an expensive one that does not.
+**The dietary gates still outrank the floor, and so does the no-padding rule.** The floor buys *protein and real components* — an extra scoop, a second protein, edamame, a bean side. It never buys padding: a bag of chips, a banana, or anything the **Hard limits** in `dietary-preferences.md` bar. If a day's menus cannot reach $18.00 without padding or without breaking a dietary gate, **place the best qualifying build under the floor and say how far short it landed.** A cheap build that feeds them properly beats an expensive one that does not.
 
 **A calorie estimate that vetoes an add-on now costs the floor too, so show your working.** The 09-29 Bon Me bowl was placed at **$14.00** with the log noting *"the calorie ceiling blocked the $3.27 Deviled Tea Egg"* — a silent veto from an estimate nobody could check, and $4 of stipend left behind. A menu description does not carry calories, so an over-cautious guess reads exactly like a real gate.
 
@@ -449,7 +449,7 @@ Rules:
 - **If a receipt shows a different tax rate, it wins.** Update the constants table.
 - **Trust the cart over the arithmetic** in order-mode. See **The cart overrides the estimate**.
 
-**Never add a drink or a dessert at all** — a hard limit in `dietary-preferences.md`, `stated` 2026-09-17: *"save that money for protons."* Never add a side to close a price gap either.
+**Never add anything the Hard limits in `dietary-preferences.md` bar.** What leftover stipend may buy, and in what order, is set there. Never add a side to close a price gap.
 
 ## Priority ladder
 
