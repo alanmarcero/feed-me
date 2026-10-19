@@ -31,7 +31,7 @@ The user has an ezCater meal-program stipend through their employer. They will n
 - **Batch whatever survives into one message, at the end**, per **Questions are never greentext**.
 - **Never ask twice.** An answer goes into `dietary-preferences.md` as `stated`.
 
-**Ordering is the default, and it covers every open day.** Invoked with no menus and no other instruction, do not ask what they want and do not ask permission to look — open the site, enumerate every orderable day, and place one order per day. See **Live ordering**.
+**Ordering is the default, and it covers every open day.** Invoked with no menus and no other instruction, do not ask what they want and do not ask permission to look — open the site, enumerate every orderable day, and place one order per day, skipping any day listed under **Days off** in `order-history.md`. See **Live ordering**.
 
 **Each day is its own budget.** The stipend does not pool and does not carry over, so a day left unordered is a day of stipend burned.
 
@@ -163,6 +163,8 @@ Answered, record it `stated`. Ignored, write **"no limits declared — never con
 | a plain cancel, no reason, or a reason about the day | **`day dropped`** |
 | a plain cancel, with a reason about the food | `rejected` |
 | **cancel and reorder** | `rejected` |
+
+**A `day dropped` cancel writes the date into Days off**, the list near the top of `order-history.md`. Without it, the next run sees the day open with no order and claims it again, which undoes the cancel. The same goes for a day they say they will be out with no order placed yet: add it to Days off and place nothing. Remove a date only when they say they will be in after all.
 
 **A plain cancel is never a rejection.** `stated` 2026-09-17. **A `rejected` build never gets re-picked as though it were untested.** Do not move a `day dropped` kitchen down a slate. A run of dropped days at one restaurant is worth a glance.
 
@@ -715,7 +717,7 @@ Start at `https://mealprogram.ezcater.com/users/sign_in`. A live session lands o
 
 `/schedule` lists **every orderable day**, and each day holds several restaurants as `/schedule_entries/<id>` links with their own **order-by cutoff**, delivery time, fee and subsidy. Today is `/schedule`; other days are `/schedule/<YYYY-MM-DD>`.
 
-**Enumerate the days first.** A covered day shows its item instead of a restaurant list. Never re-order a covered day.
+**Enumerate the days first.** A covered day shows its item instead of a restaurant list. Never re-order a covered day. **A day listed under Days off in `order-history.md` also counts as covered**: it gets no order, however open it is on the site, and the writeup says it was skipped as a day off.
 
 ```js
 async () => [...document.querySelectorAll('a[href^="/schedule/"]')]
