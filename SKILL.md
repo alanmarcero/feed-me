@@ -400,11 +400,11 @@ Keep the delivery day and time from the details page. Do not copy the name or st
 
 **Aim inside that band and prefer the upper half of it**, since the point of the floor is to stop leaving the stipend on the table.
 
-**The dietary gates still outrank the floor, and so does the no-padding rule.** The floor buys *protein and real components* — an extra scoop, a second protein, edamame, a bean side. It never buys padding: a bag of chips, a banana, or anything the **Hard limits** in `dietary-preferences.md` bar. If a day's menus cannot reach $18.00 without padding or without breaking a dietary gate, **place the best qualifying build under the floor and say how far short it landed.** A cheap build that feeds them properly beats an expensive one that does not.
+**The floor is strict.** `stated` 2026-11-09: *"add a strict floor -- no spending less than $18."* **No order goes out under $18.00 all in.** This replaces the older rule that let a build land short when reaching the floor would break a dietary gate. Reach the floor with *protein and real components* first, in the leftover-stipend order set in `dietary-preferences.md`. When no add-on gets there, pick a different build or a different restaurant that day that does; among the builds that reach it, the normal ladder picks. **The floor outranks the macro gates and the calorie ceiling**, and the writeup names which one it cost and by how much. **It never outranks a Hard limit in `dietary-preferences.md` or the $0.00-out-of-pocket rule.** If every build on that day's menus that reaches $18.00 breaks a hard limit, place the closest one under the floor and lead the writeup with that as a failure.
 
-**A calorie estimate that vetoes an add-on now costs the floor too, so show your working.** The 09-29 Bon Me bowl was placed at **$14.00** with the log noting *"the calorie ceiling blocked the $3.27 Deviled Tea Egg"* — a silent veto from an estimate nobody could check, and $4 of stipend left behind. A menu description does not carry calories, so an over-cautious guess reads exactly like a real gate.
+**A calorie estimate can no longer veto the add-on that reaches the floor, so show your working when the floor spends a ceiling.** The 09-29 Bon Me bowl was placed at **$14.00** with the log noting *"the calorie ceiling blocked the $3.27 Deviled Tea Egg"* — a silent veto from an estimate nobody could check, and $4 of stipend left behind. A menu description does not carry calories, so an over-cautious guess reads exactly like a real gate.
 
-**When a ceiling blocks the add-on that would have reached the floor, write the component table into the log**, not just the conclusion. Then say in the writeup that the build landed under the floor and which estimated number stopped it. An estimate that is visible can be corrected by the next rating; one that only ever appears as *"blocked"* cannot, and it will keep producing cheap orders.
+**When the floor spends a calorie ceiling, write the component table into the log**, not just the conclusion. Then say in the writeup which ceiling it spent and by how much. An estimate that is visible can be corrected by the next rating; one that only ever appears as *"blocked"* cannot, and it will keep producing cheap orders.
 
 **The log argues with this floor and it loses, because the floor is `stated`.** Across 34 rated lunches the price ladder runs backwards — the 4s average $17.55, the 3s $17.77, the 2s $17.87, the single 1 cost $17.95 — and the cheapest 4 on record is Perillas at **$14.59**. Spending more has never once bought better food. Raise that once if it ever comes up again; then obey the floor.
 
@@ -471,7 +471,7 @@ Before finalising a slate, check every candidate against `order-history.md`: **h
 
 **Every number is read from `dietary-preferences.md`.** Inventing a gate it does not state is as wrong as ignoring one.
 
-- **A floor is a minimum** — protein, fiber. Floors do not bend.
+- **A floor is a minimum** — protein, fiber. Floors do not bend, except to the strict spend floor under **Budget**.
 - **A ceiling is a maximum** — calories, sodium, carbs. It bends only when nothing on a day's menus fits under it, and then with the overage named.
 - **When a floor and a ceiling collide**, the floor wins. Say which ceiling got spent.
 
@@ -797,7 +797,7 @@ async () => {
 
 ### The cart overrides the estimate
 
-The cart renders **Subtotal, Delivery fee, Sales tax, Company subsidy, and Total** before you commit. Build so the Total reads **$0.00 with the subsidy absorbing all of it**, landing between **$18.00 and $19.99** at a $20.00 stipend — never past $18.68 subtotal, and not below $16.83 unless a dietary gate forced it. An amount due or a card request means back the build down; a total under $18.00 means build it up with protein, never with padding.
+The cart renders **Subtotal, Delivery fee, Sales tax, Company subsidy, and Total** before you commit. Build so the Total reads **$0.00 with the subsidy absorbing all of it**, landing between **$18.00 and $19.99** at a $20.00 stipend — never past $18.68 subtotal, and never below $16.83. An amount due or a card request means back the build down; a total under $18.00 means build it up with protein, never with padding.
 
 ### Placing it
 
