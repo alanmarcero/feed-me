@@ -574,11 +574,12 @@ Apply the **Components** rules in `dietary-preferences.md`. Do not use mods to r
 | | Ask | Why it outranks the rest |
 |---|---|---|
 | 1 | **a reduction or removal** | free, honored most often, and it takes off the thing that would ruin it |
-| 2 | **a freshness ask**, at a counter whose failure mode is held food | targets the failure that produced both 2s in the log |
-| 3 | **heat** — hot sauce on the side — when the modal did not capture it | `stated` standing instruction |
-| 4 | **a garnish-tier addition** — extra feta, olives, pickles | marginal, and the first thing to cut |
+| 2 | **heat** — hot sauce on the side — when the modal did not capture it | `stated` standing instruction |
+| 3 | **a garnish-tier addition** — extra feta, olives, pickles | marginal, and the first thing to cut |
 
 **An ask for something the plate lacks beats an ask for more of what it has.**
+
+**Every ask must change what is on the plate.** `stated` 2026-11-12, after a run sent *"Chicken fresh off the grill if you can, please. Thank you!"*: *"let's not add comments like this that are asking for more from the kitchen without any meaningful impact or customization to the dish, it's considered rude."* An ask about how the kitchen cooks, such as fresh off the grill, made to order or cooked with care, asks the line for more work and changes nothing on the plate. Never send one. Avoid held food by picking the kitchen and the format, not with a note. When no ask changes the dish, leave the box empty.
 
 **Never ask for more meat, or more of anything the menu prices separately.** `stated` 2026-09-16. **Buy it in the modal**: `Extra chicken +$3.80` is a real order, "heavy on the chicken please" is not. Garnish-tier asks — cheese, olives, pickles, herbs, sauce on the side — are fine.
 
@@ -589,7 +590,7 @@ Build the order's real ingredient list from the item's description plus every op
 1. **Does the ingredient appear in the list?** If not, cut it.
 2. **Is it already set by a selector?** Cut it.
 3. **Is it asking for more of something the menu charges for?** Cut it and buy it in the modal.
-4. **Can the kitchen act on it?** "mediterranean flavors please" cannot. Cut it.
+4. **Can the kitchen act on it, and does it change the dish?** "mediterranean flavors please" cannot be acted on, and "fresh off the grill if you can" changes nothing on the plate. Cut both.
 5. **Is more than one ask still standing?** Keep the highest-ranked one.
 
 What survives is **one ask**, or an empty box.
@@ -602,7 +603,7 @@ Worked example, the 2026-09-16 GRECO order: two beef bifteki patties, Greek sala
 | "light on any lettuce" | 1 — no lettuce in the list | cut |
 | "heavy on the feta and olives" | passes, one ask | keep |
 
-Worked example of test 5, the 2026-09-17 Cosi order: "extra pickled jalapeño" (rank 4, already on the plate) lost to "hot sauce on the side if you have it" (rank 3, not otherwise on the plate). Final note: `Hot sauce on the side, please. Thank you!` **Both clauses passed tests 1-4**, so run test 5 every time.
+Worked example of test 5, the 2026-09-17 Cosi order: "extra pickled jalapeño" (rank 3, already on the plate) lost to "hot sauce on the side if you have it" (rank 2, not otherwise on the plate). Final note: `Hot sauce on the side, please. Thank you!` **Both clauses passed tests 1-4**, so run test 5 every time.
 
 ## Output style
 
